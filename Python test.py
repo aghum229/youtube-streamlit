@@ -15,10 +15,3 @@ for i in range(100):
 
 'Done!!!'
 
-left_column, right_column = st.columns(2)
-button = left_column.button('右カラムに文字を表示')
-if button:
-	right_column.write('右カラムです。')
-
-expander = st.expander('問い合わせ')
-expander.write('問い合わせ内容を書く')
