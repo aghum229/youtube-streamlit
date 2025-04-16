@@ -1,7 +1,7 @@
 import streamlit as st
 import time
 
-st.title('Streamlit 超入門')
+st.title('Streamlit 超入門a')
 
 st.write('Progress Bar')
 'Start!!'
