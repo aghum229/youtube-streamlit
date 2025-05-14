@@ -17,7 +17,7 @@ button_css = f"""
     height: 40px;
     font-weight  : bold                ;/* 文字：太字                   */
     # font-weight  : 1000                ;/* 文字：太字                   */
-    font-size: 25px;
+    font-size: 20px;
     color        : #000                ;
     # border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
