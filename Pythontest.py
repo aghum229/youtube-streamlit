@@ -1,6 +1,10 @@
 import streamlit as st
 import time
 
+# st.title('文書・記録管理システム  \n' + 'メインメニュー')
+# st.title('文書・記録')
+st.title('管理システム')
+
 button_css = f"""
 <style>
   div.stButton > button:first-child  {{
@@ -32,10 +36,6 @@ button_css = f"""
 </style>
 """
 st.markdown(button_css, unsafe_allow_html=True)
-
-# st.title('文書・記録管理システム  \n' + 'メインメニュー')
-# st.title('文書・記録')
-st.title('管理システム')
 
 # st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
 #               unsafe_allow_html=True)
