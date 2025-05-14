@@ -1,19 +1,22 @@
 import streamlit as st
 import time
 
-st.title('Streamlit 超入門a')
+st.title('文書・記録管理　メニュー')
 
-st.write('Progress Bar')
-'Start!!'
+st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
+              unsafe_allow_html=True)
 
-latest_iteration = st.empty()
-bar = st.progress(0)
-for i in range(100):
-	latest_iteration.text(f'Iteration{i+1}')
-	bar.progress(i+1)
-	time.sleep(0.05)
+//st.write('Progress Bar')
+//'Start!!'
 
-'Done!!!'
+//latest_iteration = st.empty()
+//bar = st.progress(0)
+//for i in range(100):
+//	latest_iteration.text(f'Iteration{i+1}')
+//	bar.progress(i+1)
+//	time.sleep(0.05)
+
+//'Done!!!'
 
 left_column, right_column = st.columns(2)
 button = left_column.button('右カラムに文字を表示')
