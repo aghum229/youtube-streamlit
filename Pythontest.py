@@ -18,7 +18,7 @@ button_css = f"""
     max-width: 100%;
     width: 200px;
     height: 40px;
-    font-size: 2rem;
+    font-size: 3rem;
     # font-size: 10px;
     font-weight  : bold                ;/* 文字：太字                   */
     # font-weight  : 1000                ;/* 文字：太字                   */
