@@ -4,9 +4,11 @@ import time
 button_css = f"""
 <style>
   div.stButton > button:first-child  {{
-    display: flex;
-    position: relative;
-    font-weight  : bold                ;/* 文字：太字                   */
+    # display: flex;
+    text-align:center
+    # position: relative;
+    # font-weight  : bold                ;/* 文字：太字                   */
+    font-weight  : 1000                ;/* 文字：太字                   */
     font-size: 50px;
     color        : #000                ;
     # border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
