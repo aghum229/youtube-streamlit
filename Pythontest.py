@@ -13,8 +13,8 @@ button_css = f"""
     # margin:auto
     # text-align:center
     # position: relative;
-    # font-weight  : bold                ;/* 文字：太字                   */
-    font-weight  : 1000                ;/* 文字：太字                   */
+    font-weight  : bold                ;/* 文字：太字                   */
+    # font-weight  : 1000                ;/* 文字：太字                   */
     # font-size: 50px;
     font-size: 200%;
     color        : #000                ;
