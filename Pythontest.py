@@ -3,12 +3,13 @@ import time
 
 # st.title('文書・記録管理システム  \n' + 'メインメニュー')
 st.title('文書・記録管理システム')
-st.title('メインメニュー')
+st.title('　　メインメニュー')
 
 # st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
 #               unsafe_allow_html=True)
 
-button = st.button('製造関連')
+button = st.button('<span style="color:black;background:skyblue">製造関連</span>',
+              unsafe_allow_html=True)
 
 button = st.button('ＩＳＯ関連')
 
