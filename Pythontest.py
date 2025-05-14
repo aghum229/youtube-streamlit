@@ -5,8 +5,9 @@ button_css = f"""
 <style>
   div.stButton > button:first-child  {{
     display: flex;
+    position: relative;
     font-weight  : bold                ;/* 文字：太字                   */
-    font-size: 20px;
+    font-size: 50px;
     color        : #000                ;
     # border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
