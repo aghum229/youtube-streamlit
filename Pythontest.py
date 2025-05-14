@@ -7,7 +7,7 @@ button_css = f"""
     # position: absolute;
     # left: 50%;
     # transform: translateX(-50%);
-    transform: translateX(50%);
+    # transform: translateX(50%);
     # display: flex;
     # display: block;
     # margin:auto
@@ -15,7 +15,8 @@ button_css = f"""
     # position: relative;
     # font-weight  : bold                ;/* 文字：太字                   */
     font-weight  : 1000                ;/* 文字：太字                   */
-    font-size: 50px;
+    # font-size: 50px;
+    font-size: 200%;
     color        : #000                ;
     # border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
