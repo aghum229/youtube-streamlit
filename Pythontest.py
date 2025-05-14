@@ -11,7 +11,7 @@ button_css = f"""
     # position: absolute;
     # left: 50%;
     # transform: translateX(-50%);
-    # transform: translateX(50%);
+    transform: translateX(50%);
     # display: flex;
     # display: block;
     # text-decoration: none;
