@@ -7,9 +7,10 @@ button_css = f"""
     # position: absolute;
     # left: 50%;
     # transform: translateX(-50%);
+    transform: translateX(50%);
     # display: flex;
     # display: block;
-    margin:auto
+    # margin:auto
     # text-align:center
     # position: relative;
     # font-weight  : bold                ;/* 文字：太字                   */
