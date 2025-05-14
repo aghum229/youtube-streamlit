@@ -1,7 +1,7 @@
 import streamlit as st
 import time
 
-button_css = f
+button_css = f"""
 <style>
   div.stButton > button:first-child  {{
     font-weight  : bold                ;/* 文字：太字                   */
@@ -10,6 +10,7 @@ button_css = f
     background   : #ddd                ;/* 背景色：薄いグレー            */
   }}
 </style>
+"""
 st.markdown(button_css, unsafe_allow_html=True)
 
 # st.title('文書・記録管理システム  \n' + 'メインメニュー')
