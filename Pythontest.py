@@ -6,9 +6,11 @@ button_css = f"""
   div.stButton > button:first-child  {{
     font-weight  : bold                ;/* 文字：太字                   */
     color        : #000                ;
-    border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
+    # border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #0FF                ;/* 背景色：aqua            */
+    width: 200px;
+    height: 80px;
   }}
 </style>
 """
