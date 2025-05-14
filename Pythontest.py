@@ -4,13 +4,15 @@ import time
 button_css = f"""
 <style>
   div.stButton > button:first-child  {{
+    display: flex;
     font-weight  : bold                ;/* 文字：太字                   */
+    font-size: 20px;
     color        : #000                ;
     # border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #0FF                ;/* 背景色：aqua            */
-    width: 200px;
-    height: 80px;
+    width: 250px;
+    height: 60px;
     align-items: center;
     justify-content: center;
   }}
