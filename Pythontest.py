@@ -39,7 +39,7 @@ st.markdown(button_css, unsafe_allow_html=True)
 
 # st.title('文書・記録管理システム  \n' + 'メインメニュー')
 # st.title('文書・記録')
-st.write('<span style="font-weight:bold,font-size:20px">管理システム</span>',
+st.write('<span style="color:red;background:pink">管理システム</span>',
               unsafe_allow_html=True)
 
 # st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
