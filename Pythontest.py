@@ -1,6 +1,17 @@
 import streamlit as st
 import time
 
+button_css = f
+<style>
+  div.stButton > button:first-child  {{
+    font-weight  : bold                ;/* 文字：太字                   */
+    border       :  5px solid #f36     ;/* 枠線：ピンク色で5ピクセルの実線 */
+    border-radius: 10px 10px 10px 10px ;/* 枠線：半径10ピクセルの角丸     */
+    background   : #ddd                ;/* 背景色：薄いグレー            */
+  }}
+</style>
+st.markdown(button_css, unsafe_allow_html=True)
+
 # st.title('文書・記録管理システム  \n' + 'メインメニュー')
 st.title('文書・記録管理システム')
 st.title('　　メインメニュー')
@@ -8,8 +19,7 @@ st.title('　　メインメニュー')
 # st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
 #               unsafe_allow_html=True)
 
-button = st.button('<span style="color:black;background:skyblue">製造関連</span>',
-              unsafe_allow_html=True)
+button = st.button('製造関連')
 
 button = st.button('ＩＳＯ関連')
 
