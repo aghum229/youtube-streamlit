@@ -13,6 +13,8 @@ button_css = f"""
     # margin:auto
     # text-align:center
     # position: relative;
+    width: 200px;
+    height: 40px;
     font-weight  : bold                ;/* 文字：太字                   */
     # font-weight  : 1000                ;/* 文字：太字                   */
     font-size: 25px;
@@ -20,8 +22,6 @@ button_css = f"""
     # border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #0FF                ;/* 背景色：aqua            */
-    width: 200px;
-    height: 40px;
     # align-items: center;
     # justify-content: center;
   }}
