@@ -4,9 +4,9 @@ import time
 button_css = f"""
 <style>
   div.stButton > button:first-child  {{
-    # display: flex;
-    display: block;
-    margin:auto
+    display: flex;
+    # display: block;
+    # margin:auto
     # text-align:center
     # position: relative;
     # font-weight  : bold                ;/* 文字：太字                   */
@@ -19,7 +19,7 @@ button_css = f"""
     width: 200px;
     height: 40px;
     # align-items: center;
-    # justify-content: center;
+    justify-content: center;
   }}
 </style>
 """
