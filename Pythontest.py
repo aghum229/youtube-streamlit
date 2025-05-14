@@ -10,15 +10,16 @@ button_css = f"""
     # transform: translateX(50%);
     # display: flex;
     # display: block;
-    text-decoration: none;
-    display: inline-block;
+    # text-decoration: none;
+    # display: inline-block;
     # margin:auto
     # text-align:center
     # position: relative;
     max-width: 100%;
     width: 200px;
     height: 40px;
-    font-size: 10px;
+    font-size: 2rem;
+    # font-size: 10px;
     font-weight  : bold                ;/* 文字：太字                   */
     # font-weight  : 1000                ;/* 文字：太字                   */
     color        : #000                ;
