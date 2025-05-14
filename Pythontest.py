@@ -5,7 +5,7 @@ button_css = f"""
 <style>
   div.stButton > button:first-child  {{
     font-weight  : bold                ;/* 文字：太字                   */
-    border       :  5px solid #00CCFF     ;/* 枠線：ピンク色で5ピクセルの実線 */
+    border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
     border-radius: 10px 10px 10px 10px ;/* 枠線：半径10ピクセルの角丸     */
     background   : #0FF               ;/* 背景色：aqua            */
   }}
@@ -14,8 +14,8 @@ button_css = f"""
 st.markdown(button_css, unsafe_allow_html=True)
 
 # st.title('文書・記録管理システム  \n' + 'メインメニュー')
-st.title('文書・記録管理システム')
-st.title('　　メインメニュー')
+st.title('文書・記録')
+st.title('管理システム')
 
 # st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
 #               unsafe_allow_html=True)
