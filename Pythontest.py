@@ -1,7 +1,9 @@
 import streamlit as st
 import time
 
-st.title('文書・記録管理システム  \n' + 'メインメニュー')
+# st.title('文書・記録管理システム  \n' + 'メインメニュー')
+st.title('文書・記録管理システム')
+st.title('メインメニュー')
 
 # st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
 #               unsafe_allow_html=True)
@@ -14,7 +16,7 @@ button = st.button('労務関連')
 
 left_column, right_column = st.columns(2)
 left_column.write('〇〇〇〇〇株式会社')
-right_column.write('ver.XX.XXX.XXX<')
+right_column.write('ver.XX.XXX.XXX')
 st.write('<span style="color:black;background:white">〇〇〇〇〇株式会社　　ver.XX.XXX.XXX</span>',
               unsafe_allow_html=True)
 
