@@ -6,17 +6,17 @@ st.title('文書・記録管理　メニュー')
 st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
               unsafe_allow_html=True)
 
-#st.write('Progress Bar')
-#'Start!!'
+# st.write('Progress Bar')
+# 'Start!!'
 
-#latest_iteration = st.empty()
-#bar = st.progress(0)
-#for i in range(100):
-#	latest_iteration.text(f'Iteration{i+1}')
-#	bar.progress(i+1)
-#	time.sleep(0.05)
+# latest_iteration = st.empty()
+# bar = st.progress(0)
+# for i in range(100):
+# 	latest_iteration.text(f'Iteration{i+1}')
+# 	bar.progress(i+1)
+# 	time.sleep(0.05)
 
-#'Done!!!'
+# 'Done!!!'
 
 left_column, right_column = st.columns(2)
 button = left_column.button('右カラムに文字を表示')
