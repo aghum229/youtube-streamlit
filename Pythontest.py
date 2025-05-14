@@ -3,7 +3,7 @@ import time
 
 # st.title('文書・記録管理システム  \n' + 'メインメニュー')
 # st.title('文書・記録')
-st.title('管理システム')
+# st.title('管理システム')
 
 button_css = f"""
 <style>
@@ -37,6 +37,11 @@ button_css = f"""
 """
 st.markdown(button_css, unsafe_allow_html=True)
 
+# st.title('文書・記録管理システム  \n' + 'メインメニュー')
+# st.title('文書・記録')
+st.write('<span style="font-weight:bold,font-size:20px">管理システム</span>',
+              unsafe_allow_html=True)
+
 # st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
 #               unsafe_allow_html=True)
 
@@ -49,7 +54,7 @@ button = st.button('労務関連')
 left_column, right_column = st.columns(2)
 left_column.write('<span style="color:black;background:white,font-size=10px,text-align:right,float:right">〇〇〇〇〇株式会社</span>',
               unsafe_allow_html=True)
-right_column.write('<span style="color:black;background:white,size=6px">ver.XX.XXX.XXX</span>',
+right_column.write('<span style="color:black;background:white,font-size=6px">ver.XX.XXX.XXX</span>',
               unsafe_allow_html=True)
 
 # st.write('〇〇〇〇〇株式会社  ver.XX.XXX.XXX')
