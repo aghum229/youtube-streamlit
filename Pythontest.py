@@ -11,6 +11,8 @@ button_css = f"""
     background   : #0FF                ;/* 背景色：aqua            */
     width: 200px;
     height: 80px;
+    align-items: center;
+    justify-content: center;
   }}
 </style>
 """
