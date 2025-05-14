@@ -4,7 +4,10 @@ import time
 button_css = f"""
 <style>
   div.stButton > button:first-child  {{
-    display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    # display: flex;
     # display: block;
     # margin:auto
     # text-align:center
@@ -19,7 +22,7 @@ button_css = f"""
     width: 200px;
     height: 40px;
     # align-items: center;
-    justify-content: center;
+    # justify-content: center;
   }}
 </style>
 """
