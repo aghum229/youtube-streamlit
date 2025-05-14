@@ -4,7 +4,7 @@ import time
 button_css = f"""
 <style>
   div.stButton > button:first-child  {{
-    position: absolute;
+    # position: absolute;
     left: 50%;
     transform: translateX(-50%);
     # display: flex;
