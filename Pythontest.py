@@ -13,7 +13,7 @@ button_css = f"""
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #0FF                ;/* 背景色：aqua            */
     width: 250px;
-    height: 60px;
+    height: 40px;
     align-items: center;
     justify-content: center;
   }}
@@ -22,7 +22,7 @@ button_css = f"""
 st.markdown(button_css, unsafe_allow_html=True)
 
 # st.title('文書・記録管理システム  \n' + 'メインメニュー')
-st.title('文書・記録')
+# st.title('文書・記録')
 st.title('管理システム')
 
 # st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
@@ -34,6 +34,7 @@ button = st.button('ＩＳＯ関連')
 
 button = st.button('労務関連')
 
+st.write('〇〇〇〇〇株式会社  ver.XX.XXX.XXX'')
 left_column, right_column = st.columns(2)
 left_column.write('〇〇〇〇〇株式会社')
 right_column.write('ver.XX.XXX.XXX')
