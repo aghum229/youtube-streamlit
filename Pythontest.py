@@ -35,8 +35,8 @@ else:
 
 st.title('文書・記録管理　メニュー')
 
-st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
-              unsafe_allow_html=True)
+# st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
+#               unsafe_allow_html=True)
 
 button = st.button('製造関連')
 
