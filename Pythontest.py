@@ -5,7 +5,9 @@ button_css = f"""
 <style>
   div.stButton > button:first-child  {{
     # display: flex;
-    text-align:center
+    display: block;
+    margin:auto
+    # text-align:center
     # position: relative;
     # font-weight  : bold                ;/* 文字：太字                   */
     font-weight  : 1000                ;/* 文字：太字                   */
@@ -14,10 +16,10 @@ button_css = f"""
     # border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #0FF                ;/* 背景色：aqua            */
-    width: 250px;
+    width: 200px;
     height: 40px;
-    align-items: center;
-    justify-content: center;
+    # align-items: center;
+    # justify-content: center;
   }}
 </style>
 """
