@@ -1,7 +1,7 @@
 import streamlit as st
 import time
 
-st.title('文書・記録管理　メニュー')
+st.title('文書・記録管理システム  \n' + 'メインメニュー')
 
 # st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
 #               unsafe_allow_html=True)
