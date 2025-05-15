@@ -33,6 +33,7 @@ button_css = f"""
     background   : #0FF                ;/* 背景色：aqua            */
     # align-items: center;
     # justify-content: center;
+    # padding: 10px 20px; /* 余白を設定 */
   }}
   .big-button-font button {{
     font-size: 20px !important;
@@ -55,10 +56,8 @@ div.stButton {
 }
 div.stButton > button {
     font-size: 50px !important; /* 文字サイズを指定 */
-    # padding: 10px 20px; /* 余白を設定 */
     font-weight  : bold ;
-    color        : #000                ;
-    # border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
+    color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #0FF                ;/* 背景色：aqua            */
     width: 200px; /* ボタンの横幅を固定値に設定 */
