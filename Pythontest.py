@@ -114,32 +114,15 @@ screens = {
 def unknown_screen():
     st.error("不明な画面です")
     if len(st.session_state['history']) > 1:
-        if st.button("前の画面に戻る"):
-            go_back()
+        if st.button("前の画面に戻る", on_click=go_back): # on_click を追加
+            pass # go_back() はコールバックとして直接実行される
+            # st.session_state['current_screen'] は go_back() 内で更新される
 
 # 画面の切り替え
 if st.session_state['current_screen'] in screens:
     screens[st.session_state['current_screen']]()
 else:
     unknown_screen()
-
-
-# st.write('Progress Bar')
-# 'Start!!'
-
-# latest_iteration = st.empty()
-# bar = st.progress(0)
-# for i in range(100):
-# 	latest_iteration.text(f'Iteration{i+1}')
-# 	bar.progress(i+1)
-# 	time.sleep(0.05)
-
-# 'Done!!!'
-
-# left_column, right_column = st.columns(2)
-# button = left_column.button('右カラムに文字を表示')
-# if button:
-# 	right_column.write('右カラムです。')
 
 # expander = st.expander('問い合わせ')
 # expander.write('問い合わせ内容を書く')
