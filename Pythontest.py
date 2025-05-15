@@ -17,7 +17,7 @@ common_css = """
     border-radius: 5px;
     background: #0FF;
     width: 200px; /* ボタンの固定幅 */
-    max-width: 200px;
+    # max-width: 200px;
     margin-bottom: 10px; /* ボタン間の余白 */
     padding: 10px 20px;
 }
@@ -61,7 +61,6 @@ def vertical_button(label, target_screen):
 screens = {
     'main': lambda: (
         display_header("メイン画面"),
-        st.write('---'),
         st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
         vertical_button("製造関連", 'other1'),
         vertical_button("ＩＳＯ関連", 'other2'),
@@ -71,9 +70,9 @@ screens = {
     ),
     'other1': lambda: (
         display_header("製造関連メニュー"),
-        st.write('---'),
         st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
         vertical_button("⏎メイン画面へ戻る", 'main'),
+        st.write('---'),
         vertical_button('製品', 'other4'),
         vertical_button('金型', 'other5'),
         vertical_button('治工具', 'other6'),
@@ -85,9 +84,9 @@ screens = {
     ),
     'other2': lambda: (
         display_header("ＩＳＯメニュー"),
-        st.write('---'),
         st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
         vertical_button("⏎メイン画面へ戻る", 'main'),
+        st.write('---'),
         vertical_button('品質・環境マニュアル', 'other10'),
         vertical_button('規定', 'other11'),
         vertical_button('要領', 'other12'),
@@ -100,9 +99,9 @@ screens = {
     ),
     'other3': lambda: (
         display_header("労務メニュー"),
-        st.write('---'),
         st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
         vertical_button("⏎メイン画面へ戻る", 'main'),
+        st.write('---'),
         vertical_button('就業規則', 'other17'),
         vertical_button('規定', 'other18'),
         vertical_button('外部監査', 'other19'),
@@ -111,10 +110,10 @@ screens = {
     ),
     'other4': lambda: (
         display_header("製品メニュー"),
-        st.write('---'),
         st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
         vertical_button("⏎メイン画面へ戻る", 'main'),
         vertical_button("⏎製造関連メニューへ戻る", 'other1'),
+        st.write('---'),
         vertical_button('図面', 'other20'),
         vertical_button('検査基準書', 'other21'),
         vertical_button('ＱＣ表', 'other22'),
@@ -126,11 +125,11 @@ screens = {
     ),
     'other25': lambda: (
         display_header("在庫管理メニュー"),
-        st.write('---'),
         st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
         vertical_button("⏎メイン画面へ戻る", 'main'),
         vertical_button("⏎製造関連メニューへ戻る", 'other1'),
         vertical_button("⏎製品メニューへ戻る", 'other4'),
+        st.write('---'),
         vertical_button('在庫管理', 'other26'),
         vertical_button('棚卸', 'other27'),
         st.markdown('</div>', unsafe_allow_html=True),
