@@ -1,6 +1,6 @@
 import streamlit as st
 
-# 共通CSS
+# 共通CSS (変更なし)
 common_css = """
 <style>
 .big-font { font-size: 40px !important; font-weight: bold; text-align: center; }
@@ -16,12 +16,22 @@ common_css = """
 """
 st.markdown(common_css, unsafe_allow_html=True)
 
-# 画面の状態を管理
+# 画面の履歴を管理
+if 'history' not in st.session_state:
+    st.session_state['history'] = ['main']  # 初期画面を履歴に追加
+
+# 現在の画面の状態を管理
 if 'current_screen' not in st.session_state:
     st.session_state['current_screen'] = 'main'
 
 def set_screen(screen_name):
-    st.session_state['current_screen'] = screen_name
+    if st.session_state['current_screen'] != screen_name:
+        st.session_state['history'].append(st.session_state['current_screen'])
+        st.session_state['current_screen'] = screen_name
+
+def go_back():
+    if len(st.session_state['history']) > 1:
+        st.session_state['current_screen'] = st.session_state['history'].pop()
 
 def display_header(title):
     st.markdown(f'<p class="big-font">{title}</p>', unsafe_allow_html=True)
@@ -107,6 +117,9 @@ if st.session_state['current_screen'] in screens:
     screens[st.session_state['current_screen']]()
 else:
     st.error("不明な画面です")
+    if len(st.session_state['history']) > 1:
+        if st.button("前の画面に戻る"):
+            go_back()
 
 
 # st.write('Progress Bar')
