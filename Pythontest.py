@@ -207,19 +207,24 @@ elif st.session_state['current_screen'] == 'other4':
     show_other4_screen()
 # 金型メニュー
 elif st.session_state['current_screen'] == 'other5':
-    show_other5_screen()
+    # show_other5_screen()
+    unknown_screen()
 # 治工具メニュー
 elif st.session_state['current_screen'] == 'other6':
-    show_other6_screen()
+    # show_other6_screen()
+    unknown_screen()
 # 検具メニュー
 elif st.session_state['current_screen'] == 'other7':
-    show_other7_screen()
+    # show_other7_screen()
+    unknown_screen()
 # 設備メニュー
 elif st.session_state['current_screen'] == 'other8':
-    show_other8_screen()
+    # show_other8_screen()
+    unknown_screen()
 # 備品メニュー
 elif st.session_state['current_screen'] == 'other9':
-    show_other9_screen()
+    # show_other9_screen()
+    unknown_screen()
 # 在庫管理メニュー
 elif st.session_state['current_screen'] == 'other25':
     show_other25_screen()
