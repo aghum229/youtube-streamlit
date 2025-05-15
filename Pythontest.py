@@ -108,6 +108,8 @@ st.markdown(write_css1, unsafe_allow_html=True)
 st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True)
 # st.write('管理システム')
 
+st.write('---')
+
 # st.title('文書・記録管理システム  \n' + 'メインメニュー')
 # st.title('文書・記録')
 # st.write('<span style="color:red;background:pink">管理システム</span>',
@@ -122,6 +124,8 @@ st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True
 # button1 = st.button('製造関連',  css_class="big-button-font")
 # button2 = st.button('ＩＳＯ関連') # デフォルトの文字サイズ
 # button3 = st.button('労務関連',  css_class="small-button-font")
+
+st.write('---')
 
 st.markdown(button_style, unsafe_allow_html=True)
 button1 = st.button('製造関連', on_click=None)
