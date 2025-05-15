@@ -96,6 +96,83 @@ def show_other1_screen():
     st.markdown(write_css3, unsafe_allow_html=True)
     right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
+def show_other2_screen():
+    st.markdown(write_css1, unsafe_allow_html=True)
+    st.markdown('<p class="big-font">ＩＳＯメニュー</p>', unsafe_allow_html=True)
+    st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
+    btn1 = st.button("⏎メイン画面へ戻る", on_click=set_screen, args=('main',))
+    st.write('---')
+    button10 = st.button('品質・環境マニュアル', on_click=set_screen, args=('other10',))
+    button11 = st.button('規定', on_click=set_screen, args=('other11',))
+    button12 = st.button('要領', on_click=set_screen, args=('other12',))
+    button13 = st.button('外部文書', on_click=set_screen, args=('other13',))
+    button14 = st.button('マネジメントレビュー', on_click=set_screen, args=('other14',))
+    button15 = st.button('内部監査', on_click=set_screen, args=('other15',))
+    button16 = st.button('外部監査', on_click=set_screen, args=('other16',))
+    st.write('---')
+    left_column, center_column, right_column = st.columns(3)
+    st.markdown(write_css2, unsafe_allow_html=True)
+    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+    st.markdown(write_css3, unsafe_allow_html=True)
+    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+
+def show_other3_screen():
+    st.markdown(write_css1, unsafe_allow_html=True)
+    st.markdown('<p class="big-font">労務メニュー</p>', unsafe_allow_html=True)
+    st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
+    btn1 = st.button("⏎メイン画面へ戻る", on_click=set_screen, args=('main',))
+    st.write('---')
+    button17 = st.button('就業規則', on_click=set_screen, args=('other17',))
+    button18 = st.button('規定', on_click=set_screen, args=('other18',))
+    button19 = st.button('外部監査', on_click=set_screen, args=('other19',))
+    st.write('---')
+    left_column, center_column, right_column = st.columns(3)
+    st.markdown(write_css2, unsafe_allow_html=True)
+    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+    st.markdown(write_css3, unsafe_allow_html=True)
+    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+
+def show_other4_screen():
+    st.markdown(write_css1, unsafe_allow_html=True)
+    st.markdown('<p class="big-font">製品メニュー</p>', unsafe_allow_html=True)
+    st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
+    btn1 = st.button("⏎メイン画面へ戻る", on_click=set_screen, args=('main',))
+    btn2 = st.button("⏎製造関連メニュー", on_click=set_screen, args=('other1',))
+    st.write('---')
+    button20 = st.button('図面', on_click=set_screen, args=('other20',))
+    button21 = st.button('検査基準書', on_click=set_screen, args=('other21',))
+    button22 = st.button('ＱＣ表', on_click=set_screen, args=('other22',))
+    button23 = st.button('作業標準', on_click=set_screen, args=('other23',))
+    button24 = st.button('検査表', on_click=set_screen, args=('other24',))
+    button25 = st.button('在庫管理', on_click=set_screen, args=('other25',))
+    st.write('---')
+    left_column, center_column, right_column = st.columns(3)
+    st.markdown(write_css2, unsafe_allow_html=True)
+    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+    st.markdown(write_css3, unsafe_allow_html=True)
+    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+
+def show_other25_screen():
+    st.markdown(write_css1, unsafe_allow_html=True)
+    st.markdown('<p class="big-font">在庫管理メニュー</p>', unsafe_allow_html=True)
+    st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
+    btn1 = st.button("⏎メイン画面へ戻る", on_click=set_screen, args=('main',))
+    btn2 = st.button("⏎製造関連メニュー", on_click=set_screen, args=('other1',))
+    btn3 = st.button("⏎製品メニュー", on_click=set_screen, args=('other4',))
+    st.write('---')
+    button26 = st.button('在庫管理', on_click=set_screen, args=('other26',))
+    button27 = st.button('棚卸', on_click=set_screen, args=('other27',))
+    st.write('---')
+    left_column, center_column, right_column = st.columns(3)
+    st.markdown(write_css2, unsafe_allow_html=True)
+    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+    st.markdown(write_css3, unsafe_allow_html=True)
+    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+
 _= '''
 def show_main_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
@@ -312,8 +389,8 @@ elif st.session_state['current_screen'] == 'other8':
 elif st.session_state['current_screen'] == 'other9':
     show_other9_screen()
 # 在庫管理メニュー
-elif st.session_state['current_screen'] == 'other22':
-    show_other22_screen()
+elif st.session_state['current_screen'] == 'other25':
+    show_other25_screen()
 
 
 # st.write('Progress Bar')
