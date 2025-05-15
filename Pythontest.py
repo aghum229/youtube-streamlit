@@ -49,6 +49,7 @@ write_css1 = """
 </style>
 """
 
+_= '''
 write_css2 = """
 <style>
 .right-font {
@@ -57,7 +58,9 @@ write_css2 = """
 }
 </style>
 """
+'''
 
+_= '''
 write_css3 = """
 <style>
 .small-font {
@@ -66,6 +69,7 @@ write_css3 = """
 }
 </style>
 """
+'''
 
 # st.markdown(write_css, unsafe_allow_html=True)
 # """, unsafe_allow_html=True)
@@ -89,10 +93,10 @@ button2 = st.button('ＩＳＯ関連')
 button3 = st.button('労務関連')
 
 left_column, right_column = st.columns(2)
-st.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
-st.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
-# left_column.write('##### 〇〇〇〇〇株式会社')
-# right_column.write('ver.XX.XXX.XXX')
+# st.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+# st.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+left_column.write('##### 〇〇〇〇〇株式会社')
+right_column.write('ver.XX.XXX.XXX')
 # left_column.write('<span style="color:black;background:white,font-size=10px,text-align:right,float:right">〇〇〇〇〇株式会社</span>',
 #               unsafe_allow_html=True)
 # right_column.write('<span style="color:black;background:white,font-size=6px">ver.XX.XXX.XXX</span>',
