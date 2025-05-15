@@ -73,7 +73,7 @@ div.stButton > button {
 write_css1 = """
 <style>
 .big-font {
-    font-size    :40px ;
+    font-size      :40px !important;
     font-weight    :bold;
     text-align     :center;
 }
@@ -84,7 +84,7 @@ write_css1 = """
 write_css2 = """
 <style>
 .right-font {
-    font-size    :14px !important;
+    font-size      :14px !important;
     text-align     :center;
 }
 </style>
@@ -95,7 +95,7 @@ write_css2 = """
 write_css3 = """
 <style>
 .small-font {
-    font-size    :10px !important;
+    font-size      :10px !important;
     text-align     :left;
 }
 </style>
