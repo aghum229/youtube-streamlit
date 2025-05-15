@@ -47,6 +47,7 @@ button_css = f"""
 '''
 # st.markdown(button_css, unsafe_allow_html=True)
 
+_= '''
 button_style = """
 <style>
 div.stButton {
@@ -67,6 +68,23 @@ div.stButton > button {
 </style>
 """
 # st.markdown(button_style, unsafe_allow_html=True)
+'''
+
+button_style = """
+<style>
+div.stButton {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
+}
+div.stButton > button {
+    font-size: 24px !important; /* 文字サイズを指定 */
+    padding: 10px 20px; /* 余白を設定 */
+    width: 200px; /* ボタンの横幅を固定値に設定 */
+    max-width: 200px; /* 必要に応じて最大幅も設定 */
+}
+</style>
+"""
 
 # st.set_page_config(layout="wide")
 # st.markdown("""
