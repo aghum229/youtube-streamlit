@@ -6,13 +6,12 @@ common_css = """
 .big-font { font-size: 40px !important; font-weight: bold; text-align: center; }
 .vertical-button-container {
     display: flex;
-    justify-content: center;
-    # flex-direction: column;
-    # align-items: center; /* 中央揃え */
-    width: 100%;
+    flex-direction: column;
+    align-items: center; /* 中央揃え */
+    width: 100%; /* 親要素の幅いっぱいに広げる */
 }
 .vertical-button-container > button {
-    font-size: 30px !important; /* 少し小さめに調整 */
+    font-size: 40px !important; /* 少し小さめに調整 */
     font-weight: bold;
     color: #000;
     border-radius: 5px;
@@ -55,8 +54,7 @@ def display_footer():
     right_column.markdown('<p class="footer-text-left">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
 def vertical_button(label, target_screen):
-    if st.button(label, on_click=set_screen, args=(target_screen,), key=label): # key を追加
-        pass
+    st.button(label, on_click=set_screen, args=(target_screen,), key=label, use_container_width=True)
 
 # 画面定義
 screens = {
@@ -138,7 +136,7 @@ screens = {
 def unknown_screen():
     st.error("不明な画面です")
     if len(st.session_state['history']) > 1:
-        if st.button("前の画面に戻る", on_click=go_back, key="back_button"): # key を追加
+        if st.button("前の画面に戻る", on_click=go_back, key="back_button", use_container_width=True):
             pass
 
 # 画面の切り替え
