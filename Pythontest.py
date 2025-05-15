@@ -53,8 +53,15 @@ div.stButton {
     justify-content: center;
 }
 div.stButton > button {
-    font-size: 24px !important; /* 文字サイズを指定 */
+    font-size: 30px !important; /* 文字サイズを指定 */
     padding: 10px 20px; /* 余白を設定 */
+    font-weight  : bold 
+    width: 200px;
+    height: 40px;
+    color        : #000                ;
+    # border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
+    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
+    background   : #0FF                ;/* 背景色：aqua            */
 }
 </style>
 """
