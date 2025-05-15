@@ -8,7 +8,7 @@ common_css = """
     display: flex;
     flex-direction: column;
     align-items: center; /* 中央揃え */
-    width: 100%; /* 親要素の幅いっぱいに広げる */
+    # width: 100%; /* 親要素の幅いっぱいに広げる */
 }
 .vertical-button-container > button {
     font-size: 40px !important; /* 少し小さめに調整 */
@@ -49,6 +49,7 @@ def display_header(title):
     st.write('---')
 
 def display_footer():
+    st.write('---')
     left_column, center_column, right_column = st.columns(3)
     center_column.markdown('<p class="footer-text-center">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
     right_column.markdown('<p class="footer-text-left">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
@@ -60,6 +61,7 @@ def vertical_button(label, target_screen):
 screens = {
     'main': lambda: (
         display_header("メイン画面"),
+        st.write('---'),
         st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
         vertical_button("製造関連", 'other1'),
         vertical_button("ＩＳＯ関連", 'other2'),
@@ -69,6 +71,7 @@ screens = {
     ),
     'other1': lambda: (
         display_header("製造関連メニュー"),
+        st.write('---'),
         st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
         vertical_button("⏎メイン画面へ戻る", 'main'),
         vertical_button('製品', 'other4'),
@@ -82,6 +85,7 @@ screens = {
     ),
     'other2': lambda: (
         display_header("ＩＳＯメニュー"),
+        st.write('---'),
         st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
         vertical_button("⏎メイン画面へ戻る", 'main'),
         vertical_button('品質・環境マニュアル', 'other10'),
@@ -96,6 +100,7 @@ screens = {
     ),
     'other3': lambda: (
         display_header("労務メニュー"),
+        st.write('---'),
         st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
         vertical_button("⏎メイン画面へ戻る", 'main'),
         vertical_button('就業規則', 'other17'),
@@ -106,6 +111,7 @@ screens = {
     ),
     'other4': lambda: (
         display_header("製品メニュー"),
+        st.write('---'),
         st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
         vertical_button("⏎メイン画面へ戻る", 'main'),
         vertical_button("⏎製造関連メニューへ戻る", 'other1'),
@@ -120,6 +126,7 @@ screens = {
     ),
     'other25': lambda: (
         display_header("在庫管理メニュー"),
+        st.write('---'),
         st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
         vertical_button("⏎メイン画面へ戻る", 'main'),
         vertical_button("⏎製造関連メニューへ戻る", 'other1'),
