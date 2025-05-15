@@ -183,6 +183,7 @@ def show_other25_screen():
     st.markdown(write_css3, unsafe_allow_html=True)
     right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
+_= '''
 # 画面定義
 screens = {
     'main',
@@ -193,6 +194,7 @@ screens = {
     'other25'
     # 他の画面定義も同様に追加
 }
+'''
 
 # 不明な画面の場合の処理
 def unknown_screen():
@@ -201,13 +203,15 @@ def unknown_screen():
         if st.button("前の画面に戻る", on_click=go_back, key="back_button"):
             pass
 
+_= '''
 # 画面の切り替え
 if st.session_state['current_screen'] in screens:
     screens[st.session_state['current_screen']]()
 else:
     unknown_screen()
+'''
 
-_= '''
+# _= '''
 # 画面の切り替え
 # メイン画面
 if st.session_state['current_screen'] == 'main':
@@ -249,4 +253,4 @@ elif st.session_state['current_screen'] == 'other25':
     show_other25_screen()
 else:
     unknown_screen()
-'''
+# '''
