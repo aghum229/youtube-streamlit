@@ -37,6 +37,18 @@ button_css = f"""
 """
 st.markdown(button_css, unsafe_allow_html=True)
 
+st.set_page_config(layout="wide")
+st.markdown("""
+<style>
+.big-font {
+    font-size:20px !important;
+    font-weight    : bold;
+    text-align     :center;
+}
+</style>
+""", unsafe_allow_html=True)
+st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True)
+
 # st.title('文書・記録管理システム  \n' + 'メインメニュー')
 # st.title('文書・記録')
 # st.write('<span style="color:red;background:pink">管理システム</span>',
