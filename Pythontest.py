@@ -6,19 +6,20 @@ common_css = """
 .big-font { font-size: 40px !important; font-weight: bold; text-align: center; }
 .vertical-button-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center; /* 中央揃え */
     width: 100%; /* 親要素の幅いっぱいに広げる */
 }
-.vertical-button-container > div.stButton > button { /* button 要素をターゲット */
-    font-size: 30px !important;
+.vertical-button-container > button {
+    font-size: 30px !important; /* 少し小さめに調整 */
     font-weight: bold;
     color: #000;
-    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
-    background-color: #0FF !important; /* 背景色を #0FF に設定 */
-    width: 200px !important; /* ボタンの固定幅 */
-    max-width: 200px !important; /* 最大幅も固定 */
-    # margin-bottom: 10px; /* ボタン間の余白 */
-    # padding: 10px 20px;
+    border-radius: 5px;
+    background: #0FF;
+    width: 200px; /* ボタンの固定幅 */
+    max-width: 200px;
+    margin-bottom: 10px; /* ボタン間の余白 */
+    padding: 10px 20px;
 }
 .footer-text-center { font-size: 14px !important; text-align: center; }
 .footer-text-left { font-size: 10px !important; text-align: left; }
@@ -48,14 +49,12 @@ def display_header(title):
     st.write('---')
 
 def display_footer():
-    st.write('---')
     left_column, center_column, right_column = st.columns(3)
     center_column.markdown('<p class="footer-text-center">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
     right_column.markdown('<p class="footer-text-left">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
 def vertical_button(label, target_screen):
-    st.button(label, on_click=set_screen, args=(target_screen,), key=label)
-    # st.button(label, on_click=set_screen, args=(target_screen,), key=label, use_container_width=False)
+    st.button(label, on_click=set_screen, args=(target_screen,), key=label, use_container_width=True)
 
 # 画面定義
 screens = {
