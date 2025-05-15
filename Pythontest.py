@@ -64,7 +64,7 @@ def show_main_screen():
     st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
     button1 = st.button('製造関連')
-    button2 = st.button('ISO関連')
+    button2 = st.button('ＩＳＯ関連')
     button3 = st.button('労務関連')
     if button1:
         st.session_state['current_screen'] = 'other1'
@@ -84,10 +84,26 @@ def show_other1_screen():
     st.markdown('<p class="big-font">製造関連メニュー</p>', unsafe_allow_html=True)
     st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
+    btn1 = st.button("メイン画面へ戻る")
     button4 = st.button('製品')
+    button5 = st.button('金型')
+    button6 = st.button('治工具')
+    button7 = st.button('検具')
+    button8 = st.button('設備')
+    button9 = st.button('備品')
     if button4:
         st.session_state['current_screen'] = 'other4'
-    elif st.button("メイン画面へ戻る"):
+    elif button5:
+        st.session_state['current_screen'] = 'other5'
+    elif button6:
+        st.session_state['current_screen'] = 'other6'
+    elif button7:
+        st.session_state['current_screen'] = 'other7'
+    elif button8:
+        st.session_state['current_screen'] = 'other8'
+    elif button9:
+        st.session_state['current_screen'] = 'other9'
+    elif btn1:
         st.session_state['current_screen'] = 'main'
     st.write('---')
     left_column, center_column, right_column = st.columns(3)
@@ -96,44 +112,150 @@ def show_other1_screen():
     st.markdown(write_css3, unsafe_allow_html=True)
     right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
-
-
-_= '''
-# 画面の状態を管理する変数（初期状態はメイン画面）
-if 'current_screen' not in st.session_state:
-    st.session_state['current_screen'] = 'main'
-
-def show_main_screen():
-    # st.title("メイン画面")
-    # if button1:
-        st.session_state['current_screen'] = 'other1'
-
-def show_other1_screen():
+def show_other2_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
-    st.markdown('<p class="big-font">製造関連メニュー</p>', unsafe_allow_html=True)
-    if st.button("製品"):
-        st.session_state['current_screen'] = 'other4'
-    elif st.button("メイン画面へ戻る"):
+    st.markdown('<p class="big-font">ISO関連メニュー</p>', unsafe_allow_html=True)
+    st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
+    btn1 = st.button("メイン画面へ戻る")
+    button10 = st.button('品質・環境マニュアル')
+    button11 = st.button('規定')
+    button12 = st.button('要領')
+    button13 = st.button('外部文書')
+    button14 = st.button('マネジメントレビュー')
+    button15 = st.button('内部監査')
+    button16 = st.button('外部監査')
+    if button10:
+        st.session_state['current_screen'] = 'other10'
+    elif button11:
+        st.session_state['current_screen'] = 'other11'
+    elif button12:
+        st.session_state['current_screen'] = 'other12'
+    elif button13:
+        st.session_state['current_screen'] = 'other13'
+    elif button14:
+        st.session_state['current_screen'] = 'other14'
+    elif button15:
+        st.session_state['current_screen'] = 'other15'
+    elif button16:
+        st.session_state['current_screen'] = 'other16'
+    elif btn1:
         st.session_state['current_screen'] = 'main'
+    st.write('---')
+    left_column, center_column, right_column = st.columns(3)
+    st.markdown(write_css2, unsafe_allow_html=True)
+    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+    st.markdown(write_css3, unsafe_allow_html=True)
+    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+
+def show_other3_screen():
+    st.markdown(write_css1, unsafe_allow_html=True)
+    st.markdown('<p class="big-font">労務関連メニュー</p>', unsafe_allow_html=True)
+    st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
+    btn1 = st.button("メイン画面へ戻る")
+    button17 = st.button('就業規則')
+    button18 = st.button('規定')
+    button19 = st.button('外部監査')
+    if button17:
+        st.session_state['current_screen'] = 'other17'
+    elif button18:
+        st.session_state['current_screen'] = 'other18'
+    elif button19:
+        st.session_state['current_screen'] = 'other19'
+    elif btn1:
+        st.session_state['current_screen'] = 'main'
+    st.write('---')
+    left_column, center_column, right_column = st.columns(3)
+    st.markdown(write_css2, unsafe_allow_html=True)
+    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+    st.markdown(write_css3, unsafe_allow_html=True)
+    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
 def show_other4_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">製品メニュー</p>', unsafe_allow_html=True)
-    if st.button("製品"):
-        st.session_state['current_screen'] = 'other4'
-    elif st.button("製造関連メニューへ戻る"):
+    st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
+    btn2 = st.button("製造関連メニュー")
+    button17 = st.button('図面')
+    button18 = st.button('検査基準書')
+    button19 = st.button('ＱＣ表')
+    button20 = st.button('作業標準')
+    button21 = st.button('検査表')
+    button22 = st.button('在庫管理')
+    if button17:
+        st.session_state['current_screen'] = 'other17'
+    elif button18:
+        st.session_state['current_screen'] = 'other18'
+    elif button19:
+        st.session_state['current_screen'] = 'other19'
+    elif button20:
+        st.session_state['current_screen'] = 'other20'
+    elif button21:
+        st.session_state['current_screen'] = 'other21'
+    elif button22:
+        st.session_state['current_screen'] = 'other22'
+    elif btn2:
         st.session_state['current_screen'] = 'other1'
-    elif st.button("メイン画面へ戻る"):
+    elif btn1:
         st.session_state['current_screen'] = 'main'
-'''
+    st.write('---')
+    left_column, center_column, right_column = st.columns(3)
+    st.markdown(write_css2, unsafe_allow_html=True)
+    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+    st.markdown(write_css3, unsafe_allow_html=True)
+    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+
+def show_other22_screen():
+    st.markdown(write_css1, unsafe_allow_html=True)
+    st.markdown('<p class="big-font">在庫管理メニュー</p>', unsafe_allow_html=True)
+    st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
+    btn3 = st.button("製品メニュー")
+    button23 = st.button('在庫管理')
+    button24 = st.button('棚卸')
+    if button23:
+        st.session_state['current_screen'] = 'other23'
+    elif button24:
+        st.session_state['current_screen'] = 'other24'
+    elif btn3:
+        st.session_state['current_screen'] = 'other4'
+    elif btn2:
+        st.session_state['current_screen'] = 'other1'
+    elif btn1:
+        st.session_state['current_screen'] = 'main'
+    st.write('---')
+    left_column, center_column, right_column = st.columns(3)
+    st.markdown(write_css2, unsafe_allow_html=True)
+    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+    st.markdown(write_css3, unsafe_allow_html=True)
+    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
 # 画面の切り替え
-if st.session_state['current_screen'] == 'main':
+if st.session_state['current_screen'] == 'main':/* メイン画面 */
     show_main_screen()
-elif st.session_state['current_screen'] == 'other1':
+elif st.session_state['current_screen'] == 'other1':/* 製造関連メニュー */
     show_other1_screen()
-elif st.session_state['current_screen'] == 'other4':
+elif st.session_state['current_screen'] == 'other2':/* ISO関連メニュー */
+    show_other2_screen()
+elif st.session_state['current_screen'] == 'other3':/* 労務関連メニュー */
+    show_other3_screen()
+elif st.session_state['current_screen'] == 'other4':/* 製品メニュー */
     show_other4_screen()
+elif st.session_state['current_screen'] == 'other5':/* 金型メニュー */
+    show_other5_screen()
+elif st.session_state['current_screen'] == 'other6':/* 治工具メニュー */
+    show_other6_screen()
+elif st.session_state['current_screen'] == 'other7':/* 検具メニュー */
+    show_other7_screen()
+elif st.session_state['current_screen'] == 'other8':/* 設備メニュー */
+    show_other8_screen()
+elif st.session_state['current_screen'] == 'other9':/* 備品メニュー */
+    show_other9_screen()
+elif st.session_state['current_screen'] == 'other22':/* 在庫管理メニュー */
+    show_other9_screen()
+
 
 # st.write('Progress Bar')
 # 'Start!!'
