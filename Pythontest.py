@@ -14,12 +14,13 @@ common_css = """
     font-size: 30px !important; /* 少し小さめに調整 */
     font-weight: bold;
     color: #000;
-    border-radius: 5px;
+    # border-radius: 5px;
     background: #0FF;
     width: 200px; /* ボタンの固定幅 */
     max-width: 200px;
-    margin-bottom: 10px; /* ボタン間の余白 */
-    padding: 10px 20px;
+    height: 50px;
+    # margin-bottom: 10px; /* ボタン間の余白 */
+    # padding: 10px 20px;
 }
 .footer-text-center { font-size: 14px !important; text-align: center; }
 .footer-text-left { font-size: 10px !important; text-align: left; }
