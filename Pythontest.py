@@ -55,8 +55,8 @@ write_css3 = """
 # '''
 
 # 画面の状態を管理する変数（初期状態はメイン画面）
-# if 'current_screen' not in st.session_state:
-#     st.session_state['current_screen'] = 'main'
+if 'current_screen' not in st.session_state:
+    st.session_state['current_screen'] = 'main'
 
 def show_main_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
