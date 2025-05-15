@@ -39,7 +39,7 @@ st.markdown(button_css, unsafe_allow_html=True)
 
 # st.set_page_config(layout="wide")
 # st.markdown("""
-write_css = f"""
+write_css = """
 <style>
 .big-font {
     # font-size    :40px !important;
@@ -64,11 +64,11 @@ st.write('## 管理システム')
 # st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
 #               unsafe_allow_html=True)
 
-button = st.button('### 製造関連')
+button1 = st.button('製造関連')
 
-button = st.button('# ＩＳＯ関連')
+button2 = st.button('ＩＳＯ関連')
 
-button = st.button('労務関連')
+button3 = st.button('労務関連')
 
 left_column, right_column = st.columns(2)
 left_column.write('##### 〇〇〇〇〇株式会社')
