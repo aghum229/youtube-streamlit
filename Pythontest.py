@@ -78,7 +78,7 @@ if 'current_screen' not in st.session_state:
 
 def show_main_screen():
     # st.title("メイン画面")
-    if st.button('製造関連'):
+    if button1:
         st.session_state['current_screen'] = 'other1'
 
 def show_other1_screen():
