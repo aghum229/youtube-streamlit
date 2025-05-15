@@ -11,13 +11,13 @@ button_css = f"""
     # position: absolute;
     # left: 50%;
     # transform: translateX(-50%);
-    transform: translateX(-50%);
+    # transform: translateX(-50%);
     # display: flex;
     # display: block;
     # text-decoration: none;
     # display: inline-block;
     # margin:auto
-    # text-align:center
+    text-align:center
     # position: relative;
     max-width: 100%;
     width: 200px;
@@ -51,8 +51,8 @@ write_css = """
 """
 st.markdown(write_css, unsafe_allow_html=True)
 # """, unsafe_allow_html=True)
-# st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True)
-st.write('管理システム')
+st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True)
+# st.write('管理システム')
 
 # st.title('文書・記録管理システム  \n' + 'メインメニュー')
 # st.title('文書・記録')
