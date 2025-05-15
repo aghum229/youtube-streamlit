@@ -58,6 +58,9 @@ write_css3 = """
 if 'current_screen' not in st.session_state:
     st.session_state['current_screen'] = 'main'
 
+def set_screen(screen_name):
+    st.session_state['current_screen'] = screen_name
+    
 def show_main_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">メイン画面</p>', unsafe_allow_html=True)
