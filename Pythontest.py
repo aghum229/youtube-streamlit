@@ -6,18 +6,14 @@ common_css = """
 .big-font { font-size: 40px !important; font-weight: bold; text-align: center; }
 .vertical-button-container {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* 中央揃え */
+    justify-content: center;
     width: 100%; /* 親要素の幅いっぱいに広げる */
 }
-.vertical-button-container > div.stButton { /* stButton div をターゲット */
-    width: auto !important; /* stButton div の幅を自動調整 */
-}
 .vertical-button-container > div.stButton > button { /* button 要素をターゲット */
-    font-size: 24px !important;
+    font-size: 30px !important;
     font-weight: bold;
     color: #000;
-    border-radius: 5px;
+    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background-color: #0FF !important; /* 背景色を #0FF に設定 */
     width: 200px !important; /* ボタンの固定幅 */
     max-width: 200px !important; /* 最大幅も固定 */
@@ -52,6 +48,7 @@ def display_header(title):
     st.write('---')
 
 def display_footer():
+    st.write('---')
     left_column, center_column, right_column = st.columns(3)
     center_column.markdown('<p class="footer-text-center">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
     right_column.markdown('<p class="footer-text-left">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
