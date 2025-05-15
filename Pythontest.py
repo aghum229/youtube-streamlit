@@ -6,8 +6,9 @@ common_css = """
 .big-font { font-size: 40px !important; font-weight: bold; text-align: center; }
 .vertical-button-container {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* 中央揃え */
+    justify-content: center;
+    # flex-direction: column;
+    # align-items: center; /* 中央揃え */
     width: 100%; /* 親要素の幅いっぱいに広げる */
 }
 .vertical-button-container > button {
@@ -55,7 +56,8 @@ def display_footer():
     right_column.markdown('<p class="footer-text-left">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
 def vertical_button(label, target_screen):
-    st.button(label, on_click=set_screen, args=(target_screen,), key=label, use_container_width=True)
+    st.button(label, on_click=set_screen, args=(target_screen,), key=label)
+    # st.button(label, on_click=set_screen, args=(target_screen,), key=label, use_container_width=True)
 
 # 画面定義
 screens = {
