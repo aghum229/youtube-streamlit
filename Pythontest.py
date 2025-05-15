@@ -234,37 +234,37 @@ def show_other22_screen():
 
 # 画面の切り替え
 # メイン画面
-if st.session_state['current_screen'] == 'main':/* メイン画面 */
+if st.session_state['current_screen'] == 'main':
     show_main_screen()
 # 製造関連メニュー
-elif st.session_state['current_screen'] == 'other1':/* 製造関連メニュー */
+elif st.session_state['current_screen'] == 'other1':
     show_other1_screen()
 # ISO関連メニュー
-elif st.session_state['current_screen'] == 'other2':/* ISO関連メニュー */
+elif st.session_state['current_screen'] == 'other2':
     show_other2_screen()
 # 労務関連メニュー
-elif st.session_state['current_screen'] == 'other3':/* 労務関連メニュー */
+elif st.session_state['current_screen'] == 'other3':
     show_other3_screen()
 # 製品メニュー
-elif st.session_state['current_screen'] == 'other4':/* 製品メニュー */
+elif st.session_state['current_screen'] == 'other4':
     show_other4_screen()
 # 金型メニュー
-elif st.session_state['current_screen'] == 'other5':/* 金型メニュー */
+elif st.session_state['current_screen'] == 'other5':
     show_other5_screen()
 # 治工具メニュー
-elif st.session_state['current_screen'] == 'other6':/* 治工具メニュー */
+elif st.session_state['current_screen'] == 'other6':
     show_other6_screen()
 # 検具メニュー
-elif st.session_state['current_screen'] == 'other7':/* 検具メニュー */
+elif st.session_state['current_screen'] == 'other7':
     show_other7_screen()
 # 設備メニュー
-elif st.session_state['current_screen'] == 'other8':/* 設備メニュー */
+elif st.session_state['current_screen'] == 'other8':
     show_other8_screen()
 # 備品メニュー
-elif st.session_state['current_screen'] == 'other9':/* 備品メニュー */
+elif st.session_state['current_screen'] == 'other9':
     show_other9_screen()
 # 在庫管理メニュー
-elif st.session_state['current_screen'] == 'other22':/* 在庫管理メニュー */
+elif st.session_state['current_screen'] == 'other22':
     show_other9_screen()
 
 
