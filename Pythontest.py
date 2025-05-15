@@ -183,6 +183,17 @@ def show_other25_screen():
     st.markdown(write_css3, unsafe_allow_html=True)
     right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
+# 画面定義
+screens = {
+    'main',
+    'other1',
+    'other2',
+    'other3',
+    'other4',
+    'other25'
+    # 他の画面定義も同様に追加
+}
+
 # 不明な画面の場合の処理
 def unknown_screen():
     st.error("不明な画面です")
