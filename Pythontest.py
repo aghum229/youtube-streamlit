@@ -78,7 +78,7 @@ div.stButton {
     width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
 }
 div.stButton > button {
-    font-size: 24px !important; /* 文字サイズを指定 */
+    font-size: 50px !important; /* 文字サイズを指定 */
     padding: 10px 20px; /* 余白を設定 */
     width: 200px; /* ボタンの横幅を固定値に設定 */
     max-width: 200px; /* 必要に応じて最大幅も設定 */
