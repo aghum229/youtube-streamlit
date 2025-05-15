@@ -1,17 +1,28 @@
 import streamlit as st
 
-# 共通CSS (変更なし)
+# 共通CSS
 common_css = """
 <style>
 .big-font { font-size: 40px !important; font-weight: bold; text-align: center; }
-.center-button-container { display: flex; justify-content: center; width: 100%; }
-.center-button-container > button {
-    font-size: 50px !important; font-weight: bold; color: #000;
-    border-radius: 5px; background: #0FF; width: 200px; max-width: 200px; height: 50px;
+.vertical-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 中央揃え */
+    width: 100%;
+}
+.vertical-button-container > button {
+    font-size: 24px !important; /* 少し小さめに調整 */
+    font-weight: bold;
+    color: #000;
+    border-radius: 5px;
+    background: #0FF;
+    width: 200px; /* ボタンの固定幅 */
+    max-width: 200px;
+    margin-bottom: 10px; /* ボタン間の余白 */
+    padding: 10px 20px;
 }
 .footer-text-center { font-size: 14px !important; text-align: center; }
 .footer-text-left { font-size: 10px !important; text-align: left; }
-.horizontal-buttons { display: flex; gap: 10px; } /* 横並びボタン用 */
 </style>
 """
 st.markdown(common_css, unsafe_allow_html=True)
@@ -42,69 +53,81 @@ def display_footer():
     center_column.markdown('<p class="footer-text-center">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
     right_column.markdown('<p class="footer-text-left">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
-def centered_button(label, target_screen):
-    col = st.columns(3)[1] # 中央の列を使用
-    col.button(label, on_click=set_screen, args=(target_screen,))
-
-def horizontal_buttons(labels_targets):
-    cols = st.columns(len(labels_targets))
-    for i, (label, target) in enumerate(labels_targets):
-        cols[i].button(label, on_click=set_screen, args=(target,))
+def vertical_button(label, target_screen):
+    if st.button(label, on_click=set_screen, args=(target_screen,), key=label): # key を追加
+        pass
 
 # 画面定義
 screens = {
     'main': lambda: (
         display_header("メイン画面"),
-        centered_button("製造関連", 'other1'),
-        centered_button("ＩＳＯ関連", 'other2'),
-        centered_button("労務関連", 'other3'),
+        st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
+        vertical_button("製造関連", 'other1'),
+        vertical_button("ＩＳＯ関連", 'other2'),
+        vertical_button("労務関連", 'other3'),
+        st.markdown('</div>', unsafe_allow_html=True),
         display_footer()
     ),
     'other1': lambda: (
         display_header("製造関連メニュー"),
-        centered_button("⏎メイン画面へ戻る", 'main'),
-        horizontal_buttons([
-            ('製品', 'other4'), ('金型', 'other5'), ('治工具', 'other6'),
-            ('検具', 'other7'), ('設備', 'other8'), ('備品', 'other9')
-        ]),
+        st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
+        vertical_button("⏎メイン画面へ戻る", 'main'),
+        vertical_button('製品', 'other4'),
+        vertical_button('金型', 'other5'),
+        vertical_button('治工具', 'other6'),
+        vertical_button('検具', 'other7'),
+        vertical_button('設備', 'other8'),
+        vertical_button('備品', 'other9'),
+        st.markdown('</div>', unsafe_allow_html=True),
         display_footer()
     ),
     'other2': lambda: (
         display_header("ＩＳＯメニュー"),
-        centered_button("⏎メイン画面へ戻る", 'main'),
-        horizontal_buttons([
-            ('品質・環境マニュアル', 'other10'), ('規定', 'other11'), ('要領', 'other12'),
-            ('外部文書', 'other13'), ('マネジメントレビュー', 'other14'), ('内部監査', 'other15'),
-            ('外部監査', 'other16')
-        ]),
+        st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
+        vertical_button("⏎メイン画面へ戻る", 'main'),
+        vertical_button('品質・環境マニュアル', 'other10'),
+        vertical_button('規定', 'other11'),
+        vertical_button('要領', 'other12'),
+        vertical_button('外部文書', 'other13'),
+        vertical_button('マネジメントレビュー', 'other14'),
+        vertical_button('内部監査', 'other15'),
+        vertical_button('外部監査', 'other16'),
+        st.markdown('</div>', unsafe_allow_html=True),
         display_footer()
     ),
     'other3': lambda: (
         display_header("労務メニュー"),
-        centered_button("⏎メイン画面へ戻る", 'main'),
-        horizontal_buttons([
-            ('就業規則', 'other17'), ('規定', 'other18'), ('外部監査', 'other19')
-        ]),
+        st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
+        vertical_button("⏎メイン画面へ戻る", 'main'),
+        vertical_button('就業規則', 'other17'),
+        vertical_button('規定', 'other18'),
+        vertical_button('外部監査', 'other19'),
+        st.markdown('</div>', unsafe_allow_html=True),
         display_footer()
     ),
     'other4': lambda: (
         display_header("製品メニュー"),
-        centered_button("⏎メイン画面へ戻る", 'main'),
-        centered_button("⏎製造関連メニューへ戻る", 'other1'),
-        horizontal_buttons([
-            ('図面', 'other20'), ('検査基準書', 'other21'), ('ＱＣ表', 'other22'),
-            ('作業標準', 'other23'), ('検査表', 'other24'), ('在庫管理', 'other25')
-        ]),
+        st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
+        vertical_button("⏎メイン画面へ戻る", 'main'),
+        vertical_button("⏎製造関連メニューへ戻る", 'other1'),
+        vertical_button('図面', 'other20'),
+        vertical_button('検査基準書', 'other21'),
+        vertical_button('ＱＣ表', 'other22'),
+        vertical_button('作業標準', 'other23'),
+        vertical_button('検査表', 'other24'),
+        vertical_button('在庫管理', 'other25'),
+        st.markdown('</div>', unsafe_allow_html=True),
         display_footer()
     ),
     'other25': lambda: (
         display_header("在庫管理メニュー"),
-        centered_button("⏎メイン画面へ戻る", 'main'),
-        centered_button("⏎製造関連メニューへ戻る", 'other1'),
-        centered_button("⏎製品メニューへ戻る", 'other4'),
-        horizontal_buttons([
-            ('在庫管理', 'other26'), ('棚卸', 'other27')
-        ]),
+        st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
+        vertical_button("⏎メイン画面へ戻る", 'main'),
+        vertical_button("⏎製造関連メニューへ戻る", 'other1'),
+        vertical_button("⏎製品メニューへ戻る", 'other4'),
+        vertical_button('在庫管理', 'other26'),
+        vertical_button('棚卸', 'other27'),
+        st.markdown('</div>', unsafe_allow_html=True),
         display_footer()
     ),
     # 他の画面定義も同様に追加
@@ -114,15 +137,11 @@ screens = {
 def unknown_screen():
     st.error("不明な画面です")
     if len(st.session_state['history']) > 1:
-        if st.button("前の画面に戻る", on_click=go_back): # on_click を追加
-            pass # go_back() はコールバックとして直接実行される
-            # st.session_state['current_screen'] は go_back() 内で更新される
+        if st.button("前の画面に戻る", on_click=go_back, key="back_button"): # key を追加
+            pass
 
 # 画面の切り替え
 if st.session_state['current_screen'] in screens:
     screens[st.session_state['current_screen']]()
 else:
     unknown_screen()
-
-# expander = st.expander('問い合わせ')
-# expander.write('問い合わせ内容を書く')
