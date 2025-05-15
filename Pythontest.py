@@ -54,10 +54,12 @@ button = st.button('ＩＳＯ関連')
 button = st.button('労務関連')
 
 left_column, right_column = st.columns(2)
-left_column.write('<span style="color:black;background:white,font-size=10px,text-align:right,float:right">〇〇〇〇〇株式会社</span>',
-              unsafe_allow_html=True)
-right_column.write('<span style="color:black;background:white,font-size=6px">ver.XX.XXX.XXX</span>',
-              unsafe_allow_html=True)
+left_column.write('#### 〇〇〇〇〇株式会社')
+right_column.write('ver.XX.XXX.XXX')
+# left_column.write('<span style="color:black;background:white,font-size=10px,text-align:right,float:right">〇〇〇〇〇株式会社</span>',
+#               unsafe_allow_html=True)
+# right_column.write('<span style="color:black;background:white,font-size=6px">ver.XX.XXX.XXX</span>',
+#               unsafe_allow_html=True)
 
 # st.write('〇〇〇〇〇株式会社  ver.XX.XXX.XXX')
 # left_column, right_column = st.columns(2)
