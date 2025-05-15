@@ -37,7 +37,7 @@ button_css = f"""
 """
 st.markdown(button_css, unsafe_allow_html=True)
 
-st.set_page_config(layout="wide")
+# st.set_page_config(layout="wide")
 st.markdown("""
 <style>
 .big-font {
