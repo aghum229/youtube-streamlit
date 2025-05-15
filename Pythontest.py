@@ -71,7 +71,7 @@ write_css3 = """
 """
 '''
 
-# st.markdown(write_css, unsafe_allow_html=True)
+st.markdown(write_css1, unsafe_allow_html=True)
 # """, unsafe_allow_html=True)
 st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True)
 # st.write('管理システム')
