@@ -39,7 +39,7 @@ st.markdown(button_css, unsafe_allow_html=True)
 
 # st.set_page_config(layout="wide")
 # st.markdown("""
-write_css = g"""
+write_css = f"""
 <style>
 .big-font {
     font-size:40px !important;
