@@ -72,6 +72,27 @@ center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', 
 st.markdown(write_css3, unsafe_allow_html=True)
 right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
+# 画面の状態を管理する変数（初期状態はメイン画面）
+if 'current_screen' not in st.session_state:
+    st.session_state['current_screen'] = 'main'
+
+def show_main_screen():
+    # st.title("メイン画面")
+    if st.button("別画面へ"):
+        st.session_state['current_screen'] = 'other1'
+
+def show_other1_screen():
+    st.title("別画面")
+    st.write("こちらは別の画面の内容です。")
+    if st.button("メイン画面へ戻る"):
+        st.session_state['current_screen'] = 'main'
+
+# 画面の切り替え
+if st.session_state['current_screen'] == 'main':
+    show_main_screen()
+elif st.session_state['current_screen'] == 'other1':
+    show_other1_screen()
+
 # st.write('Progress Bar')
 # 'Start!!'
 
