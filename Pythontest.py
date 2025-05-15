@@ -1,6 +1,6 @@
 import streamlit as st
 
-_= '''
+# _= '''
 # 共通CSS
 common_css = """
 <style>
@@ -28,8 +28,9 @@ common_css = """
 .footer-text-left { font-size: 10px !important; text-align: left; }
 </style>
 """
-'''
+# '''
 
+_= '''
 common_css = """
 <style>
 .big-font { font-size: 40px !important; font-weight: bold; text-align: center; }
@@ -42,6 +43,7 @@ common_css = """
 .footer-text-left { font-size: 10px !important; text-align: left; }
 </style>
 """
+'''
 st.markdown(common_css, unsafe_allow_html=True)
 
 # 画面の状態を管理
@@ -79,9 +81,9 @@ screens = {
     'main': lambda: (
         display_header("メイン画面"),
         st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
-        vertical_button("製造関連", 'other1'),
-        vertical_button("ＩＳＯ関連", 'other2'),
-        vertical_button("労務関連", 'other3'),
+        btn1 = vertical_button("製造関連", 'other1'),
+        btn2 = vertical_button("ＩＳＯ関連", 'other2'),
+        btn3 = vertical_button("労務関連", 'other3'),
         st.markdown('</div>', unsafe_allow_html=True),
         display_footer()
     ),
