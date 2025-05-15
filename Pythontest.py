@@ -65,6 +65,41 @@ def show_main_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">メイン画面</p>', unsafe_allow_html=True)
     st.write('---')
+    button1 = st.button("製造関連", on_click=set_screen, args=('other1',))
+    button2 = st.button("ＩＳＯ関連", on_click=set_screen, args=('other2',))
+    button3 = st.button("労務関連", on_click=set_screen, args=('other3',))
+    st.write('---')
+    left_column, center_column, right_column = st.columns(3)
+    st.markdown(write_css2, unsafe_allow_html=True)
+    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+    st.markdown(write_css3, unsafe_allow_html=True)
+    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+
+def show_other1_screen():
+    st.markdown(write_css1, unsafe_allow_html=True)
+    st.markdown('<p class="big-font">製造関連メニュー</p>', unsafe_allow_html=True)
+    st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
+    btn1 = st.button("⏎メイン画面へ戻る", on_click=set_screen, args=('main',))
+    st.write('---')
+    button4 = st.button('製品', on_click=set_screen, args=('other4',))
+    button5 = st.button('金型', on_click=set_screen, args=('other5',))
+    button6 = st.button('治工具', on_click=set_screen, args=('other6',))
+    button7 = st.button('検具', on_click=set_screen, args=('other7',))
+    button8 = st.button('設備', on_click=set_screen, args=('other8',))
+    button9 = st.button('備品', on_click=set_screen, args=('other9',))
+    st.write('---')
+    left_column, center_column, right_column = st.columns(3)
+    st.markdown(write_css2, unsafe_allow_html=True)
+    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+    st.markdown(write_css3, unsafe_allow_html=True)
+    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+
+_= '''
+def show_main_screen():
+    st.markdown(write_css1, unsafe_allow_html=True)
+    st.markdown('<p class="big-font">メイン画面</p>', unsafe_allow_html=True)
+    st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
     button1 = st.button('製造関連')
     button2 = st.button('ＩＳＯ関連')
@@ -242,6 +277,7 @@ def show_other22_screen():
     center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
     st.markdown(write_css3, unsafe_allow_html=True)
     right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+'''
 
 # 画面の切り替え
 # メイン画面
