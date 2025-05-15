@@ -57,7 +57,7 @@ div.stButton > button {
 }
 </style>
 """
-st.markdown(button_style, unsafe_allow_html=True)
+# st.markdown(button_style, unsafe_allow_html=True)
 
 # st.set_page_config(layout="wide")
 # st.markdown("""
@@ -109,11 +109,12 @@ st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True
 # st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
 #               unsafe_allow_html=True)
 
-st.markdown(button_css, unsafe_allow_html=True)
+# st.markdown(button_css, unsafe_allow_html=True)
 # button1 = st.button('製造関連',  css_class="big-button-font")
 # button2 = st.button('ＩＳＯ関連') # デフォルトの文字サイズ
 # button3 = st.button('労務関連',  css_class="small-button-font")
 
+st.markdown(button_style, unsafe_allow_html=True)
 button1 = st.button('製造関連', on_click=None)
 button2 = st.button('ＩＳＯ関連')
 button3 = st.button('労務関連')
