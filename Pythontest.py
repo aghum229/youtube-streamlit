@@ -56,7 +56,7 @@ def display_footer():
     right_column.markdown('<p class="footer-text-left">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
 def vertical_button(label, target_screen):
-    st.button(label, on_click=set_screen, args=(target_screen,), key=label)
+    st.button(label, on_click=set_screen, args=(target_screen,))
     # st.button(label, on_click=set_screen, args=(target_screen,), key=label, use_container_width=True)
 
 # 画面定義
