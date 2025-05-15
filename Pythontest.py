@@ -268,7 +268,7 @@ elif st.session_state['current_screen'] == 'other9':
     show_other9_screen()
 # 在庫管理メニュー
 elif st.session_state['current_screen'] == 'other22':
-    show_other9_screen()
+    show_other22_screen()
 
 
 # st.write('Progress Bar')
