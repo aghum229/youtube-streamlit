@@ -22,7 +22,7 @@ button_css = f"""
     max-width: 100%;
     width: 200px;
     height: 40px;
-    font-size: 20px;
+    font-size: 20px  !important;
     # font-size: 10px;
     font-weight  : bold                ;/* 文字：太字                   */
     # font-weight  : 1000                ;/* 文字：太字                   */
@@ -81,7 +81,7 @@ st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True
 # st.write('<span style="color:red;background:pink">管理システム</span>',
 #              unsafe_allow_html=True)
 # st.title('# 管理システム')
-st.write('## 管理システム')
+# st.write('## 管理システム')
 
 # st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
 #               unsafe_allow_html=True)
