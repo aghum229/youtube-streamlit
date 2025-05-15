@@ -52,10 +52,10 @@ div.stButton {
     display: flex;
     justify-content: center;
     width: 200px;
-    height: 40px;
+    height: 50px;
 }
 div.stButton > button {
-    font-size: 60px !important; /* 文字サイズを指定 */
+    font-size: 10px !important; /* 文字サイズを指定 */
     # padding: 10px 20px; /* 余白を設定 */
     font-weight  : bold ;
     color        : #000                ;
