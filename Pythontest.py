@@ -22,7 +22,7 @@ button_css = f"""
     max-width: 100%;
     width: 200px;
     height: 40px;
-    font-size: 3rem;
+    font-size: 20px;
     # font-size: 10px;
     font-weight  : bold                ;/* 文字：太字                   */
     # font-weight  : 1000                ;/* 文字：太字                   */
@@ -42,14 +42,32 @@ st.markdown(button_css, unsafe_allow_html=True)
 write_css = """
 <style>
 .big-font {
-    # font-size    :40px !important;
-    font-size      :40px;
+    font-size    :40px !important;
     font-weight    :bold;
     text-align     :center;
 }
 </style>
 """
-st.markdown(write_css, unsafe_allow_html=True)
+
+write_css = """
+<style>
+.right-font {
+    font-size    :16px !important;
+    text-align     :right;
+}
+</style>
+"""
+
+write_css = """
+<style>
+.small-font {
+    font-size    :10px !important;
+    text-align     :left;
+}
+</style>
+"""
+
+# st.markdown(write_css, unsafe_allow_html=True)
 # """, unsafe_allow_html=True)
 st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True)
 # st.write('管理システム')
@@ -71,8 +89,10 @@ button2 = st.button('ＩＳＯ関連')
 button3 = st.button('労務関連')
 
 left_column, right_column = st.columns(2)
-left_column.write('##### 〇〇〇〇〇株式会社')
-right_column.write('ver.XX.XXX.XXX')
+st.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+st.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+# left_column.write('##### 〇〇〇〇〇株式会社')
+# right_column.write('ver.XX.XXX.XXX')
 # left_column.write('<span style="color:black;background:white,font-size=10px,text-align:right,float:right">〇〇〇〇〇株式会社</span>',
 #               unsafe_allow_html=True)
 # right_column.write('<span style="color:black;background:white,font-size=6px">ver.XX.XXX.XXX</span>',
