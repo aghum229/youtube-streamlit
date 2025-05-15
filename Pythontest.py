@@ -10,14 +10,17 @@ common_css = """
     align-items: center; /* 中央揃え */
     width: 100%; /* 親要素の幅いっぱいに広げる */
 }
-.vertical-button-container > button {
-    font-size: 24px !important; /* 少し小さめに調整 */
+.vertical-button-container > div.stButton { /* stButton div をターゲット */
+    width: auto !important; /* stButton div の幅を自動調整 */
+}
+.vertical-button-container > div.stButton > button { /* button 要素をターゲット */
+    font-size: 24px !important;
     font-weight: bold;
     color: #000;
     border-radius: 5px;
-    background-color: #0FF; /* 背景色を #0FF に設定 */
-    width: 200px !important; /* ボタンの固定幅（!important を追加） */
-    max-width: 200px !important; /* 最大幅も固定（!important を追加） */
+    background-color: #0FF !important; /* 背景色を #0FF に設定 */
+    width: 200px !important; /* ボタンの固定幅 */
+    max-width: 200px !important; /* 最大幅も固定 */
     margin-bottom: 10px; /* ボタン間の余白 */
     padding: 10px 20px;
 }
