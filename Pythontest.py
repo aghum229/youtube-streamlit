@@ -81,9 +81,11 @@ screens = {
     'main': lambda: (
         display_header("メイン画面"),
         st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
-        btn1 = vertical_button("製造関連", 'other1'),
-        btn2 = vertical_button("ＩＳＯ関連", 'other2'),
-        btn3 = vertical_button("労務関連", 'other3'),
+        vertical_button("製造関連", 'other1'),
+        st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
+        vertical_button("ＩＳＯ関連", 'other2'),
+        st.markdown('<div class="vertical-button-container">', unsafe_allow_html=True),
+        vertical_button("労務関連", 'other3'),
         st.markdown('</div>', unsafe_allow_html=True),
         display_footer()
     ),
