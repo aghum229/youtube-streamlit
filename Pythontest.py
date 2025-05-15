@@ -54,8 +54,8 @@ div.stButton {
     width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
 }
 div.stButton > button {
-    font-size: 10px !important; /* 文字サイズを指定 */
-    # padding: 10px 20px; /* 余白を設定 */
+    font-size: 50px !important; /* 文字サイズを指定 */
+    padding: 10px 20px; /* 余白を設定 */
     font-weight  : bold ;
     color        : #000                ;
     # border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
