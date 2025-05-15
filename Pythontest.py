@@ -16,13 +16,13 @@ common_css = """
 """
 st.markdown(common_css, unsafe_allow_html=True)
 
-# 画面の履歴を管理
-if 'history' not in st.session_state:
-    st.session_state['history'] = ['main']  # 初期画面を履歴に追加
-
-# 現在の画面の状態を管理
+# 画面の状態を管理
 if 'current_screen' not in st.session_state:
     st.session_state['current_screen'] = 'main'
+
+# 画面の履歴を管理
+if 'history' not in st.session_state:
+    st.session_state['history'] = ['main']
 
 def set_screen(screen_name):
     if st.session_state['current_screen'] != screen_name:
@@ -44,14 +44,12 @@ def display_footer():
 
 def centered_button(label, target_screen):
     col = st.columns(3)[1] # 中央の列を使用
-    if col.button(label):
-        set_screen(target_screen)
+    col.button(label, on_click=set_screen, args=(target_screen,))
 
 def horizontal_buttons(labels_targets):
     cols = st.columns(len(labels_targets))
     for i, (label, target) in enumerate(labels_targets):
-        if cols[i].button(label):
-            set_screen(target)
+        cols[i].button(label, on_click=set_screen, args=(target,))
 
 # 画面定義
 screens = {
@@ -112,14 +110,18 @@ screens = {
     # 他の画面定義も同様に追加
 }
 
-# 画面の切り替え
-if st.session_state['current_screen'] in screens:
-    screens[st.session_state['current_screen']]()
-else:
+# 不明な画面の場合の処理
+def unknown_screen():
     st.error("不明な画面です")
     if len(st.session_state['history']) > 1:
         if st.button("前の画面に戻る"):
             go_back()
+
+# 画面の切り替え
+if st.session_state['current_screen'] in screens:
+    screens[st.session_state['current_screen']]()
+else:
+    unknown_screen()
 
 
 # st.write('Progress Bar')
