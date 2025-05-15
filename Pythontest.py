@@ -11,7 +11,7 @@ button_css = f"""
     # position: absolute;
     # left: 50%;
     # transform: translateX(-50%);
-    transform: translateX(100%);
+    transform: translateX(-50%);
     # display: flex;
     # display: block;
     # text-decoration: none;
@@ -38,7 +38,8 @@ button_css = f"""
 st.markdown(button_css, unsafe_allow_html=True)
 
 # st.set_page_config(layout="wide")
-st.markdown("""
+# st.markdown("""
+write_css = g"""
 <style>
 .big-font {
     font-size:40px !important;
@@ -46,8 +47,11 @@ st.markdown("""
     text-align     :center;
 }
 </style>
-""", unsafe_allow_html=True)
-st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True)
+"""
+st.markdown(write_css, unsafe_allow_html=True)
+# """, unsafe_allow_html=True)
+# st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True)
+st.write('管理システム')
 
 # st.title('文書・記録管理システム  \n' + 'メインメニュー')
 # st.title('文書・記録')
