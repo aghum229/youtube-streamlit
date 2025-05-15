@@ -47,9 +47,9 @@ st.write('# 管理システム')
 # st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
 #               unsafe_allow_html=True)
 
-button = st.button('# 製造関連')
+button = st.button('## 製造関連')
 
-button = st.button('ＩＳＯ関連')
+button = st.button('# ＩＳＯ関連')
 
 button = st.button('労務関連')
 
