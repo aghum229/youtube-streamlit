@@ -63,7 +63,9 @@ if 'history' not in st.session_state:
     st.session_state['history'] = ['main']
 
 def set_screen(screen_name):
-    st.session_state['current_screen'] = screen_name
+    if st.session_state['current_screen'] != screen_name:
+        st.session_state['history'].append(st.session_state['current_screen'])
+        st.session_state['current_screen'] = screen_name
 
 def go_back():
     if len(st.session_state['history']) > 1:
