@@ -54,24 +54,51 @@ write_css3 = """
 """
 # '''
 
-st.markdown(write_css1, unsafe_allow_html=True)
-st.markdown('<p class="big-font">メイン画面</p>', unsafe_allow_html=True)
+# 画面の状態を管理する変数（初期状態はメイン画面）
+if 'current_screen' not in st.session_state:
+    st.session_state['current_screen'] = 'main'
 
-st.write('---')
+def show_main_screen():
+    st.markdown(write_css1, unsafe_allow_html=True)
+    st.markdown('<p class="big-font">メイン画面</p>', unsafe_allow_html=True)
+    st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
+    button1 = st.button('製造関連')
+    button2 = st.button('ISO関連')
+    button3 = st.button('労務関連')
+    if button1:
+        st.session_state['current_screen'] = 'other1'
+    elif button2:
+        st.session_state['current_screen'] = 'other2'
+    elif button3:
+        st.session_state['current_screen'] = 'other3'
+    st.write('---')
+    left_column, center_column, right_column = st.columns(3)
+    st.markdown(write_css2, unsafe_allow_html=True)
+    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+    st.markdown(write_css3, unsafe_allow_html=True)
+    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
-st.markdown(button_style, unsafe_allow_html=True)
-button1 = st.button('製造関連')
-button2 = st.button('ISO関連')
-button3 = st.button('労務関連')
+def show_other1_screen():
+    st.markdown(write_css1, unsafe_allow_html=True)
+    st.markdown('<p class="big-font">製造関連メニュー</p>', unsafe_allow_html=True)
+    st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
+    button4 = st.button('製品')
+    if button4:
+        st.session_state['current_screen'] = 'other4'
+    elif st.button("メイン画面へ戻る"):
+        st.session_state['current_screen'] = 'main'
+    st.write('---')
+    left_column, center_column, right_column = st.columns(3)
+    st.markdown(write_css2, unsafe_allow_html=True)
+    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+    st.markdown(write_css3, unsafe_allow_html=True)
+    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
-st.write('---')
 
-left_column, center_column, right_column = st.columns(3)
-st.markdown(write_css2, unsafe_allow_html=True)
-center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
-st.markdown(write_css3, unsafe_allow_html=True)
-right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
+_= '''
 # 画面の状態を管理する変数（初期状態はメイン画面）
 if 'current_screen' not in st.session_state:
     st.session_state['current_screen'] = 'main'
@@ -98,6 +125,7 @@ def show_other4_screen():
         st.session_state['current_screen'] = 'other1'
     elif st.button("メイン画面へ戻る"):
         st.session_state['current_screen'] = 'main'
+'''
 
 # 画面の切り替え
 if st.session_state['current_screen'] == 'main':
