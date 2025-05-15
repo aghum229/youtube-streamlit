@@ -43,6 +43,7 @@ button_css = f"""
   }}
 </style>
 """
+'''
 # st.markdown(button_css, unsafe_allow_html=True)
 
 button_style = """
@@ -70,7 +71,6 @@ write_css1 = """
 }
 </style>
 """
-'''
 
 # _= '''
 write_css2 = """
