@@ -62,6 +62,7 @@ div.stButton > button {
     background   : #0FF                ;/* 背景色：aqua            */
     width: 200px; /* ボタンの横幅を固定値に設定 */
     max-width: 200px; /* 必要に応じて最大幅も設定 */
+    height: 50px;
 }
 </style>
 """
@@ -72,7 +73,7 @@ div.stButton > button {
 write_css1 = """
 <style>
 .big-font {
-    font-size    :40px !important;
+    font-size    :40px ;
     font-weight    :bold;
     text-align     :center;
 }
