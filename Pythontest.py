@@ -6,12 +6,13 @@ common_css = """
 .big-font { font-size: 40px !important; font-weight: bold; text-align: center; }
 .vertical-button-container {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* 中央揃え */
+    justify-content: center;
+    # flex-direction: column;
+    # align-items: center; /* 中央揃え */
     width: 100%;
 }
 .vertical-button-container > button {
-    font-size: 24px !important; /* 少し小さめに調整 */
+    font-size: 30px !important; /* 少し小さめに調整 */
     font-weight: bold;
     color: #000;
     border-radius: 5px;
