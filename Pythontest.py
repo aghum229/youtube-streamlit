@@ -1,5 +1,6 @@
 import streamlit as st
 
+_= '''
 # 共通CSS
 common_css = """
 <style>
@@ -22,6 +23,20 @@ common_css = """
     height: 50px;
     # margin-bottom: 10px; /* ボタン間の余白 */
     # padding: 10px 20px;
+}
+.footer-text-center { font-size: 14px !important; text-align: center; }
+.footer-text-left { font-size: 10px !important; text-align: left; }
+</style>
+"""
+'''
+
+common_css = """
+<style>
+.big-font { font-size: 40px !important; font-weight: bold; text-align: center; }
+.center-button-container { display: flex; justify-content: center; width: 100%; }
+.center-button-container > button {
+    font-size: 50px !important; font-weight: bold; color: #000;
+    border-radius: 5px; background: #0FF; width: 200px; max-width: 200px; height: 50px;
 }
 .footer-text-center { font-size: 14px !important; text-align: center; }
 .footer-text-left { font-size: 10px !important; text-align: left; }
