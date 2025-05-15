@@ -55,7 +55,7 @@ write_css3 = """
 # '''
 
 st.markdown(write_css1, unsafe_allow_html=True)
-st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True)
+st.markdown('<p class="big-font">メイン画面</p>', unsafe_allow_html=True)
 
 st.write('---')
 
@@ -78,13 +78,25 @@ if 'current_screen' not in st.session_state:
 
 def show_main_screen():
     # st.title("メイン画面")
-    if button1:
+    # if button1:
         st.session_state['current_screen'] = 'other1'
 
 def show_other1_screen():
-    st.title("別画面")
-    st.write("こちらは別の画面の内容です。")
-    if st.button("メイン画面へ戻る"):
+    st.markdown(write_css1, unsafe_allow_html=True)
+    st.markdown('<p class="big-font">製造関連メニュー</p>', unsafe_allow_html=True)
+    if st.button("製品"):
+        st.session_state['current_screen'] = 'other4'
+    elif st.button("メイン画面へ戻る"):
+        st.session_state['current_screen'] = 'main'
+
+def show_other4_screen():
+    st.markdown(write_css1, unsafe_allow_html=True)
+    st.markdown('<p class="big-font">製品メニュー</p>', unsafe_allow_html=True)
+    if st.button("製品"):
+        st.session_state['current_screen'] = 'other4'
+    elif st.button("製造関連メニューへ戻る"):
+        st.session_state['current_screen'] = 'other1'
+    elif st.button("メイン画面へ戻る"):
         st.session_state['current_screen'] = 'main'
 
 # 画面の切り替え
@@ -92,6 +104,8 @@ if st.session_state['current_screen'] == 'main':
     show_main_screen()
 elif st.session_state['current_screen'] == 'other1':
     show_other1_screen()
+elif st.session_state['current_screen'] == 'other4':
+    show_other4_screen()
 
 # st.write('Progress Bar')
 # 'Start!!'
