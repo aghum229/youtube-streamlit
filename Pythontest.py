@@ -22,6 +22,26 @@ div.stButton > button {
 """
 # st.markdown(button_style, unsafe_allow_html=True)
 
+button_style2 = """
+<style>
+div.stButton {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
+}
+div.stButton > button {
+    font-size: 50px !important; /* 文字サイズを指定 */
+    font-weight  : bold ;
+    color        : #000;
+    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
+    background   : #ffa500               ;/* 背景色：orange            */
+    width: 200px; /* ボタンの横幅を固定値に設定 */
+    max-width: 200px; /* 必要に応じて最大幅も設定 */
+    height: 50px;
+}
+</style>
+"""
+
 write_css1 = """
 <style>
 .big-font {
@@ -83,8 +103,9 @@ def show_other1_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">製造関連メニュー</p>', unsafe_allow_html=True)
     st.write('---')
-    st.markdown(button_style, unsafe_allow_html=True)
+    st.markdown(button_style2, unsafe_allow_html=True)
     btn1 = st.button("メイン画面へ戻る")
+    st.markdown(button_style, unsafe_allow_html=True)
     button4 = st.button('製品')
     button5 = st.button('金型')
     button6 = st.button('治工具')
@@ -116,8 +137,9 @@ def show_other2_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">ISO関連メニュー</p>', unsafe_allow_html=True)
     st.write('---')
-    st.markdown(button_style, unsafe_allow_html=True)
+    st.markdown(button_style2, unsafe_allow_html=True)
     btn1 = st.button("メイン画面へ戻る")
+    st.markdown(button_style, unsafe_allow_html=True)
     button10 = st.button('品質・環境マニュアル')
     button11 = st.button('規定')
     button12 = st.button('要領')
@@ -152,8 +174,9 @@ def show_other3_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">労務関連メニュー</p>', unsafe_allow_html=True)
     st.write('---')
-    st.markdown(button_style, unsafe_allow_html=True)
+    st.markdown(button_style2, unsafe_allow_html=True)
     btn1 = st.button("メイン画面へ戻る")
+    st.markdown(button_style, unsafe_allow_html=True)
     button17 = st.button('就業規則')
     button18 = st.button('規定')
     button19 = st.button('外部監査')
@@ -176,9 +199,10 @@ def show_other4_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">製品メニュー</p>', unsafe_allow_html=True)
     st.write('---')
-    st.markdown(button_style, unsafe_allow_html=True)
+    st.markdown(button_style2, unsafe_allow_html=True)
     btn1 = st.button("メイン画面へ戻る")
     btn2 = st.button("製造関連メニュー")
+    st.markdown(button_style, unsafe_allow_html=True)
     button17 = st.button('図面')
     button18 = st.button('検査基準書')
     button19 = st.button('ＱＣ表')
@@ -212,10 +236,11 @@ def show_other22_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">在庫管理メニュー</p>', unsafe_allow_html=True)
     st.write('---')
-    st.markdown(button_style, unsafe_allow_html=True)
+    st.markdown(button_style2, unsafe_allow_html=True)
     btn1 = st.button("メイン画面へ戻る")
     btn2 = st.button("製造関連メニュー")
     btn3 = st.button("製品メニュー")
+    st.markdown(button_style, unsafe_allow_html=True)
     button23 = st.button('在庫管理')
     button24 = st.button('棚卸')
     if button23:
