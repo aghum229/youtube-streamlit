@@ -233,26 +233,37 @@ def show_other22_screen():
     right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
 # 画面の切り替え
+# メイン画面
 if st.session_state['current_screen'] == 'main':/* メイン画面 */
     show_main_screen()
+# 製造関連メニュー
 elif st.session_state['current_screen'] == 'other1':/* 製造関連メニュー */
     show_other1_screen()
+# ISO関連メニュー
 elif st.session_state['current_screen'] == 'other2':/* ISO関連メニュー */
     show_other2_screen()
+# 労務関連メニュー
 elif st.session_state['current_screen'] == 'other3':/* 労務関連メニュー */
     show_other3_screen()
+# 製品メニュー
 elif st.session_state['current_screen'] == 'other4':/* 製品メニュー */
     show_other4_screen()
+# 金型メニュー
 elif st.session_state['current_screen'] == 'other5':/* 金型メニュー */
     show_other5_screen()
+# 治工具メニュー
 elif st.session_state['current_screen'] == 'other6':/* 治工具メニュー */
     show_other6_screen()
+# 検具メニュー
 elif st.session_state['current_screen'] == 'other7':/* 検具メニュー */
     show_other7_screen()
+# 設備メニュー
 elif st.session_state['current_screen'] == 'other8':/* 設備メニュー */
     show_other8_screen()
+# 備品メニュー
 elif st.session_state['current_screen'] == 'other9':/* 備品メニュー */
     show_other9_screen()
+# 在庫管理メニュー
 elif st.session_state['current_screen'] == 'other22':/* 在庫管理メニュー */
     show_other9_screen()
 
