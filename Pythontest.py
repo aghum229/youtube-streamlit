@@ -41,8 +41,8 @@ st.markdown(button_css, unsafe_allow_html=True)
 st.markdown("""
 <style>
 .big-font {
-    font-size:20px !important;
-    font-weight    : bold;
+    font-size:40px !important;
+    font-weight    :bold;
     text-align     :center;
 }
 </style>
