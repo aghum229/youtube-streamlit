@@ -103,30 +103,13 @@ write_css3 = """
 # '''
 
 st.markdown(write_css1, unsafe_allow_html=True)
-# """, unsafe_allow_html=True)
 st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True)
-# st.write('管理システム')
 
 st.write('---')
 
-# st.title('文書・記録管理システム  \n' + 'メインメニュー')
-# st.title('文書・記録')
-# st.write('<span style="color:red;background:pink">管理システム</span>',
-#              unsafe_allow_html=True)
-# st.title('# 管理システム')
-# st.write('## 管理システム')
-
-# st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
-#               unsafe_allow_html=True)
-
-# st.markdown(button_css, unsafe_allow_html=True)
-# button1 = st.button('製造関連',  css_class="big-button-font")
-# button2 = st.button('ＩＳＯ関連') # デフォルトの文字サイズ
-# button3 = st.button('労務関連',  css_class="small-button-font")
-
 st.markdown(button_style, unsafe_allow_html=True)
 button1 = st.button('製造関連', on_click=None)
-button2 = st.button('ＩＳＯ関連')
+button2 = st.button('ISO関連')
 button3 = st.button('労務関連')
 
 st.write('---')
@@ -136,19 +119,6 @@ st.markdown(write_css2, unsafe_allow_html=True)
 center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
 st.markdown(write_css3, unsafe_allow_html=True)
 right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
-# left_column.write('##### 〇〇〇〇〇株式会社')
-# right_column.write('ver.XX.XXX.XXX')
-# left_column.write('<span style="color:black;background:white,font-size=10px,text-align:right,float:right">〇〇〇〇〇株式会社</span>',
-#               unsafe_allow_html=True)
-# right_column.write('<span style="color:black;background:white,font-size=6px">ver.XX.XXX.XXX</span>',
-#               unsafe_allow_html=True)
-
-# st.write('〇〇〇〇〇株式会社  ver.XX.XXX.XXX')
-# left_column, right_column = st.columns(2)
-# left_column.write('〇〇〇〇〇株式会社')
-# right_column.write('ver.XX.XXX.XXX')
-# st.write('<span style="color:black;background:white">〇〇〇〇〇株式会社　　ver.XX.XXX.XXX</span>',
-#               unsafe_allow_html=True)
 
 # st.write('Progress Bar')
 # 'Start!!'
