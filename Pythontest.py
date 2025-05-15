@@ -8,7 +8,7 @@ import time
 button_css = f"""
 <style>
   div.stButton > button:first-child  {{
-    # position: absolute;
+    position: absolute;
     # left: 50%;
     # transform: translateX(-50%);
     # transform: translateX(-50%);
@@ -18,7 +18,7 @@ button_css = f"""
     # display: inline-block;
     # margin:auto
     text-align:center
-    position: relative;
+    # position: relative;
     max-width: 100%;
     width: 200px;
     height: 40px;
@@ -94,9 +94,9 @@ button3 = st.button('労務関連')
 
 left_column, right_column = st.columns(2)
 st.markdown(write_css2, unsafe_allow_html=True)
-st.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+left_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
 st.markdown(write_css3, unsafe_allow_html=True)
-st.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 # left_column.write('##### 〇〇〇〇〇株式会社')
 # right_column.write('ver.XX.XXX.XXX')
 # left_column.write('<span style="color:black;background:white,font-size=10px,text-align:right,float:right">〇〇〇〇〇株式会社</span>',
