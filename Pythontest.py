@@ -94,7 +94,7 @@ st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True
 #               unsafe_allow_html=True)
 
 st.markdown(button_css, unsafe_allow_html=True)
-button1 = st.button('製造関連', key='button1', on_click=None, args=None, kwargs=None, disabled=False, help=None, use_container_width=False, css_class="big-button-font")
+button1 = st.button('製造関連', key='button1', css_class="big-button-font")
 button2 = st.button('ＩＳＯ関連', key='button2') # デフォルトの文字サイズ
 button3 = st.button('労務関連', key='button3', css_class="small-button-font")
 
