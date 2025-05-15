@@ -1,7 +1,6 @@
 import streamlit as st
 import time
 
-import streamlit as st
 
 # スタイル定義（ボタンの文字サイズと中央配置）
 button_style = """
