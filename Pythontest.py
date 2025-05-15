@@ -22,7 +22,7 @@ button_css = f"""
     max-width: 100%;
     width: 200px;
     height: 40px;
-    font-size: 20px  !important;
+    font-size: 30px  !important;
     # font-size: 10px;
     font-weight  : bold                ;/* 文字：太字                   */
     # font-weight  : 1000                ;/* 文字：太字                   */
@@ -32,6 +32,13 @@ button_css = f"""
     background   : #0FF                ;/* 背景色：aqua            */
     # align-items: center;
     # justify-content: center;
+  }}
+  .big-button-font button {{
+    font-size: 20px !important;
+    font-weight: bold !important;
+  }}
+  .small-button-font button {{
+    font-size: 10px !important;
   }}
 </style>
 """
@@ -87,11 +94,13 @@ st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True
 #               unsafe_allow_html=True)
 
 st.markdown(button_css, unsafe_allow_html=True)
-button1 = st.button('製造関連')
+button1 = st.button('製造関連', key='button1', on_click=None, args=None, kwargs=None, disabled=False, help=None, use_container_width=False, css_class="big-button-font")
+button2 = st.button('ＩＳＯ関連', key='button2') # デフォルトの文字サイズ
+button3 = st.button('労務関連', key='button3', css_class="small-button-font")
 
-button2 = st.button('ＩＳＯ関連')
-
-button3 = st.button('労務関連')
+# button1 = st.button('製造関連')
+# button2 = st.button('ＩＳＯ関連')
+# button3 = st.button('労務関連')
 
 left_column, right_column = st.columns(2)
 st.markdown(write_css2, unsafe_allow_html=True)
