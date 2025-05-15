@@ -98,8 +98,10 @@ st.markdown(button_css, unsafe_allow_html=True)
 # button2 = st.button('ＩＳＯ関連') # デフォルトの文字サイズ
 # button3 = st.button('労務関連',  css_class="small-button-font")
 
-button1 = st.button('製造関連')
+button1 = st.button('製造関連', on_click=None)
+st.markdown(button_css, unsafe_allow_html=True)
 button2 = st.button('ＩＳＯ関連')
+st.markdown(button_css, unsafe_allow_html=True)
 button3 = st.button('労務関連')
 
 left_column, right_column = st.columns(2)
