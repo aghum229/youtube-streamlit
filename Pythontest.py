@@ -1,52 +1,6 @@
 import streamlit as st
 import time
 
-# st.title('文書・記録管理システム  \n' + 'メインメニュー')
-# st.title('文書・記録')
-# st.title('管理システム')
-
-_= '''
-button_css = f"""
-<style>
-  div.stButton > button:first-child  {{
-    # position: absolute;
-    # left: 50%;
-    # transform: translateX(-50%);
-    transform: translateX(100%);
-    # display: flex;
-    # display: block;
-    # text-decoration: none;
-    # display: inline-block;
-    # margin:auto
-    # text-align:center
-    # position: relative;
-    max-width: 100%;
-    width: 200px;
-    height: 40px;
-    font-size: 30px  !important;
-    # font-size: 10px;
-    font-weight  : bold                ;/* 文字：太字                   */
-    # font-weight  : 1000                ;/* 文字：太字                   */
-    color        : #000                ;
-    # border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
-    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
-    background   : #0FF                ;/* 背景色：aqua            */
-    # align-items: center;
-    # justify-content: center;
-    # padding: 10px 20px; /* 余白を設定 */
-  }}
-  .big-button-font button {{
-    font-size: 20px !important;
-    font-weight: bold !important;
-  }}
-  .small-button-font button {{
-    font-size: 10px !important;
-  }}
-</style>
-"""
-'''
-# st.markdown(button_css, unsafe_allow_html=True)
-
 button_style = """
 <style>
 div.stButton {
@@ -68,8 +22,6 @@ div.stButton > button {
 """
 # st.markdown(button_style, unsafe_allow_html=True)
 
-# st.set_page_config(layout="wide")
-# st.markdown("""
 write_css1 = """
 <style>
 .big-font {
