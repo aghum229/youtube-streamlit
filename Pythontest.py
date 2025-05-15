@@ -60,8 +60,8 @@ write_css1 = """
 write_css2 = """
 <style>
 .right-font {
-    font-size    :16px !important;
-    text-align     :right;
+    font-size    :14px !important;
+    text-align     :center;
 }
 </style>
 """
@@ -104,9 +104,9 @@ button2 = st.button('ＩＳＯ関連')
 st.markdown(button_css, unsafe_allow_html=True)
 button3 = st.button('労務関連')
 
-left_column, right_column = st.columns(2)
+left_column, center_column, right_column = st.columns(3)
 st.markdown(write_css2, unsafe_allow_html=True)
-left_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
 st.markdown(write_css3, unsafe_allow_html=True)
 right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 # left_column.write('##### 〇〇〇〇〇株式会社')
