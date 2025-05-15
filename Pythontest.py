@@ -51,8 +51,7 @@ button_style = """
 div.stButton {
     display: flex;
     justify-content: center;
-    width: 200px;
-    height: 50px;
+    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
 }
 div.stButton > button {
     font-size: 10px !important; /* 文字サイズを指定 */
@@ -62,6 +61,9 @@ div.stButton > button {
     # border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #0FF                ;/* 背景色：aqua            */
+    width: 200px; /* ボタンの横幅を固定値に設定 */
+    max-width: 200px; /* 必要に応じて最大幅も設定 */
+    height: 50px;
 }
 </style>
 """
