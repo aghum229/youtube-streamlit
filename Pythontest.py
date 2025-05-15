@@ -60,7 +60,7 @@ st.markdown('<p class="big-font">管理システム</p>', unsafe_allow_html=True
 st.write('---')
 
 st.markdown(button_style, unsafe_allow_html=True)
-button1 = st.button('製造関連', on_click=show_other1_screen;)
+button1 = st.button('製造関連')
 button2 = st.button('ISO関連')
 button3 = st.button('労務関連')
 
@@ -78,7 +78,7 @@ if 'current_screen' not in st.session_state:
 
 def show_main_screen():
     # st.title("メイン画面")
-    if button1:
+    if st.button('製造関連'):
         st.session_state['current_screen'] = 'other1'
 
 def show_other1_screen():
