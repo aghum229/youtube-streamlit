@@ -37,36 +37,11 @@ button_css = f"""
 """
 st.markdown(button_css, unsafe_allow_html=True)
 
-write_css = f"""
-<style>
-  div.stWrite > write:first-child  {{
-    # position: absolute;
-    # left: 50%;
-    # transform: translateX(-50%);
-    # transform: translateX(100%);
-    # display: flex;
-    # display: block;
-    # text-decoration: none;
-    # display: inline-block;
-    # margin:auto
-    # text-align:center
-    # position: relative;
-    font-size: 20px;
-    font-weight  : bold                ;/* 文字：太字                   */
-    color        : #000                ;
-    background   : #0FF                ;/* 背景色：aqua            */
-    # align-items: center;
-    # justify-content: center;
-  }}
-</style>
-"""
-st.markdown(write_css, unsafe_allow_html=True)
-
 # st.title('文書・記録管理システム  \n' + 'メインメニュー')
 # st.title('文書・記録')
 # st.write('<span style="color:red;background:pink">管理システム</span>',
               unsafe_allow_html=True)
-st.title('管理システム')
+st.title('# 管理システム')
 
 # st.write('<span style="color:red;background:pink">該当するデータがありません・・・・</span>',
 #               unsafe_allow_html=True)
