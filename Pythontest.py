@@ -55,9 +55,9 @@ div.stButton {
     height: 40px;
 }
 div.stButton > button {
-    font-size: 40px !important; /* 文字サイズを指定 */
+    font-size: 60px !important; /* 文字サイズを指定 */
     # padding: 10px 20px; /* 余白を設定 */
-    font-weight  : bold 
+    font-weight  : bold ;
     color        : #000                ;
     # border       :  1px solid #000     ;/* 枠線：ピンク色で5ピクセルの実線 */
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
