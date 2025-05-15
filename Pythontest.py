@@ -64,7 +64,11 @@ if 'history' not in st.session_state:
 
 def set_screen(screen_name):
     st.session_state['current_screen'] = screen_name
-    
+
+def go_back():
+    if len(st.session_state['history']) > 1:
+        st.session_state['current_screen'] = st.session_state['history'].pop()
+
 def show_main_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">メイン画面</p>', unsafe_allow_html=True)
