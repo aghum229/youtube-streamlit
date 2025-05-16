@@ -85,7 +85,7 @@ def display_footer():
     '''
     st.markdown(
         "<p style='text-align:center;'> \
-        <span style='font-size: 14px;'>〇〇〇〇〇株式会社&nbsp;&nbsp;</span> \
+        <span style='font-size: 14px;'>〇〇〇〇〇株式会社&nbsp;&nbsp;&nbsp;</span> \
         <span style='font-size: 10px;'>ver.XX.XXX.XXX</span> \
         </p>"
         , unsafe_allow_html=True
@@ -197,6 +197,7 @@ def unknown_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">現在、メンテナンス中です。</p>', unsafe_allow_html=True)
     # st.error("不明な画面です")
+    st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
     if len(st.session_state['history']) > 1:
         if st.button("前の画面に戻る", on_click=go_back, key="back_button"):
