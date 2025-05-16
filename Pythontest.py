@@ -73,7 +73,7 @@ def go_back():
 
 def show_main_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
-    st.markdown('<p class="big-font">メイン画面</p>', unsafe_allow_html=True)
+    st.markdown('<p class="big-font">☆メイン画面☆</p>', unsafe_allow_html=True)
     st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
     button1 = st.button("製造関連", on_click=set_screen, args=('other1',))
