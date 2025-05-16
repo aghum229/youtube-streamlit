@@ -198,7 +198,10 @@ screens = {
 
 # 不明な画面の場合の処理
 def unknown_screen():
-    st.error("不明な画面です")
+    st.markdown(write_css1, unsafe_allow_html=True)
+    st.markdown('<p class="big-font">現在、メンテナンス中です。</p>', unsafe_allow_html=True)
+    # st.error("不明な画面です")
+    st.markdown(button_style, unsafe_allow_html=True)
     if len(st.session_state['history']) > 1:
         if st.button("前の画面に戻る", on_click=go_back, key="back_button"):
             pass
