@@ -174,7 +174,7 @@ def show_other25_screen():
     btn2 = st.button("⏎製造関連メニューへ戻る", on_click=set_screen, args=('other1',))
     btn3 = st.button("⏎製品メニューへ戻る", on_click=set_screen, args=('other4',))
     st.write('---')
-    button26 = st.button('在庫管理', on_click=set_screen, args=('other26',))
+    button26 = st.button('在庫置き場', on_click=set_screen, args=('other26',))
     button27 = st.button('棚卸', on_click=set_screen, args=('other27',))
     st.write('---')
     left_column, center_column, right_column = st.columns(3)
