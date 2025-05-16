@@ -75,7 +75,7 @@ def display_footer():
     st.write('---')
     # left_column, center_column, right_column = st.columns(3)
     st.markdown(write_css2, unsafe_allow_html=True)
-    st.markdown('<p class="right-font">〇〇〇〇〇株式会社 </p>''<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+    st.markdown('<span class="right-font">〇〇〇〇〇株式会社 </span>''<span class="small-font">ver.XX.XXX.XXX</span>', unsafe_allow_html=True)
     # center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
     # st.markdown(write_css3, unsafe_allow_html=True)
     # right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
