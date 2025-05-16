@@ -71,6 +71,15 @@ def go_back():
     if len(st.session_state['history']) > 1:
         st.session_state['current_screen'] = st.session_state['history'].pop()
 
+def display_footer():
+    st.write('---')
+    # left_column, center_column, right_column = st.columns(3)
+    st.markdown(write_css2, unsafe_allow_html=True)
+    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社 ####ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+    # center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
+    # st.markdown(write_css3, unsafe_allow_html=True)
+    # right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+
 def show_main_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">☆メイン画面☆</p>', unsafe_allow_html=True)
@@ -79,12 +88,7 @@ def show_main_screen():
     button1 = st.button("製造関連", on_click=set_screen, args=('other1',))
     button2 = st.button("ＩＳＯ関連", on_click=set_screen, args=('other2',))
     button3 = st.button("労務関連", on_click=set_screen, args=('other3',))
-    st.write('---')
-    left_column, center_column, right_column = st.columns(3)
-    st.markdown(write_css2, unsafe_allow_html=True)
-    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
-    st.markdown(write_css3, unsafe_allow_html=True)
-    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+    display_footer()
 
 def show_other1_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
@@ -99,12 +103,7 @@ def show_other1_screen():
     button7 = st.button('検具', on_click=set_screen, args=('other7',))
     button8 = st.button('設備', on_click=set_screen, args=('other8',))
     button9 = st.button('備品', on_click=set_screen, args=('other9',))
-    st.write('---')
-    left_column, center_column, right_column = st.columns(3)
-    st.markdown(write_css2, unsafe_allow_html=True)
-    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
-    st.markdown(write_css3, unsafe_allow_html=True)
-    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+    display_footer()
 
 def show_other2_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
@@ -120,12 +119,7 @@ def show_other2_screen():
     button14 = st.button('マネジメントレビュー', on_click=set_screen, args=('other14',))
     button15 = st.button('内部監査', on_click=set_screen, args=('other15',))
     button16 = st.button('外部監査', on_click=set_screen, args=('other16',))
-    st.write('---')
-    left_column, center_column, right_column = st.columns(3)
-    st.markdown(write_css2, unsafe_allow_html=True)
-    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
-    st.markdown(write_css3, unsafe_allow_html=True)
-    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+    display_footer()
 
 def show_other3_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
@@ -137,12 +131,7 @@ def show_other3_screen():
     button17 = st.button('就業規則', on_click=set_screen, args=('other17',))
     button18 = st.button('規定', on_click=set_screen, args=('other18',))
     button19 = st.button('外部監査', on_click=set_screen, args=('other19',))
-    st.write('---')
-    left_column, center_column, right_column = st.columns(3)
-    st.markdown(write_css2, unsafe_allow_html=True)
-    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
-    st.markdown(write_css3, unsafe_allow_html=True)
-    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+    display_footer()
 
 def show_other4_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
@@ -158,12 +147,7 @@ def show_other4_screen():
     button23 = st.button('作業標準', on_click=set_screen, args=('other23',))
     button24 = st.button('検査表', on_click=set_screen, args=('other24',))
     button25 = st.button('在庫管理', on_click=set_screen, args=('other25',))
-    st.write('---')
-    left_column, center_column, right_column = st.columns(3)
-    st.markdown(write_css2, unsafe_allow_html=True)
-    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
-    st.markdown(write_css3, unsafe_allow_html=True)
-    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+    display_footer()
 
 def show_other25_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
@@ -176,12 +160,7 @@ def show_other25_screen():
     st.write('---')
     button26 = st.button('在庫置き場', on_click=set_screen, args=('other26',))
     button27 = st.button('棚卸', on_click=set_screen, args=('other27',))
-    st.write('---')
-    left_column, center_column, right_column = st.columns(3)
-    st.markdown(write_css2, unsafe_allow_html=True)
-    center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
-    st.markdown(write_css3, unsafe_allow_html=True)
-    right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
+    display_footer()
 
 _= '''
 # 画面定義
@@ -205,6 +184,7 @@ def unknown_screen():
     if len(st.session_state['history']) > 1:
         if st.button("前の画面に戻る", on_click=go_back, key="back_button"):
             pass
+    display_footer()
 
 _= '''
 # 画面の切り替え
