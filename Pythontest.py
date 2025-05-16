@@ -75,8 +75,10 @@ def display_footer():
     st.write('---')
     # left_column, center_column, right_column = st.columns(3)
     st.markdown(
+    "<p style='text-align:center;'>
     "これは<span style='color:red;'>赤い</span>文字と、"
     "<span style='font-weight:bold;'>太字の</span>文字を含む一行です。"
+    </p>"
     , unsafe_allow_html=True
     )
     # st.markdown(write_css2, unsafe_allow_html=True)
