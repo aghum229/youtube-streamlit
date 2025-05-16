@@ -82,6 +82,10 @@ def display_footer():
         </p>"
         , unsafe_allow_html=True
     )
+    st.markdown(
+    "これは文章です <img src='画像へのURL' width='50' height='50'> そしてこれは続きの文章です。"
+    , unsafe_allow_html=True
+    )
     '''
     st.markdown(
         "<p style='text-align:center;'> \
