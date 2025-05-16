@@ -86,7 +86,7 @@ def display_footer():
     st.markdown(
         "<p style='text-align:center;'> \
         <span style='font-size: 14px;'>〇〇〇〇〇株式会社</span> \
-        <span style='font-size: 10px;'>ver.XX.XXX.XXX</span> \
+        <span style='font-size: 10px;'>  ver.XX.XXX.XXX</span> \
         </p>"
         , unsafe_allow_html=True
     )
