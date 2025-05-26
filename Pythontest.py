@@ -80,6 +80,12 @@ def display_mainheader():
         </p>"
         , unsafe_allow_html=True
     )
+    st.markdown(
+        "<p style='text-align:center;'> \
+        <span style='margin-bottom: 0px;line-height: 1.0'>---------------------------------------------</span> \
+        </p>"
+        , unsafe_allow_html=True
+    )
 
 def display_footer():
     st.write('---')
