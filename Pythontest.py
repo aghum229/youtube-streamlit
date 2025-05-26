@@ -73,13 +73,7 @@ def go_back():
     if len(st.session_state['history']) > 1:
         st.session_state['current_screen'] = st.session_state['history'].pop()
 
-def display_mainheader():
-    st.markdown(
-        "<p style='text-align:center;'> \
-        <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 1.0'>☆メイン画面☆</span> \
-        </p>"
-        , unsafe_allow_html=True
-    )
+def display_line():
     st.markdown(
         "<p style='text-align:center;'> \
         <span style='margin-bottom: 0px;line-height: 1.0'>------------------------------------------------------------</span> \
@@ -87,13 +81,17 @@ def display_mainheader():
         , unsafe_allow_html=True
     )
 
-def display_footer():
+def display_mainheader():
     st.markdown(
         "<p style='text-align:center;'> \
-        <span style='margin-bottom: 0px;line-height: 1.0'>------------------------------------------------------------</span> \
+        <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 1.0'>☆メイン画面☆</span> \
         </p>"
         , unsafe_allow_html=True
     )
+    display_line()
+
+def display_footer():
+    display_line()
     # st.write('---')
     # left_column, center_column, right_column = st.columns(3)
     _= '''
@@ -137,10 +135,12 @@ def show_main_screen():
 def show_other1_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
-    st.write('---')
+    display_line()
+    # st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
     btn1 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
-    st.write('---')
+    display_line()
+    # st.write('---')
     button4 = st.button('11.製品', on_click=set_screen, args=('other11',))
     button5 = st.button('12.金型', on_click=set_screen, args=('other12',))
     button6 = st.button('13.治工具', on_click=set_screen, args=('other13',))
