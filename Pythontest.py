@@ -117,81 +117,81 @@ def show_main_screen():
     display_mainheader()
     st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
-    button1 = st.button("製造関連", on_click=set_screen, args=('other1',))
-    button2 = st.button("ＩＳＯ関連", on_click=set_screen, args=('other2',))
-    button3 = st.button("労務関連", on_click=set_screen, args=('other3',))
+    button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
+    button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
+    button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
     display_footer()
 
 def show_other1_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
-    st.markdown('<p class="big-font">製造関連メニュー</p>', unsafe_allow_html=True)
+    st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
     btn1 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     st.write('---')
-    button4 = st.button('製品', on_click=set_screen, args=('other4',))
-    button5 = st.button('金型', on_click=set_screen, args=('other5',))
-    button6 = st.button('治工具', on_click=set_screen, args=('other6',))
-    button7 = st.button('検具', on_click=set_screen, args=('other7',))
-    button8 = st.button('設備', on_click=set_screen, args=('other8',))
-    button9 = st.button('備品', on_click=set_screen, args=('other9',))
+    button4 = st.button('11.製品', on_click=set_screen, args=('other11',))
+    button5 = st.button('12.金型', on_click=set_screen, args=('other12',))
+    button6 = st.button('13.治工具', on_click=set_screen, args=('other13',))
+    button7 = st.button('14.検具', on_click=set_screen, args=('other14',))
+    button8 = st.button('15.設備', on_click=set_screen, args=('other15',))
+    button9 = st.button('16.備品', on_click=set_screen, args=('other16',))
     display_footer()
 
 def show_other2_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
-    st.markdown('<p class="big-font">ＩＳＯメニュー</p>', unsafe_allow_html=True)
+    st.markdown('<p class="big-font">2.ＩＳＯメニュー</p>', unsafe_allow_html=True)
     st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
     btn1 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     st.write('---')
-    button10 = st.button('品質・環境マニュアル', on_click=set_screen, args=('other10',))
-    button11 = st.button('規定', on_click=set_screen, args=('other11',))
-    button12 = st.button('要領', on_click=set_screen, args=('other12',))
-    button13 = st.button('外部文書', on_click=set_screen, args=('other13',))
-    button14 = st.button('マネジメントレビュー', on_click=set_screen, args=('other14',))
-    button15 = st.button('内部監査', on_click=set_screen, args=('other15',))
-    button16 = st.button('外部監査', on_click=set_screen, args=('other16',))
+    button10 = st.button('21.品質・環境マニュアル', on_click=set_screen, args=('other21',))
+    button11 = st.button('22.規定', on_click=set_screen, args=('other22',))
+    button12 = st.button('23.要領', on_click=set_screen, args=('other23',))
+    button13 = st.button('24.外部文書', on_click=set_screen, args=('other24',))
+    button14 = st.button('25.マネジメントレビュー', on_click=set_screen, args=('other25',))
+    button15 = st.button('26.内部監査', on_click=set_screen, args=('other26',))
+    button16 = st.button('27.外部監査', on_click=set_screen, args=('other27',))
     display_footer()
 
 def show_other3_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
-    st.markdown('<p class="big-font">労務メニュー</p>', unsafe_allow_html=True)
+    st.markdown('<p class="big-font">3.労務メニュー</p>', unsafe_allow_html=True)
     st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
     btn1 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     st.write('---')
-    button17 = st.button('就業規則', on_click=set_screen, args=('other17',))
-    button18 = st.button('規定', on_click=set_screen, args=('other18',))
-    button19 = st.button('外部監査', on_click=set_screen, args=('other19',))
+    button17 = st.button('31.就業規則', on_click=set_screen, args=('other31',))
+    button18 = st.button('32.規定', on_click=set_screen, args=('other32',))
+    button19 = st.button('33.外部監査', on_click=set_screen, args=('other33',))
     display_footer()
 
-def show_other4_screen():
+def show_other11_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
-    st.markdown('<p class="big-font">製品メニュー</p>', unsafe_allow_html=True)
+    st.markdown('<p class="big-font">11.製品メニュー</p>', unsafe_allow_html=True)
     st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
     btn1 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
-    btn2 = st.button("⏎製造関連メニュー　へ戻る", on_click=set_screen, args=('other1',))
+    btn2 = st.button("⏎1.製造関連メニュー　へ戻る", on_click=set_screen, args=('other1',))
     st.write('---')
-    button20 = st.button('図面', on_click=set_screen, args=('other20',))
-    button21 = st.button('検査基準書', on_click=set_screen, args=('other21',))
-    button22 = st.button('ＱＣ表', on_click=set_screen, args=('other22',))
-    button23 = st.button('作業標準', on_click=set_screen, args=('other23',))
-    button24 = st.button('検査表', on_click=set_screen, args=('other24',))
-    button25 = st.button('在庫管理', on_click=set_screen, args=('other25',))
+    button20 = st.button('111.図面', on_click=set_screen, args=('other111',))
+    button21 = st.button('112.検査基準書', on_click=set_screen, args=('other112',))
+    button22 = st.button('113.ＱＣ表', on_click=set_screen, args=('other113',))
+    button23 = st.button('114.作業標準', on_click=set_screen, args=('other114',))
+    button24 = st.button('115.検査表', on_click=set_screen, args=('other115',))
+    button25 = st.button('116.在庫管理', on_click=set_screen, args=('other116',))
     display_footer()
 
-def show_other25_screen():
+def show_other116_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
-    st.markdown('<p class="big-font">在庫管理メニュー</p>', unsafe_allow_html=True)
+    st.markdown('<p class="big-font">116.在庫管理メニュー</p>', unsafe_allow_html=True)
     st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
     btn1 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
-    btn2 = st.button("⏎製造関連メニュー　へ戻る", on_click=set_screen, args=('other1',))
-    btn3 = st.button("⏎製品メニュー　へ戻る", on_click=set_screen, args=('other4',))
+    btn2 = st.button("⏎1.製造関連メニュー　へ戻る", on_click=set_screen, args=('other1',))
+    btn3 = st.button("⏎11.製品メニュー　へ戻る", on_click=set_screen, args=('other11',))
     st.write('---')
-    button26 = st.button('在庫置き場', on_click=set_screen, args=('other26',))
-    button27 = st.button('棚卸', on_click=set_screen, args=('other27',))
+    button26 = st.button('1161.在庫置き場', on_click=set_screen, args=('other1161',))
+    button27 = st.button('1162.棚卸', on_click=set_screen, args=('other1162',))
     display_footer()
 
 _= '''
@@ -242,31 +242,31 @@ elif st.session_state['current_screen'] == 'other2':
 elif st.session_state['current_screen'] == 'other3':
     show_other3_screen()
 # 製品メニュー
-elif st.session_state['current_screen'] == 'other4':
-    show_other4_screen()
+elif st.session_state['current_screen'] == 'other11':
+    show_other11_screen()
 # 金型メニュー
-elif st.session_state['current_screen'] == 'other5':
-    # show_other5_screen()
+elif st.session_state['current_screen'] == 'other12':
+    # show_other12_screen()
     unknown_screen()
 # 治工具メニュー
-elif st.session_state['current_screen'] == 'other6':
-    # show_other6_screen()
+elif st.session_state['current_screen'] == 'other13':
+    # show_other13_screen()
     unknown_screen()
 # 検具メニュー
-elif st.session_state['current_screen'] == 'other7':
-    # show_other7_screen()
+elif st.session_state['current_screen'] == 'other14':
+    # show_other14_screen()
     unknown_screen()
 # 設備メニュー
-elif st.session_state['current_screen'] == 'other8':
-    # show_other8_screen()
+elif st.session_state['current_screen'] == 'other15':
+    # show_other15_screen()
     unknown_screen()
 # 備品メニュー
-elif st.session_state['current_screen'] == 'other9':
-    # show_other9_screen()
+elif st.session_state['current_screen'] == 'other16':
+    # show_other16_screen()
     unknown_screen()
 # 在庫管理メニュー
-elif st.session_state['current_screen'] == 'other25':
-    show_other25_screen()
+elif st.session_state['current_screen'] == 'other116':
+    show_other116_screen()
 else:
     unknown_screen()
 # '''
