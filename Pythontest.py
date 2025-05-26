@@ -82,13 +82,19 @@ def display_mainheader():
     )
     st.markdown(
         "<p style='text-align:center;'> \
-        <span style='margin-bottom: 0px;line-height: 1.0'>---------------------------------------------</span> \
+        <span style='margin-bottom: 0px;line-height: 1.0'>------------------------------------------------------------</span> \
         </p>"
         , unsafe_allow_html=True
     )
 
 def display_footer():
-    st.write('---')
+    st.markdown(
+        "<p style='text-align:center;'> \
+        <span style='margin-bottom: 0px;line-height: 1.0'>------------------------------------------------------------</span> \
+        </p>"
+        , unsafe_allow_html=True
+    )
+    # st.write('---')
     # left_column, center_column, right_column = st.columns(3)
     _= '''
     st.markdown(
