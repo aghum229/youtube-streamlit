@@ -76,7 +76,7 @@ def go_back():
 def display_mainheader():
     st.markdown(
         "<p style='text-align:center;'> \
-        <span style='font-size: 40px;,color:yellow;'>☆メイン画面☆</span> \
+        <span style='font-size: 40px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
         </p>"
         , unsafe_allow_html=True
     )
