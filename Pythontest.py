@@ -73,6 +73,14 @@ def go_back():
     if len(st.session_state['history']) > 1:
         st.session_state['current_screen'] = st.session_state['history'].pop()
 
+def display_mainheader():
+    st.markdown(
+        "<p style='text-align:center;'> \
+        <span style='font-size: 40px;,color:yellow;'>☆メイン画面☆</span> \
+        </p>"
+        , unsafe_allow_html=True
+    )
+
 def display_footer():
     st.write('---')
     # left_column, center_column, right_column = st.columns(3)
@@ -104,8 +112,9 @@ def display_footer():
     # right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
 def show_main_screen():
-    st.markdown(write_css1, unsafe_allow_html=True)
-    st.markdown('<p class="main-font">☆メイン画面☆</p>', unsafe_allow_html=True)
+    # st.markdown(write_css1, unsafe_allow_html=True)
+    # st.markdown('<p class="main-font">☆メイン画面☆</p>', unsafe_allow_html=True)
+    display_mainheader()
     st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
     button1 = st.button("製造関連", on_click=set_screen, args=('other1',))
