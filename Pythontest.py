@@ -35,8 +35,10 @@ write_css1 = """
 # _= '''
 write_css2 = """
 <style>
-.right-font {
-    font-size      :14px !important;
+.main-font {
+    font-size      :40px !important;
+    font-weight    :bold;
+    color        : #ffff00;
     text-align     :center;
 }
 </style>
@@ -103,7 +105,7 @@ def display_footer():
 
 def show_main_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
-    st.markdown('<p class="big-font">☆メイン画面☆</p>', unsafe_allow_html=True)
+    st.markdown('<p class="main-font">☆メイン画面☆</p>', unsafe_allow_html=True)
     st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
     button1 = st.button("製造関連", on_click=set_screen, args=('other1',))
