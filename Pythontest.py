@@ -1,7 +1,6 @@
 import streamlit as st
 import time
 
-# st.set_page_config(layout="centered") # ページ全体のレイアウトを中央寄せにする
 button_style = """
 <style>
 div.stButton {
@@ -21,7 +20,6 @@ div.stButton > button {
 }
 </style>
 """
-# st.markdown(button_style, unsafe_allow_html=True)
 
 write_css1 = """
 <style>
@@ -93,21 +91,6 @@ def display_mainheader():
 
 def display_footer():
     display_line()
-    # st.write('---')
-    # left_column, center_column, right_column = st.columns(3)
-    _= '''
-    st.markdown(
-        "<p style='text-align:center;'> \
-        これは<span style='color:red;'>赤い</span>文字と、 \
-        <span style='font-weight:bold;'>太字の</span>文字を含む一行です。 \
-        </p>"
-        , unsafe_allow_html=True
-    )
-    st.markdown(
-    "これは文章です <img src='画像へのURL' width='50' height='50'> そしてこれは続きの文章です。"
-    , unsafe_allow_html=True
-    )
-    '''
     st.markdown(
         "<p style='text-align:center;'> \
         <span style='font-size: 14px;'>〇〇〇〇〇株式会社&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> \
@@ -115,23 +98,9 @@ def display_footer():
         </p>"
         , unsafe_allow_html=True
     )
-    # st.markdown(write_css2, unsafe_allow_html=True)
-    # st.markdown('<p class="right-font">'<span style="font-size: 14px;">〇〇〇〇〇株式会社 </span>''<span style="font-size: 10px;">ver.XX.XXX.XXX</span>'</p>', unsafe_allow_html=True)
-    # st.markdown('<p class="right-font">'<span class="right-font">〇〇〇〇〇株式会社 </span>''<span class="small-font">ver.XX.XXX.XXX</span>'</p>', unsafe_allow_html=True)
-    # center_column.markdown('<p class="right-font">〇〇〇〇〇株式会社</p>', unsafe_allow_html=True)
-    # st.markdown(write_css3, unsafe_allow_html=True)
-    # right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
 def show_main_screen():
-    # st.markdown(write_css1, unsafe_allow_html=True)
-    # st.markdown('<p class="main-font">☆メイン画面☆</p>', unsafe_allow_html=True)
     display_mainheader()
-    # st.write('---')
-    # st.markdown(button_style, unsafe_allow_html=True)
-    # with st.container(border=True):
-    #      button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
-    #      button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
-    #      button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
     button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
     button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
     button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
@@ -211,19 +180,6 @@ def show_other116_screen():
     button27 = st.button('1162.棚卸', on_click=set_screen, args=('other1162',))
     display_footer()
 
-_= '''
-# 画面定義
-screens = {
-    'main',
-    'other1',
-    'other2',
-    'other3',
-    'other4',
-    'other25'
-    # 他の画面定義も同様に追加
-}
-'''
-
 # 不明な画面の場合の処理
 def unknown_screen():
     st.markdown(write_css1, unsafe_allow_html=True)
@@ -235,14 +191,6 @@ def unknown_screen():
         if st.button("前の画面に戻る", on_click=go_back, key="back_button"):
             pass
     display_footer()
-
-_= '''
-# 画面の切り替え
-if st.session_state['current_screen'] in screens:
-    screens[st.session_state['current_screen']]()
-else:
-    unknown_screen()
-'''
 
 # _= '''
 # 画面の切り替え
