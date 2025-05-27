@@ -269,6 +269,10 @@ def show_main_screen():
     display_footer()
 
 def show_other1_screen():
+    with st_fixed_container(mode="fixed", position="bottom", transparent=True):
+        with st_opaque_container(border=True):
+            btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
+            btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
