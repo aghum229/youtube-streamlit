@@ -17,6 +17,8 @@ div.stButton > button {
     width: 250px; /* ボタンの横幅を固定値に設定 */
     max-width: 250px; /* 必要に応じて最大幅も設定 */
     height: 50px;
+    margin-bottom: 0px;
+    line-height: 1.0;
 }
 </style>
 """
