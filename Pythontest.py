@@ -130,10 +130,11 @@ def show_main_screen():
     # st.write('---')
     # st.markdown(button_style, unsafe_allow_html=True)
     with st.container(border=True):
+        st.markdown('<p class="main-font"> \
         button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
-        st.components.v1.html("<center>" + button1 + "</center>")
         button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
-        button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
+        button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',)) \
+        </p>', unsafe_allow_html=True)
     display_footer()
 
 def show_other1_screen():
