@@ -91,6 +91,7 @@ def display_line():
     '''
 
 def display_mainheader():
+    st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown(
         "<p style='text-align:center;'> \
         <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 1.0'>☆メイン画面☆</span> \
