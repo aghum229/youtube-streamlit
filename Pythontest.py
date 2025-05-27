@@ -7,8 +7,6 @@ div.stButton {
     display: flex;
     justify-content: center;
     width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
-    margin-bottom: 0px;
-    line-height: 0.5;
 }
 div.stButton > button {
     font-size: 50px !important; /* 文字サイズを指定 */
@@ -19,6 +17,8 @@ div.stButton > button {
     width: 250px; /* ボタンの横幅を固定値に設定 */
     max-width: 250px; /* 必要に応じて最大幅も設定 */
     height: 50px;
+    margin-bottom: 0px;
+    line-height: 0.5;
 }
 </style>
 """
@@ -93,7 +93,6 @@ def display_line():
     '''
 
 def display_mainheader():
-    st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown(
         "<p style='text-align:center;'> \
         <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
