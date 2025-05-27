@@ -75,7 +75,7 @@ def go_back():
 def display_line():
     st.markdown(
         "<p style='text-align:center;'> \
-        <span style='margin-bottom: 0px;line-height: 1.0'>――――――――――――――――――――――――――――――――――――――――――――――――――</span> \
+        <span style='margin-bottom: 0px;line-height: 1.0'>――――――――――――――――――――――――――――――</span> \
         </p>"
         , unsafe_allow_html=True
     )
