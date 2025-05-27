@@ -27,6 +27,8 @@ write_css1 = """
     font-size      :40px !important;
     font-weight    :bold;
     text-align     :center;
+    margin-bottom: 0px;
+    line-height: 1.0;
 }
 </style>
 """
