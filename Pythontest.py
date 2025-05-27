@@ -123,13 +123,13 @@ def display_footer():
     # st.markdown(write_css3, unsafe_allow_html=True)
     # right_column.markdown('<p class="small-font">ver.XX.XXX.XXX</p>', unsafe_allow_html=True)
 
-st.set_page_config(layout="centered") # ページ全体のレイアウトを中央寄せにする
 def show_main_screen():
     # st.markdown(write_css1, unsafe_allow_html=True)
     # st.markdown('<p class="main-font">☆メイン画面☆</p>', unsafe_allow_html=True)
     display_mainheader()
     # st.write('---')
     # st.markdown(button_style, unsafe_allow_html=True)
+    st.set_page_config(layout="centered") # ページ全体のレイアウトを中央寄せにする
     with st.container(border=True):
         button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
         button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
