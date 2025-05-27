@@ -1,7 +1,7 @@
 import streamlit as st
 import time
 
-st.set_page_config(layout="centered") # ページ全体のレイアウトを中央寄せにする
+# st.set_page_config(layout="centered") # ページ全体のレイアウトを中央寄せにする
 button_style = """
 <style>
 div.stButton {
@@ -112,7 +112,7 @@ def display_footer():
     '''
     st.markdown(
         "<p style='text-align:center;'> \
-        <span style='font-size: 14px;'>〇〇〇〇〇株式会社&nbsp;&nbsp;&nbsp;</span> \
+        <span style='font-size: 14px;'>〇〇〇〇〇株式会社&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> \
         <span style='font-size: 10px;'>ver.XX.XXX.XXX</span> \
         </p>"
         , unsafe_allow_html=True
