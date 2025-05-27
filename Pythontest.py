@@ -75,10 +75,18 @@ def go_back():
 def display_line():
     st.markdown(
         "<p style='text-align:center;'> \
+        <span style='margin-bottom: 0px;line-height: 1.0'>――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――</span> \
+        </p>"
+        , unsafe_allow_html=True
+    )
+    _= '''
+    st.markdown(
+        "<p style='text-align:center;'> \
         <span style='margin-bottom: 0px;line-height: 1.0'>------------------------------------------------------------</span> \
         </p>"
         , unsafe_allow_html=True
     )
+    '''
 
 def display_mainheader():
     st.markdown(
@@ -101,10 +109,11 @@ def display_footer():
 
 def show_main_screen():
     display_mainheader()
-    st.markdown(button_style, unsafe_allow_html=True)
-    button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
-    button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
-    button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
+    with st.container():
+        st.markdown(button_style, unsafe_allow_html=True)
+        button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
+        button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
+        button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
     display_footer()
 
 def show_other1_screen():
