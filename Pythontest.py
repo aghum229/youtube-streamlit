@@ -75,7 +75,7 @@ def go_back():
 def display_line():
     st.markdown(
         "<p style='text-align:center;'> \
-        <span style='margin-bottom: 0px;line-height: 1.0'>――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――</span> \
+        <span style='margin-bottom: 0px;line-height: 1.0'>――――――――――――――――――――――――――――――――――――――――――――――――――</span> \
         </p>"
         , unsafe_allow_html=True
     )
@@ -109,7 +109,7 @@ def display_footer():
 
 def show_main_screen():
     display_mainheader()
-    with st.container():
+    with st.container(border=True):
         st.markdown(button_style, unsafe_allow_html=True)
         button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
         button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
