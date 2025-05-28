@@ -349,7 +349,7 @@ def show_other1_screen():
                     </style> \
                     <button class="custom-button">⏎☆メイン画面☆　へ戻る</button>
                 """, unsafe_allow_html=True)
-                btn0.on_click(set_screen, args=('main',))
+                btn0.on_click(go_back)
                 # btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
                 # btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     st.markdown(write_css1, unsafe_allow_html=True)
