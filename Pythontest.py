@@ -176,14 +176,14 @@ div.stButton > button {
 button_css = f"""
 <style>
   div.stButton > button:first-child  {{
-    font-size: 18px !important; /* 文字サイズを指定 */
+    font-size: 16px !important; /* 文字サイズを指定 */
     font-weight  : bold ;
     color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #FF0                ;/* 背景色：yellow            */
-    width: 150px; /* ボタンの横幅を固定値に設定 */
-    max-width: 150px; /* 必要に応じて最大幅も設定 */
-    height: 25px;
+    width: 250px; /* ボタンの横幅を固定値に設定 */
+    max-width: 250px; /* 必要に応じて最大幅も設定 */
+    height: 24px;
   }}
 </style>
 """
@@ -343,14 +343,11 @@ def show_main_screen():
                 st.markdown(
                 "<p style='text-align:left;'> \
                 <span style='font-size: 20px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
-                </p>" \
-                "<p style='text-align:left;'> \
-                <span style='font-size: 20px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
                 </p>"
                 , unsafe_allow_html=True
                 )
             with right:
-                st.markdown(button_style, unsafe_allow_html=True)
+                st.markdown(button_css, unsafe_allow_html=True)
                 btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
                 btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     display_mainheader()
