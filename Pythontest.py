@@ -176,14 +176,14 @@ div.stButton > button {
 button_css = f"""
 <style>
   div.stButton > button:first-child  {{
-    font-size: 30px !important; /* 文字サイズを指定 */
+    font-size: 18px !important; /* 文字サイズを指定 */
     font-weight  : bold ;
     color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #FF0                ;/* 背景色：yellow            */
     width: 150px; /* ボタンの横幅を固定値に設定 */
     max-width: 150px; /* 必要に応じて最大幅も設定 */
-    height: 30px;
+    height: 25px;
   }}
 </style>
 """
@@ -331,8 +331,26 @@ def show_other1_screen():
         _, right = st.columns([0.5, 0.5])
         with right:
             with st_opaque_container(border=True):
-                btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
-                btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
+                st.markdown("""
+                    <style> \
+                    .custom-button { \
+                       background-color: #FF0; \
+                       color: black; \
+                       font-size: 18px !important; \
+                       text-align     :center; \
+                       font-weight  : bold ; \
+                       width: 150px; \
+                       max-width: 150px; \
+                       height: 30px; \
+                    } \
+                    .custom-button:hover { \
+                       opacity: 0.8; \
+                    } \
+                    </style> \
+                    <button class="custom-button">⏎☆メイン画面☆　へ戻る</button>
+                """, unsafe_allow_html=True)
+                # btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
+                # btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
