@@ -175,7 +175,7 @@ div.stButton2 {
     justify-content: center;
     width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
 }
-div.stButton2 > button {
+div.stButton2 > button2 {
     font-size: 30px !important; /* 文字サイズを指定 */
     font-weight  : bold ;
     color        : #000;
