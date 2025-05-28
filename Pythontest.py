@@ -301,7 +301,7 @@ def show_other1_screen():
     st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
     # st.write('---')
-    # st.markdown(button_style, unsafe_allow_html=True)
+    st.markdown(button_style, unsafe_allow_html=True)
     # btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     # display_line()
     # st.write('---')
