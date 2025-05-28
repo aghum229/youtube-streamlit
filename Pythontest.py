@@ -303,11 +303,11 @@ def show_main_screen():
         </p>"
         , unsafe_allow_html=True
         )
-    st.markdown(button_css, unsafe_allow_html=True)
     with st_fixed_container(mode="fixed", position="bottom", transparent=True):
         _, right = st.columns([0.5, 0.5])
         with right:
             with st_opaque_container(border=True):
+                st.markdown(button_style, unsafe_allow_html=True)
                 btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
                 btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     display_mainheader()
@@ -326,7 +326,6 @@ def show_other1_screen():
         </p>"
         , unsafe_allow_html=True
         )
-    st.markdown(button_css, unsafe_allow_html=True)
     with st_fixed_container(mode="fixed", position="bottom", transparent=True):
         _, right = st.columns([0.5, 0.5])
         with right:
@@ -336,7 +335,7 @@ def show_other1_screen():
                     .custom-button { \
                        background-color: #FF0; \
                        color: black; \
-                       font-size: 18px !important; \
+                       font-size: 12px !important; \
                        text-align     :center; \
                        font-weight  : bold ; \
                        width: 150px; \
