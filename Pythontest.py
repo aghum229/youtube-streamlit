@@ -161,7 +161,7 @@ div.stButton {
     width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
 }
 div.stButton > button {
-    font-size: 18px !important; /* 文字サイズを指定 */
+    font-size: 20px !important; /* 文字サイズを指定 */
     font-weight  : bold ;
     color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
@@ -322,6 +322,9 @@ def button_make(button_text, screen_name):
 def show_main_screen():
     with st_fixed_container(mode="fixed", position="bottom", border=True):
         st.markdown(
+        "<p style='text-align:left;'> \
+        <span style='font-size: 20px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
+        </p>" \
         "<p style='text-align:left;'> \
         <span style='font-size: 20px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
         </p>"
