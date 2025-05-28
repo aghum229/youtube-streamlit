@@ -244,7 +244,7 @@ def display_line():
 
 def display_mainheader():
     st.markdown(
-        "<p style='text-align:center;'> \
+        "<p style='text-align:left;'> \
         <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
         </p>"
         , unsafe_allow_html=True
@@ -262,10 +262,10 @@ def display_footer():
     )
 
 def show_main_screen():
-    with st_fixed_container(mode="fixed", position="top", border=True):
+    with st_fixed_container(mode="fixed", position="bottom", border=True):
         display_mainheader()
     with st_fixed_container(mode="fixed", position="bottom", transparent=True):
-        _, right = st.columns([0.7, 0.3])
+        _, right = st.columns([0.6, 0.4])
         with right:
             with st_opaque_container(border=True):
                 btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
