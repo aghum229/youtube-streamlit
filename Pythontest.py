@@ -173,6 +173,17 @@ div.stButton > button {
 </style>
 """
 
+button_css = f"""
+<style>
+  div.stButton > button:first-child  {{
+    font-size: 30px !important; /* 文字サイズを指定 */
+    font-weight  : bold                ;/* 文字：太字                   */
+    border       :  5px solid #f36     ;/* 枠線：ピンク色で5ピクセルの実線 */
+    border-radius: 10px 10px 10px 10px ;/* 枠線：半径10ピクセルの角丸     */
+    background   : #ddd                ;/* 背景色：薄いグレー            */
+  }}
+</style>
+"""
 button_style2 = """
 <style>
 div.stButton {
@@ -289,7 +300,7 @@ def show_main_screen():
         </p>"
         , unsafe_allow_html=True
         )
-    st.markdown(button_style2, unsafe_allow_html=True)
+    st.markdown(button_css, unsafe_allow_html=True)
     with st_fixed_container(mode="fixed", position="bottom", transparent=True):
         _, right = st.columns([0.5, 0.5])
         with right:
@@ -312,7 +323,7 @@ def show_other1_screen():
         </p>"
         , unsafe_allow_html=True
         )
-    st.markdown(button_style2, unsafe_allow_html=True)
+    st.markdown(button_css, unsafe_allow_html=True)
     with st_fixed_container(mode="fixed", position="bottom", transparent=True):
         _, right = st.columns([0.5, 0.5])
         with right:
