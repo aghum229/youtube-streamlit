@@ -175,12 +175,12 @@ div.stButton > button {
 
 button_style2 = """
 <style>
-div.stButton2 {
+div.stButton {
     display: flex;
     justify-content: center;
     width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
 }
-div.stButton2 > button {
+div.stButton > button {
     font-size: 30px !important; /* 文字サイズを指定 */
     font-weight  : bold ;
     color        : #000;
