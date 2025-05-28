@@ -244,7 +244,7 @@ def display_line():
 
 def display_mainheader():
     st.markdown(
-        "<p style='text-align:left;'> \
+        "<p style='text-align:center;'> \
         <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
         </p>"
         , unsafe_allow_html=True
@@ -263,9 +263,12 @@ def display_footer():
 
 def show_main_screen():
     with st_fixed_container(mode="fixed", position="bottom", border=True):
-        _, left = st.columns([0.5, 0.5])
-        with left:
-            display_mainheader()
+        st.markdown(
+        "<p style='text-align:left;'> \
+        <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
+        </p>"
+        , unsafe_allow_html=True
+        )
     with st_fixed_container(mode="fixed", position="bottom", transparent=True):
         _, right = st.columns([0.5, 0.5])
         with right:
@@ -282,10 +285,12 @@ def show_main_screen():
 
 def show_other1_screen():
     with st_fixed_container(mode="fixed", position="bottom", border=True):
-        _, left = st.columns([0.5, 0.5])
-        with left:
-            st.markdown(write_css1, unsafe_allow_html=True)
-            st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
+        st.markdown(
+        "<p style='text-align:left;'> \
+        <span style='font-size: 40px;font-weight:bold;margin-bottom: 0px;line-height: 0.5'>1.製造関連メニュー</span> \
+        </p>"
+        , unsafe_allow_html=True
+        )
     with st_fixed_container(mode="fixed", position="bottom", transparent=True):
         _, right = st.columns([0.5, 0.5])
         with right:
