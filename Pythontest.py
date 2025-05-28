@@ -320,6 +320,7 @@ def button_make(button_text, screen_name):
     #     set_screen(screen_name)
 
 def show_main_screen():
+    _= '''
     with st_fixed_container(mode="fixed", position="bottom", border=True):
         st.markdown(
         "<p style='text-align:left;'> \
@@ -330,10 +331,24 @@ def show_main_screen():
         </p>"
         , unsafe_allow_html=True
         )
+    '''
     with st_fixed_container(mode="fixed", position="bottom", transparent=True):
-        _, right = st.columns([0.5, 0.5])
-        with right:
-            with st_opaque_container(border=True):
+        # _, right = st.columns([0.5, 0.5])
+        # with right:
+        #     with st_opaque_container(border=True):
+        left, right = st.columns([0.5, 0.5])
+        with st_opaque_container(border=True):
+            with left:
+                st.markdown(
+                "<p style='text-align:left;'> \
+                <span style='font-size: 20px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
+                </p>" \
+                "<p style='text-align:left;'> \
+                <span style='font-size: 20px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
+                </p>"
+                , unsafe_allow_html=True
+                )
+            with right:
                 st.markdown(button_style, unsafe_allow_html=True)
                 btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
                 btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
