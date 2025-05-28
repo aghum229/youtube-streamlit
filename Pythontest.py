@@ -173,7 +173,7 @@ div.stButton > button {
 </style>
 """
 
-button_style = """
+button_style2 = """
 <style>
 div.stButton2 {
     display: flex;
