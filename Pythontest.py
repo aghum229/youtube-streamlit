@@ -265,7 +265,7 @@ def show_main_screen():
     with st_fixed_container(mode="fixed", position="bottom", border=True):
         st.markdown(
         "<p style='text-align:left;'> \
-        <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
+        <span style='font-size: 20px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
         </p>"
         , unsafe_allow_html=True
         )
@@ -276,7 +276,7 @@ def show_main_screen():
                 btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
                 btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     display_mainheader()
-    display_line()
+    # display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
     button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
@@ -287,7 +287,7 @@ def show_other1_screen():
     with st_fixed_container(mode="fixed", position="bottom", border=True):
         st.markdown(
         "<p style='text-align:left;'> \
-        <span style='font-size: 40px;font-weight:bold;margin-bottom: 0px;line-height: 0.5'>1.製造関連メニュー</span> \
+        <span style='font-size: 20px;font-weight:bold;margin-bottom: 0px;line-height: 0.5'>1.製造関連メニュー</span> \
         </p>"
         , unsafe_allow_html=True
         )
@@ -301,9 +301,9 @@ def show_other1_screen():
     st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
     # st.write('---')
-    st.markdown(button_style, unsafe_allow_html=True)
-    btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
-    display_line()
+    # st.markdown(button_style, unsafe_allow_html=True)
+    # btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
+    # display_line()
     # st.write('---')
     button11 = st.button('11.製品', on_click=set_screen, args=('other11',))
     button12 = st.button('12.金型', on_click=set_screen, args=('other12',))
