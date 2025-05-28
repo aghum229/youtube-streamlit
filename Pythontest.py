@@ -284,7 +284,8 @@ def show_other1_screen():
     with st_fixed_container(mode="fixed", position="bottom", border=True):
         _, left = st.columns([0.5, 0.5])
         with left:
-            display_mainheader()
+            st.markdown(write_css1, unsafe_allow_html=True)
+            st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     with st_fixed_container(mode="fixed", position="bottom", transparent=True):
         _, right = st.columns([0.5, 0.5])
         with right:
