@@ -315,7 +315,7 @@ def button_make(button_text, screen_name):
         }
         </style>
     """, unsafe_allow_html=True)
-    
+    st.button(button_text, key=button_text, on_click=set_screen, args=(screen_name,))
     # if st.button(button_text, key=button_text): # keyを設定して複数のボタンを区別
     #     set_screen(screen_name)
 
