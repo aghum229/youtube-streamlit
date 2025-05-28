@@ -176,7 +176,7 @@ div.stButton > button {
 button_css = f"""
 <style>
   div.stButton > button:first-child  {{
-    font-size: 16px !important; /* 文字サイズを指定 */
+    font-size: 14px !important; /* 文字サイズを指定 */
     font-weight  : bold ;
     color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
@@ -341,7 +341,7 @@ def show_main_screen():
             left, right = st.columns([0.5, 0.5])
             with left:
                 st.markdown(
-                "<p style='text-align:left;'> \
+                "<p style='text-align:right;'> \
                 <span style='font-size: 20px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
                 </p>"
                 , unsafe_allow_html=True
