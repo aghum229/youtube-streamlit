@@ -170,6 +170,21 @@ div.stButton > button {
     max-width: 250px; /* 必要に応じて最大幅も設定 */
     height: 50px;
 }
+div.stButton2 {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
+}
+div.stButton2 > button {
+    font-size: 30px !important; /* 文字サイズを指定 */
+    font-weight  : bold ;
+    color        : #000;
+    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
+    background   : #0FF                ;/* 背景色：aqua            */
+    width: 150px; /* ボタンの横幅を固定値に設定 */
+    max-width: 150px; /* 必要に応じて最大幅も設定 */
+    height: 30px;
+}
 </style>
 """
 
@@ -273,8 +288,8 @@ def show_main_screen():
         _, right = st.columns([0.5, 0.5])
         with right:
             with st_opaque_container(border=True):
-                btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
-                btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
+                btn0 = st.button2("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
+                btn1 = st.button2("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     display_mainheader()
     # display_line()
     st.markdown(button_style, unsafe_allow_html=True)
@@ -295,8 +310,8 @@ def show_other1_screen():
         _, right = st.columns([0.5, 0.5])
         with right:
             with st_opaque_container(border=True):
-                btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
-                btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
+                btn0 = st.button2("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
+                btn1 = st.button2("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
