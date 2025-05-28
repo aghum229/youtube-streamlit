@@ -316,8 +316,8 @@ def button_make(button_text, screen_name):
         </style>
     """, unsafe_allow_html=True)
     
-    if st.button(button_text, key=button_text): # keyを設定して複数のボタンを区別
-        set_screen(screen_name)
+    # if st.button(button_text, key=button_text): # keyを設定して複数のボタンを区別
+    #     set_screen(screen_name)
 
 def show_main_screen():
     with st_fixed_container(mode="fixed", position="bottom", border=True):
