@@ -6,7 +6,7 @@ from typing import Literal
 
 import streamlit as st
 from streamlit.components.v1 import html
-
+_= '''
 """
 st_fixed_container consist of two parts - fixed container and opaque container.
 Fixed container is a container that is fixed to the top or bottom of the screen.
@@ -14,6 +14,7 @@ When transparent is set to True, the container is typical `st.container`, which 
 When transparent is set to False, the container is custom opaque_container, that updates its background color to match the background color of the app.
 Opaque container is a helper class, but can be used to create more custom views. See main for examples.
 """
+'''
 OPAQUE_CONTAINER_CSS = """
 :root {{
     --background-color: #ffffff; /* Default background color */
