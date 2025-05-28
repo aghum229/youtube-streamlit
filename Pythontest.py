@@ -170,6 +170,11 @@ div.stButton > button {
     max-width: 250px; /* 必要に応じて最大幅も設定 */
     height: 50px;
 }
+</style>
+"""
+
+button_style = """
+<style>
 div.stButton2 {
     display: flex;
     justify-content: center;
