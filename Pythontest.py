@@ -262,11 +262,14 @@ def display_footer():
     )
 
 def show_main_screen():
+    with st_fixed_container(mode="fixed", position="top", border=True):
+        display_mainheader()
     with st_fixed_container(mode="fixed", position="bottom", transparent=True):
-        with st_opaque_container(border=True):
-            display_mainheader()
-            btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
-            btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
+        _, right = st.columns([0.7, 0.3])
+        with right:
+            with st_opaque_container(border=True):
+                btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
+                btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     # display_mainheader()
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
