@@ -338,15 +338,15 @@ def show_main_screen():
         #     with st_opaque_container(border=True):
         # left, right = st.columns([0.4, 0.3, 0.3])
         with st_opaque_container(border=True):
-            left, center, right = st.columns([0.4, 0.3, 0.3])
+            left, center, right = st.columns([0.3, 0.4, 0.4])
             with left:
                 st.markdown(
                 "<p style='text-align:right;'> \
-                <span style='font-size: 20px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
+                <span style='font-size: 16px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
                 </p>"
                 , unsafe_allow_html=True
                 )
-            with right:
+            with center:
                 st.markdown(button_css, unsafe_allow_html=True)
                 btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
             with right:
