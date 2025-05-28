@@ -336,8 +336,9 @@ def show_main_screen():
         # _, right = st.columns([0.5, 0.5])
         # with right:
         #     with st_opaque_container(border=True):
-        left, right = st.columns([0.5, 0.5])
+        # left, right = st.columns([0.5, 0.5])
         with st_opaque_container(border=True):
+            left, right = st.columns([0.5, 0.5])
             with left:
                 st.markdown(
                 "<p style='text-align:left;'> \
