@@ -185,7 +185,7 @@ div.stButton2 > button {
     font-weight  : bold ;
     color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
-    background   : #0FF                ;/* 背景色：aqua            */
+    background   : #FF0                ;/* 背景色：yellow            */
     width: 150px; /* ボタンの横幅を固定値に設定 */
     max-width: 150px; /* 必要に応じて最大幅も設定 */
     height: 30px;
