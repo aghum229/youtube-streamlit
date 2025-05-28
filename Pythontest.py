@@ -7,7 +7,6 @@ from typing import Literal
 import streamlit as st
 from streamlit.components.v1 import html
 
-# _= '''
 """
 st_fixed_container consist of two parts - fixed container and opaque container.
 Fixed container is a container that is fixed to the top or bottom of the screen.
@@ -15,8 +14,6 @@ When transparent is set to True, the container is typical `st.container`, which 
 When transparent is set to False, the container is custom opaque_container, that updates its background color to match the background color of the app.
 Opaque container is a helper class, but can be used to create more custom views. See main for examples.
 """
-'''
-
 OPAQUE_CONTAINER_CSS = """
 :root {{
     --background-color: #ffffff; /* Default background color */
@@ -264,10 +261,9 @@ def display_footer():
     )
 
 def show_main_screen():
-    with st_fixed_container(mode="fixed", position="top", border=True):
-        display_mainheader()
     with st_fixed_container(mode="fixed", position="bottom", transparent=True):
         with st_opaque_container(border=True):
+            display_mainheader()
             btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
             btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     # display_mainheader()
