@@ -180,7 +180,7 @@ div.stButton2 {
     justify-content: center;
     width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
 }
-div.stButton2 > button2 {
+div.stButton2 > button {
     font-size: 30px !important; /* 文字サイズを指定 */
     font-weight  : bold ;
     color        : #000;
@@ -294,8 +294,8 @@ def show_main_screen():
         with right:
             with st_opaque_container(border=True):
                 st.markdown(button_style2, unsafe_allow_html=True)
-                btn0 = st.button2("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
-                btn1 = st.button2("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
+                btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
+                btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     display_mainheader()
     # display_line()
     st.markdown(button_style, unsafe_allow_html=True)
@@ -317,8 +317,8 @@ def show_other1_screen():
         with right:
             with st_opaque_container(border=True):
                 st.markdown(button_style2, unsafe_allow_html=True)
-                btn0 = st.button2("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
-                btn1 = st.button2("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
+                btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
+                btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
