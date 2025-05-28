@@ -176,14 +176,14 @@ div.stButton > button {
 button_css = f"""
 <style>
   div.stButton > button:first-child  {{
-    font-size: 14px !important; /* 文字サイズを指定 */
+    font-size: 12px !important; /* 文字サイズを指定 */
     font-weight  : bold ;
     color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #FF0                ;/* 背景色：yellow            */
-    width: 250px; /* ボタンの横幅を固定値に設定 */
-    max-width: 250px; /* 必要に応じて最大幅も設定 */
-    height: 24px;
+    width: 220px; /* ボタンの横幅を固定値に設定 */
+    max-width: 220px; /* 必要に応じて最大幅も設定 */
+    height: 20px;
   }}
 </style>
 """
