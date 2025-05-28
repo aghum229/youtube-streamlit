@@ -336,9 +336,9 @@ def show_main_screen():
         # _, right = st.columns([0.5, 0.5])
         # with right:
         #     with st_opaque_container(border=True):
-        # left, right = st.columns([0.5, 0.5])
+        # left, right = st.columns([0.4, 0.3, 0.3])
         with st_opaque_container(border=True):
-            left, right = st.columns([0.5, 0.5])
+            left, center, right = st.columns([0.4, 0.3, 0.3])
             with left:
                 st.markdown(
                 "<p style='text-align:right;'> \
@@ -349,6 +349,8 @@ def show_main_screen():
             with right:
                 st.markdown(button_css, unsafe_allow_html=True)
                 btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
+            with right:
+                st.markdown(button_css, unsafe_allow_html=True)
                 btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     display_mainheader()
     # display_line()
