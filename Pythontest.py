@@ -347,18 +347,16 @@ def show_main_screen():
                 , unsafe_allow_html=True
                 )
             with center:
-                st.markdown(button_css, unsafe_allow_html=True)
+                # st.markdown(button_css, unsafe_allow_html=True)
                 btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
             with right:
-                st.markdown(button_css, unsafe_allow_html=True)
+                # st.markdown(button_css, unsafe_allow_html=True)
                 btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     display_mainheader()
     # display_line()
-    st.markdown(button_style, unsafe_allow_html=True)
+    # st.markdown(button_style, unsafe_allow_html=True)
     button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
-    st.markdown(button_style, unsafe_allow_html=True)
     button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
-    st.markdown(button_style, unsafe_allow_html=True)
     button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
     display_footer()
 
@@ -403,7 +401,7 @@ def show_other1_screen():
     st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
     # st.write('---')
-    st.markdown(button_style, unsafe_allow_html=True)
+    # st.markdown(button_style, unsafe_allow_html=True)
     # btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     # display_line()
     # st.write('---')
