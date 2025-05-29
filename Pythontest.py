@@ -356,7 +356,9 @@ def show_main_screen():
     # display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
+    st.markdown(button_style, unsafe_allow_html=True)
     button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
+    st.markdown(button_style, unsafe_allow_html=True)
     button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
     display_footer()
 
