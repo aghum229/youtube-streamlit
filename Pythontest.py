@@ -301,13 +301,13 @@ def button_make(button_text, screen_name):
         .stButton>button { /* Streamlitのボタン要素に直接スタイルを適用 */
             background-color: #FF0;
             color: black;
-            font-size: 12px !important;
+            font-size: 10px !important;
             text-align: center;
             font-weight: bold;
             border-radius: 5px;
             width: 200px;
             max-width: 200px;
-            height: 30px;
+            height: 24px;
             margin: 5px; /* ボタン間の間隔など調整 */
         }
         .stButton>button:hover {
@@ -414,10 +414,10 @@ def show_other1_screen():
     display_footer()
 
 def show_other2_screen():
-    st.markdown(write_css1, unsafe_allow_html=True)
+    # st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">2.ＩＳＯメニュー</p>', unsafe_allow_html=True)
     st.write('---')
-    st.markdown(button_style, unsafe_allow_html=True)
+    # st.markdown(button_style, unsafe_allow_html=True)
     btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     st.write('---')
     button21 = st.button('21.品質・環境マニュアル', on_click=set_screen, args=('other21',))
@@ -430,10 +430,10 @@ def show_other2_screen():
     display_footer()
 
 def show_other3_screen():
-    st.markdown(write_css1, unsafe_allow_html=True)
+    # st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">3.労務メニュー</p>', unsafe_allow_html=True)
     st.write('---')
-    st.markdown(button_style, unsafe_allow_html=True)
+    # st.markdown(button_style, unsafe_allow_html=True)
     btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     st.write('---')
     button31 = st.button('31.就業規則', on_click=set_screen, args=('other31',))
@@ -442,10 +442,10 @@ def show_other3_screen():
     display_footer()
 
 def show_other11_screen():
-    st.markdown(write_css1, unsafe_allow_html=True)
+    # st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">11.製品メニュー</p>', unsafe_allow_html=True)
     st.write('---')
-    st.markdown(button_style, unsafe_allow_html=True)
+    # st.markdown(button_style, unsafe_allow_html=True)
     btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     btn1 = st.button("⏎1.製造関連メニュー　へ戻る", on_click=set_screen, args=('other1',))
     st.write('---')
@@ -458,10 +458,10 @@ def show_other11_screen():
     display_footer()
 
 def show_other116_screen():
-    st.markdown(write_css1, unsafe_allow_html=True)
+    # st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">116.在庫管理メニュー</p>', unsafe_allow_html=True)
     st.write('---')
-    st.markdown(button_style, unsafe_allow_html=True)
+    # st.markdown(button_style, unsafe_allow_html=True)
     btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     btn1 = st.button("⏎1.製造関連メニュー　へ戻る", on_click=set_screen, args=('other1',))
     btn11 = st.button("⏎11.製品メニュー　へ戻る", on_click=set_screen, args=('other11',))
@@ -472,11 +472,11 @@ def show_other116_screen():
 
 # 不明な画面の場合の処理
 def unknown_screen():
-    st.markdown(write_css1, unsafe_allow_html=True)
+    # st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">現在、メンテナンス中です。</p>', unsafe_allow_html=True)
     # st.error("不明な画面です")
     st.write('---')
-    st.markdown(button_style, unsafe_allow_html=True)
+    # st.markdown(button_style, unsafe_allow_html=True)
     if len(st.session_state['history']) > 1:
         if st.button("前の画面に戻る", on_click=go_back, key="back_button"):
             pass
