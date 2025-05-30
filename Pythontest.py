@@ -307,7 +307,7 @@ def button_make(button_text, screen_name):
             border-radius: 5px;
             width: 200px;
             max-width: 200px;
-            height: 24px;
+            height: 20px;
             margin: 5px; /* ボタン間の間隔など調整 */
         }
         .stButton>button:hover {
