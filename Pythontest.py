@@ -161,7 +161,7 @@ div.stButton {
     width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
 }
 div.stButton > button {
-    font-size: 18px !important; /* 文字サイズを指定 */
+    font-size: 12px !important; /* 文字サイズを指定 */
     font-weight  : bold ;
     color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
@@ -397,7 +397,7 @@ def show_other1_screen():
                 button_make("⏎☆メイン画面☆　へ戻る",'main')
                 # btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
                 # btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
-    st.markdown(write_css1, unsafe_allow_html=True)
+    # st.markdown(write_css1, unsafe_allow_html=True)
     st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
     # st.write('---')
