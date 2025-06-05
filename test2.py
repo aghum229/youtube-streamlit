@@ -27,13 +27,14 @@ try:
     instance_url = auth_response.get("instance_url")
 
     if access_token:
-        print("✅ 成功した")
-        print(f"Access Token: {access_token[:40]}...")
-        print(f"Instance URL: {instance_url}")
+        st.write("✅ **成功しました！**")
+        st.write(f"🔑 Access Token: `{access_token[:40]}...`")
+        st.write(f"🌍 Instance URL: `{instance_url}`")
     else:
-        print("❌ トークンが受信されませんでした。")
-        print(auth_response)
-
+        st.write("❌ **トークンが受信されませんでした。**")
+        st.write(auth_response)
+    
+    
 except requests.exceptions.RequestException as e:
     print("❌ Salesforce への接続エラー：")
     print(e)
