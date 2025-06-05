@@ -1,5 +1,14 @@
+import streamlit as st
 import requests
 
+# Streamlitのシークレットから値を取得
+client_id = st.secrets["client_id"]
+client_secret = st.secrets["client_secret"]
+username = st.secrets["username"]
+password = st.secrets["password"]
+token_url = st.secrets["token_url"]
+
+# OAuthリクエストの送信
 payload = {
     "grant_type": "password",
     "client_id": client_id,
@@ -7,6 +16,7 @@ payload = {
     "username": username,
     "password": password
 }
+
 
 try:
     response = requests.post(token_url, data=payload)
