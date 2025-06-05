@@ -1,14 +1,5 @@
 import requests
 
-client_id = "3MVG9pgcF_Z64XnizvSTCn_ECf.zBBPXh8XwWQ.7yM0TXGAAaJ.WWBMiFiciwfsiUZ2vOswYR7Bg84TdPsTe9"
-client_secret = "B2F3EDC33E2F07B57E4C9D45C1FA333EC27FCA789F83AC9F8F01030503F92CFF"
-username = "s489@aitech-inc.co.jp.umpm.zaikotest"
-password = "Aitech489"
-
-URL= "https://aitech--zaikotest.sandbox.my.salesforce.com"
-
-token_url = "https://test.salesforce.com/services/oauth2/token"
-
 payload = {
     "grant_type": "password",
     "client_id": client_id,
