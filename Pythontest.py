@@ -331,9 +331,9 @@ def button_make(button_text, screen_name):
     # if st.button(button_text, key=button_text): # keyを設定して複数のボタンを区別
     #     set_screen(screen_name)
 
-global return_main = "⏎ ☆メイン画面☆　へ戻る"
-global return_1 = "⏎ 1.製造関連メニュー　へ戻る"
-global return_11 = "⏎ 11.製品メニュー　へ戻る"
+return_main = "⏎ ☆メイン画面☆　へ戻る"
+return_1 = "⏎ 1.製造関連メニュー　へ戻る"
+return_11 = "⏎ 11.製品メニュー　へ戻る"
 
 def show_main_screen():
     _= '''
