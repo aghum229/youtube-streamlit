@@ -362,14 +362,20 @@ def show_main_screen():
                 btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
             '''
     # display_mainheader()
-    st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
-    st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
-    st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
+    # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
+    # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
+    # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
     button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
     button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
+    button11 = st.button('11.製品', on_click=set_screen, args=('other11',))
+    button12 = st.button('12.金型', on_click=set_screen, args=('other12',))
+    button13 = st.button('13.治工具', on_click=set_screen, args=('other13',))
+    button14 = st.button('14.検具', on_click=set_screen, args=('other14',))
+    button15 = st.button('15.設備', on_click=set_screen, args=('other15',))
+    button16 = st.button('16.備品', on_click=set_screen, args=('other16',))
     display_footer()
 
 def show_other1_screen():
