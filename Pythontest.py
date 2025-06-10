@@ -411,7 +411,7 @@ def show_other1_screen():
     with st_fixed_container(mode="fixed", position="top", transparent=True):
         st.markdown(
             "<p style='text-align:center;'> \
-            <span style='font-size: 40px;font-weight:bold;margin-bottom: 0px;line-height: 0.5'>1.製造関連メニュー</span> \
+            <span style='font-size: 40px;font-weight:bold;color:aqua;margin-bottom: 0px;line-height: 0.5'>1.製造関連メニュー</span> \
             </p>"
             , unsafe_allow_html=True
         )
@@ -420,7 +420,7 @@ def show_other1_screen():
     display_line()
     # st.write('---')
     # st.markdown(button_style, unsafe_allow_html=True)
-    # btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
+    btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     # display_line()
     # st.write('---')
     button11 = st.button('11.製品', on_click=set_screen, args=('other11',))
