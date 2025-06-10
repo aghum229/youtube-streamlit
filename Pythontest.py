@@ -354,7 +354,7 @@ def show_main_screen():
                 </p>"
                 , unsafe_allow_html=True
             )
-
+            
             # _= '''
             left, center, right = st.columns([0.3, 0.4, 0.4])
             with left:
