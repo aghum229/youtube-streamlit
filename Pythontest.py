@@ -337,7 +337,7 @@ def show_main_screen():
         # with right:
         #     with st_opaque_container(border=True):
         # left, right = st.columns([0.4, 0.3, 0.3])
-        with st_opaque_container(border=True):
+        # with st_opaque_container(border=True):
             st.markdown(
                 "<p style='text-align:center;'> \
                 <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
@@ -362,6 +362,8 @@ def show_main_screen():
                 btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
             '''
     # display_mainheader()
+    st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
+    st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
     st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
