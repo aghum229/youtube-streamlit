@@ -429,7 +429,7 @@ def show_other1_screen():
             , unsafe_allow_html=True
         )
     '''
-    display_container('aqua', '1.製造関連メニュー')
+    display_container('blue', '1.製造関連メニュー')
     # st.markdown(write_css1, unsafe_allow_html=True)
     # st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
