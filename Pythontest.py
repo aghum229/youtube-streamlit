@@ -332,12 +332,20 @@ def show_main_screen():
         , unsafe_allow_html=True
         )
     '''
-    with st_fixed_container(mode="fixed", position="bottom", transparent=True):
+    with st_fixed_container(mode="fixed", position="top", transparent=True):
         # _, right = st.columns([0.5, 0.5])
         # with right:
         #     with st_opaque_container(border=True):
         # left, right = st.columns([0.4, 0.3, 0.3])
         with st_opaque_container(border=True):
+            st.markdown(
+                "<p style='text-align:center;'> \
+                <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
+                </p>"
+                , unsafe_allow_html=True
+            )
+
+            _= '''
             left, center, right = st.columns([0.3, 0.4, 0.4])
             with left:
                 st.markdown(
@@ -352,9 +360,10 @@ def show_main_screen():
             with right:
                 # st.markdown(button_css, unsafe_allow_html=True)
                 btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
-    display_mainheader()
-    # display_line()
-    # st.markdown(button_style, unsafe_allow_html=True)
+            '''
+    # display_mainheader()
+    display_line()
+    st.markdown(button_style, unsafe_allow_html=True)
     button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
     button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
     button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
