@@ -433,7 +433,7 @@ def show_other1_screen():
     # st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
     btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
-    # display_line()
+    display_line()
     # st.write('---')
     button11 = st.button('11.製品', on_click=set_screen, args=('other11',))
     button12 = st.button('12.金型', on_click=set_screen, args=('other12',))
