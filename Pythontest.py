@@ -331,6 +331,10 @@ def button_make(button_text, screen_name):
     # if st.button(button_text, key=button_text): # keyを設定して複数のボタンを区別
     #     set_screen(screen_name)
 
+global return_main = "⏎ ☆メイン画面☆　へ戻る"
+global return_1 = "⏎ 1.製造関連メニュー　へ戻る"
+global return_11 = "⏎ 11.製品メニュー　へ戻る"
+
 def show_main_screen():
     _= '''
     with st_fixed_container(mode="fixed", position="bottom", border=True):
@@ -369,10 +373,10 @@ def show_main_screen():
                 )
             with center:
                 # st.markdown(button_css, unsafe_allow_html=True)
-                btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
+                btn0 = st.button("⏎ ☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
             with right:
                 # st.markdown(button_css, unsafe_allow_html=True)
-                btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
+                btn1 = st.button("⏎ 1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
             
     '''
     # display_mainheader()
@@ -443,8 +447,8 @@ def show_other1_screen():
     display_line()
     # st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
-    button_set('btn0', '⏎☆メイン画面☆　へ戻る', 'main')
-    # btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
+    button_set('btn0', return_main, 'main')
+    # btn0 = st.button("⏎ ☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     display_line()
     # st.write('---')
     button_set('button11', '11.製品', 'other11')
@@ -466,7 +470,7 @@ def show_other2_screen():
     display_line()
     # st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
-    button_set('btn0', '⏎☆メイン画面☆　へ戻る', 'main')
+    button_set('btn0', return_main, 'main')
     display_line()
     button_set('button21', '21.品質・環境マニュアル', 'other21')
     button_set('button22', '22.規定', 'other22')
@@ -488,7 +492,7 @@ def show_other3_screen():
     display_container('blue', '3.労務メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
-    button_set('btn0', '⏎☆メイン画面☆　へ戻る', 'main')
+    button_set('btn0', return_main, 'main')
     display_line()
     button_set('button31', '31.就業規則', 'other31')
     button_set('button32', '32.規定', 'other32')
@@ -499,8 +503,8 @@ def show_other11_screen():
     display_container('blue', '11.製品メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
-    button_set('btn0', '⏎☆メイン画面☆　へ戻る', 'main')
-    button_set('btn1', '⏎1.製造関連メニュー　へ戻る', 'other1')
+    button_set('btn0', return_main, 'main')
+    button_set('btn1', return_1, 'other1')
     display_line()
     button_set('button111', '111.図面', 'other111')
     button_set('button112', '112.検査基準書', 'other112')
@@ -514,9 +518,9 @@ def show_other116_screen():
     display_container('blue', '116.在庫管理メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
-    button_set('btn0', '⏎☆メイン画面☆　へ戻る', 'main')
-    button_set('btn1', '⏎1.製造関連メニュー　へ戻る', 'other1')
-    button_set('btn11', '11.製品メニュー　へ戻る', 'other11')
+    button_set('btn0', return_main, 'main')
+    button_set('btn1', return_1, 'other1')
+    button_set('btn11', return_11, 'other11')
     display_line()
     button_set('button1161', '1161.在庫置き場', 'other1161')
     button_set('button1162', '1161.1162.棚卸', 'other1162')
