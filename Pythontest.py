@@ -362,7 +362,7 @@ def show_main_screen():
                 btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
             '''
     # display_mainheader()
-    st.write("   \n  \n  \n  \n  \n  \n  \n ")
+    st.write('---  \n  \n  \n  \n  \n  \n  \n ---')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
