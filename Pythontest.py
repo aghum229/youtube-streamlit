@@ -295,6 +295,15 @@ def display_footer():
         , unsafe_allow_html=True
     )
 
+def display_container(color, text):
+    with st_fixed_container(mode="fixed", position="top", transparent=True):
+        st.markdown(
+            "<p style='text-align:center;'> \
+            <span style='font-size: 40px;font-weight:bold;color:' + color + ';margin-bottom: 0px;line-height: 0.5'> + text + </span> \
+            </p>"
+            , unsafe_allow_html=True
+        )
+
 def button_make(button_text, screen_name):
     st.markdown("""
         <style>
@@ -408,6 +417,7 @@ def show_other1_screen():
                 # btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
                 # btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
     '''
+    _= '''
     with st_fixed_container(mode="fixed", position="top", transparent=True):
         st.markdown(
             "<p style='text-align:center;'> \
@@ -415,11 +425,13 @@ def show_other1_screen():
             </p>"
             , unsafe_allow_html=True
         )
+    '''
+    display_container('aqua', '1.製造関連メニュー')
     # st.markdown(write_css1, unsafe_allow_html=True)
     # st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
     # st.write('---')
-    # st.markdown(button_style, unsafe_allow_html=True)
+    st.markdown(button_style, unsafe_allow_html=True)
     btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     # display_line()
     # st.write('---')
@@ -501,7 +513,7 @@ def unknown_screen():
             , unsafe_allow_html=True
         )
     st.write('---')
-    # st.markdown(button_style, unsafe_allow_html=True)
+    st.markdown(button_style, unsafe_allow_html=True)
     if len(st.session_state['history']) > 1:
         if st.button("前の画面に戻る", on_click=go_back, key="back_button"):
             pass
