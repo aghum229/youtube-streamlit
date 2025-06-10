@@ -355,7 +355,7 @@ def show_main_screen():
                 , unsafe_allow_html=True
             )
 
-            _= '''
+            # _= '''
             left, center, right = st.columns([0.3, 0.4, 0.4])
             with left:
                 st.markdown(
@@ -370,7 +370,7 @@ def show_main_screen():
             with right:
                 # st.markdown(button_css, unsafe_allow_html=True)
                 btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
-            '''
+            # '''
     '''
     # display_mainheader()
     # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
