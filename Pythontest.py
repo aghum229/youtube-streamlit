@@ -305,7 +305,7 @@ def display_container(color, text):
         )
 
 def button_set(button_name, button_text, screen_name):
-    {button_name} = st.button({button_text}, on_click=set_screen, args=({screen_name},))
+    button_name = st.button(button_text, on_click=set_screen, args=(screen_name,))
 
 def button_make(button_text, screen_name):
     st.markdown("""
