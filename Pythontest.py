@@ -341,6 +341,7 @@ def show_main_screen():
         , unsafe_allow_html=True
         )
     '''
+    _= '''
     with st_fixed_container(mode="fixed", position="top", transparent=True):
         # _, right = st.columns([0.5, 0.5])
         # with right:
@@ -370,10 +371,12 @@ def show_main_screen():
                 # st.markdown(button_css, unsafe_allow_html=True)
                 btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
             '''
+    '''
     # display_mainheader()
     # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
     # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
     # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
+    display_container('yellow', '☆メイン画面☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
@@ -512,7 +515,9 @@ def unknown_screen():
             </p>"
             , unsafe_allow_html=True
         )
-    st.write('---')
+    display_container('red', '現在、メンテナンス中です。')
+    display_line()
+    # st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
     if len(st.session_state['history']) > 1:
         if st.button("前の画面に戻る", on_click=go_back, key="back_button"):
