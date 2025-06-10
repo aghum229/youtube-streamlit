@@ -388,6 +388,7 @@ def show_main_screen():
     # button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
     # button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
     # button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
+    # _= '''
     button11 = st.button('11.製品', on_click=set_screen, args=('other11',))
     button12 = st.button('12.金型', on_click=set_screen, args=('other12',))
     button13 = st.button('13.治工具', on_click=set_screen, args=('other13',))
@@ -407,6 +408,7 @@ def show_main_screen():
     button114 = st.button('114.作業標準', on_click=set_screen, args=('other114',))
     button115 = st.button('115.検査表', on_click=set_screen, args=('other115',))
     button116 = st.button('116.在庫管理', on_click=set_screen, args=('other116',))
+    # '''
     display_footer()
 
 def show_other1_screen():
@@ -497,42 +499,31 @@ def show_other11_screen():
     display_container('blue', '11.製品メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
-    btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
-    btn1 = st.button("⏎1.製造関連メニュー　へ戻る", on_click=set_screen, args=('other1',))
+    button_set('btn0', '⏎☆メイン画面☆　へ戻る', 'main')
+    button_set('btn1', '⏎1.製造関連メニュー　へ戻る', 'other1')
     display_line()
-    button111 = st.button('111.図面', on_click=set_screen, args=('other111',))
-    button112 = st.button('112.検査基準書', on_click=set_screen, args=('other112',))
-    button113 = st.button('113.ＱＣ表', on_click=set_screen, args=('other113',))
-    button114 = st.button('114.作業標準', on_click=set_screen, args=('other114',))
-    button115 = st.button('115.検査表', on_click=set_screen, args=('other115',))
-    button116 = st.button('116.在庫管理', on_click=set_screen, args=('other116',))
+    button_set('button111', '111.図面', 'other111')
+    button_set('button112', '112.検査基準書', 'other112')
+    button_set('button113', '113.ＱＣ表', 'other113')
+    button_set('button114', '114.作業標準', 'other114')
+    button_set('button115', '115.検査表', 'other115')
+    button_set('button116', '116.在庫管理', 'other116')
     display_footer()
 
 def show_other116_screen():
-    # st.markdown(write_css1, unsafe_allow_html=True)
-    st.markdown('<p class="big-font">116.在庫管理メニュー</p>', unsafe_allow_html=True)
-    st.write('---')
-    # st.markdown(button_style, unsafe_allow_html=True)
-    btn0 = st.button("⏎☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
-    btn1 = st.button("⏎1.製造関連メニュー　へ戻る", on_click=set_screen, args=('other1',))
-    btn11 = st.button("⏎11.製品メニュー　へ戻る", on_click=set_screen, args=('other11',))
-    st.write('---')
-    button1161 = st.button('1161.在庫置き場', on_click=set_screen, args=('other1161',))
-    button1162 = st.button('1162.棚卸', on_click=set_screen, args=('other1162',))
+    display_container('blue', '116.在庫管理メニュー')
+    display_line()
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('btn0', '⏎☆メイン画面☆　へ戻る', 'main')
+    button_set('btn1', '⏎1.製造関連メニュー　へ戻る', 'other1')
+    button_set('btn11', '11.製品メニュー　へ戻る', 'other11')
+    display_line()
+    button_set('button1161', '1161.在庫置き場', 'other1161')
+    button_set('button1162', '1161.1162.棚卸', 'other1162')
     display_footer()
 
 # 不明な画面の場合の処理
 def unknown_screen():
-    # st.markdown(write_css1, unsafe_allow_html=True)
-    # st.markdown('<p class="big-font">現在、メンテナンス中です。</p>', unsafe_allow_html=True)
-    # st.error("不明な画面です")
-    with st_fixed_container(mode="fixed", position="top", transparent=True):
-        st.markdown(
-            "<p style='text-align:center;'> \
-            <span style='font-size: 40px;font-weight:bold;color:red;margin-bottom: 0px;line-height: 0.5'>現在、メンテナンス中です。</span> \
-            </p>"
-            , unsafe_allow_html=True
-        )
     display_container('red', '現在、メンテナンス中です。')
     display_line()
     # st.write('---')
