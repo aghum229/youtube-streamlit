@@ -392,6 +392,7 @@ def show_main_screen():
     display_footer()
 
 def show_other1_screen():
+    _= '''
     with st_fixed_container(mode="fixed", position="bottom", border=True):
         st.markdown(
         "<p style='text-align:left;'> \
@@ -428,8 +429,16 @@ def show_other1_screen():
                 button_make("⏎☆メイン画面☆　へ戻る",'main')
                 # btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
                 # btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
+    '''
+    with st_fixed_container(mode="fixed", position="top", transparent=True):
+        st.markdown(
+            "<p style='text-align:center;'> \
+            <span style='font-size: 40px;font-weight:bold;margin-bottom: 0px;line-height: 0.5'>1.製造関連メニュー</span> \
+            </p>"
+            , unsafe_allow_html=True
+        )
     # st.markdown(write_css1, unsafe_allow_html=True)
-    st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
+    # st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
     # st.write('---')
     # st.markdown(button_style, unsafe_allow_html=True)
@@ -504,8 +513,15 @@ def show_other116_screen():
 # 不明な画面の場合の処理
 def unknown_screen():
     # st.markdown(write_css1, unsafe_allow_html=True)
-    st.markdown('<p class="big-font">現在、メンテナンス中です。</p>', unsafe_allow_html=True)
+    # st.markdown('<p class="big-font">現在、メンテナンス中です。</p>', unsafe_allow_html=True)
     # st.error("不明な画面です")
+    with st_fixed_container(mode="fixed", position="top", transparent=True):
+        st.markdown(
+            "<p style='text-align:center;'> \
+            <span style='font-size: 40px;font-weight:bold;color:red;margin-bottom: 0px;line-height: 0.5'>現在、メンテナンス中です。</span> \
+            </p>"
+            , unsafe_allow_html=True
+        )
     st.write('---')
     # st.markdown(button_style, unsafe_allow_html=True)
     if len(st.session_state['history']) > 1:
