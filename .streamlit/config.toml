@@ -6,4 +6,4 @@ backgroundColor = '#3cb371' # mediumseagreen
 
 secondaryBackgroundColor = '#90ee90' # lightgreen
 
-textColor = "#ffffff"
+textColor = "#000000"  # black whiteは→"#ffffff"
