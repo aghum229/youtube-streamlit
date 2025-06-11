@@ -334,6 +334,8 @@ def button_make(button_text, screen_name):
 return_main = "⏎ ☆メイン画面☆　へ戻る"
 return_1 = "⏎ 1.製造関連メニュー　へ戻る"
 return_11 = "⏎ 11.製品メニュー　へ戻る"
+return_116 = "⏎ 116.在庫管理メニュー　へ戻る"
+return_1161 = "⏎ 1161.在庫置き場メニュー　へ戻る"
 
 def show_main_screen():
     _= '''
@@ -523,9 +525,50 @@ def show_other116_screen():
     button_set('btn11', return_11, 'other11')
     display_line()
     button_set('button1161', '1161.在庫置き場', 'other1161')
-    button_set('button1162', '1161.1162.棚卸', 'other1162')
+    button_set('button1162', '1162.棚卸', 'other1162')
     display_footer()
 
+def show_other1161_screen():
+    display_container('blue', '1161.在庫置き場メニュー')
+    display_line()
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('btn0', return_main, 'main')
+    button_set('btn1', return_1, 'other1')
+    button_set('btn11', return_11, 'other11')
+    button_set('btn116', return_116, 'other116')
+    display_line()
+    button_set('button11611', '11611.在庫置き場参照', 'other11611')
+    button_set('button11612', '11612.在庫置き場入力', 'other11612')
+    display_footer()
+
+def show_other11611_screen():
+    display_container('blue', '11611.在庫置き場参照メニュー')
+    display_line()
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('btn0', return_main, 'main')
+    button_set('btn1', return_1, 'other1')
+    button_set('btn11', return_11, 'other11')
+    button_set('btn116', return_116, 'other116')
+    button_set('btn1161', return_1161, 'other1161')
+    display_line()
+    # button_set('button11611', '11611.在庫置き場参照', 'other11611')
+    # button_set('button11612', '11612.在庫置き場入力', 'other11612')
+    display_footer()
+    
+def show_other11612_screen():
+    display_container('blue', '11612.在庫置き場入力画面')
+    display_line()
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('btn0', return_main, 'main')
+    button_set('btn1', return_1, 'other1')
+    button_set('btn11', return_11, 'other11')
+    button_set('btn116', return_116, 'other116')
+    button_set('btn1161', return_1161, 'other1161')
+    display_line()
+    # button_set('button11611', '11611.在庫置き場参照', 'other11611')
+    # button_set('button11612', '11612.在庫置き場入力', 'other11612')
+    display_footer()
+    
 # 不明な画面の場合の処理
 def unknown_screen():
     display_container('red', '現在、メンテナンス中です。')
@@ -577,6 +620,15 @@ elif st.session_state['current_screen'] == 'other16':
 # 在庫管理メニュー
 elif st.session_state['current_screen'] == 'other116':
     show_other116_screen()
+# 在庫置き場メニュー
+elif st.session_state['current_screen'] == 'other1161':
+    show_other1161_screen()
+# 在庫置き場参照メニュー
+elif st.session_state['current_screen'] == 'other11611':
+    show_other11611_screen()
+# 在庫置き場入力画面
+elif st.session_state['current_screen'] == 'other11612':
+    show_other11612_screen()
 else:
     unknown_screen()
 # '''
