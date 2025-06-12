@@ -426,6 +426,19 @@ def show_main_screen():
     # button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
     # button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
     # button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
+    st.markdown("""
+    <style>
+    .centered-selectbox {
+        display: flex;
+        justify-content: center;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    # コンテナで中央配置
+    with st.container():
+        st.markdown('<div class="centered-selectbox">', unsafe_allow_html=True)
+        st.selectbox("選択してください", ["オプション1", "オプション2", "オプション3"])
+        st.markdown('</div>', unsafe_allow_html=True)
     # _= '''
     button11 = st.button('11.製品', on_click=set_screen, args=('other11',))
     button12 = st.button('12.金型', on_click=set_screen, args=('other12',))
