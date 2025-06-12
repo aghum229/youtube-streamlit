@@ -615,22 +615,12 @@ def show_other11612_screen():
     display_line()
     # st.markdown(selectbox_style, unsafe_allow_html=True)
     # okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
-    st.markdown("""
-    <style>
-    .centered-selectbox {
-        display: flex;
-        justify-content: center;
-        width: 200px !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-    with st.container():
-        st.markdown('<div class="centered-selectbox">', unsafe_allow_html=True)
+    left, center, right = st.columns([0.3, 0.4, 0.3])
+    with center:
         okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
-        st.markdown('</div>', unsafe_allow_html=True)
-    hinban = st.text_input("品番と品名")
-    koutei = st.text_input("完了工程")
-    suryo = st.text_input("数量")
+        hinban = st.text_input("品番と品名")
+        koutei = st.text_input("完了工程")
+        suryo = st.text_input("数量")
     # button_set('button11611', '11611.在庫置き場参照', 'other11611')
     # button_set('button11612', '11612.在庫置き場入力', 'other11612')
     display_footer()
