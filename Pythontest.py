@@ -431,6 +431,7 @@ def show_main_screen():
     .centered-selectbox {
         display: flex;
         justify-content: center;
+        align-items: center;
     }
     div[data-baseweb="select"] {
         width: 200px !important;
