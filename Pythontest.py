@@ -565,7 +565,7 @@ def show_other11612_screen():
     button_set('btn116', return_116, 'other116')
     button_set('btn1161', return_1161, 'other1161')
     display_line()
-    okiba = st.selectbox('在庫置き場を選択', ['E40', 'E41', 'E42', 'E43', 'E44', 'E45'])
+    okiba = st.selectbox('在庫置き場を選択', ['E40', 'E41', 'E42', 'E43', 'E44', 'E45'],　style={"width": "50px"})
     hinban = st.text_input("品番と品名")
     koutei = st.text_input("完了工程")
     suryo = st.text_input("数量")
