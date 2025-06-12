@@ -432,6 +432,9 @@ def show_main_screen():
         display: flex;
         justify-content: center;
     }
+    div[data-baseweb="select"] {
+        width: 200px !important;
+    }
     </style>
     """, unsafe_allow_html=True)
     # コンテナで中央配置
