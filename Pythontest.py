@@ -208,6 +208,17 @@ div.stButton > button {
 """
 
 selectbox_style = """
+    <style>
+    div[data-baseweb="select"] {
+        display: flex;
+        justify-content: center;
+        width: 200px !important;
+    }
+    </style>
+"""
+
+_= '''
+selectbox_style = """
 <style>
 div.stSelectbox {
     display: flex;
@@ -226,7 +237,7 @@ div.stSelectbox > selectbox {
 }
 </style>
 """
-
+'''
 
 write_css1 = """
 <style>
