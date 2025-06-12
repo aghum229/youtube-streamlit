@@ -209,7 +209,7 @@ div.stButton > button {
 
 selectbox_style = """
     <style>
-    div[data-baseweb="select"] {
+    .centered-selectbox {
         display: flex;
         justify-content: center;
         width: 200px !important;
@@ -597,8 +597,12 @@ def show_other11612_screen():
     button_set('btn116', return_116, 'other116')
     button_set('btn1161', return_1161, 'other1161')
     display_line()
-    st.markdown(selectbox_style, unsafe_allow_html=True)
-    okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
+    # st.markdown(selectbox_style, unsafe_allow_html=True)
+    # okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
+    with st.container():
+        st.markdown('<div class="centered-selectbox">', unsafe_allow_html=True)
+        okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
+        st.markdown('</div>', unsafe_allow_html=True)
     hinban = st.text_input("品番と品名")
     koutei = st.text_input("完了工程")
     suryo = st.text_input("数量")
