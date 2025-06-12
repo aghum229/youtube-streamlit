@@ -207,6 +207,27 @@ div.stButton > button {
 </style>
 """
 
+selectbox_style = """
+<style>
+div.stSelectbox {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
+}
+div.stSelectbox > selectbox {
+    font-size: 12px !important; /* 文字サイズを指定 */
+    font-weight  : bold ;
+    color        : #000;
+    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
+    background   : #0FF                ;/* 背景色：aqua            */
+    width: 200px; /* ボタンの横幅を固定値に設定 */
+    max-width: 200px; /* 必要に応じて最大幅も設定 */
+    height: 24px;
+}
+</style>
+"""
+
+
 write_css1 = """
 <style>
 .big-font {
@@ -565,13 +586,7 @@ def show_other11612_screen():
     button_set('btn116', return_116, 'other116')
     button_set('btn1161', return_1161, 'other1161')
     display_line()
-    st.markdown("""
-    <style>
-    div[data-baseweb="select"] {
-        width: 50px !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+    st.markdown(selectbox_style, unsafe_allow_html=True)
     okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
     hinban = st.text_input("品番と品名")
     koutei = st.text_input("完了工程")
