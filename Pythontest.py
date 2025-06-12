@@ -599,6 +599,15 @@ def show_other11612_screen():
     display_line()
     # st.markdown(selectbox_style, unsafe_allow_html=True)
     # okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
+    st.markdown("""
+    <style>
+    .centered-selectbox {
+        display: flex;
+        justify-content: center;
+        width: 200px !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
     with st.container():
         st.markdown('<div class="centered-selectbox">', unsafe_allow_html=True)
         okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
