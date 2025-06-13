@@ -101,6 +101,8 @@ except requests.exceptions.RequestException as e:
 # Inicializar estados necessários
 if "production_order" not in st.session_state:
     st.session_state.production_order = None
+if "sf" not in st.session_state:
+    st.session_state.sf = None  # Salesforceオブジェクトを適切に設定
 if "show_camera" not in st.session_state:
     st.session_state.show_camera = True
 if "data" not in st.session_state:
@@ -130,6 +132,7 @@ if manual_input and len(manual_input) == 6 and manual_input.isdigit():
     st.session_state.manual_input_value = manual_input
     st.session_state.show_camera = False
 
+_= '''
 # Exibir câmera apenas se production_order for None e show_camera for True
 if not st.session_state.production_order and st.session_state.show_camera:
     st.write("QRコードをスキャンして開始してください:")
@@ -146,6 +149,7 @@ if st.button("カメラを再表示"):
     st.session_state.production_order = None
     st.session_state.manual_input_value = ""
     st.rerun()
+'''
 
 # Formulário sempre renderizado
 with st.form(key="registro_form"):
