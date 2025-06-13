@@ -76,6 +76,35 @@ def consultar_salesforce(production_order, sf):
         st.error(f"Salesforceクエリエラー: {e}")
         return pd.DataFrame(), None, None, 0.0
 
+# Função para limpar quantidade e converter para float
+def clean_quantity(value):
+    if isinstance(value, str):
+        num = re.sub(r'[^\d.]', '', value)
+        return float(num) if num else 0.0
+    return float(value) if value else 0.0
+
+# Função para preparar DataFrame simplificado
+def simplify_dataframe(df):
+    if df.empty:
+        return df
+    relevant_columns = [
+        'snps_um__ProcessName__c',
+        'snps_um__ProcessOrderNo__c',
+        'snps_um__Status__c',
+        'snps_um__WorkPlace__r.Name',
+        'snps_um__ActualQt__c',
+        'AITC_OrderQt__c'
+    ]
+    simplified_df = pd.DataFrame()
+    for col in relevant_columns:
+        if col in df.columns:
+            if col == 'snps_um__WorkPlace__r.Name':
+                simplified_df[col] = df[col].apply(lambda x: x.get('Name', '') if isinstance(x, dict) else '' if x is None else str(x))
+            elif col in ['snps_um__ActualQt__c', 'AITC_OrderQt__c']:
+                simplified_df[col] = df[col].apply(clean_quantity)
+            else:
+                simplified_df[col] = df[col]
+    return simplified_df
 
 try:
     response = requests.post(token_url, data=payload)
