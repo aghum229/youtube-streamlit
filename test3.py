@@ -106,6 +106,16 @@ def simplify_dataframe(df):
                 simplified_df[col] = df[col]
     return simplified_df
 
+# Autenticar no Salesforce
+if "sf" not in st.session_state:
+    try:
+        st.session_state.sf = authenticate_salesforce()
+        st.success("Salesforceに正常に接続しました！")
+    except Exception as e:
+        st.error(f"認証エラー: {e}")
+        st.stop()
+
+
 try:
     response = requests.post(token_url, data=payload)
     response.raise_for_status()
@@ -122,7 +132,6 @@ try:
         st.write("❌ **トークンが受信されませんでした。**")
         st.write(auth_response)
     
-    
 except requests.exceptions.RequestException as e:
     print("❌ Salesforce への接続エラー：")
     print(e)
@@ -130,8 +139,8 @@ except requests.exceptions.RequestException as e:
 # Inicializar estados necessários
 if "production_order" not in st.session_state:
     st.session_state.production_order = None
-if "sf" not in st.session_state:
-    st.session_state.sf = None  # Salesforceオブジェクトを適切に設定
+# if "sf" not in st.session_state:
+#     st.session_state.sf = None  # Salesforceオブジェクトを適切に設定
 if "show_camera" not in st.session_state:
     st.session_state.show_camera = True
 if "data" not in st.session_state:
