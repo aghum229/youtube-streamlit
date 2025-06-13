@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-from streamlit_qrcode_scanner import qrcode_scanner
+# from streamlit_qrcode_scanner import qrcode_scanner
 # import firebase_admin
 # from firebase_admin import credentials, db
 import pandas as pd
