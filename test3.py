@@ -11,6 +11,7 @@ from datetime import datetime
 import re
 import time
 
+_= '''
 # Streamlitのシークレットから値を取得
 client_id = st.secrets["client_id"]
 client_secret = st.secrets["client_secret"]
@@ -26,6 +27,28 @@ payload = {
     "username": username,
     "password": password
 }
+'''
+
+# Função de autenticação do Salesforce usando as credenciais do secrets
+def authenticate_salesforce():
+    auth_url = f"{secrets['DOMAIN']}/services/oauth2/token"
+    auth_data = {
+        'grant_type': 'password',
+        'client_id': secrets['CLIENT_ID'],
+        'client_secret': secrets['CLIENT_SECRET'],
+        'username': secrets['USERNAME'],
+        'password': secrets['PASSWORD']
+    }
+    try:
+        response = requests.post(auth_url, data=auth_data, timeout=10)
+        response.raise_for_status()
+        token_data = response.json()
+        access_token = token_data['access_token']
+        instance_url = token_data['instance_url']
+        return Salesforce(instance_url=instance_url, session_id=access_token)
+    except requests.exceptions.RequestException as e:
+        st.error(f"認証エラー: {e}")
+        st.stop()
 
 # Função para consultar Salesforce
 def consultar_salesforce(production_order, sf):
@@ -115,7 +138,7 @@ if "sf" not in st.session_state:
         st.error(f"認証エラー: {e}")
         st.stop()
 
-
+_= '''
 try:
     response = requests.post(token_url, data=payload)
     response.raise_for_status()
@@ -135,6 +158,7 @@ try:
 except requests.exceptions.RequestException as e:
     print("❌ Salesforce への接続エラー：")
     print(e)
+'''
 
 # Inicializar estados necessários
 if "production_order" not in st.session_state:
