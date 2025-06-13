@@ -174,6 +174,7 @@ with st.form(key="registro_form"):
         if not owner_input:
             st.error("'所有者' フィールドを入力してください。")
         else:
+            st.write("ボタンが押されました。")
             _= '''
             quantity_value = st.session_state["quantity"]
             process_order_value = int(st.session_state["process_order"])
