@@ -130,6 +130,23 @@ if manual_input and len(manual_input) == 6 and manual_input.isdigit():
     st.session_state.manual_input_value = manual_input
     st.session_state.show_camera = False
 
+# Exibir câmera apenas se production_order for None e show_camera for True
+if not st.session_state.production_order and st.session_state.show_camera:
+    st.write("QRコードをスキャンして開始してください:")
+    production_order = qrcode_scanner(key="qrcode_scanner_fixed")
+    if production_order:
+        st.session_state.production_order = production_order
+        st.session_state.manual_input_value = ""
+        st.session_state.show_camera = False
+        st.rerun()
+
+# Botão de reexibição sempre visível
+if st.button("カメラを再表示"):
+    st.session_state.show_camera = True
+    st.session_state.production_order = None
+    st.session_state.manual_input_value = ""
+    st.rerun()
+
 # Formulário sempre renderizado
 with st.form(key="registro_form"):
     default_quantity = 0.0
