@@ -1,4 +1,10 @@
-streamlit==1.42.0
-requests
-pandas
 simple-salesforce
+pandas
+openpyxl
+requests
+gspread
+gspread_dataframe
+google-auth
+streamlit_qrcode_scanner
+firebase_admin
+pytz
