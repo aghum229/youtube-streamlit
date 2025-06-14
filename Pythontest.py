@@ -368,7 +368,7 @@ def show_main_screen():
     # with left:
     #     display_container('yellow', '☆メイン画面☆')
     # display_header("yellow", "☆メイン画面☆")
-    # _= '''
+    _= '''
     with st_fixed_container(mode="sticky", position="top", transparent=True):
         st.markdown(
             "<p style='text-align:center;'> \
@@ -376,8 +376,8 @@ def show_main_screen():
             </p>"
             , unsafe_allow_html=True
         )
-    # '''
-    # display_container('yellow', '☆メイン画面☆')
+    '''
+    display_container('yellow', '☆メイン画面☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('button1', '1.製造関連', 'other1')
@@ -556,14 +556,16 @@ def show_other1161_screen():
     display_footer()
 
 def show_other11611_screen():
-    # display_container('blue', '11611.在庫置き場参照メニュー')
+    display_container('blue', '11611.在庫置き場参照メニュー')
     # display_header('blue', '11611.在庫置き場参照メニュー')
+    _= '''
     st.markdown(
         "<p style='text-align:center;'> \
         <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11611.在庫置き場参照メニュー</span> \
         </p>",
         unsafe_allow_html=True
     )
+    '''
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
@@ -591,15 +593,17 @@ def show_other11611_screen():
     display_footer()
     
 def show_other11612_screen():
-    # display_container('blue', '11612.在庫置き場入力メニュー')
+    display_container('blue', '11612.在庫置き場入力メニュー')
     # display_header('blue', '11612.在庫置き場入力メニュー')
     # with st_fixed_container(mode="fixed", position="top", transparent=True):
+    _= '''
     st.markdown(
         "<p style='text-align:center;'> \
         <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11612.在庫置き場入力メニュー</span> \
         </p>",
         unsafe_allow_html=True
     )
+    '''
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
@@ -623,8 +627,8 @@ def show_other11612_screen():
     
 # 不明な画面の場合の処理
 def unknown_screen():
-    # display_container('red', '現在、メンテナンス中です。')
-    display_header('red', '現在、メンテナンス中です。')
+    display_container('red', '現在、メンテナンス中です。')
+    # display_header('red', '現在、メンテナンス中です。')
     display_line()
     # st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
