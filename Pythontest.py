@@ -264,7 +264,7 @@ def display_footer():
     )
 
 def display_container(color, text):
-    with st_fixed_container(mode="fixed", position="top", transparent=True):
+    with st_fixed_container(mode="sticky", position="top", transparent=True):
         st.markdown(
             f"<p style='text-align:center;'> \
             <span style='font-size: 40px;font-weight:bold;color:{color};margin-bottom: 0px;line-height: 0.5'>{text}</span> \
