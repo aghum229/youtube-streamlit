@@ -154,12 +154,16 @@ def st_fixed_container(
 # 固定コンテナコードの終わり
 
 
+
 button_style = """
 <style>
 div.stButton {
+    _= '''
     display: flex;
     justify-content: center;
     width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
+    '''
+    width: auto; /* 親の影響を減らすために幅を自動調整 */
 }
 div.stButton > button {
     font-size: 12px !important; /* 文字サイズを指定 */
