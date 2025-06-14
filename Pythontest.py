@@ -162,8 +162,8 @@ button_style = """
 div.stButton {
     display: flex;
     justify-content: center;
-    # width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
-    width: auto; /* 必要に応じて変更 */
+    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
+    # width: auto; /* 必要に応じて変更 */
 }
 div.stButton > button {
     font-size: 12px !important; /* 文字サイズを指定 */
@@ -174,40 +174,6 @@ div.stButton > button {
     width: 350px; /* ボタンの横幅を固定値に設定 */
     max-width: 350px; /* 必要に応じて最大幅も設定 */
     height: 24px;
-}
-</style>
-"""
-
-button_css = f"""
-<style>
-  div.stButton > button:first-child  {{
-    font-size: 10px !important; /* 文字サイズを指定 */
-    font-weight  : bold ;
-    color        : #000;
-    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
-    background   : #FF0                ;/* 背景色：yellow            */
-    width: 350px; /* ボタンの横幅を固定値に設定 */
-    max-width: 350px; /* 必要に応じて最大幅も設定 */
-    height: 20px;
-  }}
-</style>
-"""
-button_style2 = """
-<style>
-div.stButton {
-    display: flex;
-    justify-content: center;
-    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
-}
-div.stButton > button {
-    font-size: 30px !important; /* 文字サイズを指定 */
-    font-weight  : bold ;
-    color        : #000;
-    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
-    background   : #FF0                ;/* 背景色：yellow            */
-    width: 150px; /* ボタンの横幅を固定値に設定 */
-    max-width: 150px; /* 必要に応じて最大幅も設定 */
-    height: 30px;
 }
 </style>
 """
@@ -244,41 +210,6 @@ div.stSelectbox > selectbox {
 """
 '''
 
-write_css1 = """
-<style>
-.big-font {
-    font-size      :40px !important;
-    font-weight    :bold;
-    text-align     :center;
-    margin-bottom: 0px;
-    line-height: 0.5;
-}
-</style>
-"""
-
-# _= '''
-write_css2 = """
-<style>
-.main-font {
-    font-size      :40px !important;
-    font-weight    :bold;
-    color        : #ffff00;
-    text-align     :center;
-}
-</style>
-"""
-# '''
-
-# _= '''
-write_css3 = """
-<style>
-.small-font {
-    font-size      :10px !important;
-    text-align     :left;
-}
-</style>
-"""
-# '''
 
 # 画面の状態を管理する変数（初期状態はメイン画面）
 if 'current_screen' not in st.session_state:
