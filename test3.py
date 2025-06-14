@@ -29,6 +29,15 @@ payload = {
 }
 '''
 
+# Função para carregar credenciais
+def carregar_credenciais():
+    if os.path.exists('.streamlit/secrets.toml'):
+        import toml
+        secrets = toml.load('.streamlit/secrets.toml')
+    else:
+        secrets = st.secrets
+    return secrets
+
 # Função de autenticação do Salesforce usando as credenciais do secrets
 def authenticate_salesforce():
     auth_url = f"{secrets['DOMAIN']}/services/oauth2/token"
