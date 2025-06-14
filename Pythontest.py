@@ -612,7 +612,7 @@ def show_other11612_screen():
     # okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="E40")
     left, center, right = st.columns([0.25, 0.5, 0.25])
     with center:
-        okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
+        okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="F56")
         seiban = st.text_input("移行票No", placeholder="PP-012345")
         hinban = st.text_input("品番と品名", placeholder="123-45H67-890  PPPPP,QQQQQ RRRRR")
         koutei = st.text_input("完了済工程", placeholder="20 GSN")
