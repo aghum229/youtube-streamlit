@@ -167,8 +167,8 @@ div.stButton > button {
     color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #0FF                ;/* 背景色：aqua            */
-    width: 300px; /* ボタンの横幅を固定値に設定 */
-    max-width: 300px; /* 必要に応じて最大幅も設定 */
+    width: 350px; /* ボタンの横幅を固定値に設定 */
+    max-width: 350px; /* 必要に応じて最大幅も設定 */
     height: 24px;
 }
 </style>
@@ -436,7 +436,7 @@ def show_main_screen():
     # button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
     # button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
     # button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
-    left, center, right = st.columns([0.3, 0.4, 0.3])
+    left, center, right = st.columns([0.25, 0.5, 0.25])
     with center:
         st.markdown("""
         <style>
