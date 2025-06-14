@@ -182,8 +182,8 @@ button_css = f"""
     color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #FF0                ;/* 背景色：yellow            */
-    width: 300px; /* ボタンの横幅を固定値に設定 */
-    max-width: 300px; /* 必要に応じて最大幅も設定 */
+    width: 350px; /* ボタンの横幅を固定値に設定 */
+    max-width: 350px; /* 必要に応じて最大幅も設定 */
     height: 20px;
   }}
 </style>
@@ -501,8 +501,8 @@ def show_other1_screen():
             , unsafe_allow_html=True
         )
     '''
-    # display_container('blue', '1.製造関連メニュー')
-    display_header('blue', '1.製造関連メニュー')
+    display_container('blue', '1.製造関連メニュー')
+    # display_header('blue', '1.製造関連メニュー')
     # st.markdown(write_css1, unsafe_allow_html=True)
     # st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
@@ -527,8 +527,8 @@ def show_other1_screen():
     display_footer()
 
 def show_other2_screen():
-    # display_container('blue', '2.ＩＳＯメニュー')
-    display_header('blue', '2.ＩＳＯメニュー')
+    display_container('blue', '2.ＩＳＯメニュー')
+    # display_header('blue', '2.ＩＳＯメニュー')
     display_line()
     # st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
@@ -551,8 +551,8 @@ def show_other2_screen():
     display_footer()
 
 def show_other3_screen():
-    # display_container('blue', '3.労務メニュー')
-    display_header('blue', '3.労務メニュー')
+    display_container('blue', '3.労務メニュー')
+    # display_header('blue', '3.労務メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
@@ -563,8 +563,8 @@ def show_other3_screen():
     display_footer()
 
 def show_other11_screen():
-    # display_container('blue', '11.製品メニュー')
-    display_header('blue', '11.製品メニュー')
+    display_container('blue', '11.製品メニュー')
+    # display_header('blue', '11.製品メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
@@ -579,8 +579,8 @@ def show_other11_screen():
     display_footer()
 
 def show_other116_screen():
-    # display_container('blue', '116.在庫管理メニュー')
-    display_header('blue', '116.在庫管理メニュー')
+    display_container('blue', '116.在庫管理メニュー')
+    # display_header('blue', '116.在庫管理メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
@@ -592,8 +592,8 @@ def show_other116_screen():
     display_footer()
 
 def show_other1161_screen():
-    # display_container('blue', '1161.在庫置き場メニュー')
-    display_header('blue', '1161.在庫置き場メニュー')
+    display_container('blue', '1161.在庫置き場メニュー')
+    # display_header('blue', '1161.在庫置き場メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
@@ -606,8 +606,8 @@ def show_other1161_screen():
     display_footer()
 
 def show_other11611_screen():
-    # display_container('blue', '11611.在庫置き場参照メニュー')
-    display_header('blue', '11611.在庫置き場参照メニュー')
+    display_container('blue', '11611.在庫置き場参照メニュー')
+    # display_header('blue', '11611.在庫置き場参照メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
