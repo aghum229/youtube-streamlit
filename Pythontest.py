@@ -619,9 +619,9 @@ def show_other11612_screen():
     left, center, right = st.columns([0.3, 0.4, 0.3])
     with center:
         okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
-        seiban = st.text_input("移行票No")
-        hinban = st.text_input("品番と品名")
-        koutei = st.text_input("完了工程")
+        seiban = st.text_input("移行票No", placeholder="PP-012345")
+        hinban = st.text_input("品番と品名", placeholder="123-45H67-890  PPPPP,QQQQQ RRRRR")
+        koutei = st.text_input("完了済工程", placeholder="20 GSN")
         suryo = st.text_input("数量")
     # button_set('button11611', '11611.在庫置き場参照', 'other11611')
     # button_set('button11612', '11612.在庫置き場入力', 'other11612')
