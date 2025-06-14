@@ -636,22 +636,31 @@ def show_other11611_screen():
     button_set('btn116', return_116, 'other116')
     button_set('btn1161', return_1161, 'other1161')
     display_line()
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
-    st.write(" ")
+    st.write("こ")
+    st.write("こ")
+    st.write("に")
+    st.write("参")
+    st.write("照")
+    st.write("メ")
+    st.write("ニ")
+    st.write("ュ")
+    st.write("ー")
+    st.write("を")
+    st.write("表")
+    st.write("示")
+    st.write("予")
+    st.write("定")
     # button_set('button11611', '11611.在庫置き場参照', 'other11611')
     # button_set('button11612', '11612.在庫置き場入力', 'other11612')
     display_footer()
     
 def show_other11612_screen():
-    # display_container('blue', '11612.在庫置き場入力画面')
-    # display_header('blue', '11612.在庫置き場入力画面')
+    # display_container('blue', '11612.在庫置き場入力メニュー')
+    # display_header('blue', '11612.在庫置き場入力メニュー')
     # with st_fixed_container(mode="fixed", position="top", transparent=True):
     st.markdown(
         "<p style='text-align:center;'> \
-        <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11612.在庫置き場入力画面</span> \
+        <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11612.在庫置き場入力メニュー</span> \
         </p>",
         unsafe_allow_html=True
     )
