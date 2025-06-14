@@ -309,14 +309,14 @@ def display_line():
     )
     '''
 
-def display_mainheader():
+def display_header(color, text):
     st.markdown(
         "<p style='text-align:center;'> \
-        <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
+        <span style='font-size: 40px;font-weight:bold;color:{color};margin-bottom: 0px;line-height: 0.5'>{text}</span> \
         </p>"
         , unsafe_allow_html=True
     )
-    display_line()
+    # display_line()
 
 def display_footer():
     display_line()
@@ -421,7 +421,7 @@ def show_main_screen():
     # left, center, right = st.columns([0.3, 0.4, 0.3])
     # with left:
     #     display_container('yellow', '☆メイン画面☆')
-    display_mainheader()
+    display_header('yellow', '☆メイン画面☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('button1', '1.製造関連', 'other1')
@@ -495,7 +495,8 @@ def show_other1_screen():
             , unsafe_allow_html=True
         )
     '''
-    display_container('blue', '1.製造関連メニュー')
+    # display_container('blue', '1.製造関連メニュー')
+    display_header('blue', '1.製造関連メニュー')
     # st.markdown(write_css1, unsafe_allow_html=True)
     # st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
@@ -520,7 +521,8 @@ def show_other1_screen():
     display_footer()
 
 def show_other2_screen():
-    display_container('blue', '2.ＩＳＯメニュー')
+    # display_container('blue', '2.ＩＳＯメニュー')
+    display_header('blue', '2.ＩＳＯメニュー')
     display_line()
     # st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
@@ -543,7 +545,8 @@ def show_other2_screen():
     display_footer()
 
 def show_other3_screen():
-    display_container('blue', '3.労務メニュー')
+    # display_container('blue', '3.労務メニュー')
+    display_header('blue', '3.労務メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
@@ -554,7 +557,8 @@ def show_other3_screen():
     display_footer()
 
 def show_other11_screen():
-    display_container('blue', '11.製品メニュー')
+    # display_container('blue', '11.製品メニュー')
+    display_header('blue', '11.製品メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
@@ -569,7 +573,8 @@ def show_other11_screen():
     display_footer()
 
 def show_other116_screen():
-    display_container('blue', '116.在庫管理メニュー')
+    # display_container('blue', '116.在庫管理メニュー')
+    display_header('blue', '116.在庫管理メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
@@ -581,7 +586,8 @@ def show_other116_screen():
     display_footer()
 
 def show_other1161_screen():
-    display_container('blue', '1161.在庫置き場メニュー')
+    # display_container('blue', '1161.在庫置き場メニュー')
+    display_header('blue', '1161.在庫置き場メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
@@ -594,7 +600,8 @@ def show_other1161_screen():
     display_footer()
 
 def show_other11611_screen():
-    display_container('blue', '11611.在庫置き場参照メニュー')
+    # display_container('blue', '11611.在庫置き場参照メニュー')
+    display_header('blue', '11611.在庫置き場参照メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
@@ -608,7 +615,8 @@ def show_other11611_screen():
     display_footer()
     
 def show_other11612_screen():
-    display_container('blue', '11612.在庫置き場入力画面')
+    # display_container('blue', '11612.在庫置き場入力画面')
+    display_header('blue', '11612.在庫置き場入力画面')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
@@ -632,7 +640,8 @@ def show_other11612_screen():
     
 # 不明な画面の場合の処理
 def unknown_screen():
-    display_container('red', '現在、メンテナンス中です。')
+    # display_container('red', '現在、メンテナンス中です。')
+    display_header('red', '現在、メンテナンス中です。')
     display_line()
     # st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
