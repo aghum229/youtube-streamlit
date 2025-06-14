@@ -623,7 +623,7 @@ def show_other11611_screen():
 def show_other11612_screen():
     # display_container('blue', '11612.在庫置き場入力画面')
     # display_header('blue', '11612.在庫置き場入力画面')
-    with st_fixed_container(mode="fixed", position="top", transparent=True):
+    # with st_fixed_container(mode="fixed", position="top", transparent=True):
         st.markdown(
             "<p style='text-align:center;'> \
             <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11612.在庫置き場入力画面</span> \
@@ -640,7 +640,7 @@ def show_other11612_screen():
     display_line()
     # st.markdown(selectbox_style, unsafe_allow_html=True)
     # okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="E40")
-    left, center, right = st.columns([0.2, 0.6, 0.2])
+    left, center, right = st.columns([0.25, 0.5, 0.25])
     with center:
         okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
         seiban = st.text_input("移行票No", placeholder="PP-012345")
