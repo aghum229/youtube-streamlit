@@ -370,12 +370,13 @@ def show_main_screen():
     # display_header("yellow", "☆メイン画面☆")
     # _= '''
     with st_fixed_container(mode="fixed", position="top", transparent=True):
-        st.markdown(
-            "<p style='text-align:center;'> \
-            <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
-            </p>"
-            , unsafe_allow_html=True
-        )
+        with st_opaque_container(border=True):
+            st.markdown(
+                "<p style='text-align:center;'> \
+                <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
+                </p>"
+                , unsafe_allow_html=True
+            )
     # '''
     # display_container('yellow', '☆メイン画面☆')
     display_line()
@@ -614,7 +615,7 @@ def show_other11612_screen():
     with center:
         okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="F56")
         seiban = st.text_input("移行票No", placeholder="PP-012345")
-        hinban = st.text_input("品番と品名", placeholder="123-45H67-890  PPPPP,QQQQQ RRRRR")
+        hinban = st.text_input("品番 (品名)", placeholder="123-45H67-890 (PPPPP,QQQQQ RRRRR)")
         koutei = st.text_input("完了済工程", placeholder="20 GSN")
         suryo = st.text_input("数量", placeholder="3000")
     # button_set('button11611', '11611.在庫置き場参照', 'other11611')
