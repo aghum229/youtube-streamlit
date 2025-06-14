@@ -331,8 +331,7 @@ def display_footer():
 def display_container(color, text):
     with st_fixed_container(mode="fixed", position="top", transparent=True):
         st.markdown(
-            # f"<p style='text-align:center;'> \
-            f"<p style='text-align:left;'> \
+            f"<p style='text-align:center;'> \
             <span style='font-size: 40px;font-weight:bold;color:{color};margin-bottom: 0px;line-height: 0.5'>{text}</span> \
             </p>",
             unsafe_allow_html=True
@@ -419,7 +418,9 @@ def show_main_screen():
     # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
     # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
     # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
-    display_container('yellow', '☆メイン画面☆')
+    left, center, right = st.columns([0.3, 0.4, 0.3])
+    with center:
+        display_container('yellow', '☆メイン画面☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('button1', '1.製造関連', 'other1')
