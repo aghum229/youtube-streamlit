@@ -332,10 +332,21 @@ def display_container(color, text):
     with st_fixed_container(mode="fixed", position="top", transparent=True):
         st.markdown(
             "<p style='text-align:center;'> \
+            <span style='font-size: 40px;font-weight:bold;color:{};margin-bottom: 0px;line-height: 0.5'>{}</span> \
+            </p>".format(color, text),
+            unsafe_allow_html=True
+        )
+
+_= '''
+def display_container(color, text):
+    with st_fixed_container(mode="fixed", position="top", transparent=True):
+        st.markdown(
+            "<p style='text-align:center;'> \
             <span style='font-size: 40px;font-weight:bold;color:{color};margin-bottom: 0px;line-height: 0.5'>{text}</span> \
             </p>",
             unsafe_allow_html=True
         )
+'''
 
 def button_set(button_name, button_text, screen_name):
     button_name = st.button(button_text, on_click=set_screen, args=(screen_name,))
@@ -422,12 +433,15 @@ def show_main_screen():
     # with left:
     #     display_container('yellow', '☆メイン画面☆')
     # display_header("yellow", "☆メイン画面☆")
+    _= '''
     st.markdown(
         "<p style='text-align:center;'> \
         <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
         </p>"
         , unsafe_allow_html=True
     )
+    '''
+    display_container('yellow', '☆メイン画面☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('button1', '1.製造関連', 'other1')
