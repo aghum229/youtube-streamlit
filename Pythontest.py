@@ -167,8 +167,8 @@ div.stButton > button {
     color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #0FF                ;/* 背景色：aqua            */
-    width: 250px; /* ボタンの横幅を固定値に設定 */
-    max-width: 250px; /* 必要に応じて最大幅も設定 */
+    width: 300px; /* ボタンの横幅を固定値に設定 */
+    max-width: 300px; /* 必要に応じて最大幅も設定 */
     height: 24px;
 }
 </style>
@@ -419,7 +419,7 @@ def show_main_screen():
     # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
     # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
     left, center, right = st.columns([0.3, 0.4, 0.3])
-    with center:
+    with left:
         display_container('yellow', '☆メイン画面☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
