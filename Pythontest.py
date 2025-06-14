@@ -331,11 +331,12 @@ def display_footer():
 def display_container(color, text):
     with st_fixed_container(mode="fixed", position="top", transparent=True):
         st.markdown(
-            f"<p style='display:flex; justify-content:center; margin: 0;'> \
-            <span style='font-size: 40px;font-weight:bold;color:{color};line-height: 0.5'>{text}</span> \
+            f"<p style='text-align:center; width:100%; margin: 0;'> \
+            <span style='display: block; margin: auto; font-size: 40px; font-weight: bold; color: {color}; line-height: 0.5;'>{text}</span> \
             </p>",
             unsafe_allow_html=True
         )
+
 
 _= '''
 def display_container(color, text):
