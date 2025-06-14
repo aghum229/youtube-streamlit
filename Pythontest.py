@@ -437,14 +437,15 @@ def show_main_screen():
     # with left:
     #     display_container('yellow', '☆メイン画面☆')
     # display_header("yellow", "☆メイン画面☆")
-    _= '''
-    st.markdown(
-        "<p style='text-align:center;'> \
-        <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
-        </p>"
-        , unsafe_allow_html=True
-    )
-    '''
+    # _= '''
+    with st_fixed_container(mode="fixed", position="top", transparent=True):
+        st.markdown(
+            "<p style='text-align:center;'> \
+            <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
+            </p>"
+            , unsafe_allow_html=True
+        )
+    # '''
     display_container('yellow', '☆メイン画面☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
