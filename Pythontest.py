@@ -421,7 +421,7 @@ def show_main_screen():
     # left, center, right = st.columns([0.3, 0.4, 0.3])
     # with left:
     #     display_container('yellow', '☆メイン画面☆')
-    display_header('yellow', '☆メイン画面☆')
+    display_header("yellow", "☆メイン画面☆")
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('button1', '1.製造関連', 'other1')
