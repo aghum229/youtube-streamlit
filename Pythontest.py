@@ -620,8 +620,14 @@ def show_other1161_screen():
     display_footer()
 
 def show_other11611_screen():
-    display_container('blue', '11611.在庫置き場参照メニュー')
+    # display_container('blue', '11611.在庫置き場参照メニュー')
     # display_header('blue', '11611.在庫置き場参照メニュー')
+    st.markdown(
+        "<p style='text-align:center;'> \
+        <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11611.在庫置き場参照メニュー</span> \
+        </p>",
+        unsafe_allow_html=True
+    )
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
