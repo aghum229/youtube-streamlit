@@ -167,8 +167,8 @@ div.stButton > button {
     color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #0FF                ;/* 背景色：aqua            */
-    width: 250px; /* ボタンの横幅を固定値に設定 */
-    max-width: 250px; /* 必要に応じて最大幅も設定 */
+    width: 280px; /* ボタンの横幅を固定値に設定 */
+    max-width: 280px; /* 必要に応じて最大幅も設定 */
     height: 24px;
 }
 </style>
@@ -331,7 +331,7 @@ def display_footer():
 def display_container(color, text):
     with st_fixed_container(mode="fixed", position="top", transparent=True):
         st.markdown(
-            f"<p style='text-align:center !important;'> \
+            f"<p style='text-align:center;'> \
             <span style='font-size: 40px;font-weight:bold;color:{color};margin-bottom: 0px;line-height: 0.5'>{text}</span> \
             </p>",
             unsafe_allow_html=True
