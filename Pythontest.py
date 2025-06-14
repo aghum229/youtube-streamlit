@@ -623,12 +623,13 @@ def show_other11611_screen():
 def show_other11612_screen():
     # display_container('blue', '11612.在庫置き場入力画面')
     # display_header('blue', '11612.在庫置き場入力画面')
-    st.markdown(
-        "<p style='text-align:center;'> \
-        <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11612.在庫置き場入力画面</span> \
-        </p>"
-        , unsafe_allow_html=True
-    )
+    with st_fixed_container(mode="fixed", position="top", transparent=True):
+        st.markdown(
+            "<p style='text-align:center;'> \
+            <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11612.在庫置き場入力画面</span> \
+            </p>",
+            unsafe_allow_html=True
+        )
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
