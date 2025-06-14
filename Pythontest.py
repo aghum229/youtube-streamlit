@@ -155,12 +155,15 @@ def st_fixed_container(
 
 
 
+
+
 button_style = """
 <style>
 div.stButton {
     display: flex;
     justify-content: center;
-    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
+    # width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
+    width: auto; /* 必要に応じて変更 */
 }
 div.stButton > button {
     font-size: 12px !important; /* 文字サイズを指定 */
@@ -332,7 +335,7 @@ def display_footer():
 def display_container(color, text):
     with st_fixed_container(mode="fixed", position="top", transparent=True):
         st.markdown(
-            f"<div style='position: absolute; left: 50%; transform: translateX(-50%); width: 100%; text-align: center;'> \
+            f"<div style='display: flex; justify-content: center; align-items: center; width: 100%;'> \
             <span style='font-size: 40px; font-weight: bold; color: {color};'>{text}</span> \
             </div>",
             unsafe_allow_html=True
