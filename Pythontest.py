@@ -167,8 +167,8 @@ div.stButton > button {
     color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #0FF                ;/* 背景色：aqua            */
-    width: 350px; /* ボタンの横幅を固定値に設定 */
-    max-width: 350px; /* 必要に応じて最大幅も設定 */
+    width: 300px; /* ボタンの横幅を固定値に設定 */
+    max-width: 300px; /* 必要に応じて最大幅も設定 */
     height: 24px;
 }
 </style>
@@ -615,14 +615,14 @@ def show_other11612_screen():
     button_set('btn1161', return_1161, 'other1161')
     display_line()
     # st.markdown(selectbox_style, unsafe_allow_html=True)
-    # okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
+    # okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="E40")
     left, center, right = st.columns([0.3, 0.4, 0.3])
     with center:
         okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
         seiban = st.text_input("移行票No", placeholder="PP-012345")
         hinban = st.text_input("品番と品名", placeholder="123-45H67-890  PPPPP,QQQQQ RRRRR")
         koutei = st.text_input("完了済工程", placeholder="20 GSN")
-        suryo = st.text_input("数量")
+        suryo = st.text_input("数量", placeholder="3000")
     # button_set('button11611', '11611.在庫置き場参照', 'other11611')
     # button_set('button11612', '11612.在庫置き場入力', 'other11612')
     display_footer()
