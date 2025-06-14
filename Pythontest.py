@@ -153,6 +153,7 @@ def st_fixed_container(
         return st_opaque_container(height=height, border=border, key=f"opaque_{key}")
 # 固定コンテナコードの終わり
 
+
 button_style = """
 <style>
 div.stButton {
@@ -166,8 +167,8 @@ div.stButton > button {
     color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
     background   : #0FF                ;/* 背景色：aqua            */
-    width: 250px; /* ボタンの横幅を固定値に設定 */
-    max-width: 250px; /* 必要に応じて最大幅も設定 */
+    width: 350px; /* ボタンの横幅を固定値に設定 */
+    max-width: 350px; /* 必要に応じて最大幅も設定 */
     height: 24px;
 }
 </style>
@@ -618,6 +619,7 @@ def show_other11612_screen():
     left, center, right = st.columns([0.3, 0.4, 0.3])
     with center:
         okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
+        seiban = st.text_input("移行票No")
         hinban = st.text_input("品番と品名")
         koutei = st.text_input("完了工程")
         suryo = st.text_input("数量")
