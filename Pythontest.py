@@ -421,7 +421,13 @@ def show_main_screen():
     # left, center, right = st.columns([0.3, 0.4, 0.3])
     # with left:
     #     display_container('yellow', '☆メイン画面☆')
-    display_header("yellow", "☆メイン画面☆")
+    # display_header("yellow", "☆メイン画面☆")
+    st.markdown(
+        "<p style='text-align:center;'> \
+        <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
+        </p>"
+        , unsafe_allow_html=True
+    )
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('button1', '1.製造関連', 'other1')
@@ -627,7 +633,7 @@ def show_other11612_screen():
     display_line()
     # st.markdown(selectbox_style, unsafe_allow_html=True)
     # okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="E40")
-    left, center, right = st.columns([0.3, 0.4, 0.3])
+    left, center, right = st.columns([0.2, 0.6, 0.2])
     with center:
         okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"])
         seiban = st.text_input("移行票No", placeholder="PP-012345")
