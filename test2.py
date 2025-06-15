@@ -32,7 +32,7 @@ if response.status_code == 200:
     
     # 読み込んだ設定を表示
     st.title("INI ファイルの内容")
-    st.write(config.sections())
+    # st.write(config.sections())
 
     for section in config.sections():
         st.write(f"[{section}]")
