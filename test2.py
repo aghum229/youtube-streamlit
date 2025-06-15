@@ -56,8 +56,8 @@ st.button("ボタンを追加", on_click=add_button)
 for i in range(st.session_state.button_count):
     col1, col2 = st.columns(2)
     with col1:
-        button_name = st.text_input(f"ボタン {i+1} の名前:", key=f"button_name_{i}", value=f"ボタン{i+1}")
-        st.session_state.button_names.append(button_name)
+        # button_name = st.text_input(f"ボタン {i+1} の名前:", key=f"button_name_{i}", value=f"ボタン{i+1}")
+        st.session_state.button_names.append(f"ボタン {i+1} の名前:", key=f"button_name_{i}")
     with col2:
         st.button(f"{button_name} を削除", on_click=remove_button, args=(i,), key=f"remove_button_{i}")
 
