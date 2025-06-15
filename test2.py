@@ -11,11 +11,14 @@ if response.status_code == 200:
 else:
     st.write(f"Failed to fetch file: {response.status_code}")
 
-token = "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN"
-repo = "ユーザー名/リポジトリ名"
-path = "フォルダ名/ファイル名.txt"
+token = st.secrets["test_text_access_Token"]
+repo = st.secrets["test_repo"]
+path = st.secrets["test_path"]
 branch = "main"
-message = "Update text file via API"
+# repo = "ユーザー名/リポジトリ名"
+# path = "フォルダ名/ファイル名.txt"
+# branch = "main"
+message = text_content "Update text file via API"
 new_content = "これは新しいテキストの内容です。"
 
 # ファイルの現在のSHAを取得
@@ -37,11 +40,11 @@ if response.status_code == 200:
     update_response = requests.put(url, headers=headers, data=json.dumps(data))
 
     if update_response.status_code == 200 or update_response.status_code == 201:
-        print("ファイルを更新しました!")
+        st.write("ファイルを更新しました!")
     else:
-        print(f"更新に失敗しました: {update_response.status_code}")
+        st.write(f"更新に失敗しました: {update_response.status_code}")
 else:
-    print(f"SHAの取得に失敗しました: {response.status_code}")
+    st.write(f"SHAの取得に失敗しました: {response.status_code}")
 
 
 
