@@ -1,9 +1,10 @@
 import streamlit as st
 import requests
 
-path = st.secrets["text_path"]
-url = "https://raw.githubusercontent.com/ユーザー名/リポジトリ名/ブランチ名/フォルダ名/ファイル名.txt"
-response = requests.get(url)
+
+# url = "https://raw.githubusercontent.com/ユーザー名/リポジトリ名/ブランチ名/フォルダ名/ファイル名.txt"
+# response = requests.get(url)
+response = requests.get(st.secrets["text_path"])
 
 if response.status_code == 200:
     text_content = response.text
