@@ -1,6 +1,16 @@
 import streamlit as st
 import requests
 
+url = "https://raw.githubusercontent.com/ユーザー名/リポジトリ名/ブランチ名/フォルダ名/ファイル名.txt"
+response = requests.get(url)
+
+if response.status_code == 200:
+    text_content = response.text
+    print(text_content)
+else:
+    print(f"Failed to fetch file: {response.status_code}")
+
+
 # Streamlitのシークレットから値を取得
 client_id = st.secrets["client_id"]
 client_secret = st.secrets["client_secret"]
