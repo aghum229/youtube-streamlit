@@ -1,16 +1,49 @@
 import streamlit as st
 import requests
-
+import json
 
 # url = "https://raw.githubusercontent.com/ユーザー名/リポジトリ名/ブランチ名/フォルダ名/ファイル名.txt"
 # response = requests.get(url)
 response = requests.get(st.secrets["text_path"])
-
 if response.status_code == 200:
     text_content = response.text
     st.write(text_content)
 else:
     st.write(f"Failed to fetch file: {response.status_code}")
+
+token = "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN"
+repo = "ユーザー名/リポジトリ名"
+path = "フォルダ名/ファイル名.txt"
+branch = "main"
+message = "Update text file via API"
+new_content = "これは新しいテキストの内容です。"
+
+# ファイルの現在のSHAを取得
+url = f"https://api.github.com/repos/{repo}/contents/{path}"
+headers = {"Authorization": f"token {token}"}
+response = requests.get(url, headers=headers)
+
+if response.status_code == 200:
+    sha = response.json()["sha"]
+
+    # 更新リクエスト
+    data = {
+        "message": message,
+        "content": new_content.encode("utf-8").hex(),  # Base64エンコードが必要
+        "sha": sha,
+        "branch": branch
+    }
+
+    update_response = requests.put(url, headers=headers, data=json.dumps(data))
+
+    if update_response.status_code == 200 or update_response.status_code == 201:
+        print("ファイルを更新しました!")
+    else:
+        print(f"更新に失敗しました: {update_response.status_code}")
+else:
+    print(f"SHAの取得に失敗しました: {response.status_code}")
+
+
 
 _= '''
 # Streamlitのシークレットから値を取得
