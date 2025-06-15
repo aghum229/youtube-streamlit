@@ -16,6 +16,11 @@ new_content = "これは新しいテキストの内容です。"
 encoded_content = base64.b64encode(new_content.encode("utf-8")).decode("utf-8")
 st.write(encoded_content)  # ここで正しくエンコードされているか確認
 
+encoded_content = "44GT44KM44Gv5paw44GX44GE44OG44Kt44K544OI44Gu5YaF5a6544Gn44GZ44CC"
+decoded_content = base64.b64decode(encoded_content).decode("utf-8")
+st.write(decoded_content)  # ここで元の文字列に戻るか確認
+
+
 _= '''
 token = st.secrets["test_text_access_Token"]
 repo = st.secrets["test_repo"]
