@@ -3,6 +3,8 @@ import requests
 import json
 import base64
 import configparser
+from github import Github
+
 
 # url = "https://raw.githubusercontent.com/ユーザー名/リポジトリ名/ブランチ名/フォルダ名/ファイル名.txt"
 # response = requests.get(url)
@@ -41,6 +43,23 @@ if response.status_code == 200:
 else:
     st.write(f"Failed to fetch file: {response.status_code}")
 
+# GitHub の個人アクセストークン
+TOKEN = st.secrets["test_text_access_Token"]
+
+# リポジトリ情報
+REPO_NAME = st.secrets["test_repo"]
+FILE_PATH = st.secrets["test_path"]
+
+# GitHub に接続
+g = Github(TOKEN)
+repo = g.get_repo(REPO_NAME)
+
+# 現在のファイル内容を取得
+file = repo.get_contents(FILE_PATH)
+new_content = "[settings]\nusername=streamlit_user"
+
+# ファイルを更新
+repo.update_file(file.path, "Updated config", new_content, file.sha)
 
 _= '''
 new_content = "これは新しいテキストの内容です。"
