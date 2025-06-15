@@ -44,6 +44,7 @@ def add_button():
     st.session_state.button_count += 1
 
 def remove_button(index):
+    st.write(index)
     st.session_state.button_names.pop(index)
     st.session_state.button_count -= 1
 
