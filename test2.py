@@ -16,7 +16,8 @@ if response.status_code == 200:
 else:
     st.write(f"Failed to fetch file: {response.status_code}")
 '''
-response = requests.get(st.secrets["text_path"], stream=True)
+response = requests.get(st.secrets["text_path"], headers={"Cache-Control": "no-cache"})
+# response = requests.get(st.secrets["text_path"], stream=True)
 if response.status_code == 200:
     text_content = "\n".join(line.decode("utf-8") for line in response.iter_lines())
     st.write(text_content)
