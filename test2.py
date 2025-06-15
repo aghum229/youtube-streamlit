@@ -28,7 +28,7 @@ if response.status_code == 200:
     
     # iniファイルを読み込む
     config = configparser.ConfigParser()
-    config.read(text_content)
+    config.read(st.secrets["text_path"])
     
     # 読み込んだ設定を表示
     st.write("読み込んだ設定:")
