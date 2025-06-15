@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import json
 import base64
+import configparser
 
 # url = "https://raw.githubusercontent.com/ユーザー名/リポジトリ名/ブランチ名/フォルダ名/ファイル名.txt"
 # response = requests.get(url)
