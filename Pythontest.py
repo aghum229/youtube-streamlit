@@ -621,6 +621,11 @@ def show_other11612_screen():
         hinban = st.text_input("品番 (品名)", placeholder="123-45H67-890 (PPPPP,QQQQQ RRRRR)")
         koutei = st.text_input("完了済工程", placeholder="20 GSN")
         suryo = st.text_input("数量", placeholder="3000")
+        left, right = st.columns([0.5, 0.5])
+        with left:
+            button_set('button116121', '116121,実行', zzz)
+        with right:
+            button_set('button116122', '116122,キャンセル', zzz)
     # button_set('button11611', '11611.在庫置き場参照', 'other11611')
     # button_set('button11612', '11612.在庫置き場入力', 'other11612')
     display_footer()
