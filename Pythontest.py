@@ -386,6 +386,16 @@ def show_main_screen():
     '''
     display_container('yellow', '☆メイン画面☆')
     display_line()
+    col1, col2, col3, col4, col5 = st.columns(5)
+    with col1:
+        button_name = st.text_input(f"ボタン {i+1} の名前:", key=f"button_name_{i}", value=f"ボタン{i+1}")
+        st.session_state.button_names.append(button_name)
+    with col2:
+        st.button(f"{button_name} を削除", on_click=remove_button, args=(i,), key=f"remove_button_{i}")
+
+    if st.button(st.session_state.button_names[i], key=f"dynamic_button_{i}"):
+       st.write(f"{st.session_state.button_names[i]} がクリックされました")
+    display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('button1', '1.製造関連', 'other1')
     button_set('button2', '2.ＩＳＯ関連', 'other2')
