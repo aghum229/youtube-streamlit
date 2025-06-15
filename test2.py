@@ -8,9 +8,9 @@ response = requests.get(st.secrets["text_path"])
 
 if response.status_code == 200:
     text_content = response.text
-    print(text_content)
+    st.write(text_content)
 else:
-    print(f"Failed to fetch file: {response.status_code}")
+    st.write(f"Failed to fetch file: {response.status_code}")
 
 _= '''
 # Streamlitのシークレットから値を取得
