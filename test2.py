@@ -38,3 +38,28 @@ try:
 except requests.exceptions.RequestException as e:
     print("❌ Salesforce への接続エラー：")
     print(e)
+
+
+def add_button():
+    st.session_state.button_count += 1
+
+def remove_button(index):
+    st.session_state.button_names.pop(index)
+    st.session_state.button_count -= 1
+
+if 'button_count' not in st.session_state:
+    st.session_state.button_count = 0
+    st.session_state.button_names = []
+
+st.button("ボタンを追加", on_click=add_button)
+
+for i in range(st.session_state.button_count):
+    col1, col2 = st.columns(2)
+    with col1:
+        button_name = st.text_input(f"ボタン {i+1} の名前:", key=f"button_name_{i}", value=f"ボタン{i+1}")
+        st.session_state.button_names.append(button_name)
+    with col2:
+        st.button(f"{button_name} を削除", on_click=remove_button, args=(i,), key=f"remove_button_{i}")
+
+    if st.button(st.session_state.button_names[i], key=f"dynamic_button_{i}"):
+       st.write(f"{st.session_state.button_names[i]} がク
