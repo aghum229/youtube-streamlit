@@ -310,12 +310,6 @@ def button_make(button_text, screen_name):
     # if st.button(button_text, key=button_text): # keyを設定して複数のボタンを区別
     #     set_screen(screen_name)
 
-def add_button():
-    st.session_state.button_count += 1
-
-def remove_button(index):
-    st.session_state.button_names.pop(index)
-    st.session_state.button_count -= 1
 
 return_main = "⏎ ☆メイン画面☆　へ戻る"
 return_1 = "⏎ 1.製造関連メニュー　へ戻る"
@@ -386,19 +380,6 @@ def show_main_screen():
     '''
     display_container('yellow', '☆メイン画面☆')
     display_line()
-    _= '''
-    st.button("ショートカットを追加", on_click=add_button)
-    col1, col2, col3, col4, col5 = st.columns(5)
-    with col1:
-        button_name = st.text_input(f"ボタン {i+1} の名前:", key=f"button_name_{i}", value=f"ボタン{i+1}")
-        st.session_state.button_names.append(button_name)
-    with col2:
-        st.button(f"{button_name} を削除", on_click=remove_button, args=(i,), key=f"remove_button_{i}")
-
-    if st.button(st.session_state.button_names[i], key=f"dynamic_button_{i}"):
-       st.write(f"{st.session_state.button_names[i]} がクリックされました")
-    display_line()
-    '''
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('button1', '1.製造関連', 'other1')
     button_set('button2', '2.ＩＳＯ関連', 'other2')
