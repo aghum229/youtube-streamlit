@@ -10,7 +10,7 @@ if response.status_code == 200:
 else:
     print(f"Failed to fetch file: {response.status_code}")
 
-
+_= '''
 # Streamlitのシークレットから値を取得
 client_id = st.secrets["client_id"]
 client_secret = st.secrets["client_secret"]
@@ -74,3 +74,4 @@ for i in range(st.session_state.button_count):
 
     if st.button(st.session_state.button_names[i], key=f"dynamic_button_{i}"):
        st.write(f"{st.session_state.button_names[i]} がクリックされました")
+'''
