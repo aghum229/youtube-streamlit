@@ -11,6 +11,7 @@ if response.status_code == 200:
 else:
     st.write(f"Failed to fetch file: {response.status_code}")
 
+_= '''
 token = st.secrets["test_text_access_Token"]
 repo = st.secrets["test_repo"]
 path = st.secrets["test_path"]
@@ -46,7 +47,7 @@ if response.status_code == 200:
         st.write(f"更新に失敗しました: {update_response.status_code}")
 else:
     st.write(f"SHAの取得に失敗しました: {response.status_code}")
-
+'''
 
 
 _= '''
