@@ -310,6 +310,13 @@ def button_make(button_text, screen_name):
     # if st.button(button_text, key=button_text): # keyを設定して複数のボタンを区別
     #     set_screen(screen_name)
 
+def add_button():
+    st.session_state.button_count += 1
+
+def remove_button(index):
+    st.session_state.button_names.pop(index)
+    st.session_state.button_count -= 1
+
 return_main = "⏎ ☆メイン画面☆　へ戻る"
 return_1 = "⏎ 1.製造関連メニュー　へ戻る"
 return_11 = "⏎ 11.製品メニュー　へ戻る"
