@@ -5,6 +5,7 @@ import base64
 
 # url = "https://raw.githubusercontent.com/ユーザー名/リポジトリ名/ブランチ名/フォルダ名/ファイル名.txt"
 # response = requests.get(url)
+_= '''
 response = requests.get(st.secrets["text_path"])
 if response.status_code == 200:
     text_content = response.text
@@ -14,6 +15,14 @@ if response.status_code == 200:
     st.write(full_text)
 else:
     st.write(f"Failed to fetch file: {response.status_code}")
+'''
+response = requests.get(st.secrets["text_path"], stream=True)
+if response.status_code == 200:
+    text_content = "\n".join(line.decode("utf-8") for line in response.iter_lines())
+    st.write(text_content)
+else:
+    st.write(f"Failed to fetch file: {response.status_code}")
+
 
 _= '''
 new_content = "これは新しいテキストの内容です。"
@@ -35,7 +44,7 @@ branch = "main"
 # branch = "main"
 message = "Update text file via API"
 # new_content = "これは新しいテキストの内容です。"
-new_content = full_text.strip() + "  \n" + "これは新しいテキストの内容です。"
+new_content = text_content.strip() + "  \n" + "これは新しいテキストの内容です。"
 # encoded_content = base64.b64encode(new_content.encode("utf-8")).decode("utf-8")
 # st.write(encoded_content)  # ここで正しくエンコードされているか確認
 
