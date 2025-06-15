@@ -62,4 +62,4 @@ for i in range(st.session_state.button_count):
         st.button(f"{button_name} を削除", on_click=remove_button, args=(i,), key=f"remove_button_{i}")
 
     if st.button(st.session_state.button_names[i], key=f"dynamic_button_{i}"):
-       st.write(f"{st.session_state.button_names[i]} がク
+       st.write(f"{st.session_state.button_names[i]} がクリックされました")
