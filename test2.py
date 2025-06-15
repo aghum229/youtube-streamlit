@@ -19,7 +19,8 @@ branch = "main"
 # path = "フォルダ名/ファイル名.txt"
 # branch = "main"
 message = "Update text file via API"
-new_content = text_content + "  \n" + "これは新しいテキストの内容です。"
+new_content = "これは新しいテキストの内容です。"
+# new_content = text_content + "  \n" + "これは新しいテキストの内容です。"
 
 # ファイルの現在のSHAを取得
 url = f"https://api.github.com/repos/{repo}/contents/{path}"
