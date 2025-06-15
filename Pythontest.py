@@ -623,9 +623,9 @@ def show_other11612_screen():
         suryo = st.text_input("数量", placeholder="3000")
         left, right = st.columns([0.5, 0.5])
         with left:
-            button_set('button116121', '116121,実行', zzz)
+            button_set('button116121', '116121,実行', 'other11611')
         with right:
-            button_set('button116122', '116122,キャンセル', zzz)
+            button_set('button116122', '116122,キャンセル', 'other11611')
     # button_set('button11611', '11611.在庫置き場参照', 'other11611')
     # button_set('button11612', '11612.在庫置き場入力', 'other11612')
     display_footer()
