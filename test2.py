@@ -35,7 +35,7 @@ branch = "main"
 # branch = "main"
 message = "Update text file via API"
 # new_content = "これは新しいテキストの内容です。"
-new_content = strip(full_text) + "  \n" + "これは新しいテキストの内容です。"
+new_content = full_text.strip() + "  \n" + "これは新しいテキストの内容です。"
 # encoded_content = base64.b64encode(new_content.encode("utf-8")).decode("utf-8")
 # st.write(encoded_content)  # ここで正しくエンコードされているか確認
 
