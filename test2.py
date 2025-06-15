@@ -23,8 +23,19 @@ response = requests.get(st.secrets["text_path"], headers={"Cache-Control": "no-c
 if response.status_code == 200:
     # text_content = response.text
     # text_content = ""
-    text_content = "\n".join(line.decode("utf-8") for line in response.iter_lines())
-    st.write(text_content)
+    # text_content = "\n".join(line.decode("utf-8") for line in response.iter_lines())
+    # st.write(text_content)
+    
+    # iniファイルを読み込む
+    config = configparser.ConfigParser()
+    config.read(response.text)
+    
+    # 読み込んだ設定を表示
+    st.write("読み込んだ設定:")
+    for section in config.sections():
+        st.write(f"[{section}]")
+        for key, value in config.items(section):
+            st.write(f"{key}: {value}")
 else:
     st.write(f"Failed to fetch file: {response.status_code}")
 
