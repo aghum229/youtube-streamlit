@@ -12,6 +12,7 @@ if response.status_code == 200:
 else:
     st.write(f"Failed to fetch file: {response.status_code}")
 
+_= '''
 new_content = "これは新しいテキストの内容です。"
 encoded_content = base64.b64encode(new_content.encode("utf-8")).decode("utf-8")
 st.write(encoded_content)  # ここで正しくエンコードされているか確認
@@ -19,7 +20,7 @@ st.write(encoded_content)  # ここで正しくエンコードされているか
 encoded_content = "44GT44KM44Gv5paw44GX44GE44OG44Kt44K544OI44Gu5YaF5a6544Gn44GZ44CC"
 decoded_content = base64.b64decode(encoded_content).decode("utf-8")
 st.write(decoded_content)  # ここで元の文字列に戻るか確認
-
+'''
 
 # _= '''
 token = st.secrets["test_text_access_Token"]
@@ -30,8 +31,8 @@ branch = "main"
 # path = "フォルダ名/ファイル名.txt"
 # branch = "main"
 message = "Update text file via API"
-new_content = "これは新しいテキストの内容です。"
-# new_content = text_content + "  \n" + "これは新しいテキストの内容です。"
+# new_content = "これは新しいテキストの内容です。"
+new_content = text_content + "  \n" + "これは新しいテキストの内容です。"
 # encoded_content = base64.b64encode(new_content.encode("utf-8")).decode("utf-8")
 # st.write(encoded_content)  # ここで正しくエンコードされているか確認
 
