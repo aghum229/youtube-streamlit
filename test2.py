@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 
+path = st.secrets["text_path"]
 url = "https://raw.githubusercontent.com/ユーザー名/リポジトリ名/ブランチ名/フォルダ名/ファイル名.txt"
 response = requests.get(url)
 
