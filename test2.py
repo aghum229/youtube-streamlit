@@ -37,7 +37,7 @@ if response.status_code == 200:
         "sha": sha,
         "branch": branch
     }
-
+    st.write(new_content.encode("utf-8").hex())
     update_response = requests.put(url, headers=headers, data=json.dumps(data))
 
     if update_response.status_code == 200 or update_response.status_code == 201:
