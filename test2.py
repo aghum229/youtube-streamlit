@@ -21,7 +21,7 @@ decoded_content = base64.b64decode(encoded_content).decode("utf-8")
 st.write(decoded_content)  # ここで元の文字列に戻るか確認
 
 
-_= '''
+# _= '''
 token = st.secrets["test_text_access_Token"]
 repo = st.secrets["test_repo"]
 path = st.secrets["test_path"]
@@ -68,7 +68,7 @@ if response.status_code == 200:
         st.write(f"更新に失敗しました: {update_response.status_code}")
 else:
     st.write(f"SHAの取得に失敗しました: {response.status_code}")
-'''
+# '''
 
 
 _= '''
