@@ -44,23 +44,53 @@ if response.status_code == 200:
 else:
     st.write(f"Failed to fetch file: {response.status_code}")
 
-# GitHub の個人アクセストークン
-TOKEN = st.secrets["test_text_access_Token"]
 
-# リポジトリ情報
-REPO_NAME = st.secrets["test_repo"]
-FILE_PATH = st.secrets["test_path"]
+def commit_changes_to_github(config, repository, branch, path_to_file, github_token):
+    # 変更を文字列に変換
+    ini_string = ""
+    for section in config.sections():
+        ini_string += f"[{section}]\n"
+        for key, value in config[section].items():
+            ini_string += f"{key} = {value}\n"
+        ini_string += "\n"
 
-# GitHub に接続
-g = Github(TOKEN)
-repo = g.get_repo(REPO_NAME)
+    # GitHub APIを使ってファイルを更新
+    url = f"https://api.github.com/repos/{repository}/contents/{path_to_file}"
+    headers = {
+        "Authorization": f"token {github_token}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+    # 現在のファイルのSHAを取得
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    sha = response.json()['sha']
 
-# 現在のファイル内容を取得
-file = repo.get_contents(FILE_PATH)
-new_content = "[settings]\nusername=streamlit_user"
+    data = {
+        "message": "Update ini file from Streamlit app",
+        "content": base64.b64encode(ini_string.encode()).decode(),
+        "sha": sha,
+        "branch": branch
+    }
+    response = requests.put(url, headers=headers, json=data)
+    response.raise_for_status()
+    st.success("Changes committed to GitHub successfully!")
 
-# ファイルを更新
-repo.update_file(file.path, "Updated config", new_content, file.sha)
+# GitHubへの書き込みに必要な情報
+repository = st.secrets["test_repo"]
+branch = "main"
+path_to_file = st.secrets["test_path"]
+github_token = st.secrets["test_text_access_Token"]
+
+if st.button("Commit Changes"):
+    if github_token:
+        try:
+            commit_changes_to_github(config, repository, branch, path_to_file, github_token)
+        except requests.exceptions.RequestException as e:
+            st.error(f"Failed to commit changes to GitHub: {e}")
+    else:
+        st.warning("Please enter your GitHub Personal Access Token.")
+
+
 
 _= '''
 new_content = "これは新しいテキストの内容です。"
