@@ -53,7 +53,7 @@ def display_ini_editor(config):
 
 # iniファイルを編集する関数
 display_ini_editor(config)
-st.write(config)
+
 def commit_changes_to_github(config, repository, branch, path_to_file, github_token):
     # 変更を文字列に変換
     ini_string = ""
@@ -91,6 +91,7 @@ path_to_file = st.secrets["test_path"]
 github_token = st.secrets["test_text_access_Token"]
 
 if st.button("Commit Changes"):
+    st.write(config)
     if github_token:
         try:
             commit_changes_to_github(config, repository, branch, path_to_file, github_token)
