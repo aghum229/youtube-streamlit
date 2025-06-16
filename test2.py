@@ -8,6 +8,7 @@ import configparser
 from flask import Flask, request
 import time
 
+_= '''
 repository = st.secrets["test_repo"]
 branch = "main"
 path_to_file = st.secrets["test_path"]
@@ -47,7 +48,7 @@ def check_for_updates():
 while True:
     check_for_updates()
     time.sleep(5)  # 5秒ごとに確認
-
+'''
 
 # url = "https://raw.githubusercontent.com/ユーザー名/リポジトリ名/ブランチ名/フォルダ名/ファイル名.txt"
 # response = requests.get(url)
