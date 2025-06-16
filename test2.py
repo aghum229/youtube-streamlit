@@ -43,6 +43,7 @@ if response.status_code == 200:
 else:
     st.write(f"Failed to fetch file: {response.status_code}")
 
+config_new = {}  # 初期化
 def display_ini_editor(config):
     global config_new
     for section in config.sections():
