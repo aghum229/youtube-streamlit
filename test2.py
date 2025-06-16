@@ -6,6 +6,7 @@ import configparser
 # from github import Github
 
 from flask import Flask, request
+import time
 
 repository = st.secrets["test_repo"]
 branch = "main"
@@ -35,6 +36,17 @@ def github_webhook():
 
 if __name__ == "__main__":
     app.run(port=5000)
+
+# GitHub Webhook の通知を定期的にチェック
+def check_for_updates():
+    response = requests.get("http://localhost:5000/github-webhook")
+    if response.status_code == 200:
+        st.experimental_rerun()
+
+# 定期的に更新をチェック
+while True:
+    check_for_updates()
+    time.sleep(5)  # 5秒ごとに確認
 
 
 # url = "https://raw.githubusercontent.com/ユーザー名/リポジトリ名/ブランチ名/フォルダ名/ファイル名.txt"
