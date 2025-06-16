@@ -3,7 +3,8 @@ import requests
 import json
 import base64
 import configparser
-from github import Github
+# from github import Github
+import Github
 
 
 # url = "https://raw.githubusercontent.com/ユーザー名/リポジトリ名/ブランチ名/フォルダ名/ファイル名.txt"
