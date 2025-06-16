@@ -43,15 +43,13 @@ if response.status_code == 200:
 else:
     st.write(f"Failed to fetch file: {response.status_code}")
 
-config_new = {}  # 初期化
 def display_ini_editor(config):
-    global config_new
     for section in config.sections():
         st.subheader(f"Section: {section}")
         for key in config[section]:
             new_value = st.text_input(f"Key: {key}", config[section][key], key=f"{section}-{key}")
             st.write(new_value)
-            config_new[section][key] = new_value
+            config[section][key] = new_value
 
 # iniファイルを編集する関数
 display_ini_editor(config)
