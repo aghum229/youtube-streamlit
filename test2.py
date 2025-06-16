@@ -20,6 +20,15 @@ else:
     st.write(f"Failed to fetch file: {response.status_code}")
 '''
 
+repository = st.secrets["test_repo"]
+branch = "main"
+path_to_file = st.secrets["test_path"]
+
+raw_url = f"https://raw.githubusercontent.com/{repository}/{branch}/{path_to_file}"
+response = requests.get(raw_url)
+st.write("Raw INI File Content:")
+st.code(response.text)
+
 headers = {
     "Cache-Control": "no-cache",
     "Pragma": "no-cache"  # 追加でキャッシュ回避
