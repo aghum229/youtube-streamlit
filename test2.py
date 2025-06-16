@@ -20,7 +20,12 @@ else:
     st.write(f"Failed to fetch file: {response.status_code}")
 '''
 
-response = requests.get(st.secrets["text_path"], headers={"Cache-Control": "no-cache"})
+headers = {
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache"  # 追加でキャッシュ回避
+}
+response = requests.get(st.secrets["text_path"], headers=headers)
+# response = requests.get(st.secrets["text_path"], headers={"Cache-Control": "no-cache"})
 # response = requests.get(st.secrets["text_path"], stream=True)
 if response.status_code == 200:
     # text_content = response.text
