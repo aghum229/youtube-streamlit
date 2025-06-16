@@ -77,6 +77,7 @@ def consultar_salesforce(production_order, sf):
         result = sf.query(query)
         records = result['records']
         if not records:
+            st.write("❌00 **データの取り出しに失敗しました。**")
             return pd.DataFrame(), None, None, 0.0
 
         df = pd.DataFrame(records)
@@ -106,6 +107,8 @@ def consultar_salesforce(production_order, sf):
                 material = "N/A"
                 material_weight = 0.0
             return pd.DataFrame([last_record]), material, material_weight, cumulative_cost
+        else:
+            st.write("❌01 **データの取り出しに失敗しました。**")
         return pd.DataFrame(), None, None, 0.0
     except Exception as e:
         st.error(f"Salesforceクエリエラー: {e}")
