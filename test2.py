@@ -66,6 +66,8 @@ def commit_changes_to_github(config, repository, branch, path_to_file, github_to
             ini_string += f"{key} = {value}\n"
         ini_string += "\n"
 
+    st.code(ini_string)
+
     # GitHub APIを使ってファイルを更新
     url = f"https://api.github.com/repos/{repository}/contents/{path_to_file}"
     headers = {
