@@ -44,12 +44,13 @@ else:
     st.write(f"Failed to fetch file: {response.status_code}")
 
 def display_ini_editor(config):
+    global config_new
     for section in config.sections():
         st.subheader(f"Section: {section}")
         for key in config[section]:
             new_value = st.text_input(f"Key: {key}", config[section][key], key=f"{section}-{key}")
             st.write(new_value)
-            config[section][key] = new_value
+            config_new[section][key] = new_value
 
 # iniファイルを編集する関数
 display_ini_editor(config)
@@ -93,7 +94,7 @@ github_token = st.secrets["test_text_access_Token"]
 if st.button("Commit Changes"):
     if github_token:
         try:
-            commit_changes_to_github(config, repository, branch, path_to_file, github_token)
+            commit_changes_to_github(config_new, repository, branch, path_to_file, github_token)
         except requests.exceptions.RequestException as e:
             st.error(f"Failed to commit changes to GitHub: {e}")
     else:
