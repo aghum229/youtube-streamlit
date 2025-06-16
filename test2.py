@@ -5,6 +5,37 @@ import base64
 import configparser
 # from github import Github
 
+from flask import Flask, request
+
+repository = st.secrets["test_repo"]
+branch = "main"
+path_to_file = st.secrets["test_path"]
+
+app = Flask(__name__)
+
+# GitHub Webhook の通知を受け取るエンドポイント
+@app.route("/github-webhook", methods=["POST"])
+def github_webhook():
+    data = request.json
+    if data and "commits" in data:
+        print("GitHub update detected. Fetching latest file...")
+        
+        # GitHubから最新のINIファイルを取得
+        url = "https://raw.githubusercontent.com/{repository}/{branch}/{path_to_file}"
+        response = requests.get(url)
+        
+        if response.status_code == 200:
+            with open("latest_config.ini", "w") as f:
+                f.write(response.text)
+            st.success("INI file updated successfully.")
+        else:
+            st.error("Failed to fetch the latest INI file.")
+    
+    return "Webhook received", 200
+
+if __name__ == "__main__":
+    app.run(port=5000)
+
 
 # url = "https://raw.githubusercontent.com/ユーザー名/リポジトリ名/ブランチ名/フォルダ名/ファイル名.txt"
 # response = requests.get(url)
