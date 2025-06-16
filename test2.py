@@ -93,7 +93,7 @@ github_token = st.secrets["test_text_access_Token"]
 if st.button("Commit Changes"):
     if github_token:
         try:
-            commit_changes_to_github(config_new, repository, branch, path_to_file, github_token)
+            commit_changes_to_github(config, repository, branch, path_to_file, github_token)
         except requests.exceptions.RequestException as e:
             st.error(f"Failed to commit changes to GitHub: {e}")
     else:
