@@ -44,11 +44,11 @@ else:
     st.write(f"Failed to fetch file: {response.status_code}")
 
 def display_ini_editor(config):
-    global config
     for section in config.sections():
         st.subheader(f"Section: {section}")
         for key in config[section]:
             new_value = st.text_input(f"Key: {key}", config[section][key], key=f"{section}-{key}")
+            st.write(new_value)
             config[section][key] = new_value
 
 # iniファイルを編集する関数
