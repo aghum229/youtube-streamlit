@@ -43,7 +43,8 @@ secrets = carregar_credenciais()
 
 # Função de autenticação do Salesforce usando as credenciais do secrets
 def authenticate_salesforce():
-    auth_url = st.secrets["token_url"]
+    auth_url = f"{secrets['DOMAIN']}/services/oauth2/token"
+    # auth_url = st.secrets["token_url"]
     auth_data = {
         'grant_type': 'password',
         'client_id': secrets['client_id'],
