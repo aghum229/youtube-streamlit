@@ -257,6 +257,7 @@ with st.form(key="registro_form"):
             last_record = st.session_state.data[0]
             default_quantity = clean_quantity(last_record.get("snps_um__ActualQt__c") or last_record.get("AITC_OrderQt__c") or 0.0)
             default_process_order = int(last_record.get("snps_um__ProcessOrderNo__c", 0))
+            default_process_order_name = int(last_record.get("snps_um__ProcessName__c", 0))
         else:
             st.session_state.data = None
             st.session_state.material = None
@@ -270,9 +271,11 @@ with st.form(key="registro_form"):
     if st.session_state.data:
         quantity = st.number_input("数量 (工程):", value=default_quantity, key="quantity")
         process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
+        process_order_name = st.number_input("工程名:", value=default_process_order_name, step=1, key="process_order_name")
     else:
         quantity = st.number_input("数量 (工程):", value=0.0, key="quantity", disabled=True)
         process_order = st.number_input("工程順序:", value=0, key="process_order", disabled=True)
+        process_order_name = st.number_input("工程名:", value="-", step=1, key="process_order_name")
 
     # Botão de submissão
     submit_button = st.form_submit_button("Firebaseに保存")
