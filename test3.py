@@ -264,7 +264,7 @@ with st.form(key="registro_form"):
             default_process_order = int(last_record.get("snps_um__ProcessOrderNo__c", 0))
             default_process_order_name = last_record.get("snps_um__ProcessName__c")
             default_hinban = last_record.get("snps_um__Item__r", {}).get("Name", "")
-            default_hinmei = last_record.get("snps_um__Item__r, {}).get("AITC_PrintItemName__c", "")
+            default_hinmei = last_record.get("snps_um__Item__r", {}).get("AITC_PrintItemName__c", "")
         else:
             st.session_state.data = None
             st.session_state.material = None
