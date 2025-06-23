@@ -258,6 +258,7 @@ with st.form(key="registro_form"):
             st.session_state.material_weight = material_weight
             st.session_state.cumulative_cost = cumulative_cost
             last_record = st.session_state.data[0]
+            st.write(last_record)
             default_quantity = clean_quantity(last_record.get("snps_um__ActualQt__c") or last_record.get("AITC_OrderQt__c") or 0.0)
             default_process_order = int(last_record.get("snps_um__ProcessOrderNo__c", 0))
             default_process_order_name = last_record.get("snps_um__ProcessName__c")
