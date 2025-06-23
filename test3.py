@@ -242,6 +242,7 @@ if st.button("カメラを再表示"):
 with st.form(key="registro_form"):
     default_quantity = 0.0
     default_process_order = 0
+    default_process_order_name = ""
     # st.write(st.session_state)
     if st.session_state.production_order is not None:
         df, material, material_weight, cumulative_cost = consultar_salesforce(st.session_state.production_order, st.session_state.sf)
@@ -257,7 +258,7 @@ with st.form(key="registro_form"):
             last_record = st.session_state.data[0]
             default_quantity = clean_quantity(last_record.get("snps_um__ActualQt__c") or last_record.get("AITC_OrderQt__c") or 0.0)
             default_process_order = int(last_record.get("snps_um__ProcessOrderNo__c", 0))
-            default_process_order_name = int(last_record.get("snps_um__ProcessName__c"))
+            default_process_order_name = last_record.get("snps_um__ProcessName__c")
         else:
             st.session_state.data = None
             st.session_state.material = None
