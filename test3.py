@@ -262,8 +262,8 @@ with st.form(key="registro_form"):
             default_quantity = clean_quantity(last_record.get("snps_um__ActualQt__c") or last_record.get("AITC_OrderQt__c") or 0.0)
             default_process_order = int(last_record.get("snps_um__ProcessOrderNo__c", 0))
             default_process_order_name = last_record.get("snps_um__ProcessName__c")
-            default_hinban = last_record.get("snps_um__Item__r.Id")
-            default_hinban_name = last_record.get("snps_um__Item__r.Name")
+            default_hinban = last_record.get("snps_um__Item__r")
+            # default_hinban_name = last_record.get("snps_um__Item__r.Name")
         else:
             st.session_state.data = None
             st.session_state.material = None
@@ -278,14 +278,14 @@ with st.form(key="registro_form"):
         quantity = st.number_input("数量 (工程):", value=default_quantity, key="quantity")
         process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
         process_order_name = st.text_input("工程名:", key="process_order_name", value=default_process_order_name)
-        hinban = st.text_input("品番:", key="hinban", value=default_hinban)
-        hinban_name = st.text_input("品名:", key="hinban_name", value=default_hinban_name)
+        hinban = st.text_input("品番:", key="hinban", value=default_hinban.name)
+        # hinban_name = st.text_input("品名:", key="hinban_name", value=default_hinban_name)
     else:
         quantity = st.number_input("数量 (工程):", value=0.0, key="quantity", disabled=True)
         process_order = st.number_input("工程順序:", value=0, key="process_order", disabled=True)
         process_order_name = st.text_input("工程名:", key="process_order_name", value="-")
         hinban = st.text_input("品番:", key="hinban", value="-")
-        hinban_name = st.text_input("品名:", key="hinban_name", value="-")
+        # hinban_name = st.text_input("品名:", key="hinban_name", value="-")
 
     # Botão de submissão
     submit_button = st.form_submit_button("Firebaseに保存")
