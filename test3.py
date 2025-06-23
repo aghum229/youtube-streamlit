@@ -271,11 +271,11 @@ with st.form(key="registro_form"):
     if st.session_state.data:
         quantity = st.number_input("数量 (工程):", value=default_quantity, key="quantity")
         process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
-        process_order_name = st.text_input("工程名:", value=default_process_order_name, step=1, key="process_order_name")
+        process_order_name = st.text_input("工程名:", key="process_order_name", value=default_process_order_name)
     else:
         quantity = st.number_input("数量 (工程):", value=0.0, key="quantity", disabled=True)
         process_order = st.number_input("工程順序:", value=0, key="process_order", disabled=True)
-        process_order_name = st.text_input("工程名:", value="-", step=1, key="process_order_name")
+        process_order_name = st.text_input("工程名:", key="process_order_name", value="-")
 
     # Botão de submissão
     submit_button = st.form_submit_button("Firebaseに保存")
