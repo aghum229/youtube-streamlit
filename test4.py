@@ -168,7 +168,7 @@ def encontrar_item_por_nome(sf, item_name):
     query = f"""
         SELECT Id, snps_um__ItemName__c
         FROM snps_um__Item__c
-        WHERE snps_um__ItemName__c = '{item_name}'
+        WHERE snps_um__Item__r.snps_um__ItemName__c = '{item_name}'
         LIMIT 1
     """
     try:
