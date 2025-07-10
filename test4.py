@@ -337,11 +337,11 @@ if st.button("カメラを再表示"):
     st.rerun()
 '''
 
-if st.button("フィールド詳細を表示"):
+if st.button("関係フィールド詳細を表示"):
     descrever_process_fields(st.session_state.sf)
     
 if st.button("フィールド詳細を表示"):
-    descrever_item_fields_completo00(st.session_state.sf)
+    descrever_item_fields_completo(st.session_state.sf)
 
 # Formulário sempre renderizado
 with st.form(key="registro_form"):
