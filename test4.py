@@ -164,6 +164,33 @@ def update_process_tanaban(sf, process_id):
     except Exception as e:
         st.error(f"更新エラー: {e}")
 
+def encontrar_item_por_nome(sf, item_name):
+    query = f"""
+        SELECT Id, Name
+        FROM snps_um__Item__c
+        WHERE Name = '{item_name}'
+        LIMIT 1
+    """
+    try:
+        result = sf.query(query)
+        records = result.get("records", [])
+        if records:
+            return records[0]["Id"]
+        else:
+            st.warning(f"品番 {item_name} に一致する snps_um__Item__c が見つかりませんでした。")
+            return None
+    except Exception as e:
+        st.error(f"Item検索エラー: {e}")
+        return None
+
+def atualizar_tanabangou(sf, item_id):
+    try:
+        sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
+        st.success("AITC_tanabangou00__c に「OK」を書き込みました！")
+    except Exception as e:
+        st.error(f"更新エラー: {e}")
+
+
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
     try:
@@ -219,6 +246,9 @@ if "cumulative_cost" not in st.session_state:
 if "manual_input_value" not in st.session_state:
     st.session_state.manual_input_value = ""
 
+manual_input = st.text_input("品番を入力してください")
+
+_= '''
 # Opção de digitação manual do production_order
 manual_input = st.text_input("生産オーダー番号を入力してください (6桁、例: 000000):",
                             value=st.session_state.manual_input_value,
@@ -228,6 +258,7 @@ if manual_input and len(manual_input) == 6 and manual_input.isdigit():
     st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
     st.session_state.manual_input_value = manual_input
     st.session_state.show_camera = False
+'''
 
 _= '''
 # Exibir câmera apenas se production_order for None e show_camera for True
@@ -289,8 +320,15 @@ with st.form(key="registro_form"):
         process_order_name = st.text_input("工程名:", key="process_order_name", value="-")
 
     # Botão de submissão
-    submit_button = st.form_submit_button("Firebaseに保存")
+    submit_button = st.form_submit_button("データベースに保存")
 
+    if submit_button:
+        item_name_input = st.session_state.manual_input_value.strip()
+        item_id = encontrar_item_por_nome(st.session_state.sf, item_name_input)
+        if item_id:
+            atualizar_tanabangou(st.session_state.sf, item_id)
+
+    _= '''
     # Lógica de gravação
     if submit_button and st.session_state.data is not None:
         owner_input = st.session_state.get("owner", "").strip()
@@ -363,3 +401,4 @@ with st.form(key="registro_form"):
                 st.session_state.show_camera = True
                 st.rerun()
             '''
+    '''
