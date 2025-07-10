@@ -190,6 +190,16 @@ def atualizar_tanabangou(sf, item_id):
     except Exception as e:
         st.error(f"更新エラー: {e}")
 
+def descrever_item_fields(sf):
+    try:
+        fields = sf.snps_um__Item__c.describe()["fields"]
+        field_names = [field["name"] for field in fields]
+        st.write("📋 snps_um__Item__c のフィールド一覧:")
+        st.write(field_names)
+        return field_names
+    except Exception as e:
+        st.error(f"describe() API エラー: {e}")
+        return []
 
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
@@ -199,6 +209,7 @@ if "sf" not in st.session_state:
     except Exception as e:
         st.error(f"認証エラー: {e}")
         st.stop()
+
 
 _= '''
 try:
@@ -321,6 +332,9 @@ with st.form(key="registro_form"):
         quantity = st.number_input("数量 (工程):", value=0.0, key="quantity", disabled=True)
         process_order = st.number_input("工程順序:", value=0, key="process_order", disabled=True)
         process_order_name = st.text_input("工程名:", key="process_order_name", value="-")
+
+    if st.button("フィールド一覧を取得する"):
+        descrever_item_fields(st.session_state.sf)
 
     # Botão de submissão
     submit_button = st.form_submit_button("データベースに保存")
