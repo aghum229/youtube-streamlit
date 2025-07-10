@@ -325,10 +325,9 @@ with st.form(key="registro_form"):
     # Botão de submissão
     submit_button = st.form_submit_button("データベースに保存")
     
-    st.write(f"入力された品番: '{item_name_input}'")
-
     if submit_button:
         item_name_input = st.session_state.manual_input_value.strip()
+        st.write(f"入力された品番: '{item_name_input}'")
         item_id = encontrar_item_por_nome(st.session_state.sf, item_name_input)
         if item_id:
             atualizar_tanabangou(st.session_state.sf, item_id)
