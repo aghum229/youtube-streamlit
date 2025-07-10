@@ -235,6 +235,15 @@ def descrever_item_fields_completo(sf):
         st.error(f"describe() API エラー: {e}")
         return []
 
+def descrever_process_fields(sf):
+    try:
+        fields = sf.snps_um__Process__c.describe()["fields"]
+        for field in fields:
+            if "referenceTo" in field and field["referenceTo"]:
+                st.write(f"📌 関係フィールド候補: {field['name']} → 参照先: {field['referenceTo']}")
+    except Exception as e:
+        st.error(f"describe() エラー: {e}")
+
 
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
@@ -329,8 +338,10 @@ if st.button("カメラを再表示"):
 '''
 
 if st.button("フィールド詳細を表示"):
+    descrever_process_fields(st.session_state.sf)
+    
+if st.button("フィールド詳細を表示"):
     descrever_item_fields_completo(st.session_state.sf)
-
 
 # Formulário sempre renderizado
 with st.form(key="registro_form"):
