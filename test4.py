@@ -246,7 +246,10 @@ if "cumulative_cost" not in st.session_state:
 if "manual_input_value" not in st.session_state:
     st.session_state.manual_input_value = ""
 
-manual_input = st.text_input("品番を入力してください")
+manual_input = st.text_input("品番を入力してください (50桁、例: AAAAA-BBB-CCCC):",
+                            value=st.session_state.manual_input_value,
+                            max_chars=50,
+                            key="manual_input")
 
 _= '''
 # Opção de digitação manual do production_order
