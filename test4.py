@@ -192,7 +192,7 @@ def atualizar_tanabangou(sf, item_id):
 
 def encontrar_item_por_nome(sf, item_name):
     query = f"""
-        SELECT Name, snps_um__Item__r.Name
+        SELECT id, Name, snps_um__Item__r.Name
         FROM snps_um__Process__c
         WHERE Name LIKE '%{item_name}%'
         LIMIT 1
@@ -201,9 +201,9 @@ def encontrar_item_por_nome(sf, item_name):
         result = sf.query(query)
         records = result.get("records", [])
         if records:
-            return records[0]["Name"]
+            return records[0]["id"]
         else:
-            st.warning(f"品番 {item_name} に一致する snps_um__Item__c が見つかりませんでした。")
+            st.warning(f"品番 {item_name} に一致する snps_um__Process__c が見つかりませんでした。")
             return None
     except Exception as e:
         st.error(f"Item検索エラー: {e}")
