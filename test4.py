@@ -166,7 +166,7 @@ def update_process_tanaban(sf, process_id):
 
 def encontrar_item_por_nome(sf, item_name):
     query = f"""
-        SELECT Id, snps_um__ItemName__c
+        SELECT AITC_ID18__c, snps_um__ItemName__c
         FROM snps_um__Item__c
         WHERE snps_um__ItemName__c LIKE '%{item_name}%'
         LIMIT 1
@@ -175,7 +175,7 @@ def encontrar_item_por_nome(sf, item_name):
         result = sf.query(query)
         records = result.get("records", [])
         if records:
-            return records[0]["Id"]
+            return records[0]["AITC_ID18__c"]
         else:
             st.warning(f"品番 {item_name} に一致する snps_um__Item__c が見つかりませんでした。")
             return None
