@@ -192,16 +192,16 @@ def atualizar_tanabangou(sf, item_id):
 
 def encontrar_item_por_nome(sf, item_name):
     query = f"""
-        SELECT id, Name, snps_um__Item__r.Name, snps_um__ProcessOrderNo__c
+        SELECT Name, snps_um__Item__r.Name, snps_um__ProcessOrderNo__c
         FROM snps_um__Process__c
-        WHERE Name LIKE '%{item_name}%' AND snps_um__ProcessOrderNo__c = '999'
+        WHERE Name[0:len(Name)-3] LIKE '%{item_name}%' AND snps_um__ProcessOrderNo__c = '999'
         LIMIT 1
     """
     try:
         result = sf.query(query)
         records = result.get("records", [])
         if records:
-            return records[0]["id"]
+            return records[0]["Name"]
         else:
             st.warning(f"品番 {item_name} に一致する snps_um__Process__c が見つかりませんでした。")
             return None
