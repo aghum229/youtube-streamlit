@@ -293,6 +293,9 @@ if st.button("カメラを再表示"):
     st.rerun()
 '''
 
+if st.button("フィールド一覧を取得する"):
+    descrever_item_fields(st.session_state.sf)
+
 # Formulário sempre renderizado
 with st.form(key="registro_form"):
     default_quantity = 0.0
@@ -333,8 +336,6 @@ with st.form(key="registro_form"):
         process_order = st.number_input("工程順序:", value=0, key="process_order", disabled=True)
         process_order_name = st.text_input("工程名:", key="process_order_name", value="-")
 
-    if st.button("フィールド一覧を取得する"):
-        descrever_item_fields(st.session_state.sf)
 
     # Botão de submissão
     submit_button = st.form_submit_button("データベースに保存")
