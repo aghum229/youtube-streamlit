@@ -190,16 +190,24 @@ def atualizar_tanabangou(sf, item_id):
     except Exception as e:
         st.error(f"更新エラー: {e}")
 
-def descrever_item_fields(sf):
+def descrever_item_fields_completo(sf):
     try:
         fields = sf.snps_um__Item__c.describe()["fields"]
-        field_names = [field["name"] for field in fields]
-        st.write("📋 snps_um__Item__c のフィールド一覧:")
-        st.write(field_names)
-        return field_names
+        field_info_list = [
+            {
+                "ラベル": field["label"],
+                "API名": field["name"],
+                "型": field["type"]
+            }
+            for field in fields
+        ]
+        st.write("📋 snps_um__Item__c のフィールド一覧（ラベル・型つき）:")
+        st.dataframe(field_info_list)
+        return field_info_list
     except Exception as e:
         st.error(f"describe() API エラー: {e}")
         return []
+
 
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
