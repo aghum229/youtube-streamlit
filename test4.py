@@ -156,6 +156,13 @@ def simplify_dataframe(df):
                 simplified_df[col] = df[col]
     return simplified_df
 
+def update_process_tanaban(sf, process_id):
+    try:
+        sf.snps_um__Process__c.update(process_id, {"AITC_tanaban00__c": "OK"})
+        st.success("AITC_tanaban00__c フィールドに「OK」を書き込みました！")
+    except Exception as e:
+        st.error(f"更新エラー: {e}")
+
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
     try:
@@ -290,6 +297,10 @@ with st.form(key="registro_form"):
             st.error("'所有者' フィールドを入力してください。")
         else:
             st.write("ボタンが押されました。")
+            process_id = st.session_state.data[0]["snps_um__Process__r"]["Id"]  # ← 必要に応じて修正
+            update_process_tanaban(st.session_state.sf, process_id)
+            
+            
             _= '''
             quantity_value = st.session_state["quantity"]
             process_order_value = int(st.session_state["process_order"])
