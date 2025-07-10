@@ -192,7 +192,7 @@ def atualizar_tanabangou(sf, item_id):
 
 def encontrar_item_por_nome(sf, item_name):
     query = f"""
-        SELECT Name, snps_um__Item__r.Name, snps_um__ProcessOrderNo__c
+        SELECT Name, snps_um__ProcessOrderNo__c
         FROM snps_um__Process__c
         WHERE Name LIKE '%{item_name}%' AND snps_um__ProcessOrderNo__c = '999'
         LIMIT 1
