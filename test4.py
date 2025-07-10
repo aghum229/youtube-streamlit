@@ -166,7 +166,7 @@ def update_process_tanaban(sf, process_id):
 
 def encontrar_item_por_nome00(sf, item_name):
     query = f"""
-        SELECT Name, snps_um__ItemName__c
+        SELECT snps_um__ItemName__c
         FROM snps_um__Item__c
         WHERE snps_um__ItemName__c LIKE '%{item_name}%'
         LIMIT 1
@@ -175,7 +175,7 @@ def encontrar_item_por_nome00(sf, item_name):
         result = sf.query(query)
         records = result.get("records", [])
         if records:
-            return records[0]["Name"]
+            return records[0]["snps_um__ItemName__c"]
         else:
             st.warning(f"品番 {item_name} に一致する snps_um__Item__c が見つかりませんでした。")
             return None
@@ -341,7 +341,7 @@ if st.button("フィールド詳細を表示"):
     descrever_process_fields(st.session_state.sf)
     
 if st.button("フィールド詳細を表示"):
-    descrever_item_fields_completo(st.session_state.sf)
+    descrever_item_fields_completo00(st.session_state.sf)
 
 # Formulário sempre renderizado
 with st.form(key="registro_form"):
