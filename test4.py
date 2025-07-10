@@ -209,7 +209,7 @@ def encontrar_item_por_nome(sf, item_name):
         st.error(f"Item検索エラー: {e}")
         return None
 
-def atualizar_tanabangou(sf, item_id):
+def atualizar_tanaban(sf, item_id):
     try:
         sf.snps_um__Item__c.update(item_id, {"AITC_tanaban00__c": "OK"})
         st.success("AITC_tanaban00__c に「OK」を書き込みました！")
@@ -218,7 +218,8 @@ def atualizar_tanabangou(sf, item_id):
 
 def descrever_item_fields_completo(sf):
     try:
-        fields = sf.snps_um__Item__c.describe()["fields"]
+        # fields = sf.snps_um__Item__c.describe()["fields"]
+        fields = sf.snps_um__Process__c.describe()["fields"]
         field_info_list = [
             {
                 "ラベル": field["label"],
