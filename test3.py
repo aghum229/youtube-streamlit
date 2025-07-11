@@ -340,7 +340,7 @@ with st.form(key="registro_form"):
             st.error("'所有者' フィールドを入力してください。")
         else:
             st.write("ボタンが押されました。")
-            # _= '''
+
             quantity_value = st.session_state["quantity"]
             process_order_value = int(st.session_state["process_order"])
             record = st.session_state.data[0]
@@ -400,5 +400,5 @@ with st.form(key="registro_form"):
                 st.session_state.cumulative_cost = 0.0
                 st.session_state.show_camera = True
                 st.rerun()
-            # '''
+
     '''
