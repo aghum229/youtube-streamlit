@@ -178,12 +178,13 @@ def encontrar_item_por_nome00(sf, item_name):
     query = f"""
         SELECT snps_um__ItemName__c
         FROM snps_um__Item__c
-        WHERE snps_um__ItemName__c LIKE '%{item_name}%'
-        LIMIT 1
+        # WHERE snps_um__ItemName__c LIKE '%{item_name}%'
+        # LIMIT 1
     """
     try:
         result = sf.query(query)
-        records = result.get("records", [])
+        records = result['records']
+        # records = result.get("records", [])
         if records:
             return records[0]["snps_um__ItemName__c"]
         else:
@@ -344,7 +345,7 @@ with st.form(key="registro_form"):
         '''
         st.write(f"入力された品番: '{manual_input}'")
         # manual_input
-        item_id = encontrar_item_por_nome(st.session_state.sf, manual_input)
+        item_id = encontrar_item_por_nome00(st.session_state.sf, manual_input)
         st.write(f"取得した品番: '{item_id}'")
         # if item_id:
             # atualizar_tanabangou(st.session_state.sf, item_id)
