@@ -163,11 +163,31 @@ def encontrar_item_por_nome(sf, item_name):
     """
     try:
         result = sf.query(query)
-        records = result.get("records", [])
+        records = result['records']
+        # records = result.get("records", [])
         if records:
             return records[0].get("Name")
         else:
             st.warning(f"品番 {item_name} に一致する snps_um__Process__c が見つかりませんでした。")
+            return None
+    except Exception as e:
+        st.error(f"Item検索エラー: {e}")
+        return None
+
+def encontrar_item_por_nome00(sf, item_name):
+    query = f"""
+        SELECT snps_um__ItemName__c
+        FROM snps_um__Item__c
+        WHERE snps_um__ItemName__c LIKE '%{item_name}%'
+        LIMIT 1
+    """
+    try:
+        result = sf.query(query)
+        records = result.get("records", [])
+        if records:
+            return records[0]["snps_um__ItemName__c"]
+        else:
+            st.warning(f"品番 {item_name} に一致する snps_um__Item__c が見つかりませんでした。")
             return None
     except Exception as e:
         st.error(f"Item検索エラー: {e}")
