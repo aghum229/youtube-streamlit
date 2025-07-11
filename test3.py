@@ -174,11 +174,11 @@ def encontrar_item_por_nome(sf, item_name):
         st.error(f"Item検索エラー: {e}")
         return None
 
+        # WHERE snps_um__ItemName__c LIKE '%{item_name}%'
 def encontrar_item_por_nome00(sf, item_name):
     query = f"""
         SELECT snps_um__ItemName__c
         FROM snps_um__Item__c
-        # WHERE snps_um__ItemName__c LIKE '%{item_name}%'
         LIMIT 10
     """
     try:
