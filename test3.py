@@ -41,6 +41,36 @@ def carregar_credenciais():
 # Carregar as credenciais
 secrets = carregar_credenciais()
 
+# Definir o escopo
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+
+# Acessar as credenciais do Streamlit secrets
+credentials = secrets["google_service_account"]
+
+# Converter as credenciais para um dicionário
+credentials_dict = {
+    "type": credentials["type"],
+    "project_id": credentials["project_id"],
+    "private_key_id": credentials["private_key_id"],
+    "private_key": credentials["private_key"],
+    "client_email": credentials["client_email"],
+    "client_id": credentials["client_id"],
+    "auth_uri": credentials["auth_uri"],
+    "token_uri": credentials["token_uri"],
+    "auth_provider_x509_cert_url": credentials["auth_provider_x509_cert_url"],
+    "client_x509_cert_url": credentials["client_x509_cert_url"],
+    "universe_domain": credentials["universe_domain"],
+}
+
+# Definir o fuso horário do Japão (JST)
+jst = pytz.timezone('Asia/Tokyo')
+
+# Fornecer o caminho para o arquivo JSON baixado
+creds = Credentials.from_service_account_info(credentials_dict, scopes=scope)
+
+# Autorizar e inicializar o cliente gspread
+client = gspread.authorize(creds)
+
 # Função de autenticação do Salesforce usando as credenciais do secrets
 def authenticate_salesforce():
     auth_url = f"{secrets['DOMAIN']}/services/oauth2/token"
