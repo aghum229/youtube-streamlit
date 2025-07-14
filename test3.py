@@ -47,6 +47,22 @@ scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/au
 # Acessar as credenciais do Streamlit secrets
 credentials = secrets["google_service_account"]
 
+service_account_info = secrets["Firebase"]
+credentials_dict = {
+    "type": service_account_info["type"],
+    "project_id": service_account_info["project_id"],
+    "private_key_id": service_account_info["private_key_id"],
+    "private_key": service_account_info["private_key"],
+    "client_email": service_account_info["client_email"],
+    "client_id": service_account_info["client_id"],
+    "auth_uri": service_account_info["auth_uri"],
+    "token_uri": service_account_info["token_uri"],
+    "auth_provider_x509_cert_url": service_account_info["auth_provider_x509_cert_url"],
+    "client_x509_cert_url": service_account_info["client_x509_cert_url"],
+    "universe_domain": service_account_info["universe_domain"],
+}
+
+_= '''
 # Converter as credenciais para um dicionário
 credentials_dict = {
     "type": credentials["type"],
@@ -61,6 +77,7 @@ credentials_dict = {
     "client_x509_cert_url": credentials["client_x509_cert_url"],
     "universe_domain": credentials["universe_domain"],
 }
+'''
 
 # Definir o fuso horário do Japão (JST)
 jst = pytz.timezone('Asia/Tokyo')
