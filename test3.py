@@ -47,7 +47,7 @@ scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/au
 # Acessar as credenciais do Streamlit secrets
 credentials = secrets["google_service_account"]
 
-service_account_info = secrets["Firebase"]
+service_account_info = secrets["firebase"]
 credentials_dict = {
     "type": service_account_info["type"],
     "project_id": service_account_info["project_id"],
