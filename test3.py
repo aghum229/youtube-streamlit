@@ -6,10 +6,15 @@ from streamlit_qrcode_scanner import qrcode_scanner
 # from firebase_admin import credentials, db
 import pandas as pd
 import os
+import pytz
 from simple_salesforce import Salesforce
 from datetime import datetime
 import re
 import time
+import gspread
+from google.oauth2.service_account import Credentials
+from gspread_dataframe import set_with_dataframe
+import toml
 
 _= '''
 # Streamlitのシークレットから値を取得
