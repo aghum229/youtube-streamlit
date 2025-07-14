@@ -71,6 +71,17 @@ creds = Credentials.from_service_account_info(credentials_dict, scopes=scope)
 # Autorizar e inicializar o cliente gspread
 client = gspread.authorize(creds)
 
+# スプレッドシートを開くか、存在しない場合は新規作成
+spreadsheet_name = "在庫管理"
+try:
+    spreadsheet = client.open(spreadsheet_name)
+    st.write("スプレッドシート「在庫管理」を開きました。")
+except gspread.SpreadsheetNotFound:
+    spreadsheet = client.create(spreadsheet_name)
+    st.write("スプレッドシート「在庫管理」を作成しました。")
+    # オーナーを自分に共有したい場合（サービスアカウントでは Drive API 権限が必要）
+    # spreadsheet.share('your_email@example.com', perm_type='user', role='writer')
+
 # Função de autenticação do Salesforce usando as credenciais do secrets
 def authenticate_salesforce():
     auth_url = f"{secrets['DOMAIN']}/services/oauth2/token"
