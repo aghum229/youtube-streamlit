@@ -1,53 +1,59 @@
-import os.path
-from google.oauth2.credentials import Credentials
+import streamlit as st
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
-# スコープ設定：SheetsとDrive両方
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets',
           'https://www.googleapis.com/auth/drive']
 
-# 認証処理
-creds = None
-if os.path.exists('credentials.json'):
+def authenticate():
     flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
     creds = flow.run_local_server(port=0)
+    return creds
 
-# APIクライアントを作成
-sheets_service = build('sheets', 'v4', credentials=creds)
-drive_service = build('drive', 'v3', credentials=creds)
+def create_spreadsheet(service):
+    spreadsheet_body = {'properties': {'title': 'Streamlit連携テスト'}}
+    spreadsheet = service.spreadsheets().create(body=spreadsheet_body,
+                                                fields='spreadsheetId').execute()
+    return spreadsheet['spreadsheetId']
 
-# スプレッドシート作成
-spreadsheet_body = {
-    'properties': {'title': 'My Test Spreadsheet'}
-}
-spreadsheet = sheets_service.spreadsheets().create(body=spreadsheet_body,
-                                                   fields='spreadsheetId').execute()
-spreadsheet_id = spreadsheet['spreadsheetId']
-# print(f'作成されたスプレッドシートのID: {spreadsheet_id}')
-st.write(f'作成されたスプレッドシートのID: {spreadsheet_id}')
+def write_data(service, spreadsheet_id):
+    values = [['名前', 'スコア'], ['鈴木', '95'], ['伊藤', '90'], ['齋藤', '55']]
+    body = {'values': values}
+    service.spreadsheets().values().update(
+        spreadsheetId=spreadsheet_id,
+        range='Sheet1!A1',
+        valueInputOption='RAW',
+        body=body
+    ).execute()
 
-# 📥 データの書き込み
-data = [
-    ['名前', 'スコア'],
-    ['鈴木', '100'],
-    ['伊藤', '90'],
-    ['齋藤', '55']
-]
-sheets_service.spreadsheets().values().update(
-    spreadsheetId=spreadsheet_id,
-    range='Sheet1!A1',
-    valueInputOption='RAW',
-    body={'values': data}
-).execute()
+def share_spreadsheet(drive_service, spreadsheet_id, email):
+    permission = {
+        'type': 'user',
+        'role': 'writer',
+        'emailAddress': email
+    }
+    drive_service.permissions().create(
+        fileId=spreadsheet_id,
+        body=permission,
+        fields='id'
+    ).execute()
 
-# 📤 データの読み込み
-result = sheets_service.spreadsheets().values().get(
-    spreadsheetId=spreadsheet_id,
-    range='Sheet1!A1:B3'
-).execute()
+# Streamlit UI
+st.title("Google Sheets作成＆共有")
 
-print('読み込まれたデータ:')
-for row in result.get('values', []):
-    print(row)
+if st.button("認証＆スプレッドシート作成"):
+    creds = authenticate()
+    sheets_service = build('sheets', 'v4', credentials=creds)
+    drive_service = build('drive', 'v3', credentials=creds)
+    
+    spreadsheet_id = create_spreadsheet(sheets_service)
+    st.success(f"スプレッドシート作成成功！ID: {spreadsheet_id}")
+    
+    write_data(sheets_service, spreadsheet_id)
+    st.info("初期データ書き込み完了。")
+
+    email = st.text_input("共有相手のメールアドレスを入力")
+    if email:
+        share_spreadsheet(drive_service, spreadsheet_id, email)
+        st.success(f"{email} と共有しました！")
 
