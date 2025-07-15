@@ -24,13 +24,15 @@ spreadsheet_body = {
 spreadsheet = sheets_service.spreadsheets().create(body=spreadsheet_body,
                                                    fields='spreadsheetId').execute()
 spreadsheet_id = spreadsheet['spreadsheetId']
-print(f'作成されたスプレッドシートのID: {spreadsheet_id}')
+# print(f'作成されたスプレッドシートのID: {spreadsheet_id}')
+st.write(f'作成されたスプレッドシートのID: {spreadsheet_id}')
 
 # 📥 データの書き込み
 data = [
     ['名前', 'スコア'],
-    ['桃井', '100'],
-    ['田中', '85']
+    ['鈴木', '100'],
+    ['伊藤', '90'],
+    ['齋藤', '55']
 ]
 sheets_service.spreadsheets().values().update(
     spreadsheetId=spreadsheet_id,
