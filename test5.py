@@ -53,8 +53,8 @@ if st.button("認証＆スプレッドシート作成"):
     sheets_service = build('sheets', 'v4', credentials=creds)
     drive_service = build('drive', 'v3', credentials=creds)
     
-    spreadsheet_id = create_spreadsheet(sheets_service)
-    st.success(f"スプレッドシート作成成功！ID: {spreadsheet_id}")
+    spreadsheet_id = "1Zn6StEq2yveZ_ypCV2CXGs8SUPXgLmh3YsMDCNIKdLY"
+    # st.success(f"スプレッドシート作成成功！ID: {spreadsheet_id}")
     
     write_data(sheets_service, spreadsheet_id)
     st.info("初期データ書き込み完了。")
