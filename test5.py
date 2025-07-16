@@ -1,30 +1,20 @@
 import json
 import streamlit as st
-from google_auth_oauthlib.flow import Flow
+from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
 
 def authenticate():
-    # Secretsから認証情報を取得し、JSON形式に変換
-    client_config = {
-        "installed": {
-            "client_id": st.secrets["google"]["client_id"],
-            "project_id": st.secrets["google"]["project_id"],
-            "auth_uri": st.secrets["google"]["auth_uri"],
-            "token_uri": st.secrets["google"]["token_uri"],
-            "client_secret": st.secrets["google"]["client_secret"],
-            "redirect_uris": st.secrets["google"]["redirect_uris"]
-        }
-    }
+    # Secretsからサービスアカウント情報を取得
+    credentials_dict = st.secrets["service_account"]
     
-    # 認証フローの作成
-    flow = Flow.from_client_config(client_config, scopes=[
-        "https://www.googleapis.com/auth/spreadsheets",
-        "https://www.googleapis.com/auth/drive"
-    ])
-    flow.run_local_server(port=0)
+    # Credentialsオブジェクト作成
+    creds = service_account.Credentials.from_service_account_info(
+        credentials_dict,
+        scopes=["https://www.googleapis.com/auth/spreadsheets",
+                "https://www.googleapis.com/auth/drive"]
+    )
     
-    creds = flow.credentials
     return creds
 
 def create_spreadsheet(service):
