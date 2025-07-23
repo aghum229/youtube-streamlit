@@ -194,7 +194,7 @@ def atualizar_tanabangou(sf, item_id):
 # WHERE Name LIKE '%{item_name}%' AND snps_um__ProcessOrderNo__c = 999
 def encontrar_item_por_nome(sf, item_name):
     query = f"""
-        SELECT AITC_ID18__c, snps_um__JwExternalId__c, Name, snps_um__ProcessOrderNo__c
+        SELECT AITC_ID18__c, Name, snps_um__ProcessOrderNo__c
         FROM snps_um__Process__c
         WHERE Name LIKE '%{item_name}%'
     """
