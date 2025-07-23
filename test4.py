@@ -188,10 +188,10 @@ def atualizar_tanabangou(sf, item_id):
         # sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
         sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK棚番"})
         sf.snps_um__Process__c.update(item_id, {
-            "AITC_tanaban00__c": "OK棚番",
-            "AITC_hinban00__c": "OK品番"
+            "AITC_tanaban00__c": "OK棚番00",
+            "AITC_hinban00__c": "OK品番00"
         })
-        st.success("AITC_tanabangou00__c に「OK棚番」、AITC_hinban00__c に「OK品番」を書き込みました！")
+        st.success("AITC_tanabangou00__c に「OK棚番00」、AITC_hinban00__c に「OK品番00」を書き込みました！")
     except Exception as e:
         st.error(f"更新エラー: {e}")
 
