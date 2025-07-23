@@ -397,7 +397,7 @@ with st.form(key="registro_form"):
         st.write(f"入力された品番: '{manual_input}'")
         manual_input
         item_id = encontrar_item_por_nome(st.session_state.sf, manual_input)
-        st.write(f"入力された品番: '{item_id}'")
+        st.write(f"検索したID: '{item_id}'")
         if item_id:
             atualizar_tanabangou(st.session_state.sf, item_id)
 
