@@ -186,8 +186,8 @@ def encontrar_item_por_nome00(sf, item_name):
 def atualizar_tanabangou(sf, item_id):
     try:
         # sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
-        sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK"})
-        st.success("AITC_tanabangou00__c に「OK」を書き込みました！")
+        sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK棚番"}, {"AITC_hinban00__c": "OK品番"})
+        st.success("AITC_tanabangou00__c に「OK棚番」を書き込みました！")
     except Exception as e:
         st.error(f"更新エラー: {e}")
 
