@@ -210,6 +210,26 @@ def encontrar_item_por_nome(sf, item_name):
         st.error(f"Item検索エラー: {e}")
         return None
 
+def obtener_detalles_por_id(sf, aitc_id):
+    query = f"""
+        SELECT AITC_tanaban00__c, AITC_hinban00__c
+        FROM snps_um__Process__c
+        WHERE AITC_ID18__c = '{aitc_id}'
+    """
+    try:
+        result = sf.query(query)
+        records = result.get("records", [])
+        if records:
+            tanaban = records[0].get("AITC_tanaban00__c")
+            hinban = records[0].get("AITC_hinban00__c")
+            return tanaban, hinban
+        else:
+            st.warning(f"AITC_ID18__c: {aitc_id} に一致するレコードが見つかりませんでした。")
+            return None, None
+    except Exception as e:
+        st.error(f"詳細取得エラー: {e}")
+        return None, None
+
 def atualizar_tanaban(sf, item_id):
     try:
         sf.snps_um__Item__c.update(item_id, {"AITC_tanaban00__c": "OK"})
@@ -400,4 +420,9 @@ with st.form(key="registro_form"):
         st.write(f"検索したID: '{item_id}'")
         if item_id:
             atualizar_tanabangou(st.session_state.sf, item_id)
+        if item_id:
+            tanaban, hinban = obtener_detalles_por_id(sf, item_id)
+            st.write(f"棚番: {tanaban}")
+            st.write(f"品番: {hinban}")
+
 
