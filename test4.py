@@ -421,7 +421,7 @@ with st.form(key="registro_form"):
         if item_id:
             atualizar_tanabangou(st.session_state.sf, item_id)
         if item_id:
-            tanaban, hinban = obtener_detalles_por_id(sf, item_id)
+            tanaban, hinban = obtener_detalles_por_id(st.session_state.sf, item_id)
             st.write(f"棚番: {tanaban}")
             st.write(f"品番: {hinban}")
 
