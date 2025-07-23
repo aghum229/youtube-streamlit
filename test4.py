@@ -186,7 +186,7 @@ def encontrar_item_por_nome00(sf, item_name):
 def atualizar_tanabangou(sf, item_id):
     try:
         # sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
-        sf.snps_um__Process__c.update(process_id, {"AITC_tanaban00__c": "OK"})
+        sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK"})
         st.success("AITC_tanabangou00__c に「OK」を書き込みました！")
     except Exception as e:
         st.error(f"更新エラー: {e}")
@@ -202,7 +202,7 @@ def encontrar_item_por_nome(sf, item_name):
         result = sf.query(query)
         records = result.get("records", [])
         if records:
-            return records[0].get("snps_um__JwExternalId__c")
+            return records[0].get("AITC_ID18__c")
         else:
             st.warning(f"品番 {item_name} に一致する snps_um__Process__c が見つかりませんでした。")
             return None
