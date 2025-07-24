@@ -145,7 +145,7 @@ def consultar_salesforce(production_order, sf):
                snps_um__ProdOrder__r.Name, snps_um__Status__c, snps_um__WorkPlace__r.Id, 
                snps_um__WorkPlace__r.Name, snps_um__StockPlace__r.Name, snps_um__Item__c, 
                snps_um__Process__r.AITC_Acumulated_Price__c, AITC_OrderQt__c, snps_um__EndDateTime__c, 
-               snps_um__Item__r.AITC_PrintItemName__c
+               snps_um__Item__r.AITC_PrintItemName__c, snps_um__Process__r.AITC_ID18__c
         FROM snps_um__WorkOrder__c 
         WHERE snps_um__ProdOrder__r.Name = '{production_order}'
     """
@@ -356,6 +356,7 @@ with st.form(key="registro_form"):
     default_quantity = 0.0
     default_process_order = 0
     default_process_order_name = ""
+    default_id = ""
     default_hinban = ""
     default_hinmei = ""
     # st.write(st.session_state)
@@ -375,6 +376,7 @@ with st.form(key="registro_form"):
             default_quantity = clean_quantity(last_record.get("snps_um__ActualQt__c") or last_record.get("AITC_OrderQt__c") or 0.0)
             default_process_order = int(last_record.get("snps_um__ProcessOrderNo__c", 0))
             default_process_order_name = last_record.get("snps_um__ProcessName__c")
+            default_id = last_record.get("snps_um__Process__r", {}).get("AITC_ID18__c", "")
             default_hinban = last_record.get("snps_um__Item__r", {}).get("Name", "")
             default_hinmei = last_record.get("snps_um__Item__r", {}).get("AITC_PrintItemName__c", "")
         else:
