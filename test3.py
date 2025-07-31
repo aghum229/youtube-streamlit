@@ -90,7 +90,7 @@ credentials_dict = {
 jst = pytz.timezone('Asia/Tokyo')
 
 # Fornecer o caminho para o arquivo JSON baixado
-creds = Credentials.from_service_account_info(credentials_dict, scopes=scope)
+# creds = Credentials.from_service_account_info(credentials_dict, scopes=scope)
 
 # Autorizar e inicializar o cliente gspread
 client = gspread.authorize(creds)
