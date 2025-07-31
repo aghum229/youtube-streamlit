@@ -316,13 +316,14 @@ if "cumulative_cost" not in st.session_state:
 if "manual_input_value" not in st.session_state:
     st.session_state.manual_input_value = ""
 
-
+_= '''
 manual_input = st.text_input("品番を入力してください (50桁、例: AAAAA-BBB-CCCC):",
                             value=st.session_state.manual_input_value,
                             max_chars=50,
                             key="manual_input")
+'''
 
-_= '''
+# _= '''
 # Opção de digitação manual do production_order
 manual_input = st.text_input("生産オーダー番号を入力してください (6桁、例: 000000):",
                             value=st.session_state.manual_input_value,
@@ -332,7 +333,7 @@ if manual_input and len(manual_input) == 6 and manual_input.isdigit():
     st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
     st.session_state.manual_input_value = manual_input
     st.session_state.show_camera = False
-'''
+# '''
 
 _= '''
 # Exibir câmera apenas se production_order for None e show_camera for True
