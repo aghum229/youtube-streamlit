@@ -387,6 +387,8 @@ with st.form(key="registro_form"):
             st.session_state.material_weight = None
             st.session_state.cumulative_cost = 0.0
             st.warning("生産オーダーに該当する 'Done' ステータスの記録が見つかりませんでした。")
+    else:
+        st.warning("データが見つかりませんでした。")
 
     # Campos de entrada
     owner_value = "" if st.session_state.data is None else st.session_state.owner
