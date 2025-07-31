@@ -89,8 +89,9 @@ credentials_dict = {
 # Definir o fuso horário do Japão (JST)
 jst = pytz.timezone('Asia/Tokyo')
 
+_= '''
 # Fornecer o caminho para o arquivo JSON baixado
-# creds = Credentials.from_service_account_info(credentials_dict, scopes=scope)
+creds = Credentials.from_service_account_info(credentials_dict, scopes=scope)
 
 # Autorizar e inicializar o cliente gspread
 client = gspread.authorize(creds)
@@ -105,6 +106,7 @@ except gspread.SpreadsheetNotFound:
     st.write("スプレッドシート「在庫管理」を作成しました。")
     # オーナーを自分に共有したい場合（サービスアカウントでは Drive API 権限が必要）
     # spreadsheet.share('your_email@example.com', perm_type='user', role='writer')
+'''
 
 # Função de autenticação do Salesforce usando as credenciais do secrets
 def authenticate_salesforce():
