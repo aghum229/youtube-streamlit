@@ -378,7 +378,12 @@ def show_main_screen():
             , unsafe_allow_html=True
         )
     '''
-    st.image("aitech_logo_D.png", use_container_width=True)
+
+    left, right = st.columns([0.7, 0.3])
+    with left:
+        st.image("aitech_logo_D.png", use_container_width=True)
+    with right:
+        st.write('(仮)')
     display_container('yellow', '☆メイン画面☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
