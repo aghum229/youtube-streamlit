@@ -384,7 +384,7 @@ def show_main_screen():
         st.image("aitech_logo_D.png", use_container_width=True)
     with right:
         st.write('(仮)')
-    display_container('yellow', '☆メイン画面☆')
+    # display_container('yellow', '☆メイン画面☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('button1', '1.製造関連', 'other1')
@@ -407,7 +407,7 @@ def show_main_screen():
         # コンテナで中央配置
         with st.container():
             st.markdown('<div class="centered-selectbox">', unsafe_allow_html=True)
-            st.selectbox("選択してください", ["オプション1", "オプション2", "オプション3"])
+            st.selectbox("選択してください(ショートカットボタン)", ["オプション1", "オプション2", "オプション3"])
             st.markdown('</div>', unsafe_allow_html=True)
     # _= '''
     button11 = st.button('11.製品', on_click=set_screen, args=('other11',))
