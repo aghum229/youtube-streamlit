@@ -395,6 +395,7 @@ def show_main_screen():
     # button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
     # button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
     # button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
+    _= '''
     left, center, right = st.columns([0.25, 0.5, 0.25])
     with center:
         st.markdown("""
@@ -411,7 +412,8 @@ def show_main_screen():
             st.markdown('<div class="centered-selectbox">', unsafe_allow_html=True)
             st.selectbox("選択してください(ショートカットボタン)", ["オプション1", "オプション2", "オプション3"])
             st.markdown('</div>', unsafe_allow_html=True)
-    # _= '''
+    '''
+    _= '''
     button11 = st.button('11.製品', on_click=set_screen, args=('other11',))
     button12 = st.button('12.金型', on_click=set_screen, args=('other12',))
     button13 = st.button('13.治工具', on_click=set_screen, args=('other13',))
@@ -431,7 +433,7 @@ def show_main_screen():
     button114 = st.button('114.作業標準', on_click=set_screen, args=('other114',))
     button115 = st.button('115.検査表', on_click=set_screen, args=('other115',))
     button116 = st.button('116.在庫管理', on_click=set_screen, args=('other116',))
-    # '''
+    '''
     display_footer()
 
 def show_other0_screen():
