@@ -388,6 +388,7 @@ def show_main_screen():
     # display_container('yellow', '☆メイン画面☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
+    button_set('button0', '0.ショートカット', 'other0')
     button_set('button1', '1.製造関連', 'other1')
     button_set('button2', '2.ＩＳＯ関連', 'other2')
     button_set('button3', '3.労務関連', 'other3')
@@ -432,6 +433,19 @@ def show_main_screen():
     button116 = st.button('116.在庫管理', on_click=set_screen, args=('other116',))
     # '''
     display_footer()
+
+def show_other0_screen():
+    display_container('blue', '0.ショートカット')
+    # display_header('blue', '0.ショートカット')
+    display_line()
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('btn0', return_main, 'main')
+    display_line()
+    button_set('button31', '116.在庫管理', 'other31')
+    button_set('button11611', '11611.在庫置き場参照', 'other11611')
+    button_set('button11612', '11612.在庫置き場入力', 'other11612')
+    display_footer()
+
 
 def show_other1_screen():
     _= '''
@@ -655,6 +669,9 @@ def unknown_screen():
 # メイン画面
 if st.session_state['current_screen'] == 'main':
     show_main_screen()
+# ショートカットボタンメニュー
+elif st.session_state['current_screen'] == 'other0':
+    show_other0_screen()
 # 製造関連メニュー
 elif st.session_state['current_screen'] == 'other1':
     show_other1_screen()
