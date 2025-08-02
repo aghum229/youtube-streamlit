@@ -454,7 +454,7 @@ def show_other0_screen():
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
     display_line()
-    button_set('button31', '116.在庫管理', 'other31')
+    # button_set('button31', '116.在庫管理', 'other31')
     button_set('button11611', '11611.在庫置き場参照', 'other11611')
     button_set('button11612', '11612.在庫置き場入力', 'other11612')
     display_footer()
