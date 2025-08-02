@@ -255,6 +255,7 @@ def display_header(color, text):
 
 def display_footer():
     display_line()
+    _= '''
     st.markdown(
         "<p style='text-align:center;'> \
         <span style='font-size: 14px;'>〇〇〇〇〇株式会社&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> \
@@ -262,6 +263,15 @@ def display_footer():
         </p>"
         , unsafe_allow_html=True
     )
+    '''
+    left, right = st.columns([0.7, 0.3])
+    with right:
+        st.markdown(
+            "<p style='text-align:center;'> \
+            <span style='font-size: 10px;'>ver.XX.XXX.XXX</span> \
+            </p>"
+            , unsafe_allow_html=True
+        )
 
 def display_container(color, text):
     with st_fixed_container(mode="sticky", position="top", transparent=True):
