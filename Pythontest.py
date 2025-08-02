@@ -264,7 +264,7 @@ def display_footer():
         , unsafe_allow_html=True
     )
     '''
-    left, right = st.columns([0.7, 0.3])
+    left, right = st.columns([0.4, 0.6])
     with right:
         st.markdown(
             "<p style='text-align:center;'> \
