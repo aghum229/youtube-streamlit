@@ -447,7 +447,7 @@ def show_main_screen():
     display_footer()
 
 def show_other0_screen():
-    display_container('blue', '0.ショートカット')
+    display_container('yellow'', '0.ショートカット')
     # display_header('blue', '0.ショートカット')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
