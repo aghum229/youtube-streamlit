@@ -253,122 +253,122 @@ if not st.session_state['owner']:
         st.stop()
     else:
         st.warning("入力を待っています...")
-
-_= '''
-# Controle de exibição: sucesso ou formulário
-if st.session_state['mostrar_sucesso']:
-    if st.session_state['update']:
-        st.success("登録が正常に更新されました！")
-    else:
-        st.success("登録が正常に完了しました！")
-'''
-
-_= '''
-manual_input = st.text_input("品番を入力してください (50桁、例: AAAAA-BBB-CCCC):",
-                            value=st.session_state.manual_input_value,
-                            max_chars=50,
-                            key="manual_input")
-'''
-
-# _= '''
-# Opção de digitação manual do production_order
-manual_input = st.text_input("生産オーダー番号を入力してください (6桁、例: 000000):",
-                            value=st.session_state.manual_input_value,
-                            max_chars=6,
-                            key="manual_input")
-if manual_input and len(manual_input) == 6 and manual_input.isdigit():
-    st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
-    st.session_state.manual_input_value = manual_input
-    st.session_state.show_camera = False
-# '''
-
-_= '''
-# Exibir câmera apenas se production_order for None e show_camera for True
-if not st.session_state.production_order and st.session_state.show_camera:
-    st.write("QRコードをスキャンして開始してください:")
-    production_order = qrcode_scanner(key="qrcode_scanner_fixed")
-    if production_order:
-        st.session_state.production_order = production_order
-        st.session_state.manual_input_value = ""
-        st.session_state.show_camera = False
-        st.rerun()
-
-# Botão de reexibição sempre visível
-if st.button("カメラを再表示"):
-    st.session_state.show_camera = True
-    st.session_state.production_order = None
-    st.session_state.manual_input_value = ""
-    st.rerun()
-'''
-
-# Formulário sempre renderizado
-with st.form(key="registro_form"):
-    default_quantity = 0.0
-    default_process_order = 0
-    default_process_order_name = ""
-    default_id = ""
-    default_hinban = ""
-    default_hinmei = ""
-    # st.write(st.session_state)
-    if st.session_state.production_order is not None:
-        df, material, material_weight, cumulative_cost = consultar_salesforce(st.session_state.production_order, st.session_state.sf)
-        if "all_data" in st.session_state and st.session_state.all_data:
-            st.write("Salesforceで発見されたすべての記録:")
-            simplified_df = simplify_dataframe(pd.DataFrame(st.session_state.all_data))
-            st.dataframe(simplified_df)
-        if not df.empty:
-            st.session_state.data = df.to_dict(orient="records")
-            st.session_state.material = material
-            st.session_state.material_weight = material_weight
-            st.session_state.cumulative_cost = cumulative_cost
-            last_record = st.session_state.data[0]
-            # st.write(last_record)
-            default_quantity = clean_quantity(last_record.get("snps_um__ActualQt__c") or last_record.get("AITC_OrderQt__c") or 0.0)
-            default_process_order = int(last_record.get("snps_um__ProcessOrderNo__c", 0))
-            default_process_order_name = last_record.get("snps_um__ProcessName__c")
-            default_id = last_record.get("snps_um__Process__r", {}).get("AITC_ID18__c", "")
-            default_hinban = last_record.get("snps_um__Item__r", {}).get("Name", "")
-            default_hinmei = last_record.get("snps_um__Item__r", {}).get("AITC_PrintItemName__c", "")
-        else:
-            st.session_state.data = None
-            st.session_state.material = None
-            st.session_state.material_weight = None
-            st.session_state.cumulative_cost = 0.0
-            st.warning("生産オーダーに該当する 'Done' ステータスの記録が見つかりませんでした。")
-    else:
-        st.warning("データが見つかりませんでした。")
-
-    # Campos de entrada
-    owner_value = "" if st.session_state.data is None else st.session_state.owner
-    owner = st.text_input("所有者 (工程):", key="owner", value=owner_value)
-    if st.session_state.data:
-        quantity = st.number_input("数量 (工程):", value=default_quantity, key="quantity")
-        process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
-        process_order_name = st.text_input("工程名:", key="process_order_name", value=default_process_order_name)
-        hinban = st.text_input("品番:", key="hinban", value=default_hinban)
-        hinmei = st.text_input("品名:", key="hinmei", value=default_hinmei)
-    else:
-        quantity = st.number_input("数量 (工程):", value=0.0, key="quantity", disabled=True)
-        process_order = st.number_input("工程順序:", value=0, key="process_order", disabled=True)
-        process_order_name = st.text_input("工程名:", key="process_order_name", value="-")
-        hinban = st.text_input("品番:", key="hinban", value="-")
-        hinmei = st.text_input("品名:", key="hinmei", value="-")
-
-    submit_button = st.form_submit_button("データベースに保存")
     
-    if submit_button:
-        _= '''
-        item_name_input = st.session_state.manual_input_value.strip()
-        st.write(f"入力された品番: '{item_name_input}'")
-        item_id = encontrar_item_por_nome(st.session_state.sf, item_name_input)
-        '''
-        #st.write(f"入力された品番: '{manual_input}'")
-        # manual_input
-        #item_id = encontrar_item_por_nome00(st.session_state.sf, manual_input)
-        #st.write(f"取得した品番: '{item_id}'")
-        # if item_id:
-            # atualizar_tanabangou(st.session_state.sf, item_id)
-        st.write(f"検索したid: '{default_id}'")        
+    _= '''
+    # Controle de exibição: sucesso ou formulário
+    if st.session_state['mostrar_sucesso']:
+        if st.session_state['update']:
+            st.success("登録が正常に更新されました！")
+        else:
+            st.success("登録が正常に完了しました！")
+    '''
+    
+    _= '''
+    manual_input = st.text_input("品番を入力してください (50桁、例: AAAAA-BBB-CCCC):",
+                                value=st.session_state.manual_input_value,
+                                max_chars=50,
+                                key="manual_input")
+    '''
+    
+    # _= '''
+    # Opção de digitação manual do production_order
+    manual_input = st.text_input("生産オーダー番号を入力してください (6桁、例: 000000):",
+                                value=st.session_state.manual_input_value,
+                                max_chars=6,
+                                key="manual_input")
+    if manual_input and len(manual_input) == 6 and manual_input.isdigit():
+        st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
+        st.session_state.manual_input_value = manual_input
+        st.session_state.show_camera = False
+    # '''
+    
+    _= '''
+    # Exibir câmera apenas se production_order for None e show_camera for True
+    if not st.session_state.production_order and st.session_state.show_camera:
+        st.write("QRコードをスキャンして開始してください:")
+        production_order = qrcode_scanner(key="qrcode_scanner_fixed")
+        if production_order:
+            st.session_state.production_order = production_order
+            st.session_state.manual_input_value = ""
+            st.session_state.show_camera = False
+            st.rerun()
+    
+    # Botão de reexibição sempre visível
+    if st.button("カメラを再表示"):
+        st.session_state.show_camera = True
+        st.session_state.production_order = None
+        st.session_state.manual_input_value = ""
+        st.rerun()
+    '''
+    
+    # Formulário sempre renderizado
+    with st.form(key="registro_form"):
+        default_quantity = 0.0
+        default_process_order = 0
+        default_process_order_name = ""
+        default_id = ""
+        default_hinban = ""
+        default_hinmei = ""
+        # st.write(st.session_state)
+        if st.session_state.production_order is not None:
+            df, material, material_weight, cumulative_cost = consultar_salesforce(st.session_state.production_order, st.session_state.sf)
+            if "all_data" in st.session_state and st.session_state.all_data:
+                st.write("Salesforceで発見されたすべての記録:")
+                simplified_df = simplify_dataframe(pd.DataFrame(st.session_state.all_data))
+                st.dataframe(simplified_df)
+            if not df.empty:
+                st.session_state.data = df.to_dict(orient="records")
+                st.session_state.material = material
+                st.session_state.material_weight = material_weight
+                st.session_state.cumulative_cost = cumulative_cost
+                last_record = st.session_state.data[0]
+                # st.write(last_record)
+                default_quantity = clean_quantity(last_record.get("snps_um__ActualQt__c") or last_record.get("AITC_OrderQt__c") or 0.0)
+                default_process_order = int(last_record.get("snps_um__ProcessOrderNo__c", 0))
+                default_process_order_name = last_record.get("snps_um__ProcessName__c")
+                default_id = last_record.get("snps_um__Process__r", {}).get("AITC_ID18__c", "")
+                default_hinban = last_record.get("snps_um__Item__r", {}).get("Name", "")
+                default_hinmei = last_record.get("snps_um__Item__r", {}).get("AITC_PrintItemName__c", "")
+            else:
+                st.session_state.data = None
+                st.session_state.material = None
+                st.session_state.material_weight = None
+                st.session_state.cumulative_cost = 0.0
+                st.warning("生産オーダーに該当する 'Done' ステータスの記録が見つかりませんでした。")
+        else:
+            st.warning("データが見つかりませんでした。")
+    
+        # Campos de entrada
+        owner_value = "" if st.session_state.data is None else st.session_state.owner
+        owner = st.text_input("所有者 (工程):", key="owner", value=owner_value)
+        if st.session_state.data:
+            quantity = st.number_input("数量 (工程):", value=default_quantity, key="quantity")
+            process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
+            process_order_name = st.text_input("工程名:", key="process_order_name", value=default_process_order_name)
+            hinban = st.text_input("品番:", key="hinban", value=default_hinban)
+            hinmei = st.text_input("品名:", key="hinmei", value=default_hinmei)
+        else:
+            quantity = st.number_input("数量 (工程):", value=0.0, key="quantity", disabled=True)
+            process_order = st.number_input("工程順序:", value=0, key="process_order", disabled=True)
+            process_order_name = st.text_input("工程名:", key="process_order_name", value="-")
+            hinban = st.text_input("品番:", key="hinban", value="-")
+            hinmei = st.text_input("品名:", key="hinmei", value="-")
+    
+        submit_button = st.form_submit_button("データベースに保存")
+        
+        if submit_button:
+            _= '''
+            item_name_input = st.session_state.manual_input_value.strip()
+            st.write(f"入力された品番: '{item_name_input}'")
+            item_id = encontrar_item_por_nome(st.session_state.sf, item_name_input)
+            '''
+            #st.write(f"入力された品番: '{manual_input}'")
+            # manual_input
+            #item_id = encontrar_item_por_nome00(st.session_state.sf, manual_input)
+            #st.write(f"取得した品番: '{item_id}'")
+            # if item_id:
+                # atualizar_tanabangou(st.session_state.sf, item_id)
+            st.write(f"検索したid: '{default_id}'")        
         
 
     _= '''
