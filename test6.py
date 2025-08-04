@@ -249,7 +249,7 @@ if not st.session_state['owner']:
     st.session_state['owner'] = st.text_input("担当者コードを入力してください (3～4桁、例: 999:",
                                               max_chars=4,
                                               key="owner_input")
-    if st.session_state['owner'] and st.session_state['owner'].isdigit():
+    if not st.session_state['owner'] and st.session_state['owner'].isdigit():
         st.stop()
     else:
         st.warning("入力を待っています...")
