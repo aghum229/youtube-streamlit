@@ -2,8 +2,6 @@ import streamlit as st
 import requests
 
 from streamlit_qrcode_scanner import qrcode_scanner
-# import firebase_admin
-# from firebase_admin import credentials, db
 import pandas as pd
 import os
 import pytz
@@ -16,23 +14,6 @@ from google.oauth2.service_account import Credentials
 from gspread_dataframe import set_with_dataframe
 import toml
 
-_= '''
-# Streamlitのシークレットから値を取得
-client_id = st.secrets["client_id"]
-client_secret = st.secrets["client_secret"]
-username = st.secrets["username"]
-password = st.secrets["password"]
-token_url = st.secrets["token_url"]
-
-# OAuthリクエストの送信
-payload = {
-    "grant_type": "password",
-    "client_id": client_id,
-    "client_secret": client_secret,
-    "username": username,
-    "password": password
-}
-'''
 
 # Função para carregar credenciais
 def carregar_credenciais():
@@ -69,44 +50,9 @@ credentials_dict = {
     "universe_domain": service_account_info["universe_domain"],
 }
 
-_= '''
-# Converter as credenciais para um dicionário
-credentials_dict = {
-    "type": credentials["type"],
-    "project_id": credentials["project_id"],
-    "private_key_id": credentials["private_key_id"],
-    "private_key": credentials["private_key"],
-    "client_email": credentials["client_email"],
-    "client_id": credentials["client_id"],
-    "auth_uri": credentials["auth_uri"],
-    "token_uri": credentials["token_uri"],
-    "auth_provider_x509_cert_url": credentials["auth_provider_x509_cert_url"],
-    "client_x509_cert_url": credentials["client_x509_cert_url"],
-    "universe_domain": credentials["universe_domain"],
-}
-'''
-
 # Definir o fuso horário do Japão (JST)
 jst = pytz.timezone('Asia/Tokyo')
 
-_= '''
-# Fornecer o caminho para o arquivo JSON baixado
-creds = Credentials.from_service_account_info(credentials_dict, scopes=scope)
-
-# Autorizar e inicializar o cliente gspread
-client = gspread.authorize(creds)
-
-# スプレッドシートを開くか、存在しない場合は新規作成
-spreadsheet_name = "在庫管理"
-try:
-    spreadsheet = client.open(spreadsheet_name)
-    st.write("スプレッドシート「在庫管理」を開きました。")
-except gspread.SpreadsheetNotFound:
-    spreadsheet = client.create(spreadsheet_name)
-    st.write("スプレッドシート「在庫管理」を作成しました。")
-    # オーナーを自分に共有したい場合（サービスアカウントでは Drive API 権限が必要）
-    # spreadsheet.share('your_email@example.com', perm_type='user', role='writer')
-'''
 
 # Função de autenticação do Salesforce usando as credenciais do secrets
 def authenticate_salesforce():
@@ -270,27 +216,6 @@ if "sf" not in st.session_state:
         st.error(f"認証エラー: {e}")
         st.stop()
 
-_= '''
-try:
-    response = requests.post(token_url, data=payload)
-    response.raise_for_status()
-
-    auth_response = response.json()
-    access_token = auth_response.get("access_token")
-    instance_url = auth_response.get("instance_url")
-
-    if access_token:
-        st.write("✅ **成功しました！**")
-        # st.write(f"🔑 Access Token: `{access_token[:40]}...`")
-        # st.write(f"🌍 Instance URL: `{instance_url}`")
-    else:
-        st.write("❌ **トークンが受信されませんでした。**")
-        st.write(auth_response)
-    
-except requests.exceptions.RequestException as e:
-    print("❌ Salesforce への接続エラー：")
-    print(e)
-'''
 
 # Inicializar estados necessários
 if "production_order" not in st.session_state:
