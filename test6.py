@@ -253,18 +253,18 @@ if not st.session_state.user_code_entered:
     st.markdown(
         """
         <style>
-        /* input要素のサイズ調整 */
         input[type="text"], input[type="password"] {
-            font-size: 30px !important;
-            padding: 16px !important;
-            height: 70px !important;
+            font-size: 24px !important;
+            padding-top: 16px !important;
+            padding-bottom: 16px !important;
+            line-height: 2.5 !important;   /* 高さ調整のキモ */
             box-sizing: border-box !important;
         }
         
-        /* Streamlit側のラッパー div に高さ調整 */
+        /* 親コンテナの余白にも調整を加える */
         div[data-testid="stTextInput"] {
-            height: auto !important;
-            min-height: 80px !important;
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
         }
         </style>
         """,
