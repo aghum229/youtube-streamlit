@@ -293,14 +293,14 @@ with st.form(key="registro_form"):
         if "all_data" in st.session_state and st.session_state.all_data:
             st.write("Salesforceで発見されたすべての記録:")
             simplified_df = simplify_dataframe(pd.DataFrame(st.session_state.all_data))
-            st.dataframe(simplified_df)
+            # st.dataframe(simplified_df)
         if not df.empty:
             st.session_state.data = df.to_dict(orient="records")
             st.session_state.material = material
             st.session_state.material_weight = material_weight
             st.session_state.cumulative_cost = cumulative_cost
             last_record = st.session_state.data[0]
-            st.write(last_record)
+            # st.write(last_record)
             default_quantity = clean_quantity(last_record.get("snps_um__ActualQt__c") or last_record.get("AITC_OrderQt__c") or 0.0)
             default_process_order = int(last_record.get("snps_um__ProcessOrderNo__c", 0))
             default_process_order_name = last_record.get("snps_um__ProcessName__c")
