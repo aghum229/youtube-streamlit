@@ -254,9 +254,12 @@ if not st.session_state.user_code_entered:
         """
         <style>
         input[type="text"], input[type="password"] {
-            font-size: 50px !important;
+            font-size: 30px !important;
             padding: 12px !important;
-            height: 50px !important;
+            height: 70px !important;
+            width: 100% !important;  /* 必要に応じて 500px なども指定可能 */
+            box-sizing: border-box !important;
+
         }
         </style>
         """,
