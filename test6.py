@@ -250,9 +250,23 @@ if "user_code_entered" not in st.session_state:
     st.session_state.user_code = ""
     
 if not st.session_state.user_code_entered:
+    st.markdown(
+    """
+    <style>
+    div[data-testid="textInput"] input {
+        font-size: 24px !important;
+        padding: 12px !important;
+        height: 50px !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
+    
     st.session_state['owner'] = st.text_input("担当者コードを入力してください (3～4桁、例: 999:",
                                               max_chars=4,
                                               key="owner_input")
+    
     if st.session_state['owner']:  # 入力があれば保存して完了フラグを立てる
         st.session_state.user_code = st.session_state['owner']
         st.session_state.user_code_entered = True
