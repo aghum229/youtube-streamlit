@@ -251,16 +251,16 @@ if "user_code_entered" not in st.session_state:
     
 if not st.session_state.user_code_entered:
     st.markdown(
-    """
-    <style>
-    div[data-testid="textInput"] input {
-        font-size: 24px !important;
-        padding: 12px !important;
-        height: 50px !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
+        """
+        <style>
+        div[data-testid="textInput"] input {
+            font-size: 24px !important;
+            padding: 12px !important;
+            height: 50px !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
     )
     
     st.session_state['owner'] = st.text_input("担当者コードを入力してください (3～4桁、例: 999:",
