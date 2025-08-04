@@ -256,7 +256,7 @@ if not st.session_state.user_code_entered:
     if st.session_state['owner']:  # 入力があれば保存して完了フラグを立てる
         st.session_state.user_code = st.session_state['owner']
         st.session_state.user_code_entered = True
-        st.experimental_rerun()  # 再描画して次のステップへ
+        st.rerun()  # 再描画して次のステップへ
 else:
     # 入力完了後はメイン処理を表示
     st.title("メイン画面")
