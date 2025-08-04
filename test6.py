@@ -246,16 +246,20 @@ if "manual_input_value" not in st.session_state:
     st.session_state.manual_input_value = ""
 
 if not st.session_state['owner']:
-    st.session_state['owner'] = st.text_input("担当者コードを入力してください (3～4桁、例: 999:", key="owner_input")
-    if not st.session_state['owner']:
+    st.session_state['owner'] = st.text_input("担当者コードを入力してください (3～4桁、例: 999:",
+                                              max_chars=4,
+                                              key="owner_input")
+    if not st.session_state['owner'] and len(manual_input) <= 4 and manual_input.isdigit():
         st.stop()
 
+_= '''
 # Controle de exibição: sucesso ou formulário
 if st.session_state['mostrar_sucesso']:
     if st.session_state['update']:
         st.success("登録が正常に更新されました！")
     else:
         st.success("登録が正常に完了しました！")
+'''
 
 _= '''
 manual_input = st.text_input("品番を入力してください (50桁、例: AAAAA-BBB-CCCC):",
