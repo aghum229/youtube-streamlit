@@ -400,6 +400,7 @@ def show_main_screen():
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('button0', '0.ショートカット', 'other0')
     st.write('  ')
+    st.write('  ')
     button_set('button1', '1.製造関連', 'other1')
     button_set('button2', '2.ＩＳＯ関連', 'other2')
     button_set('button3', '3.労務関連', 'other3')
