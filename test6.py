@@ -253,7 +253,7 @@ if not st.session_state.user_code_entered:
     st.markdown(
         """
         <style>
-        div[data-testid="textInput"] input {
+        input[type="text"], input[type="password"] {
             font-size: 50px !important;
             padding: 12px !important;
             height: 50px !important;
