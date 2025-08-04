@@ -245,6 +245,27 @@ if "cumulative_cost" not in st.session_state:
 if "manual_input_value" not in st.session_state:
     st.session_state.manual_input_value = ""
 
+if "user_code_entered" not in st.session_state:
+    st.session_state.user_code_entered = False
+    st.session_state.user_code = ""
+    
+if not st.session_state.user_code_entered:
+    st.session_state['owner'] = st.text_input("担当者コードを入力してください (3～4桁、例: 999:",
+                                              max_chars=4,
+                                              key="owner_input")
+    if st.session_state['owner']:  # 入力があれば保存して完了フラグを立てる
+        st.session_state.user_code = st.session_state['owner']
+        st.session_state.user_code_entered = True
+        st.experimental_rerun()  # 再描画して次のステップへ
+else:
+    # 入力完了後はメイン処理を表示
+    st.title("メイン画面")
+    st.write(f"入力されたコード: {st.session_state.user_code}")
+
+    # ここに本処理を記述
+    st.success("ここからメイン処理を開始します！")
+    
+_= '''
 if not st.session_state['owner']:
     st.session_state['owner'] = st.text_input("担当者コードを入力してください (3～4桁、例: 999:",
                                               max_chars=4,
@@ -253,6 +274,7 @@ if not st.session_state['owner']:
         st.stop()
     else:
         st.warning("入力を待っています...")
+'''
     
     _= '''
     # Controle de exibição: sucesso ou formulário
