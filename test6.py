@@ -228,6 +228,10 @@ if "data" not in st.session_state:
     st.session_state.data = None
 if "owner" not in st.session_state:
     st.session_state.owner = ""
+if 'update' not in st.session_state:
+    st.session_state['update'] = False
+if 'mostrar_sucesso' not in st.session_state:
+    st.session_state['mostrar_sucesso'] = False
 if "quantity" not in st.session_state:
     st.session_state.quantity = 0.0
 if "process_order" not in st.session_state:
@@ -240,6 +244,18 @@ if "cumulative_cost" not in st.session_state:
     st.session_state.cumulative_cost = 0.0
 if "manual_input_value" not in st.session_state:
     st.session_state.manual_input_value = ""
+
+if not st.session_state['owner']:
+    st.session_state['owner'] = st.text_input("担当者コードを入力してください (3～4桁、例: 999:", key="owner_input")
+    if not st.session_state['owner']:
+        st.stop()
+
+# Controle de exibição: sucesso ou formulário
+if st.session_state['mostrar_sucesso']:
+    if st.session_state['update']:
+        st.success("登録が正常に更新されました！")
+    else:
+        st.success("登録が正常に完了しました！")
 
 _= '''
 manual_input = st.text_input("品番を入力してください (50桁、例: AAAAA-BBB-CCCC):",
@@ -293,7 +309,7 @@ with st.form(key="registro_form"):
         if "all_data" in st.session_state and st.session_state.all_data:
             st.write("Salesforceで発見されたすべての記録:")
             simplified_df = simplify_dataframe(pd.DataFrame(st.session_state.all_data))
-            # st.dataframe(simplified_df)
+            st.dataframe(simplified_df)
         if not df.empty:
             st.session_state.data = df.to_dict(orient="records")
             st.session_state.material = material
