@@ -254,7 +254,7 @@ if not st.session_state.user_code_entered:
         """
         <style>
         div[data-testid="textInput"] input {
-            font-size: 24px !important;
+            font-size: 50px !important;
             padding: 12px !important;
             height: 50px !important;
         }
