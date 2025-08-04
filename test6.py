@@ -254,7 +254,7 @@ if not st.session_state.user_code_entered:
         """
         <style>
         input[type="text"], input[type="password"] {
-            font-size: 60px !important;
+            font-size: 40px !important;
             padding-top: 16px !important;
             padding-bottom: 16px !important;
             line-height: 2.5 !important;   /* 高さ調整のキモ */
@@ -280,13 +280,14 @@ if not st.session_state.user_code_entered:
         st.session_state.user_code_entered = True
         st.rerun()  # 再描画して次のステップへ
 else:
+    _= '''
     # 入力完了後はメイン処理を表示
     st.title("メイン画面")
     st.write(f"入力されたコード: {st.session_state.user_code}")
 
     # ここに本処理を記述
     st.success("ここからメイン処理を開始します！")
-    
+    '''
     
     _= '''
     # Controle de exibição: sucesso ou formulário
@@ -296,6 +297,27 @@ else:
         else:
             st.success("登録が正常に完了しました！")
     '''
+
+    st.markdown(
+        """
+        <style>
+        input[type="text"], input[type="password"] {
+            font-size: 40px !important;
+            padding-top: 16px !important;
+            padding-bottom: 16px !important;
+            line-height: 2.5 !important;   /* 高さ調整のキモ */
+            box-sizing: border-box !important;
+        }
+        
+        /* 親コンテナの余白にも調整を加える */
+        div[data-testid="stTextInput"] {
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
     
     _= '''
     manual_input = st.text_input("品番を入力してください (50桁、例: AAAAA-BBB-CCCC):",
