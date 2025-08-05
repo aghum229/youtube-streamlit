@@ -451,7 +451,7 @@ else:
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
                 # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
-                datetime_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                datetime_str = datetime.now().strftime("%YYYY/%mm/%dd %H:%M")
                 atualizar_tanaban(st.session_state.sf, item_id, "H-1", st.session_state.production_order, hinban, process_order_name, quantity, datetime_str, owner, "-", "-", "-", "-")
 
     _= '''
