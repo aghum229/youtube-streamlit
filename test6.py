@@ -205,6 +205,28 @@ def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkMap,
     except Exception as e:
         st.error(f"更新エラー: {e}")
 
+# WHERE Name LIKE '%{item_name}%' AND snps_um__ProcessOrderNo__c = 999
+def encontrar_item_por_nome(sf, item_id):
+    query = f"""
+        SELECT AITC_ID18__c, Name, zkShortcutButton__c, zkShortcutUser__c,
+            zkTanaban__c, zkIkohyoNo__c ,zkHinban__c, zkKanryoKoutei__c,
+            zkSuryo__c, zkTuikaDatetime__c, zkTuikaSya__c, zkMap__c,
+            zkDeleteDatetime__c, zkDeleteIkohyoNo__c, zkDeleteSya__c
+        FROM snps_um__Process__c
+        WHERE AITC_ID18__c = '%{item_id}%'
+    """
+    try:
+        result = sf.query(query)
+        records = result.get("records", [])
+        if records:
+            return records[0].get("AITC_ID18__c")
+        else:
+            st.warning(f"ID(18桁) {item_id} に一致する snps_um__Process__c が見つかりませんでした。")
+            return None
+    except Exception as e:
+        st.error(f"ID(18桁)検索エラー: {e}")
+        return None
+
 def encontrar_item_por_nome(sf, item_name):
     query = f"""
         SELECT Name, snps_um__ProcessOrderNo__c
