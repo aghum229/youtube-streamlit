@@ -492,7 +492,7 @@ else:
                             listNumber = 1
                 datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
                 if listAdd == 1:
-                    zkTana = f"{zkTana},{tanaban}"
+                    zkTana = f"{record["zkTanaban__c"]},{tanaban}"
                     zkIko = record["zkIkohyoNo__c"] + "," + st.session_state.production_order  # zk移行票No
                     zkHin = record["zkHinban__c"] + "," + hinban   # zk品番
                     zkKan = record["zkKanryoKoutei__c"] + "," + process_order_name   # zk完了工程
