@@ -338,7 +338,7 @@ else:
     st.markdown(
         """
         <style>
-        input[type="text"], input[type="password"] {
+        input[type="text"], input[type="number"] {
             font-size: 40px !important;
             padding-top: 16px !important;
             padding-bottom: 16px !important;
@@ -467,7 +467,7 @@ else:
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
                 # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
-                datetime_str = datetime.now().strftime("%YYYY/%mm/%dd %H:%M")
+                datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
                 atualizar_tanaban_add(st.session_state.sf, item_id, "H-1", st.session_state.production_order, hinban, process_order_name, quantity, datetime_str, owner, "-")
                 # atualizar_tanaban_del(st.session_state.sf, item_id, "H-1", st.session_state.production_order, hinban, process_order_name, quantity, "-", datetime_str, st.session_state.production_order, owner)
 
