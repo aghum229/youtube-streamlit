@@ -449,6 +449,10 @@ else:
             item_id = "a1ZQ8000000FB4jMAG"
             # st.write(f"検索したID: '{item_id}'")
 
+            tanaban = "Z-99"  # 仮で設定
+            listCount = 0
+            listAdd = 0  # リストに追加する場合は 1 
+            listNumber = 0
             zkTana = ""
             zkIko = ""
             zkHin = ""
@@ -464,19 +468,41 @@ else:
             zkShoU = ""
             record = encontrar_item_por_nome(st.session_state.sf, item_id)
             if record:
-                zkTana = record["zkTanaban__c"]   # zk棚番
-                zkIko = record["zkIkohyoNo__c"]   # zk移行票No
-                zkHin = record["zkHinban__c"]   # zk品番
-                zkKan = record["zkKanryoKoutei__c"]   # zk完了工程
-                zkSu = record["zkSuryo__c"]   # zk数量
-                zkTuiDa = record["zkTuikaDatetime__c"]   # zk追加日時
-                zkTuiSya = record["zkTuikaSya__c"]   # zk追加者
-                zkMap = record["zkMap__c"]   # zkマップ座標
-                zkDelDa = record["zkDeleteDatetime__c"]   # zk直近削除日時
-                zkDelIko = record["zkDeleteIkohyoNo__c"]   # zk直近削除移行票No
-                zkDelSya = record["zkDeleteSya__c"]   # zk直近削除者
-                zkShoBu = record["zkShortcutButton__c"]   # zkショートカットボタン
-                zkShoU = record["zkShortcutUser__c"]   # zkショートカットユーザー
+                zkTana = record["zkTanaban__c"].split(",")   # zk棚番
+                listCount = len(zkTana)
+                if listCount > 2:
+                    for index, item in enumerate(zkTana):
+                        if item == tanaban:
+                            listNumber = index
+                            listAdd = 0
+                        else:
+                            listAdd = 1
+                else:
+                    if listCount = 1:
+                        if zkTana != tanaban:
+                            listAdd = 1
+                        else:
+                            listNumber = 0
+                    else:
+                        if zkTana[0] != tanaban and zkTana[1] != tanaban:
+                            listAdd = 1
+                        elif zkTana[0] == tanaban:
+                            listNumber = 0
+                        else:
+                            listNumber = 1
+                
+                zkIko = record["zkIkohyoNo__c"].splitlines()   # zk移行票No
+                zkHin = record["zkHinban__c"].splitlines()   # zk品番
+                zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
+                zkSu = record["zkSuryo__c"].splitlines()   # zk数量
+                zkTuiDa = record["zkTuikaDatetime__c"].splitlines()   # zk追加日時
+                zkTuiSya = record["zkTuikaSya__c"].splitlines()   # zk追加者
+                zkMap = record["zkMap__c"].splitlines()   # zkマップ座標
+                zkDelDa = record["zkDeleteDatetime__c"].split(",")   # zk直近削除日時
+                zkDelIko = record["zkDeleteIkohyoNo__c"].split(",")   # zk直近削除移行票No
+                zkDelSya = record["zkDeleteSya__c"].split(",")   # zk直近削除者
+                zkShoBu = record["zkShortcutButton__c"].splitlines()   # zkショートカットボタン
+                zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                 # st.write("名称:", record["Name"])
                 # 他にも必要な項目を好きな順に表示可能
             
