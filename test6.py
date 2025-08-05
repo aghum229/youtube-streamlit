@@ -496,8 +496,8 @@ else:
                     zkIko = record["zkIkohyoNo__c"] + "," + st.session_state.production_order  # zk移行票No
                     zkHin = record["zkHinban__c"] + "," + hinban   # zk品番
                     zkKan = record["zkKanryoKoutei__c"] + "," + process_order_name   # zk完了工程
-                    zkSu = record["zkSuryo__c"] + "," + quantity   # zk数量
-                    zkTuiDa = record["zkTuikaDatetime__c"] + "," + datetime_str   # zk追加日時
+                    zkSu = f"{record["zkSuryo__c"]},{quantity}"   # zk数量
+                    zkTuiDa = f"{record["zkTuikaDatetime__c"]},{datetime_str}"   # zk追加日時
                     zkTuiSya = record["zkTuikaSya__c"] + "," + owner   # zk追加者
                     zkMap = record["zkMap__c"] + "," + "-"   # zkマップ座標
                     # zkDelDa = record["zkDeleteDatetime__c"] + "," +    # zk直近削除日時
