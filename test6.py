@@ -478,7 +478,7 @@ else:
                         else:
                             listAdd = 1
                 else:
-                    if listCount = 1:
+                    if listCount == 1:
                         if zkTana != tanaban:
                             listAdd = 1
                         else:
@@ -491,7 +491,7 @@ else:
                         else:
                             listNumber = 1
                 datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-                if listAdd = 1:
+                if listAdd == 1:
                     zkTana = zkTana + "," + tanaban
                     zkIko = record["zkIkohyoNo__c"] + "," + st.session_state.production_order  # zk移行票No
                     zkHin = record["zkHinban__c"] + "," + hinban   # zk品番
