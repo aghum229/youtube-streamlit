@@ -490,27 +490,42 @@ else:
                             listNumber = 0
                         else:
                             listNumber = 1
-                
-                zkIko = record["zkIkohyoNo__c"].splitlines()   # zk移行票No
-                zkHin = record["zkHinban__c"].splitlines()   # zk品番
-                zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
-                zkSu = record["zkSuryo__c"].splitlines()   # zk数量
-                zkTuiDa = record["zkTuikaDatetime__c"].splitlines()   # zk追加日時
-                zkTuiSya = record["zkTuikaSya__c"].splitlines()   # zk追加者
-                zkMap = record["zkMap__c"].splitlines()   # zkマップ座標
-                zkDelDa = record["zkDeleteDatetime__c"].split(",")   # zk直近削除日時
-                zkDelIko = record["zkDeleteIkohyoNo__c"].split(",")   # zk直近削除移行票No
-                zkDelSya = record["zkDeleteSya__c"].split(",")   # zk直近削除者
-                zkShoBu = record["zkShortcutButton__c"].splitlines()   # zkショートカットボタン
-                zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
+                datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+                if listAdd = 1:
+                    zkTana = zkTana + "," + tanaban
+                    zkIko = record["zkIkohyoNo__c"] + "," + st.session_state.production_order  # zk移行票No
+                    zkHin = record["zkHinban__c"] + "," + hinban   # zk品番
+                    zkKan = record["zkKanryoKoutei__c"] + "," + process_order_name   # zk完了工程
+                    zkSu = record["zkSuryo__c"] + "," + quantity   # zk数量
+                    zkTuiDa = record["zkTuikaDatetime__c"] + "," + datetime_str   # zk追加日時
+                    zkTuiSya = record["zkTuikaSya__c"] + "," + owner   # zk追加者
+                    zkMap = record["zkMap__c"] + "," + "-"   # zkマップ座標
+                    # zkDelDa = record["zkDeleteDatetime__c"] + "," +    # zk直近削除日時
+                    # zkDelIko = record["zkDeleteIkohyoNo__c"] + "," +    # zk直近削除移行票No
+                    # zkDelSya = record["zkDeleteSya__c"] + "," +    # zk直近削除者
+                    # zkShoBu = record["zkShortcutButton__c"] + "," +    # zkショートカットボタン
+                    # zkShoU = record["zkShortcutUser__c"] + "," +    # zkショートカットユーザー
+                else:
+                    zkIko = record["zkIkohyoNo__c"].splitlines()   # zk移行票No
+                    zkHin = record["zkHinban__c"].splitlines()   # zk品番
+                    zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
+                    zkSu = record["zkSuryo__c"].splitlines()   # zk数量
+                    zkTuiDa = record["zkTuikaDatetime__c"].splitlines()   # zk追加日時
+                    zkTuiSya = record["zkTuikaSya__c"].splitlines()   # zk追加者
+                    zkMap = record["zkMap__c"].splitlines()   # zkマップ座標
+                    zkDelDa = record["zkDeleteDatetime__c"].split(",")   # zk直近削除日時
+                    zkDelIko = record["zkDeleteIkohyoNo__c"].split(",")   # zk直近削除移行票No
+                    zkDelSya = record["zkDeleteSya__c"].split(",")   # zk直近削除者
+                    zkShoBu = record["zkShortcutButton__c"].splitlines()   # zkショートカットボタン
+                    zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                 # st.write("名称:", record["Name"])
                 # 他にも必要な項目を好きな順に表示可能
             
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
                 # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
-                datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-                atualizar_tanaban_add(st.session_state.sf, item_id, "H-1", st.session_state.production_order, hinban, process_order_name, quantity, datetime_str, owner, "-")
+                # datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+                atualizar_tanaban_add(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
                 # atualizar_tanaban_del(st.session_state.sf, item_id, "H-1", st.session_state.production_order, hinban, process_order_name, quantity, "-", datetime_str, st.session_state.production_order, owner)
 
     _= '''
