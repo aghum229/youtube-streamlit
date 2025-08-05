@@ -449,7 +449,7 @@ else:
             item_id = "a1ZQ8000000FB4jMAG"
             # st.write(f"検索したID: '{item_id}'")
 
-            tanaban = "Z-99"  # 仮で設定
+            tanaban = "Z-79"  # 仮で設定
             listCount = 0
             listAdd = 0  # リストに追加する場合は 1 
             listNumber = 0
