@@ -168,13 +168,22 @@ def simplify_dataframe(df):
                 simplified_df[col] = df[col]
     return simplified_df
 
-def atualizar_tanaban(sf, item_id):
+def atualizar_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya):
     try:
         # sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
         # sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK棚番"})
         sf.snps_um__Process__c.update(item_id, {
-            "AITC_tanaban00__c": "OK棚番00",
-            "AITC_hinban00__c": "OK品番00"
+            "zkTanaban__c": zkTana,
+            "zkIkohyoNo__c": zkIko,
+            "zkHinban__c": zkHin,
+            "zkKanryoKoutei__c": zkKan,
+            "zkSuryo__c": zkSu,
+            "zkTuikaDatetime__c": zkTuiDa,
+            "zkTuikaSya__c": zkTuiSya,
+            "zkMap__c": zkMap,
+            "zkDeleteDatetime__c": zkDelDa,
+            "zkDeleteIkohyoNo__c": zkDelIko,
+            "zkDeleteSya__c": zkDelSya
         })
         st.success("AITC_tanabangou00__c に「OK棚番00」、AITC_hinban00__c に「OK品番00」を書き込みました！")
     except Exception as e:
@@ -436,8 +445,14 @@ else:
             #st.write(f"取得した品番: '{item_id}'")
             # if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
-            st.write(f"検索したid: '{default_id}'")        
-        
+            # st.write(f"検索したid: '{default_id}'")        
+            item_id = "a1ZQ8000000FB4jMAG"
+            # st.write(f"検索したID: '{item_id}'")
+            if item_id:
+                # atualizar_tanabangou(st.session_state.sf, item_id)
+                # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
+                datetime_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                atualizar_tanaban(st.session_state.sf, item_id, "H-1", st.session_state.production_order, hinban, process_order_name, quantity, datetime_str, owner, "-", "-", "-", "-")
 
     _= '''
     # Botão de submissão
