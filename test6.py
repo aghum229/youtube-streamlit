@@ -168,7 +168,7 @@ def simplify_dataframe(df):
                 simplified_df[col] = df[col]
     return simplified_df
 
-def atualizar_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya):
+def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap):
     try:
         # sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
         # sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK棚番"})
@@ -180,6 +180,22 @@ def atualizar_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, z
             "zkSuryo__c": zkSu,
             "zkTuikaDatetime__c": zkTuiDa,
             "zkTuikaSya__c": zkTuiSya,
+            "zkMap__c": zkMap
+        })
+        st.success("AITC_tanabangou00__c に「OK棚番00」、AITC_hinban00__c に「OK品番00」を書き込みました！")
+    except Exception as e:
+        st.error(f"更新エラー: {e}")
+
+def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkMap, zkDelDa, zkDelIko, zkDelSya):
+    try:
+        # sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
+        # sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK棚番"})
+        sf.snps_um__Process__c.update(item_id, {
+            "zkTanaban__c": zkTana,
+            "zkIkohyoNo__c": zkIko,
+            "zkHinban__c": zkHin,
+            "zkKanryoKoutei__c": zkKan,
+            "zkSuryo__c": zkSu,
             "zkMap__c": zkMap,
             "zkDeleteDatetime__c": zkDelDa,
             "zkDeleteIkohyoNo__c": zkDelIko,
@@ -452,7 +468,8 @@ else:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
                 # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
                 datetime_str = datetime.now().strftime("%YYYY/%mm/%dd %H:%M")
-                atualizar_tanaban(st.session_state.sf, item_id, "H-1", st.session_state.production_order, hinban, process_order_name, quantity, datetime_str, owner, "-", "-", "-", "-")
+                atualizar_tanaban_add(st.session_state.sf, item_id, "H-1", st.session_state.production_order, hinban, process_order_name, quantity, datetime_str, owner, "-")
+                # atualizar_tanaban_del(st.session_state.sf, item_id, "H-1", st.session_state.production_order, hinban, process_order_name, quantity, "-", datetime_str, st.session_state.production_order, owner)
 
     _= '''
     # Botão de submissão
