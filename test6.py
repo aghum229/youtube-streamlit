@@ -213,13 +213,13 @@ def encontrar_item_por_nome(sf, item_id):
             zkSuryo__c, zkTuikaDatetime__c, zkTuikaSya__c, zkMap__c,
             zkDeleteDatetime__c, zkDeleteIkohyoNo__c, zkDeleteSya__c
         FROM snps_um__Process__c
-        WHERE AITC_ID18__c = '%{item_id}%'
+        WHERE AITC_ID18__c = '{item_id}'
     """
     try:
         result = sf.query(query)
         records = result.get("records", [])
         if records:
-            return records[0].get("AITC_ID18__c")
+            return records[0]
         else:
             st.warning(f"ID(18桁) {item_id} に一致する snps_um__Process__c が見つかりませんでした。")
             return None
@@ -486,6 +486,14 @@ else:
             # st.write(f"検索したid: '{default_id}'")        
             item_id = "a1ZQ8000000FB4jMAG"
             # st.write(f"検索したID: '{item_id}'")
+            
+            record = encontrar_item_por_nome(st.session_state.sf, item_id)
+            if record:
+                st.write("名称:", record["Name"])
+                st.write("追加者:", record["zkTuikaSya__c"])
+                st.write("削除日時:", record["zkDeleteDatetime__c"])
+                # 他にも必要な項目を好きな順に表示可能
+            
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
                 # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
