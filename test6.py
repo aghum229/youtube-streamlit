@@ -227,44 +227,6 @@ def encontrar_item_por_nome(sf, item_id):
         st.error(f"ID(18桁)検索エラー: {e}")
         return None
 
-def encontrar_item_por_nome(sf, item_name):
-    query = f"""
-        SELECT Name, snps_um__ProcessOrderNo__c
-        FROM snps_um__Process__c
-        WHERE Name LIKE '%{item_name}%'
-    """
-    try:
-        result = sf.query(query)
-        records = result['records']
-        # records = result.get("records", [])
-        if records:
-            return records[0].get("Name")
-        else:
-            st.warning(f"品番 {item_name} に一致する snps_um__Process__c が見つかりませんでした。")
-            return None
-    except Exception as e:
-        st.error(f"Item検索エラー: {e}")
-        return None
-
-        # WHERE snps_um__ItemName__c LIKE '%{item_name}%'
-def encontrar_item_por_nome00(sf, item_name):
-    query = f"""
-        SELECT snps_um__ItemName__c
-        FROM snps_um__Item__c
-        LIMIT 10
-    """
-    try:
-        result = sf.query(query)
-        records = result['records']
-        # records = result.get("records", [])
-        if records:
-            return records[0]["snps_um__ItemName__c"]
-        else:
-            st.warning(f"品番 {item_name} に一致する snps_um__Item__c が見つかりませんでした。")
-            return None
-    except Exception as e:
-        st.error(f"Item検索エラー: {e}")
-        return None
 
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
@@ -486,12 +448,36 @@ else:
             # st.write(f"検索したid: '{default_id}'")        
             item_id = "a1ZQ8000000FB4jMAG"
             # st.write(f"検索したID: '{item_id}'")
-            
+
+            zkTana = ""
+            zkIko = ""
+            zkHin = ""
+            zkKan = ""
+            zkSu = ""
+            zkTuiDa = ""
+            zkTuiSya = ""
+            zkMap = ""
+            zkDelDa = ""
+            zkDelIko = ""
+            zkDelSya = ""
+            zkShoBu = ""
+            zkShoU = ""
             record = encontrar_item_por_nome(st.session_state.sf, item_id)
             if record:
-                st.write("名称:", record["Name"])
-                st.write("追加者:", record["zkTuikaSya__c"])
-                st.write("削除日時:", record["zkDeleteDatetime__c"])
+                zkTana = record["zkTanaban__c"]   # zk棚番
+                zkIko = record["zkIkohyoNo__c"]   # zk移行票No
+                zkHin = record["zkHinban__c"]   # zk品番
+                zkKan = record["zkKanryoKoutei__c"]   # zk完了工程
+                zkSu = record["zkSuryo__c"]   # zk数量
+                zkTuiDa = record["zkTuikaDatetime__c"]   # zk追加日時
+                zkTuiSya = record["zkTuikaSya__c"]   # zk追加者
+                zkMap = record["zkMap__c"]   # zkマップ座標
+                zkDelDa = record["zkDeleteDatetime__c"]   # zk直近削除日時
+                zkDelIko = record["zkDeleteIkohyoNo__c"]   # zk直近削除移行票No
+                zkDelSya = record["zkDeleteSya__c"]   # zk直近削除者
+                zkShoBu = record["zkShortcutButton__c"]   # zkショートカットボタン
+                zkShoU = record["zkShortcutUser__c"]   # zkショートカットユーザー
+                # st.write("名称:", record["Name"])
                 # 他にも必要な項目を好きな順に表示可能
             
             if item_id:
