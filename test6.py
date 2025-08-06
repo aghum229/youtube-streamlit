@@ -513,7 +513,8 @@ else:
                     st.write(listCount)
                     if listCountEtc != listCount:
                         zkIko = "-"
-                        separator = "\n-"
+                        # separator = "\n-"
+                        separator = ",-"
                         zkIko = separator.join([zkIko] * listCount)
                         st.write(zkIko)
                         zkDelDa = "-"
