@@ -613,7 +613,7 @@ else:
                         zkTuiSya[listNumber] = owner   # zk追加者
                         zkMap[listNumber] = "-"   # zkマップ座標
                         '''
-                        _= '''
+                        # _= '''
                         zkHin = "\n".join(zkHin) if isinstance(zkHin, list) else zkHin
                         zkKan = "\n".join(zkKan) if isinstance(zkKan, list) else zkKan
                         zkSu = "\n".join(zkSu) if isinstance(zkSu, list) else zkSu
@@ -626,7 +626,7 @@ else:
                         zkTuiDa = f"{zkTuiDa}"
                         zkTuiSya = f"{zkTuiSya}"
                         zkMap = f"{zkMap}"
-                        '''
+                        # '''
                     _= '''
                     zkHin = record["zkHinban__c"].splitlines()   # zk品番
                     zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
