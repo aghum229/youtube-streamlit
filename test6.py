@@ -518,17 +518,17 @@ else:
                         zkIko = separator.join([zkKari] * listCount)
                         st.write(zkIko)
                         zkKari = "-"
-                        separator = ","
-                        zkDelDa = separator.join([zkKari] * listCount)
+                        # separator = ","
+                        # zkDelDa = separator.join([zkKari] * listCount)
                         zkHin = zkIko
                         zkKan = zkIko
                         zkSu = zkIko
                         zkTuiDa = zkIko
                         zkTuiSya = zkIko
                         zkMap = zkIko
-                        zkDelDa = zkDelDa
-                        zkDelIko = zkDelDa
-                        zkDelSya = zkDelDa
+                        # zkDelDa = zkDelDa
+                        # zkDelIko = zkDelDa
+                        # zkDelSya = zkDelDa
                         zkShoBu = zkIko
                         zkShoU = zkIko
                     else:
