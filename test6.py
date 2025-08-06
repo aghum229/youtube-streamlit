@@ -590,12 +590,20 @@ else:
                         # '''
                     else:
                         st.write(f"Index: '{listNumber}'") 
+                        zkHin = record["zkHinban__c"]   # zk品番
+                        zkKan = record["zkKanryoKoutei__c"]   # zk完了工程
+                        zkSu = record["zkSuryo__c"]   # zk数量
+                        zkTuiDa = record["zkTuikaDatetime__c"]  # zk追加日時
+                        zkTuiSya = record["zkTuikaSya__c"]   # zk追加者
+                        zkMap = record["zkMap__c"]   # zkマップ座標
+                        _= '''
                         zkHin = record["zkHinban__c"].splitlines()   # zk品番
                         zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
                         zkSu = record["zkSuryo__c"].splitlines()   # zk数量
                         zkTuiDa = record["zkTuikaDatetime__c"].splitlines()   # zk追加日時
                         zkTuiSya = record["zkTuikaSya__c"].splitlines()   # zk追加者
                         zkMap = record["zkMap__c"].splitlines()   # zkマップ座標
+                        '''
                         _= '''
                         zkIko[listNumber] = st.session_state.production_order   # zk棚番
                         zkHin[listNumber] = hinban   # zk品番
@@ -605,6 +613,7 @@ else:
                         zkTuiSya[listNumber] = owner   # zk追加者
                         zkMap[listNumber] = "-"   # zkマップ座標
                         '''
+                        _= '''
                         zkHin = "\n".join(zkHin) if isinstance(zkHin, list) else zkHin
                         zkKan = "\n".join(zkKan) if isinstance(zkKan, list) else zkKan
                         zkSu = "\n".join(zkSu) if isinstance(zkSu, list) else zkSu
@@ -617,6 +626,7 @@ else:
                         zkTuiDa = f"{zkTuiDa}"
                         zkTuiSya = f"{zkTuiSya}"
                         zkMap = f"{zkMap}"
+                        '''
                     _= '''
                     zkHin = record["zkHinban__c"].splitlines()   # zk品番
                     zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
