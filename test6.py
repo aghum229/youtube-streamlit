@@ -257,8 +257,8 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     "-"の場合はupdate_valueで上書き、それ以外はカンマ区切りで追加。
 
     Parameters:
-    - zkKari: dict or list形式のデータ
-    - dbItem: データベースの項目名(表示ラベルではない)
+    - zkKari: dict or list形式のデータ(注記.zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMapの順で処理の事)
+    - dbItem: データベースの項目名(注記.表示ラベルではない)
     - listNo: 対象のインデックスまたはキー
     - update_value: 追加する値
     - flag: 0(追加 移行票No以外), 1(追加 移行票Noの場合), 2(削除 移行票No以外), 3(削除 移行票Noの場合)
@@ -268,13 +268,14 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     """
     grobal zkSplitNo
     zkKari = record[dbItem].splitlines()
-    if flag == 2:
-        zkSplit = zkKari[listNo].split(",")
-        for index, item in enumerate(zkSplit):
-            if item == update_value:
-                st.write(f"❌01 **すでに登録されている移行票Noです。'{update_value}'**")
-                st.stop()  # 以降の処理を止める
-        zkKari[listNo] += "," + update_value
+    if flag >= 2:
+        if flag == 3:
+            zkSplit = zkKari[listNo].split(",")
+            for index, item in enumerate(zkSplit):
+                if item == update_value:
+                    zkSplitNo = index
+                    break  # 条件を満たしたらループを終了
+        del zkKari[zkSplitNo]
     else:
         if zkKari[listNo] == "-":
             zkKari[listNo] = update_value
@@ -494,7 +495,7 @@ else:
             hinmei = st.text_input("品名:", key="hinmei", value="-")
     
         submit_button = st.form_submit_button("データベースに保存")
-        
+        add_del_flag = 0
         if submit_button:
             _= '''
             item_name_input = st.session_state.manual_input_value.strip()
@@ -578,6 +579,8 @@ else:
                             listNumber = 1
                 datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
                 if listAdd == 1: # 棚番が無い場合
+                    st.write(f"❌02 **棚番 '{tanaban}' の追加は許可されてません。**")
+                    st.stop()  # 以降の処理を止める
                     _= '''
                     # zkTana = f"{record["zkTanaban__c"]},{tanaban}"
                     zkTana = record["zkTanaban__c"] + "\n" + tanaban
@@ -606,8 +609,10 @@ else:
                     listCountEtc = len(zkIko)
                     st.write(listCountEtc)
                     st.write(listCount)
-                    if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐
-                        # _= '''
+                    if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐(初期設定時のみ使用)
+                        st.write(f"❌03 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
+                        st.stop()  # 以降の処理を止める
+                        _= '''
                         zkKari = "-"
                         separator = "\n"
                         zkIko = f"{separator.join([zkKari] * listCount)}"
@@ -623,16 +628,28 @@ else:
                         # zkDelSya = zkDelDa
                         # zkShoBu = zkIko
                         # zkShoU = zkIko
-                        # '''
+                        '''
                     else:
                         st.write(f"Index: '{listNumber}'") 
-                        zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order, 1)   # zk棚番
-                        zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
-                        zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
-                        zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
-                        zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 0)   # zk追加日時
-                        zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner, 0)   # zk追加者
-                        zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 0)   # zkマップ座標
+                        if add_del_flag == 0: # 追加の場合
+                            zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order, 1)   # zk棚番
+                            zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
+                            zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
+                            zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
+                            zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 0)   # zk追加日時
+                            zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner, 0)   # zk追加者
+                            zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 0)   # zkマップ座標
+                        else: # 削除の場合
+                            zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order, 3)   # zk棚番
+                            zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 2)   # zk品番
+                            zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 2)   # zk完了工程
+                            zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 2)   # zk数量
+                            zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 2)   # zk追加日時
+                            zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner, 2)   # zk追加者
+                            zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 2)   # zkマップ座標
+                            zkDelDa = datetime_str   # zk直近削除日時
+                            zkDelIko = st.session_state.production_order   # zk直近削除移行票No
+                            zkDelSya = owner   # zk直近削除者
                         _= '''
                         zkHin = record["zkHinban__c"].splitlines()   # zk品番
                         zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
@@ -689,6 +706,8 @@ else:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
                 # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
                 # datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-                atualizar_tanaban_add(st.session_state.sf, item_id, tanaban, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
-                # atualizar_tanaban_del(st.session_state.sf, item_id, "H-1", st.session_state.production_order, hinban, process_order_name, quantity, "-", datetime_str, st.session_state.production_order, owner)
+                if add_del_flag == 0: # 追加の場合
+                    atualizar_tanaban_add(st.session_state.sf, item_id, tanaban, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
+                else: # 削除の場合
+                    atualizar_tanaban_del(st.session_state.sf, item_id, tanaban, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
             # '''
