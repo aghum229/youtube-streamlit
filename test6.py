@@ -487,7 +487,7 @@ else:
             # atualizar_tanaban_addkari(st.session_state.sf, item_id, zkTana)
             # st.stop()  # 以降の処理を止める
             
-            tanaban = "完A-1"  # 仮で設定
+            tanaban = "完A-3"  # 仮で設定
             listCount = 0
             listCountEtc = 0
             listAdd = 0  # リストに追加する場合は 1 
@@ -605,7 +605,6 @@ else:
                         zkTuiDa = "\n".join(zkTuiDa) if isinstance(zkTuiDa, list) else zkTuiDa
                         zkTuiSya = "\n".join(zkTuiSya) if isinstance(zkTuiSya, list) else zkTuiSya
                         zkMap = "\n".join(zkMap) if isinstance(zkMap, list) else zkMap
-
                     _= '''
                     zkHin = record["zkHinban__c"].splitlines()   # zk品番
                     zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
@@ -619,6 +618,15 @@ else:
                     zkShoBu = record["zkShortcutButton__c"].splitlines()   # zkショートカットボタン
                     zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                     '''
+            payload = {
+                "zkHinban__c": zkHin,  # ← ここで list になってない？
+                "zkKanryoKoutei__c": zkKan,
+                "zkSuryo__c": zkSu,
+                "zkTuikaDatetime__c": zkTuiDa,
+                "zkTuikaSya__c": zkTuiSya,
+                "zkMap__c": zkMap
+            }
+            st.write(payload)
             # _= '''
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
