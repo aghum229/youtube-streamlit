@@ -493,7 +493,11 @@ else:
                             listNumber = 1
                 datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
                 if listAdd == 1:
-                    zkTana = f"{record["zkTanaban__c"]},{tanaban}"
+                    # zkTana = f"{record["zkTanaban__c"]},{tanaban}"
+                    if isinstance(record["zkTanaban__c"], list):
+                        zkTana = ",".join(record["zkTanaban__c"] + [tanaban])
+                    else:
+                        zkTana = f"{record['zkTanaban__c']},{tanaban}"
                     zkIko = record["zkIkohyoNo__c"] + "\n" + st.session_state.production_order  # zk移行票No
                     zkHin = record["zkHinban__c"] + "\n" + hinban   # zk品番
                     zkKan = record["zkKanryoKoutei__c"] + "\n" + process_order_name   # zk完了工程
