@@ -611,6 +611,12 @@ else:
                         zkTuiDa = "\n".join(zkTuiDa) if isinstance(zkTuiDa, list) else zkTuiDa
                         zkTuiSya = "\n".join(zkTuiSya) if isinstance(zkTuiSya, list) else zkTuiSya
                         zkMap = "\n".join(zkMap) if isinstance(zkMap, list) else zkMap
+                        zkHin = f"{zkHin}"
+                        zkKan = f"{zkKan}"
+                        zkSu = f"{zkSu}"
+                        zkTuiDa = f"{zkTuiDa}"
+                        zkTuiSya = f"{zkTuiSya}"
+                        zkMap = f"{zkMap}"
                     _= '''
                     zkHin = record["zkHinban__c"].splitlines()   # zk品番
                     zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
@@ -637,6 +643,7 @@ else:
             payload["zkHinban__c"] = escape_newlines(payload["zkHinban__c"])
             st.write(payload)
             '''
+            _= '''
             payload = {
                 "zkHinban__c": escape_newlines(zkHin),
                 "zkKanryoKoutei__c": escape_newlines(zkKan),
@@ -653,10 +660,9 @@ else:
                 headers={"Authorization": f"Bearer {access_token}", "Content-Type": "application/json"},
                 data=payload_json
             )
-            
             st.write(response.status_code)
             st.write(response.text)
-            
+            '''
             # _= '''
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
