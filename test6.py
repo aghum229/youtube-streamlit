@@ -469,10 +469,12 @@ else:
             zkShoU = ""
             record = encontrar_item_por_nome(st.session_state.sf, item_id)
             if record:
-                zkTana = record["zkTanaban__c"].split(",")   # zk棚番
-                listCount = len(zkTana)
+                # zkTana = record["zkTanaban__c"].split(",")   # zk棚番
+                # listCount = len(zkTana)
+                zkTana_list = record["zkTanaban__c"].split(",")
+                listCount = len(zkTana_list)
                 if listCount > 2:
-                    for index, item in enumerate(zkTana):
+                    for index, item in enumerate(zkTana_list):
                         if item == tanaban:
                             listNumber = index
                             listAdd = 0
@@ -480,24 +482,21 @@ else:
                             listAdd = 1
                 else:
                     if listCount == 1:
-                        if zkTana != tanaban:
+                        if zkTana_list != tanaban:
                             listAdd = 1
                         else:
                             listNumber = 0
                     else:
-                        if zkTana[0] != tanaban and zkTana[1] != tanaban:
+                        if zkTana_list[0] != tanaban and zkTana_list[1] != tanaban:
                             listAdd = 1
-                        elif zkTana[0] == tanaban:
+                        elif zkTana_list[0] == tanaban:
                             listNumber = 0
                         else:
                             listNumber = 1
                 datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
                 if listAdd == 1:
                     # zkTana = f"{record["zkTanaban__c"]},{tanaban}"
-                    if isinstance(record["zkTanaban__c"], list):
-                        zkTana = ",".join(record["zkTanaban__c"] + [tanaban])
-                    else:
-                        zkTana = f"{record['zkTanaban__c']},{tanaban}"
+                    zkTana = record["zkTanaban__c"] + "," + tanaban
                     zkIko = record["zkIkohyoNo__c"] + "\n" + st.session_state.production_order  # zk移行票No
                     zkHin = record["zkHinban__c"] + "\n" + hinban   # zk品番
                     zkKan = record["zkKanryoKoutei__c"] + "\n" + process_order_name   # zk完了工程
