@@ -513,8 +513,8 @@ else:
                 listCount = len(zkTana_list)
                 if listCount > 2:
                     for index, item in enumerate(zkTana_list):
-                        st.write("for文で取り出した棚番は、{item}")
-                        st.write("検索させる棚番は、{tanaban}")
+                        st.write(f"for文で検索した棚番: '{item}'") 
+                        st.write(f"検索させる棚番: '{tanaban}'")  
                         if item == tanaban:
                             listNumber = index
                             listAdd = 0
@@ -583,7 +583,7 @@ else:
                         # zkShoU = zkIko
                         # '''
                     else:
-                        st.write("Indexは、{listNumber}")
+                        st.write(f"Index: '{listNumber}'") 
                         zkHin = record["zkHinban__c"].splitlines()   # zk品番
                         zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
                         zkSu = record["zkSuryo__c"].splitlines()   # zk数量
