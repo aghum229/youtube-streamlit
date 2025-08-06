@@ -551,9 +551,14 @@ else:
                     # zkShoU = record["zkShortcutUser__c"] + "\n" +    # zkショートカットユーザー
                     '''
                 else:
-                    print(f"zkIkohyoNo__c の型: {type(record.get('zkIkohyoNo__c'))}")
-                    print(f"値: {record.get('zkIkohyoNo__c')}")
-                    zkIko = record["zkIkohyoNo__c"].splitlines()   # zk移行票No
+                    # print(f"zkIkohyoNo__c の型: {type(record.get('zkIkohyoNo__c'))}")
+                    # print(f"値: {record.get('zkIkohyoNo__c')}")
+                    # zkIko = record["zkIkohyoNo__c"].splitlines()   # zk移行票No
+                    zkIko_raw = record.get("zkIkohyoNo__c", "")
+                    if isinstance(zkIko_raw, str):
+                        zkIko = zkIko_raw.splitlines()
+                    else:
+                        zkIko = []
                     listCountEtc = len(zkIko)
                     st.write(listCountEtc)
                     st.write(listCount)
