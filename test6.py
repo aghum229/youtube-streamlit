@@ -555,7 +555,7 @@ else:
                     st.write(listCountEtc)
                     st.write(listCount)
                     if listCountEtc != listCount:
-                        _= '''
+                        # _= '''
                         zkKari = "-"
                         # separator = "\n-"
                         separator = "\n"
@@ -573,9 +573,9 @@ else:
                         # zkDelDa = zkDelDa
                         # zkDelIko = zkDelDa
                         # zkDelSya = zkDelDa
-                        zkShoBu = zkIko
-                        zkShoU = zkIko
-                        '''
+                        # zkShoBu = zkIko
+                        # zkShoU = zkIko
+                        # '''
                     else:
                         st.write("ok")
                         zkHin = record["zkHinban__c"].splitlines()   # zk品番
