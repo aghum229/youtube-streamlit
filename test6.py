@@ -13,6 +13,8 @@ import gspread
 from google.oauth2.service_account import Credentials
 from gspread_dataframe import set_with_dataframe
 import toml
+import json
+import requests
 
 
 # Função para carregar credenciais
@@ -397,10 +399,11 @@ else:
         st.session_state.manual_input_value = ""
         st.rerun()
     '''
-
-    def escape_newlines(text: str) -> str:
-        return text.replace("\n", "\\n")
-
+    
+    # 改行を含むフィールドをエスケープ
+    def escape_newlines(text):
+        return text.replace("\n", "\\n") if isinstance(text, str) else ""
+    
     # Formulário sempre renderizado
     with st.form(key="registro_form"):
         default_quantity = 0.0
@@ -622,7 +625,7 @@ else:
                     zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                     '''
             
-            # _= '''
+            _= '''
             payload = {
                 "zkHinban__c": zkHin,  # ← ここで list になってない？
                 "zkKanryoKoutei__c": zkKan,
@@ -631,9 +634,29 @@ else:
                 "zkTuikaSya__c": zkTuiSya,
                 "zkMap__c": zkMap
             }
-            # '''
             payload["zkHinban__c"] = escape_newlines(payload["zkHinban__c"])
             st.write(payload)
+            '''
+            payload = {
+                "zkHinban__c": escape_newlines(zkHin),
+                "zkKanryoKoutei__c": escape_newlines(zkKan),
+                "zkSuryo__c": escape_newlines(zkSu),
+                "zkTuikaDatetime__c": escape_newlines(zkTuiDa),
+                "zkTuikaSya__c": escape_newlines(zkTuiSya),
+                "zkMap__c": escape_newlines(zkMap)
+            }
+            # JSON に変換
+            payload_json = json.dumps(payload)
+            # 送信
+            response = requests.patch(
+                url,
+                headers={"Authorization": f"Bearer {access_token}", "Content-Type": "application/json"},
+                data=payload_json
+            )
+            
+            st.write(response.status_code)
+            st.write(response.text)
+            
             # _= '''
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
