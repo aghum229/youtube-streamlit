@@ -565,13 +565,9 @@ else:
                     if listCountEtc != listCount:
                         # _= '''
                         zkKari = "-"
-                        # separator = "\n-"
                         separator = "\n"
                         zkIko = f"{separator.join([zkKari] * listCount)}"
                         # st.write(zkIko)
-                        # zkKari = "-"
-                        # separator = ","
-                        # zkDelDa = separator.join([zkKari] * listCount)
                         zkHin = zkIko
                         zkKan = zkIko
                         zkSu = zkIko
@@ -585,13 +581,14 @@ else:
                         # zkShoU = zkIko
                         # '''
                     else:
-                        st.write("ok")
+                        st.write("Indexは、{listNumber}")
                         zkHin = record["zkHinban__c"].splitlines()   # zk品番
                         zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
                         zkSu = record["zkSuryo__c"].splitlines()   # zk数量
                         zkTuiDa = record["zkTuikaDatetime__c"].splitlines()   # zk追加日時
                         zkTuiSya = record["zkTuikaSya__c"].splitlines()   # zk追加者
                         zkMap = record["zkMap__c"].splitlines()   # zkマップ座標
+                        _= '''
                         zkIko[listNumber] = st.session_state.production_order   # zk棚番
                         zkHin[listNumber] = hinban   # zk品番
                         zkKan[listNumber] = process_order_name   # zk完了工程
@@ -599,6 +596,7 @@ else:
                         zkTuiDa[listNumber] = datetime_str   # zk追加日時
                         zkTuiSya[listNumber] = owner   # zk追加者
                         zkMap[listNumber] = "-"   # zkマップ座標
+                        '''
                     _= '''
                     zkHin = record["zkHinban__c"].splitlines()   # zk品番
                     zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
