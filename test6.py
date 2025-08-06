@@ -271,7 +271,7 @@ def update_zkKari(zkKari, dbItem, listNumber, update_value, flag):
             zkSplit = zkKari[listNumber].split(",")
             for index, item in enumerate(zkSplit):
                 if item == update_value:
-                    st.write(f"❌01 **すでに登録されている移行票Noです。** '{update_value}'")
+                    st.write(f"❌01 **すでに登録されている移行票Noです。'{update_value}'**")
                     st.stop()  # 以降の処理を止める
         zkKari[listNumber] += "," + update_value
     zkKari = "\n".join(zkKari) if isinstance(zkKari, list) else zkKari
@@ -516,7 +516,7 @@ else:
             # atualizar_tanaban_addkari(st.session_state.sf, item_id, zkTana)
             # st.stop()  # 以降の処理を止める
             
-            tanaban = "完A-5"  # 仮で設定
+            tanaban = "完A-6"  # 仮で設定
             listCount = 0
             listCountEtc = 0
             listAdd = 0  # リストに追加する場合は 1 
