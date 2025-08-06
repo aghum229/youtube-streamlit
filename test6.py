@@ -512,14 +512,14 @@ else:
                     st.write(listCountEtc)
                     st.write(listCount)
                     if listCountEtc != listCount:
-                        zkIko = "-"
+                        zkKari = "-"
                         # separator = "\n-"
-                        separator = ",-"
-                        zkIko = separator.join([zkIko] * listCount)
+                        separator = ";-"
+                        zkIko = separator.join([zkKari] * listCount)
                         st.write(zkIko)
-                        zkDelDa = "-"
+                        zkKari = "-"
                         separator = ",-"
-                        zkDelDa = separator.join([zkDelDa] * listCount)
+                        zkDelDa = separator.join([zkKari] * listCount)
                         zkHin = zkIko
                         zkKan = zkIko
                         zkSu = zkIko
