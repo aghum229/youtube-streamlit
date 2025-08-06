@@ -250,6 +250,26 @@ def encontrar_item_por_nome(sf, item_id):
         st.error(f"ID(18桁)検索エラー: {e}")
         return None
 
+def update_zkKari(zkKari, dbItem, listNumber, update_value):
+    """
+    指定されたlistNumberの値を更新する関数。
+    "-"の場合はupdate_valueで上書き、それ以外はカンマ区切りで追加。
+
+    Parameters:
+    - zkKari: dict or list形式のデータ
+    - listNumber: 対象のインデックスまたはキー
+    - update_value: 追加する値
+
+    Returns:
+    - 更新後のzkKari
+    """
+    zkKari = record[dbItem].splitlines()
+    if zkKari[listNumber] == "-":
+        zkKari[listNumber] = update_value
+    else:
+        zkKari[listNumber] += "," + update_value
+    zkKari = "\n".join(zkKari) if isinstance(zkKari, list) else zkKari
+    return zkKari
 
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
@@ -516,8 +536,8 @@ else:
                 listCount = len(zkTana_list)
                 if listCount > 2:
                     for index, item in enumerate(zkTana_list):
-                        st.write(f"for文で検索した棚番: '{item}'") 
-                        st.write(f"検索させる棚番: '{tanaban}'")  
+                        # st.write(f"for文で検索した棚番: '{item}'") 
+                        # st.write(f"検索させる棚番: '{tanaban}'")  
                         if item == tanaban:
                             listNumber = index
                             listAdd = 0
@@ -538,7 +558,7 @@ else:
                         else:
                             listNumber = 1
                 datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-                if listAdd == 1:
+                if listAdd == 1: # 棚番が無い場合
                     _= '''
                     # zkTana = f"{record["zkTanaban__c"]},{tanaban}"
                     zkTana = record["zkTanaban__c"] + "\n" + tanaban
@@ -567,7 +587,7 @@ else:
                     listCountEtc = len(zkIko)
                     st.write(listCountEtc)
                     st.write(listCount)
-                    if listCountEtc != listCount:
+                    if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐
                         # _= '''
                         zkKari = "-"
                         separator = "\n"
@@ -587,34 +607,40 @@ else:
                         # '''
                     else:
                         st.write(f"Index: '{listNumber}'") 
+                        zkIko = update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order)   # zk棚番
+                        zkHin = update_zkKari(zkHin, "zkHinban__c", listNumber, hinban)   # zk品番
+                        zkKan = update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name)   # zk完了工程
+                        zkSu = update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}")   # zk数量
+                        zkTuiDa = update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str)   # zk追加日時
+                        zkTuiSya = update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner)   # zk追加者
+                        zkMap = update_zkKari(zkMap, "zkMap__c", listNumber, "-")   # zkマップ座標
                         _= '''
-                        zkHin = record["zkHinban__c"].splitlines()   # zk品番
-                        zkHin[listNumber] = hinban   # zk品番
-                        zkHin = "\n".join(zkHin) if isinstance(zkHin, list) else zkHin
-                        zkKan = ""
-                        zkSu = ""
-                        zkTuiDa = ""
-                        zkTuiSya = ""
-                        zkMap = ""
-                        '''
-                        # _= '''
                         zkHin = record["zkHinban__c"].splitlines()   # zk品番
                         zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
                         zkSu = record["zkSuryo__c"].splitlines()   # zk数量
                         zkTuiDa = record["zkTuikaDatetime__c"].splitlines()   # zk追加日時
                         zkTuiSya = record["zkTuikaSya__c"].splitlines()   # zk追加者
                         zkMap = record["zkMap__c"].splitlines()   # zkマップ座標
-                        # '''
-                        # _= '''
-                        zkIko[listNumber] = st.session_state.production_order   # zk棚番
-                        zkHin[listNumber] = hinban   # zk品番
-                        zkKan[listNumber] = process_order_name   # zk完了工程
+                        '''
+                        _= '''
+                        if zkIko[listNumber] == "-":
+                            zkIko[listNumber] = st.session_state.production_order   # zk棚番
+                        else:
+                            zkIko[listNumber] = zkIko[listNumber] + "," + st.session_state.production_order   # zk棚番
+                        if zkHin[listNumber] == "-":
+                            zkHin[listNumber] = hinban   # zk品番
+                        else:
+                            zkHin[listNumber] = zkHin[listNumber] + "," + hinban   # zk品番
+                        if zkKan[listNumber] == "-":
+                            zkKan[listNumber] = process_order_name   # zk完了工程
+                        else:
+                            zkKan[listNumber] = zkKan[listNumber] + "," + process_order_name   # zk完了工程
                         zkSu[listNumber] = f"{quantity}"   # zk数量
                         zkTuiDa[listNumber] = datetime_str   # zk追加日時
                         zkTuiSya[listNumber] = owner   # zk追加者
                         zkMap[listNumber] = "-"   # zkマップ座標
-                        # '''
-                        # _= '''
+                        '''
+                        _= '''
                         zkIko = "\n".join(zkIko) if isinstance(zkIko, list) else zkIko
                         zkHin = "\n".join(zkHin) if isinstance(zkHin, list) else zkHin
                         zkKan = "\n".join(zkKan) if isinstance(zkKan, list) else zkKan
@@ -624,7 +650,7 @@ else:
                         zkTuiDa = "\n".join(zkTuiDa) if isinstance(zkTuiDa, list) else zkTuiDa
                         zkTuiSya = "\n".join(zkTuiSya) if isinstance(zkTuiSya, list) else zkTuiSya
                         zkMap = "\n".join(zkMap) if isinstance(zkMap, list) else zkMap
-                        # '''
+                        '''
                     _= '''
                     zkHin = record["zkHinban__c"].splitlines()   # zk品番
                     zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
