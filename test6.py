@@ -459,10 +459,10 @@ else:
             st.write(f"入力された品番: '{item_name_input}'")
             item_id = encontrar_item_por_nome(st.session_state.sf, item_name_input)
             '''
-            #st.write(f"入力された品番: '{manual_input}'")
+            # st.write(f"入力された品番: '{manual_input}'")
             # manual_input
-            #item_id = encontrar_item_por_nome00(st.session_state.sf, manual_input)
-            #st.write(f"取得した品番: '{item_id}'")
+            # item_id = encontrar_item_por_nome00(st.session_state.sf, manual_input)
+            # st.write(f"取得した品番: '{item_id}'")
             # if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
             # st.write(f"検索したid: '{default_id}'")        
@@ -513,6 +513,8 @@ else:
                 listCount = len(zkTana_list)
                 if listCount > 2:
                     for index, item in enumerate(zkTana_list):
+                        st.write("for文で取り出した棚番は、{item}")
+                        st.write("検索させる棚番は、{tanaban}")
                         if item == tanaban:
                             listNumber = index
                             listAdd = 0
