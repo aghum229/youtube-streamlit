@@ -189,7 +189,7 @@ def atualizar_tanaban_addkari(sf, item_id, zkTana):
     except Exception as e:
         st.error(f"更新エラー: {e}")
         
-def atualizar_tanaban_add(sf, item_id, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap):
+def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap):
     try:
         # sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
         # sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK棚番"})
@@ -205,26 +205,27 @@ def atualizar_tanaban_add(sf, item_id, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTui
             "zkMap__c": zkMap
         })
         # '''
-        st.success("AITC_tanabangou00__c に「OK棚番00」、AITC_hinban00__c に「OK品番00」を書き込みました！")
+        st.success("snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkIko}' を追加しました。")
     except Exception as e:
         st.error(f"更新エラー: {e}")
 
-def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkMap, zkDelDa, zkDelIko, zkDelSya):
+def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya):
     try:
         # sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
         # sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK棚番"})
         sf.snps_um__Process__c.update(item_id, {
-            "zkTanaban__c": zkTana,
             "zkIkohyoNo__c": zkIko,
             "zkHinban__c": zkHin,
             "zkKanryoKoutei__c": zkKan,
             "zkSuryo__c": zkSu,
+            "zkTuikaDatetime__c": zkTuiDa,
+            "zkTuikaSya__c": zkTuiSya,
             "zkMap__c": zkMap,
             "zkDeleteDatetime__c": zkDelDa,
             "zkDeleteIkohyoNo__c": zkDelIko,
             "zkDeleteSya__c": zkDelSya
         })
-        st.success("AITC_tanabangou00__c に「OK棚番00」、AITC_hinban00__c に「OK品番00」を書き込みました！")
+        st.success("snps_um__Process__c の棚番 '{zkTana}' から移行票No '{zkIko}' を削除しました。")
     except Exception as e:
         st.error(f"更新エラー: {e}")
 
@@ -250,15 +251,17 @@ def encontrar_item_por_nome(sf, item_id):
         st.error(f"ID(18桁)検索エラー: {e}")
         return None
 
-def update_zkKari(zkKari, dbItem, listNumber, update_value, flag):
+def list_update_zkKari(zkKari, dbItem, listNumber, update_value, flag):
     """
     指定されたlistNumberの値を更新する関数。
     "-"の場合はupdate_valueで上書き、それ以外はカンマ区切りで追加。
 
     Parameters:
     - zkKari: dict or list形式のデータ
+    - dbItem: データベースの項目名(表示ラベルではない)
     - listNumber: 対象のインデックスまたはキー
     - update_value: 追加する値
+    - flag: 0(移行票No以外), 1(移行票Noの場合)
 
     Returns:
     - 更新後のzkKari
@@ -613,13 +616,13 @@ else:
                         # '''
                     else:
                         st.write(f"Index: '{listNumber}'") 
-                        zkIko = update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order, 1)   # zk棚番
-                        zkHin = update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
-                        zkKan = update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
-                        zkSu = update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
-                        zkTuiDa = update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 0)   # zk追加日時
-                        zkTuiSya = update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner, 0)   # zk追加者
-                        zkMap = update_zkKari(zkMap, "zkMap__c", listNumber, "-", 0)   # zkマップ座標
+                        zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order, 1)   # zk棚番
+                        zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
+                        zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
+                        zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
+                        zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 0)   # zk追加日時
+                        zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner, 0)   # zk追加者
+                        zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 0)   # zkマップ座標
                         _= '''
                         zkHin = record["zkHinban__c"].splitlines()   # zk品番
                         zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
@@ -676,6 +679,6 @@ else:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
                 # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
                 # datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-                atualizar_tanaban_add(st.session_state.sf, item_id, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
+                atualizar_tanaban_add(st.session_state.sf, item_id, tanaban, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
                 # atualizar_tanaban_del(st.session_state.sf, item_id, "H-1", st.session_state.production_order, hinban, process_order_name, quantity, "-", datetime_str, st.session_state.production_order, owner)
             # '''
