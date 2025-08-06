@@ -615,7 +615,7 @@ else:
                         zkIko[listNumber] = st.session_state.production_order   # zk棚番
                         zkHin[listNumber] = hinban   # zk品番
                         zkKan[listNumber] = process_order_name   # zk完了工程
-                        zkSu[listNumber] = f"'{quantity}'"   # zk数量
+                        zkSu[listNumber] = f"{quantity}"   # zk数量
                         zkTuiDa[listNumber] = datetime_str   # zk追加日時
                         zkTuiSya[listNumber] = owner   # zk追加者
                         zkMap[listNumber] = "-"   # zkマップ座標
