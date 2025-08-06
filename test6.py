@@ -621,8 +621,8 @@ else:
                     zkShoBu = record["zkShortcutButton__c"].splitlines()   # zkショートカットボタン
                     zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                     '''
-            payload["zkHinban__c"] = escape_newlines(payload["zkHinban__c"])
-            _= '''
+            
+            # _= '''
             payload = {
                 "zkHinban__c": zkHin,  # ← ここで list になってない？
                 "zkKanryoKoutei__c": zkKan,
@@ -631,7 +631,8 @@ else:
                 "zkTuikaSya__c": zkTuiSya,
                 "zkMap__c": zkMap
             }
-            '''
+            # '''
+            payload["zkHinban__c"] = escape_newlines(payload["zkHinban__c"])
             st.write(payload)
             # _= '''
             if item_id:
