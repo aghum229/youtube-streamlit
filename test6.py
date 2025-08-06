@@ -271,7 +271,7 @@ def update_zkKari(zkKari, dbItem, listNumber, update_value, flag):
             zkSplit = zkKari[listNumber].split(",")
             for index, item in enumerate(zkSplit):
                 if item == update_value:
-                    st.write("❌01 **すでに登録されている移行票Noです。** '{update_value}'")
+                    st.write(f"❌01 **すでに登録されている移行票Noです。** '{update_value}'")
                     st.stop()  # 以降の処理を止める
         zkKari[listNumber] += "," + update_value
     zkKari = "\n".join(zkKari) if isinstance(zkKari, list) else zkKari
