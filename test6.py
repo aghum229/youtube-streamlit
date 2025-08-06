@@ -514,9 +514,9 @@ else:
                     if listCountEtc != listCount:
                         zkKari = "-"
                         # separator = "\n-"
-                        separator = ";"
+                        separator = "\n"
                         zkIko = f"{separator.join([zkKari] * listCount)}"
-                        st.write(zkIko)
+                        # st.write(zkIko)
                         # zkKari = "-"
                         # separator = ","
                         # zkDelDa = separator.join([zkKari] * listCount)
