@@ -509,10 +509,13 @@ else:
                 else:
                     zkIko = record["zkIkohyoNo__c"].splitlines()   # zk移行票No
                     listCountEtc = len(zkIko)
+                    st.write(listCountEtc)
+                    st.write(listCount)
                     if listCountEtc != listCount:
                         zkIko = "-"
                         separator = "\n-"
                         zkIko = separator.join([zkIko] * listCount)
+                        st.write(zkIko)
                         zkDelDa = "-"
                         separator = ",-"
                         zkDelDa = separator.join([zkDelDa] * listCount)
@@ -527,6 +530,8 @@ else:
                         zkDelSya = zkDelDa
                         zkShoBu = zkIko
                         zkShoU = zkIko
+                    else:
+                        
                     _= '''
                     zkHin = record["zkHinban__c"].splitlines()   # zk品番
                     zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
@@ -547,7 +552,7 @@ else:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
                 # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
                 # datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-                atualizar_tanaban_add(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
+                # atualizar_tanaban_add(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
                 # atualizar_tanaban_del(st.session_state.sf, item_id, "H-1", st.session_state.production_order, hinban, process_order_name, quantity, "-", datetime_str, st.session_state.production_order, owner)
 
     _= '''
