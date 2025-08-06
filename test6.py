@@ -545,7 +545,6 @@ else:
                     zkShoBu = record["zkShortcutButton__c"].splitlines()   # zkショートカットボタン
                     zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                     '''
-            
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
                 # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
