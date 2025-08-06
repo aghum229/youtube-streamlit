@@ -531,7 +531,7 @@ else:
                         zkShoBu = zkIko
                         zkShoU = zkIko
                     else:
-                        none
+                        st.write("2")
                     _= '''
                     zkHin = record["zkHinban__c"].splitlines()   # zk品番
                     zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
