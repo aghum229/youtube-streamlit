@@ -189,14 +189,11 @@ def atualizar_tanaban_addkari(sf, item_id, zkTana):
     except Exception as e:
         st.error(f"更新エラー: {e}")
         
-def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap):
+def atualizar_tanaban_add(sf, item_id, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap):
     try:
         # sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
         # sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK棚番"})
-        sf.snps_um__Process__c.update(item_id, {"zkTanaban__c": zkTana})
-        _= '''
         sf.snps_um__Process__c.update(item_id, {
-            "zkTanaban__c": zkTana,
             "zkIkohyoNo__c": zkIko,
             "zkHinban__c": zkHin,
             "zkKanryoKoutei__c": zkKan,
@@ -205,7 +202,6 @@ def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
             "zkTuikaSya__c": zkTuiSya,
             "zkMap__c": zkMap
         })
-        '''
         st.success("AITC_tanabangou00__c に「OK棚番00」、AITC_hinban00__c に「OK品番00」を書き込みました！")
     except Exception as e:
         st.error(f"更新エラー: {e}")
@@ -509,7 +505,7 @@ else:
             if record:
                 # zkTana = record["zkTanaban__c"].split(",")   # zk棚番
                 # listCount = len(zkTana)
-                zkTana_list = record["zkTanaban__c"].split(",")
+                zkTana_list = record["zkTanaban__c"].splitlines()
                 listCount = len(zkTana_list)
                 if listCount > 2:
                     for index, item in enumerate(zkTana_list):
@@ -533,8 +529,9 @@ else:
                             listNumber = 1
                 datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
                 if listAdd == 1:
+                    _= '''
                     # zkTana = f"{record["zkTanaban__c"]},{tanaban}"
-                    zkTana = record["zkTanaban__c"] + "," + tanaban
+                    zkTana = record["zkTanaban__c"] + "\n" + tanaban
                     zkIko = record["zkIkohyoNo__c"] + "\n" + st.session_state.production_order  # zk移行票No
                     zkHin = record["zkHinban__c"] + "\n" + hinban   # zk品番
                     zkKan = record["zkKanryoKoutei__c"] + "\n" + process_order_name   # zk完了工程
@@ -547,12 +544,14 @@ else:
                     # zkDelSya = record["zkDeleteSya__c"] + "," +    # zk直近削除者
                     # zkShoBu = record["zkShortcutButton__c"] + "\n" +    # zkショートカットボタン
                     # zkShoU = record["zkShortcutUser__c"] + "\n" +    # zkショートカットユーザー
+                    '''
                 else:
                     zkIko = record["zkIkohyoNo__c"].splitlines()   # zk移行票No
                     listCountEtc = len(zkIko)
                     st.write(listCountEtc)
                     st.write(listCount)
                     if listCountEtc != listCount:
+                        _= '''
                         zkKari = "-"
                         # separator = "\n-"
                         separator = "\n"
@@ -572,8 +571,22 @@ else:
                         # zkDelSya = zkDelDa
                         zkShoBu = zkIko
                         zkShoU = zkIko
+                        '''
                     else:
-                        st.write("2")
+                        st.write("ok")
+                        zkHin = record["zkHinban__c"].splitlines()   # zk品番
+                        zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
+                        zkSu = record["zkSuryo__c"].splitlines()   # zk数量
+                        zkTuiDa = record["zkTuikaDatetime__c"].splitlines()   # zk追加日時
+                        zkTuiSya = record["zkTuikaSya__c"].splitlines()   # zk追加者
+                        zkMap = record["zkMap__c"].splitlines()   # zkマップ座標
+                        zkIko[listNumber] = st.session_state.production_order   # zk棚番
+                        zkHin[listNumber] = hinban   # zk品番
+                        zkKan[listNumber] = process_order_name   # zk完了工程
+                        zkSu[listNumber] = quantity   # zk数量
+                        zkTuiDa[listNumber] = datetime_str   # zk追加日時
+                        zkTuiSya[listNumber] = owner   # zk追加者
+                        zkMap[listNumber] = "-"   # zkマップ座標
                     _= '''
                     zkHin = record["zkHinban__c"].splitlines()   # zk品番
                     zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
@@ -592,6 +605,6 @@ else:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
                 # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
                 # datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-                atualizar_tanaban_add(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
+                atualizar_tanaban_add(st.session_state.sf, item_id, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
                 # atualizar_tanaban_del(st.session_state.sf, item_id, "H-1", st.session_state.production_order, hinban, process_order_name, quantity, "-", datetime_str, st.session_state.production_order, owner)
             # '''
