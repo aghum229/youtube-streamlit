@@ -397,7 +397,10 @@ else:
         st.session_state.manual_input_value = ""
         st.rerun()
     '''
-    
+
+    def escape_newlines(text: str) -> str:
+        return text.replace("\n", "\\n")
+
     # Formulário sempre renderizado
     with st.form(key="registro_form"):
         default_quantity = 0.0
@@ -618,6 +621,8 @@ else:
                     zkShoBu = record["zkShortcutButton__c"].splitlines()   # zkショートカットボタン
                     zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                     '''
+            payload["zkHinban__c"] = escape_newlines(payload["zkHinban__c"])
+            _= '''
             payload = {
                 "zkHinban__c": zkHin,  # ← ここで list になってない？
                 "zkKanryoKoutei__c": zkKan,
@@ -626,6 +631,7 @@ else:
                 "zkTuikaSya__c": zkTuiSya,
                 "zkMap__c": zkMap
             }
+            '''
             st.write(payload)
             # _= '''
             if item_id:
