@@ -250,7 +250,7 @@ def encontrar_item_por_nome(sf, item_id):
         st.error(f"ID(18桁)検索エラー: {e}")
         return None
 
-def update_zkKari(zkKari, dbItem, listNumber, update_value):
+def update_zkKari(zkKari, dbItem, listNumber, update_value, flag):
     """
     指定されたlistNumberの値を更新する関数。
     "-"の場合はupdate_valueで上書き、それ以外はカンマ区切りで追加。
@@ -267,7 +267,7 @@ def update_zkKari(zkKari, dbItem, listNumber, update_value):
     if zkKari[listNumber] == "-":
         zkKari[listNumber] = update_value
     else:
-        if zkKari == "zkIko":
+        if flag == 1:
             zkSplit = zkKari[listNumber].split(",")
             for index, item in enumerate(zkSplit):
                 if item == update_value:
@@ -613,13 +613,13 @@ else:
                         # '''
                     else:
                         st.write(f"Index: '{listNumber}'") 
-                        zkIko = update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order)   # zk棚番
-                        zkHin = update_zkKari(zkHin, "zkHinban__c", listNumber, hinban)   # zk品番
-                        zkKan = update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name)   # zk完了工程
-                        zkSu = update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}")   # zk数量
-                        zkTuiDa = update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str)   # zk追加日時
-                        zkTuiSya = update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner)   # zk追加者
-                        zkMap = update_zkKari(zkMap, "zkMap__c", listNumber, "-")   # zkマップ座標
+                        zkIko = update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order, 1)   # zk棚番
+                        zkHin = update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
+                        zkKan = update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
+                        zkSu = update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
+                        zkTuiDa = update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 0)   # zk追加日時
+                        zkTuiSya = update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner, 0)   # zk追加者
+                        zkMap = update_zkKari(zkMap, "zkMap__c", listNumber, "-", 0)   # zkマップ座標
                         _= '''
                         zkHin = record["zkHinban__c"].splitlines()   # zk品番
                         zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
