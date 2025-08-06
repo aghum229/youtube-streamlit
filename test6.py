@@ -514,7 +514,7 @@ else:
                     if listCountEtc != listCount:
                         zkKari = "-"
                         # separator = "\n-"
-                        separator = ";"
+                        separator = "\n"
                         zkIko = separator.join([zkKari] * listCount)
                         st.write(zkIko)
                         zkKari = "-"
