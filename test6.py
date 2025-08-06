@@ -251,32 +251,41 @@ def encontrar_item_por_nome(sf, item_id):
         st.error(f"ID(18桁)検索エラー: {e}")
         return None
 
-def list_update_zkKari(zkKari, dbItem, listNumber, update_value, flag):
+def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     """
-    指定されたlistNumberの値を更新する関数。
+    指定されたlistNoの値を更新する関数。
     "-"の場合はupdate_valueで上書き、それ以外はカンマ区切りで追加。
 
     Parameters:
     - zkKari: dict or list形式のデータ
     - dbItem: データベースの項目名(表示ラベルではない)
-    - listNumber: 対象のインデックスまたはキー
+    - listNo: 対象のインデックスまたはキー
     - update_value: 追加する値
-    - flag: 0(移行票No以外), 1(移行票Noの場合)
+    - flag: 0(追加 移行票No以外), 1(追加 移行票Noの場合), 2(削除 移行票No以外), 3(削除 移行票Noの場合)
 
     Returns:
     - 更新後のzkKari
     """
+    grobal zkSplitNo
     zkKari = record[dbItem].splitlines()
-    if zkKari[listNumber] == "-":
-        zkKari[listNumber] = update_value
+    if flag == 2:
+        zkSplit = zkKari[listNo].split(",")
+        for index, item in enumerate(zkSplit):
+            if item == update_value:
+                st.write(f"❌01 **すでに登録されている移行票Noです。'{update_value}'**")
+                st.stop()  # 以降の処理を止める
+        zkKari[listNo] += "," + update_value
     else:
-        if flag == 1:
-            zkSplit = zkKari[listNumber].split(",")
-            for index, item in enumerate(zkSplit):
-                if item == update_value:
-                    st.write(f"❌01 **すでに登録されている移行票Noです。'{update_value}'**")
-                    st.stop()  # 以降の処理を止める
-        zkKari[listNumber] += "," + update_value
+        if zkKari[listNo] == "-":
+            zkKari[listNo] = update_value
+        else:
+            if flag == 1:
+                zkSplit = zkKari[listNo].split(",")
+                for index, item in enumerate(zkSplit):
+                    if item == update_value:
+                        st.write(f"❌01 **すでに登録されている移行票Noです。'{update_value}'**")
+                        st.stop()  # 以降の処理を止める
+            zkKari[listNo] += "," + update_value
     zkKari = "\n".join(zkKari) if isinstance(zkKari, list) else zkKari
     return zkKari
 
@@ -343,8 +352,8 @@ if not st.session_state.user_code_entered:
         """,
         unsafe_allow_html=True
     )
-    
-    st.session_state['owner'] = st.text_input("担当者コードを入力してください (3～4桁、例: 999:",
+    st.title("作業者コード入力画面")
+    st.session_state['owner'] = st.text_input("作業者コード(社員番号)を入力してください (3～4桁、例: 999:",
                                               max_chars=4,
                                               key="owner_input")
     
@@ -429,7 +438,8 @@ else:
         st.session_state.manual_input_value = ""
         st.rerun()
     '''
-    
+
+    zkSplitNo = 0
     # Formulário sempre renderizado
     with st.form(key="registro_form"):
         default_quantity = 0.0
