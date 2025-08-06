@@ -13,8 +13,6 @@ import gspread
 from google.oauth2.service_account import Credentials
 from gspread_dataframe import set_with_dataframe
 import toml
-import json
-import requests
 
 
 # Função para carregar credenciais
@@ -403,10 +401,6 @@ else:
         st.rerun()
     '''
     
-    # 改行を含むフィールドをエスケープ
-    def escape_newlines(text):
-        return text.replace("\n", "\\n") if isinstance(text, str) else ""
-    
     # Formulário sempre renderizado
     with st.form(key="registro_form"):
         default_quantity = 0.0
@@ -496,7 +490,7 @@ else:
             # atualizar_tanaban_addkari(st.session_state.sf, item_id, zkTana)
             # st.stop()  # 以降の処理を止める
             
-            tanaban = "完A-3"  # 仮で設定
+            tanaban = "完A-5"  # 仮で設定
             listCount = 0
             listCountEtc = 0
             listAdd = 0  # リストに追加する場合は 1 
@@ -631,14 +625,6 @@ else:
                         zkTuiSya = "\n".join(zkTuiSya) if isinstance(zkTuiSya, list) else zkTuiSya
                         zkMap = "\n".join(zkMap) if isinstance(zkMap, list) else zkMap
                         # '''
-                        _= '''
-                        zkHin = f"{zkHin}"
-                        zkKan = f"{zkKan}"
-                        zkSu = f"{zkSu}"
-                        zkTuiDa = f"{zkTuiDa}"
-                        zkTuiSya = f"{zkTuiSya}"
-                        zkMap = f"{zkMap}"
-                        '''
                     _= '''
                     zkHin = record["zkHinban__c"].splitlines()   # zk品番
                     zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
@@ -653,38 +639,6 @@ else:
                     zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                     '''
             
-            _= '''
-            payload = {
-                "zkHinban__c": zkHin,  # ← ここで list になってない？
-                "zkKanryoKoutei__c": zkKan,
-                "zkSuryo__c": zkSu,
-                "zkTuikaDatetime__c": zkTuiDa,
-                "zkTuikaSya__c": zkTuiSya,
-                "zkMap__c": zkMap
-            }
-            payload["zkHinban__c"] = escape_newlines(payload["zkHinban__c"])
-            st.write(payload)
-            '''
-            _= '''
-            payload = {
-                "zkHinban__c": escape_newlines(zkHin),
-                "zkKanryoKoutei__c": escape_newlines(zkKan),
-                "zkSuryo__c": escape_newlines(zkSu),
-                "zkTuikaDatetime__c": escape_newlines(zkTuiDa),
-                "zkTuikaSya__c": escape_newlines(zkTuiSya),
-                "zkMap__c": escape_newlines(zkMap)
-            }
-            # JSON に変換
-            payload_json = json.dumps(payload)
-            # 送信
-            response = requests.patch(
-                url,
-                headers={"Authorization": f"Bearer {access_token}", "Content-Type": "application/json"},
-                data=payload_json
-            )
-            st.write(response.status_code)
-            st.write(response.text)
-            '''
             # _= '''
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
