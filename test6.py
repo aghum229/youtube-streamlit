@@ -195,8 +195,8 @@ def atualizar_tanaban_add(sf, item_id, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTui
     try:
         # sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
         # sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK棚番"})
-        sf.snps_um__Process__c.update(item_id, {"zkHinban__c": zkHin})
-        _= '''
+        # sf.snps_um__Process__c.update(item_id, {"zkHinban__c": zkHin})
+        # _= '''
         sf.snps_um__Process__c.update(item_id, {
             "zkIkohyoNo__c": zkIko,
             "zkHinban__c": zkHin,
@@ -206,7 +206,7 @@ def atualizar_tanaban_add(sf, item_id, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTui
             "zkTuikaSya__c": zkTuiSya,
             "zkMap__c": zkMap
         })
-        '''
+        # '''
         st.success("AITC_tanabangou00__c に「OK棚番00」、AITC_hinban00__c に「OK品番00」を書き込みました！")
     except Exception as e:
         st.error(f"更新エラー: {e}")
@@ -593,6 +593,7 @@ else:
                         # '''
                     else:
                         st.write(f"Index: '{listNumber}'") 
+                        _= '''
                         zkHin = record["zkHinban__c"].splitlines()   # zk品番
                         zkHin[listNumber] = hinban   # zk品番
                         zkHin = "\n".join(zkHin) if isinstance(zkHin, list) else zkHin
@@ -601,15 +602,16 @@ else:
                         zkTuiDa = ""
                         zkTuiSya = ""
                         zkMap = ""
-                        _= '''
+                        '''
+                        # _= '''
                         zkHin = record["zkHinban__c"].splitlines()   # zk品番
                         zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
                         zkSu = record["zkSuryo__c"].splitlines()   # zk数量
                         zkTuiDa = record["zkTuikaDatetime__c"].splitlines()   # zk追加日時
                         zkTuiSya = record["zkTuikaSya__c"].splitlines()   # zk追加者
                         zkMap = record["zkMap__c"].splitlines()   # zkマップ座標
-                        '''
-                        _= '''
+                        # '''
+                        # _= '''
                         zkIko[listNumber] = st.session_state.production_order   # zk棚番
                         zkHin[listNumber] = hinban   # zk品番
                         zkKan[listNumber] = process_order_name   # zk完了工程
@@ -617,14 +619,17 @@ else:
                         zkTuiDa[listNumber] = datetime_str   # zk追加日時
                         zkTuiSya[listNumber] = owner   # zk追加者
                         zkMap[listNumber] = "-"   # zkマップ座標
-                        '''
-                        _= '''
+                        # '''
+                        # _= '''
+                        zkIko = "\n".join(zkIko) if isinstance(zkIko, list) else zkIko
                         zkHin = "\n".join(zkHin) if isinstance(zkHin, list) else zkHin
                         zkKan = "\n".join(zkKan) if isinstance(zkKan, list) else zkKan
                         zkSu = "\n".join(zkSu) if isinstance(zkSu, list) else zkSu
                         zkTuiDa = "\n".join(zkTuiDa) if isinstance(zkTuiDa, list) else zkTuiDa
                         zkTuiSya = "\n".join(zkTuiSya) if isinstance(zkTuiSya, list) else zkTuiSya
                         zkMap = "\n".join(zkMap) if isinstance(zkMap, list) else zkMap
+                        # '''
+                        _= '''
                         zkHin = f"{zkHin}"
                         zkKan = f"{zkKan}"
                         zkSu = f"{zkSu}"
