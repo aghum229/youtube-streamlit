@@ -545,10 +545,11 @@ else:
                     zkShoBu = record["zkShortcutButton__c"].splitlines()   # zkショートカットボタン
                     zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                     '''
+            _= '''
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
                 # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
                 # datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-                # atualizar_tanaban_add(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
+                atualizar_tanaban_add(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
                 # atualizar_tanaban_del(st.session_state.sf, item_id, "H-1", st.session_state.production_order, hinban, process_order_name, quantity, "-", datetime_str, st.session_state.production_order, owner)
-
+            '''
