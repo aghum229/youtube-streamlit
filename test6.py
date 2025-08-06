@@ -266,7 +266,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     Returns:
     - 更新後のzkKari
     """
-    grobal zkSplitNo
+    global zkSplitNo
     zkKari = record[dbItem].splitlines()
     if flag >= 2:
         if flag == 3:
