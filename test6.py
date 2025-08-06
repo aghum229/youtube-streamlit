@@ -545,8 +545,6 @@ else:
                     zkShoBu = record["zkShortcutButton__c"].splitlines()   # zkショートカットボタン
                     zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                     '''
-                # st.write("名称:", record["Name"])
-                # 他にも必要な項目を好きな順に表示可能
             
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
