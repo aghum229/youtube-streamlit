@@ -195,6 +195,8 @@ def atualizar_tanaban_add(sf, item_id, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTui
     try:
         # sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
         # sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK棚番"})
+        sf.snps_um__Process__c.update(item_id, {"zkHinban__c": zkHin})
+        _= '''
         sf.snps_um__Process__c.update(item_id, {
             "zkIkohyoNo__c": zkIko,
             "zkHinban__c": zkHin,
@@ -204,6 +206,7 @@ def atualizar_tanaban_add(sf, item_id, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTui
             "zkTuikaSya__c": zkTuiSya,
             "zkMap__c": zkMap
         })
+        '''
         st.success("AITC_tanabangou00__c に「OK棚番00」、AITC_hinban00__c に「OK品番00」を書き込みました！")
     except Exception as e:
         st.error(f"更新エラー: {e}")
@@ -590,12 +593,14 @@ else:
                         # '''
                     else:
                         st.write(f"Index: '{listNumber}'") 
-                        zkHin = record["zkHinban__c"]   # zk品番
-                        zkKan = record["zkKanryoKoutei__c"]   # zk完了工程
-                        zkSu = record["zkSuryo__c"]   # zk数量
-                        zkTuiDa = record["zkTuikaDatetime__c"]  # zk追加日時
-                        zkTuiSya = record["zkTuikaSya__c"]   # zk追加者
-                        zkMap = record["zkMap__c"]   # zkマップ座標
+                        zkHin = record["zkHinban__c"].splitlines()   # zk品番
+                        zkHin[listNumber] = hinban   # zk品番
+                        zkHin = "\n".join(zkHin) if isinstance(zkHin, list) else zkHin
+                        zkKan = ""
+                        zkSu = ""
+                        zkTuiDa = ""
+                        zkTuiSya = ""
+                        zkMap = ""
                         _= '''
                         zkHin = record["zkHinban__c"].splitlines()   # zk品番
                         zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
@@ -613,7 +618,7 @@ else:
                         zkTuiSya[listNumber] = owner   # zk追加者
                         zkMap[listNumber] = "-"   # zkマップ座標
                         '''
-                        # _= '''
+                        _= '''
                         zkHin = "\n".join(zkHin) if isinstance(zkHin, list) else zkHin
                         zkKan = "\n".join(zkKan) if isinstance(zkKan, list) else zkKan
                         zkSu = "\n".join(zkSu) if isinstance(zkSu, list) else zkSu
@@ -626,7 +631,7 @@ else:
                         zkTuiDa = f"{zkTuiDa}"
                         zkTuiSya = f"{zkTuiSya}"
                         zkMap = f"{zkMap}"
-                        # '''
+                        '''
                     _= '''
                     zkHin = record["zkHinban__c"].splitlines()   # zk品番
                     zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
