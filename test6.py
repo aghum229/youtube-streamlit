@@ -624,7 +624,8 @@ else:
                         zkIko = "\n".join(zkIko) if isinstance(zkIko, list) else zkIko
                         zkHin = "\n".join(zkHin) if isinstance(zkHin, list) else zkHin
                         zkKan = "\n".join(zkKan) if isinstance(zkKan, list) else zkKan
-                        zkSu = "\n".join(zkSu) if isinstance(zkSu, list) else zkSu
+                        if isinstance(zkSu, list):
+                            zkSu = "\n".join(str(item) for item in zkSu)
                         zkTuiDa = "\n".join(zkTuiDa) if isinstance(zkTuiDa, list) else zkTuiDa
                         zkTuiSya = "\n".join(zkTuiSya) if isinstance(zkTuiSya, list) else zkTuiSya
                         zkMap = "\n".join(zkMap) if isinstance(zkMap, list) else zkMap
