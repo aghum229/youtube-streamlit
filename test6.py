@@ -283,7 +283,12 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
                 if zkSplitNo == 99:
                     st.write(f"❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
                     st.stop()  # 以降の処理を止める
-            del zkSplit[zkSplitNo]
+            # del zkSplit[zkSplitNo]
+            if 0 <= zkSplitNo < len(zkSplit):
+                del zkSplit[zkSplitNo]
+            else:
+                # ログ出力やエラーハンドリング
+                st.write(f"zkSplitNo {zkSplitNo} is out of range for zkSplit of length {len(zkSplit)}")
         else:
             zkSplit[zkSplitNo] = "-"
         zkKari[listNo] = ",".join(zkSplit)
