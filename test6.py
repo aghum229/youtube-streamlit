@@ -578,7 +578,7 @@ else:
                         else:
                             listNumber = 1
                 datetime_str = dt.now().strftime("%Y/%m/%d %H:%M:%S")
-                tdatetime = dt.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
+                tdatetime = dt.strptime(datetime_str, '%Y/%m/%d %H:%M:%S')
                 if listAdd == 1: # 棚番が無い場合
                     st.write(f"❌02 **棚番 '{tanaban}' の追加は許可されてません。**")
                     st.stop()  # 以降の処理を止める
