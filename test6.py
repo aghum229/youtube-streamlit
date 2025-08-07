@@ -767,10 +767,15 @@ else:
                 components.html(
                     """
                     <script>
-                        const input = window.parent.document.querySelector('input[data-testid="stTextInput"][aria-label="manual_input"]');
-                        if (input) {
-                            input.focus();
-                        }
+                        setTimeout(() => {
+                            const inputs = window.parent.document.querySelectorAll('input');
+                            for (let input of inputs) {
+                                if (input.placeholder === "生産オーダー番号を入力してください (6桁、例: 000000):") {
+                                    input.focus();
+                                    break;
+                                }
+                            }
+                        }, 1000);  // 1秒後に実行
                     </script>
                     """,
                     height=0,
