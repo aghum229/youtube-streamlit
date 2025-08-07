@@ -446,12 +446,13 @@ else:
         st.session_state.show_camera = False
     # '''
     
-    # 入力欄の直後に JavaScript を挿入
+    # 入力欄の直後に JavaScript を挿入aria-label="生産オーダー番号を入力してください (6桁、例: 000000):"
     components.html(
         """
         <script>
             setTimeout(() => {
-                const input = window.parent.document.querySelector('input[data-testid="stTextInputRootElement"][aria-label="manual_input"]');
+                # const input = window.parent.document.querySelector('input[data-testid="stTextInputRootElement"][aria-label="manual_input"]');
+                const input = window.parent.document.querySelector('input[id="text_input_26"][aria-label="生産オーダー番号を入力してください (6桁、例: 000000):"]');
                 if (input) {
                     input.focus();
                 }
