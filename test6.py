@@ -452,17 +452,17 @@ else:
         <script>
             setTimeout(() => {
                 # const input = window.parent.document.querySelector('input[data-testid="stTextInputRootElement"][aria-label="manual_input"]');
-                const input = window.parent.document.querySelector('input[id="text_input_26"][aria-label="生産オーダー番号を入力してください (6桁、例: 000000):"]');
-                if (input) {
-                    input.focus();
-                }
-                # const inputs = window.parent.document.querySelectorAll('input');
-                # for (let input of inputs) {
-                #     if (input.placeholder.includes("生産オーダー番号")) {
-                #         input.focus();
-                #         break;
-                #     }
+                # if (input) {
+                #     input.focus();
                 # }
+                const inputs = window.parent.document.querySelectorAll('input');
+                for (let input of inputs) {
+                #     if (input.placeholder.includes("生産オーダー番号")) {
+                    if (input.placeholder.includes("生産オーダー番号")) {
+                        input.focus();
+                        break;
+                    }
+                }
             }, 500);
         </script>
         """,
