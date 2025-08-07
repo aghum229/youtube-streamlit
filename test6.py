@@ -505,8 +505,10 @@ else:
             process_order_name = st.text_input("工程名:", key="process_order_name", value="-")
             hinban = st.text_input("品番:", key="hinban", value="-")
             hinmei = st.text_input("品名:", key="hinmei", value="-")
-    
-        submit_button = st.form_submit_button("データベースに保存")
+        
+        left, right = 
+        submit_button_add = st.form_submit_button("追加")
+        submit_button_del = st.form_submit_button("削除")
         add_del_flag = 0  # 0:追加 1:削除
         if submit_button:
             _= '''
