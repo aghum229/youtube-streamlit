@@ -266,11 +266,10 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     Returns:
     - 更新後のzkKari
     """
-    global zkSplitNo
+    global zkSplitNo  # 初期値99
     global zkSplitFlag  # 0:マップ座標以外  1;マップ座標
     zkKari = record[dbItem].splitlines()
     zkSplit = zkKari[listNo].split(",")
-    zkSplitNo = 99
     # st.write(f"zkSplitのリスト数：'{len(zkSplit)}'")
     # st.write(f"追加削除フラグ：'{flag}'")
     if flag >= 2:
@@ -463,7 +462,7 @@ else:
         st.rerun()
     '''
 
-    zkSplitNo = 0
+    zkSplitNo = 99
     zkSplitFlag = 0
     # Formulário sempre renderizado
     with st.form(key="registro_form"):
