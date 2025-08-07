@@ -495,7 +495,7 @@ else:
             hinmei = st.text_input("品名:", key="hinmei", value="-")
     
         submit_button = st.form_submit_button("データベースに保存")
-        add_del_flag = 1
+        add_del_flag = 0
         if submit_button:
             _= '''
             item_name_input = st.session_state.manual_input_value.strip()
@@ -611,9 +611,9 @@ else:
                     st.write(listCountEtc)
                     st.write(listCount)
                     if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐(初期設定時のみ使用)
-                        st.write(f"❌03 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
-                        st.stop()  # 以降の処理を止める
-                        _= '''
+                        # st.write(f"❌03 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
+                        # st.stop()  # 以降の処理を止める
+                        # _= '''
                         zkKari = "-"
                         separator = "\n"
                         zkIko = f"{separator.join([zkKari] * listCount)}"
@@ -629,7 +629,7 @@ else:
                         # zkDelSya = zkDelDa
                         # zkShoBu = zkIko
                         # zkShoU = zkIko
-                        '''
+                        # '''
                     else:
                         st.write(f"Index: '{listNumber}'") 
                         if add_del_flag == 0: # 追加の場合
