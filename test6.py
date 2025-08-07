@@ -261,15 +261,16 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     - dbItem: データベースの項目名(注記.表示ラベルではない)
     - listNo: 対象のインデックスまたはキー
     - update_value: 追加する値
-    - flag: 0(追加 移行票No以外), 1(追加 移行票Noの場合), 2(削除 移行票No以外), 3(削除 移行票Noの場合)
+    - flag: -1(追加 マップ座標の場合), 0(追加 移行票No以外), 1(追加 移行票Noの場合), 2(削除 移行票No以外), 3(削除 移行票Noの場合)
 
     Returns:
     - 更新後のzkKari
     """
     global zkSplitNo
+    global zkSplitFlag  # 0:マップ座標以外  1;マップ座標
     zkKari = record[dbItem].splitlines()
+    zkSplit = zkKari[listNo].split(",")
     if flag >= 2:
-        zkSplit = zkKari[listNo].split(",")
         st.write(f"zkSplitのリスト数：'{len(zkSplit)}'")
         if len(zkSplit) > 1:
             if flag == 3:
@@ -283,14 +284,17 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
         zkKari[listNo] = ",".join(zkSplit)
     else:
         if zkKari[listNo] == "-":
-            zkKari[listNo] = update_value
+            if flag == -1 and zkSplitFlag == 1:
+                zkKari[listNo] += "," + update_value
+            else:
+                zkKari[listNo] = update_value
         else:
             if flag == 1:
-                zkSplit = zkKari[listNo].split(",")
                 for index, item in enumerate(zkSplit):
                     if item == update_value:
-                        st.write(f"❌01 **すでに登録されている移行票Noです。'{update_value}'**")
+                        st.write(f"❌02 **すでに登録されている移行票Noです。'{update_value}'**")
                         st.stop()  # 以降の処理を止める
+                zkSplitFlag = 1
             zkKari[listNo] += "," + update_value
     zkKari = "\n".join(zkKari) if isinstance(zkKari, list) else zkKari
     return zkKari
@@ -446,6 +450,7 @@ else:
     '''
 
     zkSplitNo = 0
+    zkSplitFlag = 0
     # Formulário sempre renderizado
     with st.form(key="registro_form"):
         default_quantity = 0.0
@@ -502,7 +507,7 @@ else:
             hinmei = st.text_input("品名:", key="hinmei", value="-")
     
         submit_button = st.form_submit_button("データベースに保存")
-        add_del_flag = 1  # 0:追加 1:削除
+        add_del_flag = 0  # 0:追加 1:削除
         if submit_button:
             _= '''
             item_name_input = st.session_state.manual_input_value.strip()
@@ -587,7 +592,7 @@ else:
                 datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                 # tdatetime = dt.strptime(datetime_str, '%Y/%m/%d %H:%M:%S')
                 if listAdd == 1: # 棚番が無い場合
-                    st.write(f"❌02 **棚番 '{tanaban}' の追加は許可されてません。**")
+                    st.write(f"❌03 **棚番 '{tanaban}' の追加は許可されてません。**")
                     st.stop()  # 以降の処理を止める
                     _= '''
                     # zkTana = f"{record["zkTanaban__c"]},{tanaban}"
@@ -646,7 +651,7 @@ else:
                             zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
                             zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 0)   # zk追加日時
                             zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner, 0)   # zk追加者
-                            zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 0)   # zkマップ座標
+                            zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", -1)   # zkマップ座標
                         else: # 削除の場合
                             zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order, 3)   # zk棚番
                             zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 2)   # zk品番
