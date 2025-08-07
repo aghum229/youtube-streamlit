@@ -765,8 +765,7 @@ else:
                 #     st.experimental_rerun()
                 # '''
                 st.session_state.rerun_flag = True
-                st.experimental_rerun()
-
+                st.rerun()
                 # JavaScriptでフォーカスを当てる
                 if st.session_state.rerun_flag:
                     components.html(
