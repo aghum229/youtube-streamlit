@@ -280,6 +280,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
             del zkSplit[zkSplitNo]
         else:
             zkSplit[zkSplitNo] = "-"
+        zkKari[listNo] = ",".join(zkSplit)
     else:
         if zkKari[listNo] == "-":
             zkKari[listNo] = update_value
