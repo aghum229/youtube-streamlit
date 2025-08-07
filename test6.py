@@ -745,5 +745,6 @@ else:
                 st.session_state.cumulative_cost = 0.0
                 st.session_state.manual_input_value = ""
                 # st.session_state.manual_input = ""  # セッション状態を空にする
+                st.experimental_rerun()
             # '''
 
