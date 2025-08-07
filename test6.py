@@ -280,9 +280,9 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
                     if item == update_value:
                         zkSplitNo = index
                         break  # 条件を満たしたらループを終了
-            if zkSplitNo == 99:
-                st.write(f"❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
-                st.stop()  # 以降の処理を止める
+                if zkSplitNo == 99:
+                    st.write(f"❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
+                    st.stop()  # 以降の処理を止める
             del zkSplit[zkSplitNo]
         else:
             zkSplit[zkSplitNo] = "-"
