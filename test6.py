@@ -737,7 +737,10 @@ else:
                     zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                     '''
             
-            st.session_state.should_rerun = True
+            if st.session_state.owner is None:
+                st.write(f"❌06 **作業者コード '{owner}' が未入力です。**")
+                st.stop()  # 以降の処理を止める
+            # st.session_state.should_rerun = True
             # _= '''
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
