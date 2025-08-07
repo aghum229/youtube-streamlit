@@ -5,7 +5,7 @@ from streamlit_qrcode_scanner import qrcode_scanner
 import pandas as pd
 import os
 import pytz
-# from simple_salesforce import Salesforce
+from simple_salesforce import Salesforce
 from datetime import datetime as dt
 # import re
 # import time
