@@ -336,6 +336,8 @@ if "cumulative_cost" not in st.session_state:
     st.session_state.cumulative_cost = 0.0
 if "manual_input_value" not in st.session_state:
     st.session_state.manual_input_value = ""
+if "manual_input" not in st.session_state:
+    st.session_state.manual_input = ""
 
 if "user_code_entered" not in st.session_state:
     st.session_state.user_code_entered = False
@@ -733,6 +735,7 @@ else:
                 st.session_state.material = None
                 st.session_state.material_weight = None
                 st.session_state.cumulative_cost = 0.0
-                st.session_state.manual_input = ""  # セッション状態を空にする
+                st.session_state.manual_input_value = ""
+                # st.session_state.manual_input = ""  # セッション状態を空にする
             # '''
 
