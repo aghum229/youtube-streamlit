@@ -519,8 +519,11 @@ else:
             submit_button_add = st.form_submit_button("追加")
         with right:
             submit_button_del = st.form_submit_button("削除")
-            add_del_flag = 1
         if submit_button_add or submit_button_del:
+            if submit_button_add:
+                add_del_flag = 0
+            elif submit_button_del:
+                add_del_flag = 1
             _= '''
             item_name_input = st.session_state.manual_input_value.strip()
             st.write(f"入力された品番: '{item_name_input}'")
