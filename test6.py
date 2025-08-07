@@ -270,6 +270,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     global zkSplitFlag  # 0:マップ座標以外  1;マップ座標
     zkKari = record[dbItem].splitlines()
     zkSplit = zkKari[listNo].split(",")
+    zkSplitNo = 99
     if flag >= 2:
         st.write(f"zkSplitのリスト数：'{len(zkSplit)}'")
         if len(zkSplit) > 1:
@@ -278,6 +279,9 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
                     if item == update_value:
                         zkSplitNo = index
                         break  # 条件を満たしたらループを終了
+            if zkSplitNo == 99:
+                st.write(f"❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
+                st.stop()  # 以降の処理を止める
             del zkSplit[zkSplitNo]
         else:
             zkSplit[zkSplitNo] = "-"
@@ -292,7 +296,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
             if flag == 1:
                 for index, item in enumerate(zkSplit):
                     if item == update_value:
-                        st.write(f"❌02 **すでに登録されている移行票Noです。'{update_value}'**")
+                        st.write(f"❌03 **すでに登録されている移行票Noです。'{update_value}'**")
                         st.stop()  # 以降の処理を止める
                 zkSplitFlag = 1
             zkKari[listNo] += "," + update_value
@@ -599,7 +603,7 @@ else:
                 datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                 # tdatetime = dt.strptime(datetime_str, '%Y/%m/%d %H:%M:%S')
                 if listAdd == 1: # 棚番が無い場合
-                    st.write(f"❌03 **棚番 '{tanaban}' の追加は許可されてません。**")
+                    st.write(f"❌04 **棚番 '{tanaban}' の追加は許可されてません。**")
                     st.stop()  # 以降の処理を止める
                     _= '''
                     # zkTana = f"{record["zkTanaban__c"]},{tanaban}"
@@ -630,7 +634,7 @@ else:
                     st.write(listCountEtc)
                     st.write(listCount)
                     if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐(初期設定時のみ使用)
-                        st.write(f"❌03 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
+                        st.write(f"❌05 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
                         st.stop()  # 以降の処理を止める
                         # _= '''
                         zkKari = "-"
