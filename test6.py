@@ -440,7 +440,7 @@ else:
         st.rerun()
     '''
 
-    zkSplitNo = 1
+    zkSplitNo = 0
     # Formulário sempre renderizado
     with st.form(key="registro_form"):
         default_quantity = 0.0
@@ -495,7 +495,7 @@ else:
             hinmei = st.text_input("品名:", key="hinmei", value="-")
     
         submit_button = st.form_submit_button("データベースに保存")
-        add_del_flag = 0
+        add_del_flag = 1
         if submit_button:
             _= '''
             item_name_input = st.session_state.manual_input_value.strip()
