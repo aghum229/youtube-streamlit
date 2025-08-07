@@ -481,7 +481,7 @@ else:
                 st.session_state.material_weight = None
                 st.session_state.cumulative_cost = 0.0
                 st.warning("生産オーダーに該当する 'Done' ステータスの記録が見つかりませんでした。")
-                st.stop()  # 以降の処理を止める
+                # st.stop()  # 以降の処理を止める
         else:
             st.warning("データが見つかりませんでした。")
     
