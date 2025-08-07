@@ -502,7 +502,7 @@ else:
             hinmei = st.text_input("品名:", key="hinmei", value="-")
     
         submit_button = st.form_submit_button("データベースに保存")
-        add_del_flag = 0  # 0:追加 1:削除
+        add_del_flag = 1  # 0:追加 1:削除
         if submit_button:
             _= '''
             item_name_input = st.session_state.manual_input_value.strip()
@@ -719,9 +719,9 @@ else:
                 else: # 削除の場合
                     atualizar_tanaban_del(st.session_state.sf, item_id, tanaban, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
             # '''
-
-            st.session_state.production_order = None
-            st.session_state.data = None
-            st.session_state.material = None
-            st.session_state.material_weight = None
-            st.session_state.cumulative_cost = 0.0
+        
+        st.session_state.production_order = None
+        st.session_state.data = None
+        st.session_state.material = None
+        st.session_state.material_weight = None
+        st.session_state.cumulative_cost = 0.0
