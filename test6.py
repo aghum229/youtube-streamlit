@@ -3,15 +3,15 @@ import requests
 
 from streamlit_qrcode_scanner import qrcode_scanner
 import pandas as pd
-# import os
+import os
 import pytz
 # from simple_salesforce import Salesforce
 from datetime import datetime as dt
 # import re
 # import time
-import gspread
-from google.oauth2.service_account import Credentials
-from gspread_dataframe import set_with_dataframe
+# import gspread
+# from google.oauth2.service_account import Credentials
+# from gspread_dataframe import set_with_dataframe
 import toml
 import streamlit.components.v1 as components
 
@@ -29,10 +29,10 @@ def carregar_credenciais():
 secrets = carregar_credenciais()
 
 # Definir o escopo
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+# scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
 # Acessar as credenciais do Streamlit secrets
-credentials = secrets["google_service_account"]
+# credentials = secrets["google_service_account"]
 
 _= '''
 service_account_info = secrets["firebase"].copy()
@@ -171,23 +171,9 @@ def simplify_dataframe(df):
                 simplified_df[col] = df[col]
     return simplified_df
 
-def atualizar_tanaban_addkari(sf, item_id, zkTana):
+def atualizar_tanaban_addkari(sf, item_id, zkTana):  # 棚番書き込み専用
     try:
-        # sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
-        # sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK棚番"})
         sf.snps_um__Process__c.update(item_id, {"zkTanaban__c": zkTana})
-        _= '''
-        sf.snps_um__Process__c.update(item_id, {
-            "zkTanaban__c": zkTana,
-            "zkIkohyoNo__c": zkIko,
-            "zkHinban__c": zkHin,
-            "zkKanryoKoutei__c": zkKan,
-            "zkSuryo__c": zkSu,
-            "zkTuikaDatetime__c": zkTuiDa,
-            "zkTuikaSya__c": zkTuiSya,
-            "zkMap__c": zkMap
-        })
-        '''
         st.success("「zk棚番」に書き込みました！")
     except Exception as e:
         st.error(f"更新エラー: {e}")
@@ -323,7 +309,7 @@ def reset_form():
 if "sf" not in st.session_state:
     try:
         st.session_state.sf = authenticate_salesforce()
-        st.success("Salesforceに正常に接続しました！")
+        # st.success("Salesforceに正常に接続しました！")
     except Exception as e:
         st.error(f"認証エラー: {e}")
         st.stop()
