@@ -451,13 +451,17 @@ else:
         """
         <script>
             setTimeout(() => {
-                const inputs = window.parent.document.querySelectorAll('input');
-                for (let input of inputs) {
-                    if (input.placeholder.includes("生産オーダー番号")) {
-                        input.focus();
-                        break;
-                    }
+                const input = window.parent.document.querySelector('input[data-testid="stTextInput"][aria-label="manual_input"]');
+                if (input) {
+                    input.focus();
                 }
+                # const inputs = window.parent.document.querySelectorAll('input');
+                # for (let input of inputs) {
+                #     if (input.placeholder.includes("生産オーダー番号")) {
+                #         input.focus();
+                #         break;
+                #     }
+                # }
             }, 500);
         </script>
         """,
