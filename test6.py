@@ -6,7 +6,7 @@ import pandas as pd
 import os
 import pytz
 from simple_salesforce import Salesforce
-from datetime import datetime
+from datetime import datetime as dt
 import re
 import time
 import gspread
@@ -577,7 +577,8 @@ else:
                             listNumber = 0
                         else:
                             listNumber = 1
-                datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+                datetime_str = dt.now().strftime("%Y/%m/%d %H:%M:%S")
+                tdatetime = dt.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
                 if listAdd == 1: # 棚番が無い場合
                     st.write(f"❌02 **棚番 '{tanaban}' の追加は許可されてません。**")
                     st.stop()  # 以降の処理を止める
@@ -647,7 +648,7 @@ else:
                             zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 2)   # zk追加日時
                             zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner, 2)   # zk追加者
                             zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 2)   # zkマップ座標
-                            zkDelDa = datetime_str   # zk直近削除日時
+                            zkDelDa = tdatetime   # zk直近削除日時
                             zkDelIko = st.session_state.production_order   # zk直近削除移行票No
                             zkDelSya = owner   # zk直近削除者
                         _= '''
