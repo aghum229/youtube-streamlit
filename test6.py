@@ -543,13 +543,13 @@ else:
             process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
             process_order_name = st.text_input("工程名:", key="process_order_name", value=default_process_order_name)
             hinban = st.text_input("品番:", key="hinban", value=default_hinban)
-            hinmei = st.text_input("品名:", key="hinmei", value=default_hinmei)
+            # hinmei = st.text_input("品名:", key="hinmei", value=default_hinmei)
         else:
             quantity = st.number_input("数量 (工程):", value=0.0, key="quantity", disabled=True)
             process_order = st.number_input("工程順序:", value=0, key="process_order", disabled=True)
             process_order_name = st.text_input("工程名:", key="process_order_name", value="-")
             hinban = st.text_input("品番:", key="hinban", value="-")
-            hinmei = st.text_input("品名:", key="hinmei", value="-")
+            # hinmei = st.text_input("品名:", key="hinmei", value="-")
 
         add_del_flag = 0  # 0:追加 1:削除
         left, right = st.columns([0.5, 0.5])
