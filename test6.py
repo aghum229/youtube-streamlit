@@ -270,6 +270,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     zkKari = record[dbItem].splitlines()
     if flag >= 2:
         zkSplit = zkKari[listNo].split(",")
+        st.write(f"zkSplitのリスト数：'{len(zkSplit)}'")
         if len(zkSplit) > 1:
             if flag == 3:
                 for index, item in enumerate(zkSplit):
