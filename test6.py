@@ -289,6 +289,8 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
             else:
                 # ログ出力やエラーハンドリング
                 st.write(f"zkSplitNo {zkSplitNo} is out of range for zkSplit of length {len(zkSplit)}")
+                st.write(f"❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
+                st.stop()  # 以降の処理を止める
         else:
             zkSplit[zkSplitNo] = "-"
         zkKari[listNo] = ",".join(zkSplit)
@@ -752,9 +754,9 @@ else:
                 st.session_state.cumulative_cost = 0.0
                 st.session_state.manual_input_value = ""
                 # st.session_state.manual_input = ""  # セッション状態を空にする
-                if st.session_state.get("should_rerun"):
-                    st.session_state.should_rerun = False
-                    st.experimental_rerun()
+                # if st.session_state.get("should_rerun"):
+                #     st.session_state.should_rerun = False
+                #     st.experimental_rerun()
                 # '''
                 _= '''
                 reset_keys = {
