@@ -354,7 +354,7 @@ if not st.session_state.user_code_entered:
         """
         <style>
         input[type="text"], input[type="password"] {
-            font-size: 40px !important;
+            font-size: 30px !important;
             padding-top: 16px !important;
             padding-bottom: 16px !important;
             line-height: 2.5 !important;   /* 高さ調整のキモ */
@@ -402,7 +402,7 @@ else:
         """
         <style>
         input[type="text"], input[type="number"] {
-            font-size: 40px !important;
+            font-size: 30px !important;
             padding-top: 16px !important;
             padding-bottom: 16px !important;
             line-height: 2.5 !important;   /* 高さ調整のキモ */
@@ -419,16 +419,9 @@ else:
         unsafe_allow_html=True
     )
     
-    _= '''
-    manual_input = st.text_input("品番を入力してください (50桁、例: AAAAA-BBB-CCCC):",
-                                value=st.session_state.manual_input_value,
-                                max_chars=50,
-                                key="manual_input")
-    '''
-    
     # _= '''
     # Opção de digitação manual do production_order
-    manual_input = st.text_input("生産オーダー番号を入力してください (6桁、例: 000000):",
+    manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
                                 value=st.session_state.manual_input_value,
                                 max_chars=6,
                                 key="manual_input")
@@ -445,7 +438,7 @@ else:
             setTimeout(() => {
                 const inputs = window.parent.document.querySelectorAll('input');
                 for (let input of inputs) {
-                    if (input.placeholder.includes("生産オーダー番号")) {
+                    if (input.placeholder.includes("移行票番号")) {
                         input.focus();
                         break;
                     }
@@ -518,22 +511,22 @@ else:
     
         # Campos de entrada
         owner_value = "" if st.session_state.data is None else st.session_state.owner
-        owner = st.text_input("所有者 (工程):", key="owner", value=owner_value)
+        owner = st.text_input("作業者 (社員番号):", key="owner", value=owner_value)
         if st.session_state.data:
-            quantity = st.number_input("数量 (工程):", value=default_quantity, key="quantity")
+            hinban = st.text_input("品番:", key="hinban", value=default_hinban)
             process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
             process_order_name = st.text_input("工程名:", key="process_order_name", value=default_process_order_name)
-            hinban = st.text_input("品番:", key="hinban", value=default_hinban)
+            quantity = st.number_input("数量 (工程):", value=default_quantity, key="quantity")
             # hinmei = st.text_input("品名:", key="hinmei", value=default_hinmei)
         else:
-            quantity = st.number_input("数量 (工程):", value=0.0, key="quantity", disabled=True)
+            hinban = st.text_input("品番:", key="hinban", value="-")
             process_order = st.number_input("工程順序:", value=0, key="process_order", disabled=True)
             process_order_name = st.text_input("工程名:", key="process_order_name", value="-")
-            hinban = st.text_input("品番:", key="hinban", value="-")
+            quantity = st.number_input("数量 (工程):", value=0.0, key="quantity", disabled=True)
             # hinmei = st.text_input("品名:", key="hinmei", value="-")
 
         add_del_flag = 0  # 0:追加 1:削除
-        left, right = st.columns([0.5, 0.5])
+        leleft, left, center, right, riright = st.columns([0.2, 0.2, 0.2, 0.2, 0.2])
         with left:
             submit_button_add = st.form_submit_button("追加")
         with right:
@@ -542,22 +535,10 @@ else:
             if submit_button_add:
                 add_del_flag = 0
             elif submit_button_del:
-                add_del_flag = 1
+                add_del_flag = 1    
+            item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※限定
             _= '''
-            item_name_input = st.session_state.manual_input_value.strip()
-            st.write(f"入力された品番: '{item_name_input}'")
-            item_id = encontrar_item_por_nome(st.session_state.sf, item_name_input)
-            '''
-            # st.write(f"入力された品番: '{manual_input}'")
-            # manual_input
-            # item_id = encontrar_item_por_nome00(st.session_state.sf, manual_input)
-            # st.write(f"取得した品番: '{item_id}'")
-            # if item_id:
-                # atualizar_tanabangou(st.session_state.sf, item_id)
-            # st.write(f"検索したid: '{default_id}'")        
-            item_id = "a1ZQ8000000FB4jMAG"
-            # st.write(f"検索したID: '{item_id}'")
-            _= '''
+            # 棚番設定用マスタ(棚番を変更する場合には、下記に追加または削除してからatualizar_tanaban_addkari()を実行の事。尚、棚番は改行区切りである。)
             zkTana = """
                 完A-1\n完A-2\n完A-3\n完A-4\n完A-5\n完A-6\n完A-7\n完A-8\n完A-9\n完A-10\n完A-11\n完A-12\n完A-13\n完A-14\n完A-15\n完A-16\n完A-17\n完A-18\n完A-19\n完A-20\n
                 完B-1\n完B-2\n完B-3\n完B-4\n完B-5\n完B-6\n完B-7\n完B-8\n完B-9\n完B-10\n完B-11\n完B-12\n完B-13\n完B-14\n完B-15\n完B-16\n完B-17\n完B-18\n完B-19\n完B-20\n
@@ -572,9 +553,9 @@ else:
                 R-1\nR-2\nR-3\nR-4\nR-5\nR-6\nR-7\nR-8\nR-9\nR-10\nR-11\nR-12\nR-13\nR-14\nR-15\nR-16\nR-17\nR-18\nR-19\nR-20\n
                 S-1\nS-2\nS-3\nS-4\nS-5\nS-6\nS-7\nS-8\nS-9\nS-10\nS-11\nS-12\nS-13\nS-14\nS-15\nS-16\nS-17\nS-18\nS-19\nS-20
                 """
+            atualizar_tanaban_addkari(st.session_state.sf, item_id, zkTana)
+            t.stop()  # 以降の処理を止める
             '''
-            # atualizar_tanaban_addkari(st.session_state.sf, item_id, zkTana)
-            # st.stop()  # 以降の処理を止める
             
             tanaban = "完A-3"  # 仮で設定
             listCount = 0
@@ -627,6 +608,7 @@ else:
                 # tdatetime = dt.strptime(datetime_str, '%Y/%m/%d %H:%M:%S')
                 if listAdd == 1: # 棚番が無い場合
                     st.write(f"❌05 **棚番 '{tanaban}' の追加は許可されてません。**")
+                    reset_form()
                     st.stop()  # 以降の処理を止める
                     _= '''
                     # zkTana = f"{record["zkTanaban__c"]},{tanaban}"
@@ -658,6 +640,7 @@ else:
                     st.write(listCount)
                     if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐(初期設定時のみ使用)
                         st.write(f"❌06 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
+                        reset_form()
                         st.stop()  # 以降の処理を止める
                         # _= '''
                         zkKari = "-"
@@ -750,6 +733,7 @@ else:
             
             if st.session_state.owner is None:
                 st.write(f"❌07 **作業者コード '{owner}' が未入力です。**")
+                reset_form()
                 st.stop()  # 以降の処理を止める
             # if "rerun_flag" not in st.session_state:
             #     st.session_state.rerun_flag = False
@@ -785,7 +769,7 @@ else:
                             setTimeout(() => {
                                 const inputs = window.parent.document.querySelectorAll('input');
                                 for (let input of inputs) {
-                                    if (input.placeholder === "生産オーダー番号を入力してください (6桁、例: 000000):") {
+                                    if (input.placeholder === "移行票番号を入力してください (6桁、例: 000000):") {
                                         input.focus();
                                         break;
                                     }
