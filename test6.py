@@ -440,7 +440,7 @@ else:
         st.rerun()
     '''
 
-    zkSplitNo = 0
+    zkSplitNo = 1
     # Formulário sempre renderizado
     with st.form(key="registro_form"):
         default_quantity = 0.0
