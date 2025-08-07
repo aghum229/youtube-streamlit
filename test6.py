@@ -749,10 +749,10 @@ else:
                     atualizar_tanaban_del(st.session_state.sf, item_id, tanaban, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
                 # _= '''
                 st.session_state.production_order = None
-                st.session_state.data = None
-                st.session_state.material = None
-                st.session_state.material_weight = None
-                st.session_state.cumulative_cost = 0.0
+                # st.session_state.data = None
+                # st.session_state.material = None
+                # st.session_state.material_weight = None
+                # st.session_state.cumulative_cost = 0.0
                 st.session_state.manual_input_value = ""
                 # st.session_state.manual_input = ""  # セッション状態を空にする
                 # if st.session_state.get("should_rerun"):
