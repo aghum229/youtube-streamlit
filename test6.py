@@ -291,11 +291,13 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
                 st.write(f"❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
                 st.stop()  # 以降の処理を止める
         else:
+            zkSplitNo = 0
             zkSplit[zkSplitNo] = "-"
-        if len(zkSplit) == 1:
-            zkKari[listNo] = f"{zkSplit}"
-        else:
-            zkKari[listNo] = ",".join(zkSplit)
+        # if len(zkSplit) == 1:
+        #     zkKari[listNo] = f"{zkSplit}"
+        # else:
+        #     zkKari[listNo] = ",".join(zkSplit)
+        zkKari[listNo] = ",".join(zkSplit)
     else:
         if zkKari[listNo] == "-":
             if flag == -1 and zkSplitFlag == 1:
