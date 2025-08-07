@@ -446,6 +446,24 @@ else:
         st.session_state.show_camera = False
     # '''
     
+    # 入力欄の直後に JavaScript を挿入
+    components.html(
+        """
+        <script>
+            setTimeout(() => {
+                const inputs = window.parent.document.querySelectorAll('input');
+                for (let input of inputs) {
+                    if (input.placeholder.includes("生産オーダー番号")) {
+                        input.focus();
+                        break;
+                    }
+                }
+            }, 500);
+        </script>
+        """,
+        height=0,
+    )
+    
     _= '''
     # Exibir câmera apenas se production_order for None e show_camera for True
     if not st.session_state.production_order and st.session_state.show_camera:
