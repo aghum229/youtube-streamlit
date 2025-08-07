@@ -530,7 +530,7 @@ else:
             # atualizar_tanaban_addkari(st.session_state.sf, item_id, zkTana)
             # st.stop()  # 以降の処理を止める
             
-            tanaban = "完A-5"  # 仮で設定
+            tanaban = "完A-3"  # 仮で設定
             listCount = 0
             listCountEtc = 0
             listAdd = 0  # リストに追加する場合は 1 
