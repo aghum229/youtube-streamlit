@@ -271,8 +271,9 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     zkKari = record[dbItem].splitlines()
     zkSplit = zkKari[listNo].split(",")
     zkSplitNo = 99
+    st.write(f"zkSplitのリスト数：'{len(zkSplit)}'")
     if flag >= 2:
-        st.write(f"zkSplitのリスト数：'{len(zkSplit)}'")
+        st.write(f"追加削除フラグ：'{flag}'")
         if len(zkSplit) > 1:
             if flag == 3:
                 for index, item in enumerate(zkSplit):
