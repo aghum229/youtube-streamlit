@@ -719,3 +719,9 @@ else:
                 else: # 削除の場合
                     atualizar_tanaban_del(st.session_state.sf, item_id, tanaban, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
             # '''
+
+            st.session_state.production_order = None
+            st.session_state.data = None
+            st.session_state.material = None
+            st.session_state.material_weight = None
+            st.session_state.cumulative_cost = 0.0
