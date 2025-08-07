@@ -271,11 +271,19 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     if flag >= 2:
         if flag == 3:
             zkSplit = zkKari[listNo].split(",")
-            for index, item in enumerate(zkSplit):
-                if item == update_value:
-                    zkSplitNo = index
-                    break  # 条件を満たしたらループを終了
-        del zkKari[zkSplitNo]
+            if len(zkSplit) > 1:
+                for index, item in enumerate(zkSplit):
+                    if item == update_value:
+                        zkSplitNo = index
+                        break  # 条件を満たしたらループを終了
+                del zkSplit[zkSplitNo]
+            else:
+                zkSplit[zkSplitNo] = "-"
+        else:
+            if len(zkSplit) > 1:
+                del zkSplit[zkSplitNo]
+            else:
+                zkSplit[zkSplitNo] = "-"
     else:
         if zkKari[listNo] == "-":
             zkKari[listNo] = update_value
@@ -611,8 +619,8 @@ else:
                     st.write(listCountEtc)
                     st.write(listCount)
                     if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐(初期設定時のみ使用)
-                        # st.write(f"❌03 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
-                        # st.stop()  # 以降の処理を止める
+                        st.write(f"❌03 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
+                        st.stop()  # 以降の処理を止める
                         # _= '''
                         zkKari = "-"
                         separator = "\n"
