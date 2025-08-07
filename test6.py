@@ -292,7 +292,10 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
                 st.stop()  # 以降の処理を止める
         else:
             zkSplit[zkSplitNo] = "-"
-        zkKari[listNo] = ",".join(zkSplit)
+        if len(zkSplit) == 1:
+            zkKari[listNo] = f"{zkSplit}"
+        else:
+            zkKari[listNo] = ",".join(zkSplit)
     else:
         if zkKari[listNo] == "-":
             if flag == -1 and zkSplitFlag == 1:
