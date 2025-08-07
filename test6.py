@@ -194,8 +194,6 @@ def atualizar_tanaban_addkari(sf, item_id, zkTana):
         
 def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap):
     try:
-        # sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
-        # sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK棚番"})
         # sf.snps_um__Process__c.update(item_id, {"zkHinban__c": zkHin})
         # _= '''
         sf.snps_um__Process__c.update(item_id, {
@@ -214,8 +212,6 @@ def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
 
 def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya):
     try:
-        # sf.snps_um__Item__c.update(item_id, {"AITC_tanabangou00__c": "OK"})
-        # sf.snps_um__Process__c.update(item_id, {"AITC_tanaban00__c": "OK棚番"})
         sf.snps_um__Process__c.update(item_id, {
             "zkIkohyoNo__c": zkIko,
             "zkHinban__c": zkHin,
@@ -248,7 +244,7 @@ def encontrar_item_por_nome(sf, item_id):
         if records:
             return records[0]
         else:
-            st.warning(f"ID(18桁) {item_id} に一致する snps_um__Process__c が見つかりませんでした。")
+            st.warning(f"ID(18桁) '{item_id}' に一致する snps_um__Process__c が見つかりませんでした。")
             return None
     except Exception as e:
         st.error(f"ID(18桁)検索エラー: {e}")
@@ -271,8 +267,8 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     """
     global zkSplitNo  # 初期値99
     global zkSplitFlag  # 0:マップ座標以外  1;マップ座標
-    zkKari = record[dbItem].splitlines()
-    zkSplit = zkKari[listNo].split(",")
+    zkKari = record[dbItem].splitlines()  # 大項目リスト(改行区切り)
+    zkSplit = zkKari[listNo].split(",")  # 小項目リスト(カンマ区切り)
     # st.write(f"zkSplitのリスト数：'{len(zkSplit)}'")
     # st.write(f"追加削除フラグ：'{flag}'")
     if flag >= 2:
@@ -285,22 +281,21 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
                 if zkSplitNo == 99:
                     st.write(f"❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
                     st.stop()  # 以降の処理を止める
-            # del zkSplit[zkSplitNo]
             if 0 <= zkSplitNo < len(zkSplit):
-                del zkSplit[zkSplitNo]
+                del zkSplit[zkSplitNo]  # 小項目の対象値削除
             else:
                 # ログ出力やエラーハンドリング
-                st.write(f"zkSplitNo {zkSplitNo} is out of range for zkSplit of length {len(zkSplit)}")
-                st.write(f"❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
+                # st.write(f"zkSplitNo {zkSplitNo} is out of range for zkSplit of length {len(zkSplit)}")
+                st.write(f"❌03 **有効な範囲ではありませんでした。'{zkSplitNo}'**")
                 st.stop()  # 以降の処理を止める
         else:
             if flag == 3:
                 zkSplitNo = 0
-            zkSplit[zkSplitNo] = "-"
-        zkKari[listNo] = ",".join(zkSplit)
+            zkSplit[zkSplitNo] = "-"  # 小項目の対象にデフォルト値反映
+        zkKari[listNo] = ",".join(zkSplit)  # 大項目に反映
     else:
-        if zkKari[listNo] == "-":
-            if flag == -1 and zkSplitFlag == 1:
+        if zkKari[listNo] == "-":  # 大項目がデフォルト値の場合
+            if flag == -1 and zkSplitFlag == 1:  # マップ座標で2つ目以降の追加の場合
                 zkKari[listNo] += "," + update_value
             else:
                 zkKari[listNo] = update_value
@@ -308,7 +303,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
             if flag == 1:
                 for index, item in enumerate(zkSplit):
                     if item == update_value:
-                        st.write(f"❌03 **すでに登録されている移行票Noです。'{update_value}'**")
+                        st.write(f"❌04 **すでに登録されている移行票Noです。'{update_value}'**")
                         st.stop()  # 以降の処理を止める
                 zkSplitFlag = 1
             zkKari[listNo] += "," + update_value
@@ -650,7 +645,7 @@ else:
                 datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                 # tdatetime = dt.strptime(datetime_str, '%Y/%m/%d %H:%M:%S')
                 if listAdd == 1: # 棚番が無い場合
-                    st.write(f"❌04 **棚番 '{tanaban}' の追加は許可されてません。**")
+                    st.write(f"❌05 **棚番 '{tanaban}' の追加は許可されてません。**")
                     st.stop()  # 以降の処理を止める
                     _= '''
                     # zkTana = f"{record["zkTanaban__c"]},{tanaban}"
@@ -681,7 +676,7 @@ else:
                     st.write(listCountEtc)
                     st.write(listCount)
                     if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐(初期設定時のみ使用)
-                        st.write(f"❌05 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
+                        st.write(f"❌06 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
                         st.stop()  # 以降の処理を止める
                         # _= '''
                         zkKari = "-"
@@ -773,7 +768,7 @@ else:
                     '''
             
             if st.session_state.owner is None:
-                st.write(f"❌06 **作業者コード '{owner}' が未入力です。**")
+                st.write(f"❌07 **作業者コード '{owner}' が未入力です。**")
                 st.stop()  # 以降の処理を止める
             # if "rerun_flag" not in st.session_state:
             #     st.session_state.rerun_flag = False
