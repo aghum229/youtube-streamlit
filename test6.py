@@ -451,7 +451,7 @@ else:
         """
         <script>
             setTimeout(() => {
-                const input = window.parent.document.querySelector('input[data-testid="stTextInput"][aria-label="manual_input"]');
+                const input = window.parent.document.querySelector('input[data-testid="stTextInputRootElement"][aria-label="manual_input"]');
                 if (input) {
                     input.focus();
                 }
