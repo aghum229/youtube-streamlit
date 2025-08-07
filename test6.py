@@ -741,7 +741,8 @@ else:
             if st.session_state.owner is None:
                 st.write(f"❌06 **作業者コード '{owner}' が未入力です。**")
                 st.stop()  # 以降の処理を止める
-            # st.session_state.should_rerun = True
+            if "rerun_flag" not in st.session_state:
+                st.session_state.rerun_flag = False
             # _= '''
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
@@ -763,23 +764,28 @@ else:
                 #     st.session_state.should_rerun = False
                 #     st.experimental_rerun()
                 # '''
+                st.session_state.rerun_flag = True
+                st.experimental_rerun()
+
                 # JavaScriptでフォーカスを当てる
-                components.html(
-                    """
-                    <script>
-                        setTimeout(() => {
-                            const inputs = window.parent.document.querySelectorAll('input');
-                            for (let input of inputs) {
-                                if (input.placeholder === "生産オーダー番号を入力してください (6桁、例: 000000):") {
-                                    input.focus();
-                                    break;
+                if st.session_state.rerun_flag:
+                    components.html(
+                        """
+                        <script>
+                            setTimeout(() => {
+                                const inputs = window.parent.document.querySelectorAll('input');
+                                for (let input of inputs) {
+                                    if (input.placeholder === "生産オーダー番号を入力してください (6桁、例: 000000):") {
+                                        input.focus();
+                                        break;
+                                    }
                                 }
-                            }
-                        }, 1000);  // 1秒後に実行
-                    </script>
-                    """,
-                    height=0,
-                )
+                            }, 500);
+                        </script>
+                        """,
+                        height=0,
+                    )
+                    st.session_state.rerun_flag = False
                 _= '''
                 reset_keys = {
                     "production_order": None,
