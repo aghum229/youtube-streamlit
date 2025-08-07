@@ -13,6 +13,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from gspread_dataframe import set_with_dataframe
 import toml
+import streamlit.components.v1 as components
 
 
 # Função para carregar credenciais
@@ -762,6 +763,18 @@ else:
                 #     st.session_state.should_rerun = False
                 #     st.experimental_rerun()
                 # '''
+                # JavaScriptでフォーカスを当てる
+                components.html(
+                    """
+                    <script>
+                        const input = window.parent.document.querySelector('input[data-testid="stTextInput"][aria-label="manual_input"]');
+                        if (input) {
+                            input.focus();
+                        }
+                    </script>
+                    """,
+                    height=0,
+                )
                 _= '''
                 reset_keys = {
                     "production_order": None,
