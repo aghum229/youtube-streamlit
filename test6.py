@@ -313,6 +313,15 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     zkKari = "\n".join(zkKari) if isinstance(zkKari, list) else zkKari
     return zkKari
 
+def reset_form():
+    st.session_state.production_order = None
+    # st.session_state.data = None
+    # st.session_state.material = None
+    # st.session_state.material_weight = None
+    # st.session_state.cumulative_cost = 0.0
+    st.session_state.manual_input_value = ""
+    st.rerun()
+
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
     try:
@@ -764,8 +773,8 @@ else:
             if st.session_state.owner is None:
                 st.write(f"❌06 **作業者コード '{owner}' が未入力です。**")
                 st.stop()  # 以降の処理を止める
-            if "rerun_flag" not in st.session_state:
-                st.session_state.rerun_flag = False
+            # if "rerun_flag" not in st.session_state:
+            #     st.session_state.rerun_flag = False
             # _= '''
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
@@ -775,7 +784,8 @@ else:
                     atualizar_tanaban_add(st.session_state.sf, item_id, tanaban, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
                 else: # 削除の場合
                     atualizar_tanaban_del(st.session_state.sf, item_id, tanaban, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
-                # _= '''
+                reset_form()
+                _= '''
                 st.session_state.production_order = None
                 # st.session_state.data = None
                 # st.session_state.material = None
@@ -786,9 +796,9 @@ else:
                 # if st.session_state.get("should_rerun"):
                 #     st.session_state.should_rerun = False
                 #     st.experimental_rerun()
-                # '''
                 st.session_state.rerun_flag = True
                 st.rerun()
+                '''
                 # JavaScriptでフォーカスを当てる
                 if st.session_state.rerun_flag:
                     components.html(
