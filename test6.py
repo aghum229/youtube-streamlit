@@ -269,22 +269,16 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     global zkSplitNo
     zkKari = record[dbItem].splitlines()
     if flag >= 2:
-        if flag == 3:
-            zkSplit = zkKari[listNo].split(",")
-            if len(zkSplit) > 1:
+        zkSplit = zkKari[listNo].split(",")
+        if len(zkSplit) > 1:
+            if flag == 3:
                 for index, item in enumerate(zkSplit):
                     if item == update_value:
                         zkSplitNo = index
                         break  # 条件を満たしたらループを終了
-                del zkSplit[zkSplitNo]
-            else:
-                zkSplitNo = 0
-                zkSplit[zkSplitNo] = "-"
+            del zkSplit[zkSplitNo]
         else:
-            if zkSplitNo > 0:
-                del zkSplit[zkSplitNo]
-            else:
-                zkSplit[zkSplitNo] = "-"
+            zkSplit[zkSplitNo] = "-"
     else:
         if zkKari[listNo] == "-":
             zkKari[listNo] = update_value
