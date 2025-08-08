@@ -467,6 +467,8 @@ else:
             """,
             height=0,
         )
+        
+        submit_button_modify = st.form_submit_button("再入力(移行票番号)")
     
     if submit_button_modify:
         st.write("ok")
