@@ -356,6 +356,8 @@ if "manual_input_value" not in st.session_state:
     st.session_state.manual_input_value = ""
 if "manual_input" not in st.session_state:
     st.session_state.manual_input = ""
+if "manual_input_tana" not in st.session_state:
+    st.session_state.manual_input_tana = ""
 
 if "user_code_entered" not in st.session_state:
     st.session_state.user_code_entered = False
@@ -547,20 +549,27 @@ else:
             process_order_name = st.text_input("工程名:", key="process_order_name", value="-")
             quantity = st.number_input("数量 (工程):", value=0.0, key="quantity", disabled=True)
             # hinmei = st.text_input("品名:", key="hinmei", value="-")
-
+        
+        tanaban = st.text_input("棚番号を選択または入力してください (例: H-15):",
+                            max_chars=6,
+                            key="manual_input_tana")
+        if tanaban:
+            st.session_state.manual_input_tana = tanaban
+            st.session_state.show_camera = False
+        
         add_del_flag = 0  # 0:追加 1:削除
         leleft, left, center, right, riright = st.columns([0.1, 0.2, 0.2, 0.1, 0.4])
         with left:
             submit_button_add = st.form_submit_button("追加")
         with center:
             submit_button_del = st.form_submit_button("削除")
-        # _= '''
+        _= '''
         with riright:
             submit_button_modify = st.form_submit_button("再入力(移行票番号)")
             # if submit_button_modify:
                 # st.session_state["manual_input"] = ""
                 # st.rerun()
-        # '''
+        '''
         if submit_button_add or submit_button_del:
             if submit_button_add:
                 add_del_flag = 0
@@ -824,10 +833,10 @@ else:
                 st.experimental_rerun()
                 '''
             # '''
-    
+    _= '''
     if submit_button_modify:
         st.write("ok")
         # st.session_state["manual_input_key"] = ""
         # st.rerun()
-
+    '''
 
