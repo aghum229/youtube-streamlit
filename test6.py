@@ -106,8 +106,6 @@ def consultar_salesforce(production_order, sf):
         if not records:
             st.write("❌00 **データの取り出しに失敗しました。**")
             return pd.DataFrame(), None, None, 0.0
-            reset_form()
-            st.stop()
         df = pd.DataFrame(records)
         st.session_state.all_data = df.to_dict(orient="records")
         
@@ -137,12 +135,10 @@ def consultar_salesforce(production_order, sf):
             return pd.DataFrame([last_record]), material, material_weight, cumulative_cost
         else:
             st.write("❌01 **データの取り出しに失敗しました。**")
-            return pd.DataFrame(), None, None, 0.0
-            reset_form()
+        return pd.DataFrame(), None, None, 0.0
     except Exception as e:
         st.error(f"Salesforceクエリエラー: {e}")
         return pd.DataFrame(), None, None, 0.0
-        reset_form()
 
 # Função para limpar quantidade e converter para float
 def clean_quantity(value):
