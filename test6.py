@@ -521,7 +521,7 @@ else:
                 st.stop()
         else:
             st.warning("データが見つかりませんでした。")
-            reset_form()
+            # reset_form()
             # st.stop()
     
         # Campos de entrada
