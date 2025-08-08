@@ -482,11 +482,7 @@ else:
         st.session_state.manual_input_value = ""
         st.rerun()
     '''
-
-    submit_button_modify = st.form_submit_button("再入力(移行票番号)")
-    if submit_button_modify:
-        st.session_state["manual_input"] = ""
-        st.rerun()
+    
     zkSplitNo = 99
     zkSplitFlag = 0
     # Formulário sempre renderizado
@@ -557,13 +553,13 @@ else:
             submit_button_add = st.form_submit_button("追加")
         with center:
             submit_button_del = st.form_submit_button("削除")
-        _= '''
+        # _= '''
         with riright:
             submit_button_modify = st.form_submit_button("再入力(移行票番号)")
-            if submit_button_modify:
-                st.session_state["manual_input"] = ""
-                st.rerun()
-        '''
+            # if submit_button_modify:
+                # st.session_state["manual_input"] = ""
+                # st.rerun()
+        # '''
         if submit_button_add or submit_button_del:
             if submit_button_add:
                 add_del_flag = 0
@@ -826,4 +822,7 @@ else:
                     st.session_state[key] = value
                 st.experimental_rerun()
                 '''
+    if submit_button_modify:
+        st.session_state["manual_input"] = ""
+        st.rerun()
             # '''
