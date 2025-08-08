@@ -547,6 +547,10 @@ else:
         with riright:
             submit_button_modify = st.form_submit_button("再入力(移行票番号)")
             if submit_button_modify:
+                st.text_input("移行票番号を入力してください (6桁、例: 000000):",
+                                value="",
+                                max_chars=6,
+                                key="manual_input")
                 reset_form()
         with left:
             submit_button_add = st.form_submit_button("追加")
