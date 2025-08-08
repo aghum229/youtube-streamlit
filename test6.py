@@ -487,7 +487,7 @@ else:
     zkSplitNo = 99
     zkSplitFlag = 0
     # Formulário sempre renderizado
-    with st.form(key="registro_form", , clear_on_submit=True):
+    with st.form(key="registro_form", clear_on_submit=True):
         default_quantity = 0.0
         default_process_order = 0
         default_process_order_name = ""
