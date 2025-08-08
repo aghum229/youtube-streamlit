@@ -178,6 +178,68 @@ div.stButton > button {
 </style>
 """
 
+button_style_yellow = """
+<style>
+div.stButton {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
+    # width: auto; /* 必要に応じて変更 */
+}
+div.stButton > button {
+    font-size: 12px !important; /* 文字サイズを指定 */
+    font-weight  : bold ;
+    color        : #000;
+    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
+    background   : #ffff00             ;/* 背景色：yellow            */
+    width: 350px; /* ボタンの横幅を固定値に設定 */
+    max-width: 350px; /* 必要に応じて最大幅も設定 */
+    height: 24px;
+}
+</style>
+"""
+
+button_style_silver = """
+<style>
+div.stButton {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
+    # width: auto; /* 必要に応じて変更 */
+}
+div.stButton > button {
+    font-size: 12px !important; /* 文字サイズを指定 */
+    font-weight  : bold ;
+    color        : #000;
+    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
+    background   : #C0C0C0             ;/* 背景色：silver            */
+    width: 350px; /* ボタンの横幅を固定値に設定 */
+    max-width: 350px; /* 必要に応じて最大幅も設定 */
+    height: 24px;
+}
+</style>
+"""
+
+button_style_blue = """
+<style>
+div.stButton {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
+    # width: auto; /* 必要に応じて変更 */
+}
+div.stButton > button {
+    font-size: 12px !important; /* 文字サイズを指定 */
+    font-weight  : bold ;
+    color        : #000;
+    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
+    background   : #0000FF             ;/* 背景色：blue            */
+    width: 350px; /* ボタンの横幅を固定値に設定 */
+    max-width: 350px; /* 必要に応じて最大幅も設定 */
+    height: 24px;
+}
+</style>
+"""
 selectbox_style = """
     <style>
     .centered-selectbox {
@@ -452,12 +514,14 @@ def show_other0_screen():
     display_container('yellow', '0.ショートカット')
     # display_header('blue', '0.ショートカット')
     display_line()
-    st.markdown(button_style, unsafe_allow_html=True)
+    st.markdown(button_style_silver, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
     display_line()
+    st.markdown(button_style_yellow, unsafe_allow_html=True)
     # button_set('button31', '116.在庫管理', 'other31')
-    button_set('button11611', '11611.在庫置き場参照', 'other11611')
-    button_set('button11612', '11612.在庫置き場入力', 'other11612')
+    button_set('button11611', '11611.在庫置場 参照', 'other11611')
+    button_set('button11612', '11612.在庫置場 入力', 'other11612')
+    button_set('button11613', '11613.在庫置場 削除', 'other11612')
     display_footer()
 
 
@@ -493,11 +557,12 @@ def show_other1_screen():
     # st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
     # st.write('---')
-    st.markdown(button_style, unsafe_allow_html=True)
+    st.markdown(button_style_silver, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
     # btn0 = st.button("⏎ ☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     display_line()
     # st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
     button_set('button11', '11.製品', 'other11')
     button_set('button12', '12.金型', 'other12')
     button_set('button13', '13.治工具', 'other13')
@@ -573,13 +638,13 @@ def show_other116_screen():
     button_set('btn1', return_1, 'other1')
     button_set('btn11', return_11, 'other11')
     display_line()
-    button_set('button1161', '1161.在庫置き場', 'other1161')
+    button_set('button1161', '1161.在庫置場', 'other1161')
     button_set('button1162', '1162.棚卸', 'other1162')
     display_footer()
 
 def show_other1161_screen():
-    display_container('blue', '1161.在庫置き場メニュー')
-    # display_header('blue', '1161.在庫置き場メニュー')
+    display_container('blue', '1161.在庫置場メニュー')
+    # display_header('blue', '1161.在庫置場メニュー')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
@@ -587,17 +652,18 @@ def show_other1161_screen():
     button_set('btn11', return_11, 'other11')
     button_set('btn116', return_116, 'other116')
     display_line()
-    button_set('button11611', '11611.在庫置き場参照', 'other11611')
-    button_set('button11612', '11612.在庫置き場入力', 'other11612')
+    button_set('button11611', '11611.在庫置場 参照', 'other11611')
+    button_set('button11612', '11612.在庫置場 入力', 'other11612')
+    button_set('button11613', '11613.在庫置場 削除', 'other11612')
     display_footer()
 
 def show_other11611_screen():
-    display_container('blue', '11611.在庫置き場参照メニュー')
-    # display_header('blue', '11611.在庫置き場参照メニュー')
+    display_container('blue', '11611.在庫置場 参照メニュー')
+    # display_header('blue', '11611.在庫置場 参照メニュー')
     _= '''
     st.markdown(
         "<p style='text-align:center;'> \
-        <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11611.在庫置き場参照メニュー</span> \
+        <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11611.在庫置場 参照メニュー</span> \
         </p>",
         unsafe_allow_html=True
     )
@@ -624,18 +690,18 @@ def show_other11611_screen():
     st.write("示")
     st.write("予")
     st.write("定")
-    # button_set('button11611', '11611.在庫置き場参照', 'other11611')
-    # button_set('button11612', '11612.在庫置き場入力', 'other11612')
+    # button_set('button11611', '11611.在庫置場参照', 'other11611')
+    # button_set('button11612', '11612.在庫置場入力', 'other11612')
     display_footer()
     
 def show_other11612_screen():
-    display_container('blue', '11612.在庫置き場入力メニュー')
-    # display_header('blue', '11612.在庫置き場入力メニュー')
+    display_container('blue', '11612.在庫置場 入力メニュー')
+    # display_header('blue', '11612.在庫置場入力メニュー')
     # with st_fixed_container(mode="fixed", position="top", transparent=True):
     _= '''
     st.markdown(
         "<p style='text-align:center;'> \
-        <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11612.在庫置き場入力メニュー</span> \
+        <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11612.在庫置場 入力メニュー</span> \
         </p>",
         unsafe_allow_html=True
     )
@@ -649,10 +715,10 @@ def show_other11612_screen():
     button_set('btn1161', return_1161, 'other1161')
     display_line()
     # st.markdown(selectbox_style, unsafe_allow_html=True)
-    # okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="E40")
+    # okiba = st.selectbox("在庫置場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="E40")
     left, center, right = st.columns([0.25, 0.5, 0.25])
     with center:
-        okiba = st.selectbox("在庫置き場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="F56")
+        okiba = st.selectbox("在庫置場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="F56")
         seiban = st.text_input("移行票No", placeholder="PP-012345")
         hinban = st.text_input("品番 (品名)", placeholder="123-45H67-890 (PPPPP,QQQQQ RRRRR)")
         koutei = st.text_input("完了済工程", placeholder="20 GSN")
@@ -662,8 +728,8 @@ def show_other11612_screen():
             button_set('button116121', '116121.実行', 'other11611')
         with right:
             button_set('button116122', '116122.キャンセル', 'other11611')
-    # button_set('button11611', '11611.在庫置き場参照', 'other11611')
-    # button_set('button11612', '11612.在庫置き場入力', 'other11612')
+    # button_set('button11611', '11611.在庫置場参照', 'other11611')
+    # button_set('button11612', '11612.在庫置場入力', 'other11612')
     display_footer()
     
 # 不明な画面の場合の処理
@@ -721,15 +787,19 @@ elif st.session_state['current_screen'] == 'other16':
 # 在庫管理メニュー
 elif st.session_state['current_screen'] == 'other116':
     show_other116_screen()
-# 在庫置き場メニュー
+# 在庫置場メニュー
 elif st.session_state['current_screen'] == 'other1161':
     show_other1161_screen()
-# 在庫置き場参照メニュー
+# 在庫置場 参照メニュー
 elif st.session_state['current_screen'] == 'other11611':
     show_other11611_screen()
-# 在庫置き場入力画面
+# 在庫置場 入力画面
 elif st.session_state['current_screen'] == 'other11612':
     show_other11612_screen()
+# 在庫置場 削除画面
+elif st.session_state['current_screen'] == 'other11613':
+    show_other11613_screen()
 else:
     unknown_screen()
 # '''
+
