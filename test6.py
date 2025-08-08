@@ -511,14 +511,15 @@ else:
                 default_hinban = last_record.get("snps_um__Item__r", {}).get("Name", "")
                 default_hinmei = last_record.get("snps_um__Item__r", {}).get("AITC_PrintItemName__c", "")
             else:
-                # st.session_state.production_order = None
+                st.session_state.production_order = None
+                st.session_state.manual_input_value = ""
                 # st.session_state.data = None
                 # st.session_state.material = None
                 # st.session_state.material_weight = None
                 # st.session_state.cumulative_cost = 0.0
                 st.warning("生産オーダーに該当する 'Done' ステータスの記録が見つかりませんでした。")
-                reset_form()
-                # st.stop()
+                # reset_form()
+                st.stop()
         else:
             st.warning("データが見つかりませんでした。")
             # reset_form()
