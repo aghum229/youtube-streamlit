@@ -573,7 +573,7 @@ else:
         #                     max_chars=6,
         #                     key="manual_input_tana")
         if tanaban:
-            st.session_state.tanaban_select = tanaban
+            # st.session_state.tanaban_select = tanaban
             st.session_state.show_camera = False
         
         add_del_flag = 0  # 0:追加 1:削除
