@@ -315,7 +315,6 @@ def reset_form():
     # st.session_state.material_weight = None
     # st.session_state.cumulative_cost = 0.0
     st.session_state.manual_input_value = ""
-    st.session_state.manual_input = ""
     st.rerun()
 
 # Autenticar no Salesforce
