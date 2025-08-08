@@ -517,7 +517,7 @@ else:
             else:
                 st.session_state.production_order = None
                 st.session_state.manual_input_value = ""
-                # st.session_state.data = None
+                st.session_state.data = None
                 # st.session_state.material = None
                 # st.session_state.material_weight = None
                 # st.session_state.cumulative_cost = 0.0
