@@ -470,12 +470,12 @@ else:
         )
         
         submit_button_modify = st.form_submit_button("再入力(移行票番号)")
-    _= '''
+    # _= '''
     if submit_button_modify:
         st.write("ok")
         st.session_state.manual_input_value = ""
         # st.rerun()
-    '''
+    # '''
     
     _= '''
     # Exibir câmera apenas se production_order for None e show_camera for True
@@ -862,11 +862,11 @@ else:
                 st.experimental_rerun()
                 '''
             # '''
-    # _= '''
+    _= '''
     if submit_button_modify:
         st.write("ok")
         st.session_state.manual_input_value = ""
         # st.session_state["manual_input_key"] = ""
         # st.rerun()
-    # '''
+    '''
 
