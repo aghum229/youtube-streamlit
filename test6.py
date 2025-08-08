@@ -433,48 +433,48 @@ else:
         unsafe_allow_html=True
     )
     
-    # with st.form(key="manual_input_form", clear_on_submit=True):
-    # manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
-    # _= '''
-    # Opção de digitação manual do production_order
-    # manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
-    #                            value=st.session_state.manual_input_value,
-    #                            max_chars=6,
-    #                            key="manual_input")
-    manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
-                                max_chars=6,
-                                key="manual_input")
-    if manual_input and len(manual_input) == 6 and manual_input.isdigit():
-        st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
-        st.session_state.manual_input_value = manual_input
-        st.session_state.show_camera = False
-    # '''
-    
-    # 入力欄の直後に JavaScript を挿入
-    components.html(
-        """
-        <script>
-            setTimeout(() => {
-                const inputs = window.parent.document.querySelectorAll('input');
-                for (let input of inputs) {
-                    if (input.placeholder.includes("移行票番号")) {
-                        input.focus();
-                        break;
+    with st.form(key="manual_input_form", clear_on_submit=True):
+        # manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
+        # _= '''
+        # Opção de digitação manual do production_order
+        # manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
+        #                            value=st.session_state.manual_input_value,
+        #                            max_chars=6,
+        #                            key="manual_input")
+        manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
+                                    max_chars=6,
+                                    key="manual_input")
+        if manual_input and len(manual_input) == 6 and manual_input.isdigit():
+            st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
+            st.session_state.manual_input_value = manual_input
+            st.session_state.show_camera = False
+        # '''
+        
+        # 入力欄の直後に JavaScript を挿入
+        components.html(
+            """
+            <script>
+                setTimeout(() => {
+                    const inputs = window.parent.document.querySelectorAll('input');
+                    for (let input of inputs) {
+                        if (input.placeholder.includes("移行票番号")) {
+                            input.focus();
+                            break;
+                        }
                     }
-                }
-            }, 500);
-        </script>
-        """,
-        height=0,
-    )
-    
-    # _= '''
-    submit_button_modify = st.button("再入力(移行票番号)")
+                }, 500);
+            </script>
+            """,
+            height=0,
+        )
+        
+        # _= '''
+        submit_button_modify = st.form_submit_button("再入力(移行票番号)")
     
     if submit_button_modify:
         st.write("ok")
         st.session_state.manual_input_value = ""
-        st.rerun()
+        # st.rerun()
     # '''
     
     _= '''
