@@ -515,6 +515,7 @@ else:
                 default_hinban = last_record.get("snps_um__Item__r", {}).get("Name", "")
                 default_hinmei = last_record.get("snps_um__Item__r", {}).get("AITC_PrintItemName__c", "")
             else:
+                st.dataframe()
                 st.session_state.production_order = None
                 st.session_state.manual_input_value = ""
                 # st.session_state.data = None
@@ -522,7 +523,7 @@ else:
                 # st.session_state.material_weight = None
                 # st.session_state.cumulative_cost = 0.0
                 st.warning("生産オーダーに該当する 'Done' ステータスの記録が見つかりませんでした。")
-                df, material, material_weight, cumulative_cost = pd.DataFrame(), None, None, 0.0
+                # df, material, material_weight, cumulative_cost = pd.DataFrame(), None, None, 0.0
                 # reset_form()
                 # st.stop()
         else:
@@ -549,14 +550,14 @@ else:
 
         add_del_flag = 0  # 0:追加 1:削除
         leleft, left, center, right, riright = st.columns([0.1, 0.2, 0.2, 0.1, 0.4])
-        with riright:
-            submit_button_modify = st.form_submit_button("再入力(移行票番号)")
-            if submit_button_modify:
-                reset_form()
         with left:
             submit_button_add = st.form_submit_button("追加")
         with center:
             submit_button_del = st.form_submit_button("削除")
+        # with riright:
+        #     submit_button_modify = st.form_submit_button("再入力(移行票番号)")
+        #     if submit_button_modify:
+        #         reset_form()
         if submit_button_add or submit_button_del:
             if submit_button_add:
                 add_del_flag = 0
