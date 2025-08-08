@@ -106,7 +106,8 @@ def consultar_salesforce(production_order, sf):
         if not records:
             st.write("❌00 **データの取り出しに失敗しました。**")
             return pd.DataFrame(), None, None, 0.0
-
+            reset_form()
+            st.stop()
         df = pd.DataFrame(records)
         st.session_state.all_data = df.to_dict(orient="records")
         
@@ -136,10 +137,12 @@ def consultar_salesforce(production_order, sf):
             return pd.DataFrame([last_record]), material, material_weight, cumulative_cost
         else:
             st.write("❌01 **データの取り出しに失敗しました。**")
-        return pd.DataFrame(), None, None, 0.0
+            return pd.DataFrame(), None, None, 0.0
+            reset_form()
     except Exception as e:
         st.error(f"Salesforceクエリエラー: {e}")
         return pd.DataFrame(), None, None, 0.0
+        reset_form()
 
 # Função para limpar quantidade e converter para float
 def clean_quantity(value):
@@ -177,6 +180,8 @@ def atualizar_tanaban_addkari(sf, item_id, zkTana):  # 棚番書き込み専用
         st.success("「zk棚番」に書き込みました！")
     except Exception as e:
         st.error(f"更新エラー: {e}")
+        reset_form()
+        st.stop()
         
 def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap):
     try:
@@ -195,6 +200,8 @@ def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
         st.success("snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkIko}' を追加しました。")
     except Exception as e:
         st.error(f"更新エラー: {e}")
+        reset_form()
+        st.stop()
 
 def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya):
     try:
@@ -213,6 +220,8 @@ def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
         st.success("snps_um__Process__c の棚番 '{zkTana}' から移行票No '{zkIko}' を削除しました。")
     except Exception as e:
         st.error(f"更新エラー: {e}")
+        reset_form()
+        st.stop()
 
 # WHERE Name LIKE '%{item_name}%' AND snps_um__ProcessOrderNo__c = 999
 def encontrar_item_por_nome(sf, item_id):
@@ -232,9 +241,13 @@ def encontrar_item_por_nome(sf, item_id):
         else:
             st.warning(f"ID(18桁) '{item_id}' に一致する snps_um__Process__c が見つかりませんでした。")
             return None
+            reset_form()
+            st.stop()
     except Exception as e:
         st.error(f"ID(18桁)検索エラー: {e}")
         return None
+        reset_form()
+        st.stop()
 
 def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     """
@@ -266,6 +279,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
                         break  # 条件を満たしたらループを終了
                 if zkSplitNo == 99:
                     st.write(f"❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
+                    reset_form()
                     st.stop()  # 以降の処理を止める
             if 0 <= zkSplitNo < len(zkSplit):
                 del zkSplit[zkSplitNo]  # 小項目の対象値削除
@@ -273,6 +287,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
                 # ログ出力やエラーハンドリング
                 # st.write(f"zkSplitNo {zkSplitNo} is out of range for zkSplit of length {len(zkSplit)}")
                 st.write(f"❌03 **有効な範囲ではありませんでした。'{zkSplitNo}'**")
+                reset_form()
                 st.stop()  # 以降の処理を止める
         else:
             if flag == 3:
@@ -290,6 +305,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
                 for index, item in enumerate(zkSplit):
                     if item == update_value:
                         st.write(f"❌04 **すでに登録されている移行票Noです。'{update_value}'**")
+                        reset_form()
                         st.stop()  # 以降の処理を止める
                 zkSplitFlag = 1
             zkKari[listNo] += "," + update_value
@@ -505,9 +521,12 @@ else:
                 # st.session_state.material_weight = None
                 # st.session_state.cumulative_cost = 0.0
                 st.warning("生産オーダーに該当する 'Done' ステータスの記録が見つかりませんでした。")
-                # st.stop()  # 以降の処理を止める
+                reset_form()
+                st.stop()
         else:
             st.warning("データが見つかりませんでした。")
+            reset_form()
+            st.stop()
     
         # Campos de entrada
         owner_value = "" if st.session_state.data is None else st.session_state.owner
