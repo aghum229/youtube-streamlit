@@ -499,8 +499,8 @@ else:
             df, material, material_weight, cumulative_cost = consultar_salesforce(st.session_state.production_order, st.session_state.sf)
             if "all_data" in st.session_state and st.session_state.all_data:
                 st.write("Salesforceで発見されたすべての記録:")
-                simplified_df = simplify_dataframe(pd.DataFrame(st.session_state.all_data))
-                st.dataframe(simplified_df)
+                # simplified_df = simplify_dataframe(pd.DataFrame(st.session_state.all_data))
+                # st.dataframe(simplified_df)
             if not df.empty:
                 st.session_state.data = df.to_dict(orient="records")
                 st.session_state.material = material
@@ -515,7 +515,6 @@ else:
                 default_hinban = last_record.get("snps_um__Item__r", {}).get("Name", "")
                 default_hinmei = last_record.get("snps_um__Item__r", {}).get("AITC_PrintItemName__c", "")
             else:
-                st.dataframe()
                 st.session_state.production_order = None
                 st.session_state.manual_input_value = ""
                 # st.session_state.data = None
