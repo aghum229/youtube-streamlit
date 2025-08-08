@@ -442,7 +442,7 @@ else:
         #                            max_chars=6,
         #                            key="manual_input")
         manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
-                                    value=st.session_state.manual_input_value,
+                                    value="",
                                     max_chars=6,
                                     key="manual_input")
         if manual_input and len(manual_input) == 6 and manual_input.isdigit():
@@ -622,7 +622,7 @@ else:
                 S-1\nS-2\nS-3\nS-4\nS-5\nS-6\nS-7\nS-8\nS-9\nS-10\nS-11\nS-12\nS-13\nS-14\nS-15\nS-16\nS-17\nS-18\nS-19\nS-20
                 """
             atualizar_tanaban_addkari(st.session_state.sf, item_id, zkTana)
-            t.stop()  # 以降の処理を止める
+            st.stop()  # 以降の処理を止める
             '''
             
             # tanaban = "完A-3"  # 仮で設定
@@ -814,7 +814,7 @@ else:
                     atualizar_tanaban_add(st.session_state.sf, item_id, tanaban, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
                 else: # 削除の場合
                     atualizar_tanaban_del(st.session_state.sf, item_id, tanaban, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
-                reset_form()
+                # reset_form()
                 _= '''
                 st.session_state.production_order = None
                 # st.session_state.data = None
