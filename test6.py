@@ -526,7 +526,7 @@ else:
         else:
             st.warning("データが見つかりませんでした。")
             reset_form()
-            st.stop()
+            # st.stop()
     
         # Campos de entrada
         owner_value = "" if st.session_state.data is None else st.session_state.owner
