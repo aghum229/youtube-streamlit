@@ -178,71 +178,6 @@ div.stButton > button {
 </style>
 """
 
-_= '''
-button_style_yellow = """
-<style>
-div.stButton {
-    display: flex;
-    justify-content: center;
-    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
-    # width: auto; /* 必要に応じて変更 */
-}
-div.stButton > button {
-    font-size: 12px !important; /* 文字サイズを指定 */
-    font-weight  : bold ;
-    color        : #000;
-    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
-    background   : #ffff00             ;/* 背景色：yellow            */
-    width: 350px; /* ボタンの横幅を固定値に設定 */
-    max-width: 350px; /* 必要に応じて最大幅も設定 */
-    height: 24px;
-}
-</style>
-"""
-
-button_style_silver = """
-<style>
-div.stButton {
-    display: flex;
-    justify-content: center;
-    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
-    # width: auto; /* 必要に応じて変更 */
-}
-div.stButton > button {
-    font-size: 12px !important; /* 文字サイズを指定 */
-    font-weight  : bold ;
-    color        : #000;
-    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
-    background   : #C0C0C0             ;/* 背景色：silver            */
-    width: 350px; /* ボタンの横幅を固定値に設定 */
-    max-width: 350px; /* 必要に応じて最大幅も設定 */
-    height: 24px;
-}
-</style>
-"""
-
-button_style_blue = """
-<style>
-div.stButton {
-    display: flex;
-    justify-content: center;
-    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
-    # width: auto; /* 必要に応じて変更 */
-}
-div.stButton > button {
-    font-size: 12px !important; /* 文字サイズを指定 */
-    font-weight  : bold ;
-    color        : #000;
-    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
-    background   : #0000FF             ;/* 背景色：blue            */
-    width: 350px; /* ボタンの横幅を固定値に設定 */
-    max-width: 350px; /* 必要に応じて最大幅も設定 */
-    height: 24px;
-}
-</style>
-"""
-'''
-
 selectbox_style = """
     <style>
     .centered-selectbox {
@@ -803,5 +738,6 @@ elif st.session_state['current_screen'] == 'other11613':
 else:
     unknown_screen()
 # '''
+
 
 
