@@ -810,4 +810,3 @@ else:
                 st.experimental_rerun()
                 '''
             # '''
-    reset_form()
