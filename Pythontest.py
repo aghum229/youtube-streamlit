@@ -162,7 +162,7 @@ button_style = """
 <style>
 div.stButton {
     display: flex;
-    justify-content: center;
+    justify-content: center !important;
     width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
     # width: auto; /* 必要に応じて変更 */
 }
@@ -739,6 +739,7 @@ elif st.session_state['current_screen'] == 'other11613':
 else:
     unknown_screen()
 # '''
+
 
 
 
