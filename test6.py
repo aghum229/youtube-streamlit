@@ -474,7 +474,7 @@ else:
     if submit_button_modify:
         st.write("ok")
         st.session_state.manual_input_value = ""
-        # st.rerun()
+        st.rerun()
     # '''
     
     _= '''
