@@ -487,7 +487,7 @@ else:
     zkSplitNo = 99
     zkSplitFlag = 0
     # Formulário sempre renderizado
-    with st.form(key="registro_form"):
+    with st.form(key="registro_form", , clear_on_submit=True):
         default_quantity = 0.0
         default_process_order = 0
         default_process_order_name = ""
@@ -826,7 +826,8 @@ else:
             # '''
     
     if submit_button_modify:
-        st.session_state["manual_input_key"] = ""
-        st.rerun()
+        st.write("ok")
+        # st.session_state["manual_input_key"] = ""
+        # st.rerun()
 
 
