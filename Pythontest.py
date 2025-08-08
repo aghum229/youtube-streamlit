@@ -162,7 +162,7 @@ button_style = """
 <style>
 div.stButton {
     display: flex;
-    justify-content: center !important;
+    justify-content: center;
     width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
     # width: auto; /* 必要に応じて変更 */
 }
@@ -390,8 +390,8 @@ def show_main_screen():
         )
     '''
     
-    left, right = st.columns([0.7, 0.3])
-    with left:
+    left, center, right = st.columns([0.2, 0.6, 0.2])
+    with center:
         st.image("aitech_logo_D.png", use_container_width=True)
     with right:
         st.write('(仮)')
@@ -739,6 +739,7 @@ elif st.session_state['current_screen'] == 'other11613':
 else:
     unknown_screen()
 # '''
+
 
 
 
