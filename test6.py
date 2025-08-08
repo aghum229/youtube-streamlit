@@ -566,8 +566,8 @@ else:
             """
         zkTanalistSplit = zkTanalist.split(",")
         options = zkTanalistSplit
-        tanaban = st.selectbox("棚番号を選んでください", options)
-        st.write(f"選択された棚番号: {tanaban}")
+        tanaban = st.selectbox("棚番号を選んでください", options, key="tanaban_select")
+        # st.write(f"選択された棚番号: {tanaban}")
 
         # tanaban = st.text_input("棚番号を選択または入力してください (例: H-15):",
         #                     max_chars=6,
@@ -615,7 +615,7 @@ else:
             t.stop()  # 以降の処理を止める
             '''
             
-            tanaban = "完A-3"  # 仮で設定
+            " tanaban = "完A-3"  # 仮で設定
             listCount = 0
             listCountEtc = 0
             listAdd = 0  # リストに追加する場合は 1 
