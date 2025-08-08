@@ -521,7 +521,7 @@ else:
                 # reset_form()
                 # st.stop()
         else:
-            st.warning("データが見つかりませんでした。")
+            # st.warning("データが見つかりませんでした。")
             # reset_form()
             # st.stop()
     
