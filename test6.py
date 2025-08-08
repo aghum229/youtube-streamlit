@@ -498,7 +498,8 @@ else:
         if st.session_state.production_order is not None:
             df, material, material_weight, cumulative_cost = consultar_salesforce(st.session_state.production_order, st.session_state.sf)
             if "all_data" in st.session_state and st.session_state.all_data:
-                st.write("Salesforceで発見されたすべての記録:")
+                print("Salesforceで発見されたすべての記録:")
+                # st.write("Salesforceで発見されたすべての記録:")
                 # simplified_df = simplify_dataframe(pd.DataFrame(st.session_state.all_data))
                 # st.dataframe(simplified_df)
             if not df.empty:
