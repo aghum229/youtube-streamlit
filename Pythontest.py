@@ -148,7 +148,8 @@ def st_fixed_container(
 
     with fixed_container:
         if transparent:
-            return st.container(height=height, border=border)
+            # return st.container(height=height, border=border)
+            return st.container(border=border)
 
         return st_opaque_container(height=height, border=border, key=f"opaque_{key}")
 # 固定コンテナコードの終わり
@@ -738,6 +739,7 @@ elif st.session_state['current_screen'] == 'other11613':
 else:
     unknown_screen()
 # '''
+
 
 
 
