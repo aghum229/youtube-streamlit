@@ -523,7 +523,10 @@ else:
                 # st.session_state.material_weight = None
                 # st.session_state.cumulative_cost = 0.0
                 st.warning("生産オーダーに該当する 'Done' ステータスの記録が見つかりませんでした。")
-                st.session_state.manual_input = ""
+                try:
+                    st.session_state.manual_input
+                except KeyError:
+                    st.session_state.manual_input = ""
                 # reset_form()
                 # st.stop()
         else:
@@ -553,7 +556,10 @@ else:
         with riright:
             submit_button_modify = st.form_submit_button("再入力(移行票番号)")
             if submit_button_modify:
-                st.session_state.manual_input = ""
+                try:
+                    st.session_state.manual_input
+                except KeyError:
+                    st.session_state.manual_input = ""
                 reset_form()
         with left:
             submit_button_add = st.form_submit_button("追加")
