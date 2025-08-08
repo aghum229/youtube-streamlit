@@ -523,6 +523,7 @@ else:
                 # st.session_state.material_weight = None
                 # st.session_state.cumulative_cost = 0.0
                 st.warning("生産オーダーに該当する 'Done' ステータスの記録が見つかりませんでした。")
+                st.session_state["manual_input"] = ""
                 # df, material, material_weight, cumulative_cost = pd.DataFrame(), None, None, 0.0
                 # reset_form()
                 # st.stop()
