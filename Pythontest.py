@@ -293,7 +293,9 @@ def display_container(color, text):
 '''
 
 def button_set(button_name, button_text, screen_name):
-    button_name = st.button(button_text, on_click=set_screen, args=(screen_name,))
+    left, center, right = st.columns([0.25, 0.5, 0.25])
+    with center:
+        button_name = st.button(button_text, on_click=set_screen, args=(screen_name,))
 
 def button_make(button_text, screen_name):
     st.markdown("""
@@ -397,14 +399,14 @@ def show_main_screen():
     # display_container('yellow', '☆メイン画面☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
-    left, center, right = st.columns([0.25, 0.5, 0.25])
-    with center:
-        button_set('button0', '0.ショートカット', 'other0')
-        # st.write('  ')
-        # st.write('  ')
-        button_set('button1', '1.製造関連', 'other1')
-        button_set('button2', '2.ＩＳＯ関連', 'other2')
-        button_set('button3', '3.労務関連', 'other3')
+    # left, center, right = st.columns([0.25, 0.5, 0.25])
+    # with center:
+    button_set('button0', '0.ショートカット', 'other0')
+    st.write('  ')
+    st.write('  ')
+    button_set('button1', '1.製造関連', 'other1')
+    button_set('button2', '2.ＩＳＯ関連', 'other2')
+    button_set('button3', '3.労務関連', 'other3')
     # button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
     # button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
     # button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
@@ -739,6 +741,7 @@ elif st.session_state['current_screen'] == 'other11613':
 else:
     unknown_screen()
 # '''
+
 
 
 
