@@ -523,7 +523,6 @@ else:
                 # st.session_state.material_weight = None
                 # st.session_state.cumulative_cost = 0.0
                 st.warning("生産オーダーに該当する 'Done' ステータスの記録が見つかりませんでした。")
-                st.session_state["manual_input"] = ""
                 # df, material, material_weight, cumulative_cost = pd.DataFrame(), None, None, 0.0
                 # reset_form()
                 # st.stop()
@@ -555,10 +554,10 @@ else:
             submit_button_add = st.form_submit_button("追加")
         with center:
             submit_button_del = st.form_submit_button("削除")
-        # with riright:
-        #     submit_button_modify = st.form_submit_button("再入力(移行票番号)")
-        #     if submit_button_modify:
-        #         reset_form()
+        with riright:
+            submit_button_modify = st.form_submit_button("再入力(移行票番号)")
+            if submit_button_modify:
+                st.session_state["manual_input"] = ""
         if submit_button_add or submit_button_del:
             if submit_button_add:
                 add_del_flag = 0
