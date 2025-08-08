@@ -517,8 +517,8 @@ else:
                 # st.session_state.material_weight = None
                 # st.session_state.cumulative_cost = 0.0
                 st.warning("生産オーダーに該当する 'Done' ステータスの記録が見つかりませんでした。")
-                reset_form()
-                st.stop()
+                # reset_form()
+                # st.stop()
         else:
             st.warning("データが見つかりませんでした。")
             # reset_form()
