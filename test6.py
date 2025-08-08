@@ -542,14 +542,14 @@ else:
             # hinmei = st.text_input("品名:", key="hinmei", value="-")
 
         add_del_flag = 0  # 0:追加 1:削除
-        leleft, left, center, right, riright = st.columns([0.2, 0.2, 0.2, 0.2, 0.2])
-        with leleft:
+        leleft, left, center, right, riright = st.columns([0.1, 0.2, 0.2, 0.1, 0.4])
+        with riright:
             submit_button_modify = st.form_submit_button("再入力(移行票番号)")
             if submit_button_modify:
                 reset_form()
-        with center:
+        with left:
             submit_button_add = st.form_submit_button("追加")
-        with right:
+        with center:
             submit_button_del = st.form_submit_button("削除")
         if submit_button_add or submit_button_del:
             if submit_button_add:
