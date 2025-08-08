@@ -433,7 +433,7 @@ else:
         unsafe_allow_html=True
     )
     
-    with st.form(key="manual_input_form", clear_on_submit=True):
+    with st.form(key="manual_input_form"):
         # manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
         # _= '''
         # Opção de digitação manual do production_order
