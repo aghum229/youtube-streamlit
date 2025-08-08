@@ -431,6 +431,7 @@ else:
         unsafe_allow_html=True
     )
     
+    manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
     # _= '''
     # Opção de digitação manual do production_order
     # manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
@@ -438,9 +439,8 @@ else:
     #                            max_chars=6,
     #                            key="manual_input")
     manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
-                                value="",
                                 max_chars=6,
-                                key="manual_input")
+                                key="manual_input_key")
     if manual_input and len(manual_input) == 6 and manual_input.isdigit():
         st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
         st.session_state.manual_input_value = manual_input
@@ -826,6 +826,7 @@ else:
             # '''
     
     if submit_button_modify:
-        st.session_state["manual_input"] = ""
+        st.session_state["manual_input_key"] = ""
         st.rerun()
+
 
