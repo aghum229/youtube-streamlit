@@ -519,7 +519,7 @@ else:
                 # st.session_state.cumulative_cost = 0.0
                 st.warning("生産オーダーに該当する 'Done' ステータスの記録が見つかりませんでした。")
                 # reset_form()
-                st.stop()
+                # st.stop()
         else:
             st.warning("データが見つかりませんでした。")
             # reset_form()
@@ -810,4 +810,4 @@ else:
                 st.experimental_rerun()
                 '''
             # '''
-
+    reset_form()
