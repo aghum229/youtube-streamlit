@@ -178,6 +178,7 @@ div.stButton > button {
 </style>
 """
 
+_= '''
 button_style_yellow = """
 <style>
 div.stButton {
@@ -240,6 +241,8 @@ div.stButton > button {
 }
 </style>
 """
+'''
+
 selectbox_style = """
     <style>
     .centered-selectbox {
@@ -514,10 +517,9 @@ def show_other0_screen():
     display_container('yellow', '0.ショートカット')
     # display_header('blue', '0.ショートカット')
     display_line()
-    st.markdown(button_style_silver, unsafe_allow_html=True)
+    st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
     display_line()
-    st.markdown(button_style_yellow, unsafe_allow_html=True)
     # button_set('button31', '116.在庫管理', 'other31')
     button_set('button11611', '11611.在庫置場 参照', 'other11611')
     button_set('button11612', '11612.在庫置場 入力', 'other11612')
@@ -557,12 +559,11 @@ def show_other1_screen():
     # st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
     display_line()
     # st.write('---')
-    st.markdown(button_style_silver, unsafe_allow_html=True)
+    st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
     # btn0 = st.button("⏎ ☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     display_line()
     # st.write('---')
-    st.markdown(button_style, unsafe_allow_html=True)
     button_set('button11', '11.製品', 'other11')
     button_set('button12', '12.金型', 'other12')
     button_set('button13', '13.治工具', 'other13')
@@ -802,4 +803,5 @@ elif st.session_state['current_screen'] == 'other11613':
 else:
     unknown_screen()
 # '''
+
 
