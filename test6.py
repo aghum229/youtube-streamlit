@@ -543,7 +543,11 @@ else:
 
         add_del_flag = 0  # 0:追加 1:削除
         leleft, left, center, right, riright = st.columns([0.2, 0.2, 0.2, 0.2, 0.2])
-        with left:
+        with leleft:
+            submit_button_modify = st.form_submit_button("再入力(移行票番号)")
+            if submit_button_modify:
+                reset_form()
+        with center:
             submit_button_add = st.form_submit_button("追加")
         with right:
             submit_button_del = st.form_submit_button("削除")
