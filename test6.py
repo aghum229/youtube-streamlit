@@ -356,6 +356,8 @@ if "manual_input_value" not in st.session_state:
     st.session_state.manual_input_value = ""
 if "manual_input" not in st.session_state:
     st.session_state.manual_input = ""
+if "tanaban" not in st.session_state:
+    st.session_state.tanaban = ""
 if "tanaban_select" not in st.session_state:
     st.session_state.tanaban_select = ""
 
@@ -512,7 +514,7 @@ else:
         """
     zkTanalistSplit = zkTanalist.split(",")
     options = zkTanalistSplit
-    tanaban = st.selectbox("棚番号を選んでください", options, key="tanaban_select")
+    tanaban = st.selectbox("棚番号を選んでください", options, key="tanaban")
     st.write(f"選択された棚番号: {tanaban}")
 
     # tanaban = st.text_input("棚番号を選択または入力してください (例: H-15):",
