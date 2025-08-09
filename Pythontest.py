@@ -399,8 +399,6 @@ def show_main_screen():
     # display_container('yellow', '☆メイン画面☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
-    # left, center, right = st.columns([0.25, 0.5, 0.25])
-    # with center:
     button_set('button0', '0.ショートカット', 'other0')
     st.write('  ')
     st.write('  ')
@@ -460,7 +458,7 @@ def show_other0_screen():
     display_line()
     # button_set('button31', '116.在庫管理', 'other31')
     button_set('button11611', '11611.在庫置場 参照', 'other11611')
-    button_set('button11612', '11612.在庫置場 入力', 'other11612')
+    button_set('button11612', '11612.在庫置場 追加', 'other11612')
     button_set('button11613', '11613.在庫置場 削除', 'other11612')
     display_footer()
 
@@ -592,7 +590,7 @@ def show_other1161_screen():
     button_set('btn116', return_116, 'other116')
     display_line()
     button_set('button11611', '11611.在庫置場 参照', 'other11611')
-    button_set('button11612', '11612.在庫置場 入力', 'other11612')
+    button_set('button11612', '11612.在庫置場 追加', 'other11612')
     button_set('button11613', '11613.在庫置場 削除', 'other11612')
     display_footer()
 
@@ -629,18 +627,18 @@ def show_other11611_screen():
     st.write("示")
     st.write("予")
     st.write("定")
-    # button_set('button11611', '11611.在庫置場参照', 'other11611')
-    # button_set('button11612', '11612.在庫置場入力', 'other11612')
+    # button_set('button11611', '11611.在庫置場 参照', 'other11611')
+    # button_set('button11612', '11612.在庫置場 追加', 'other11612')
     display_footer()
     
 def show_other11612_screen():
-    display_container('blue', '11612.在庫置場 入力メニュー')
-    # display_header('blue', '11612.在庫置場入力メニュー')
+    display_container('blue', '11612.在庫置場 追加メニュー')
+    # display_header('blue', '11612.在庫置場 追加メニュー')
     # with st_fixed_container(mode="fixed", position="top", transparent=True):
     _= '''
     st.markdown(
         "<p style='text-align:center;'> \
-        <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11612.在庫置場 入力メニュー</span> \
+        <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11612.在庫置場 追加メニュー</span> \
         </p>",
         unsafe_allow_html=True
     )
@@ -664,11 +662,11 @@ def show_other11612_screen():
         suryo = st.text_input("数量", placeholder="3000")
         left, right = st.columns([0.5, 0.5])
         with left:
-            button_set('button116121', '116121.実行', 'other11611')
+            button_set('button116121', '追加', 'other11611')
         with right:
-            button_set('button116122', '116122.キャンセル', 'other11611')
-    # button_set('button11611', '11611.在庫置場参照', 'other11611')
-    # button_set('button11612', '11612.在庫置場入力', 'other11612')
+            button_set('button116122', 'キャンセル', 'other11611')
+    # button_set('button11611', '11611.在庫置場 参照', 'other11611')
+    # button_set('button11612', '11612.在庫置場 追加', 'other11612')
     display_footer()
     
 # 不明な画面の場合の処理
@@ -732,7 +730,7 @@ elif st.session_state['current_screen'] == 'other1161':
 # 在庫置場 参照メニュー
 elif st.session_state['current_screen'] == 'other11611':
     show_other11611_screen()
-# 在庫置場 入力画面
+# 在庫置場 追加画面
 elif st.session_state['current_screen'] == 'other11612':
     show_other11612_screen()
 # 在庫置場 削除画面
@@ -741,6 +739,7 @@ elif st.session_state['current_screen'] == 'other11613':
 else:
     unknown_screen()
 # '''
+
 
 
 
