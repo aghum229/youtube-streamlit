@@ -322,12 +322,20 @@ def styled_text(
     bg_color="#f0f8ff",
     text_color="#000000",
     font_size="26px",
-    height="30px"
-    # height="auto"
+    height="30px",
+    margin_top="10px",
+    margin_bottom="10px"
 ):
     st.markdown(
         f"""
-        <div style="background-color:{bg_color}; padding:2px; border-radius:5px; height:{height};">
+        <div style="
+            background-color:{bg_color};
+            padding:2px;
+            border-radius:2px;
+            min-height:{height};
+            margin-top:{margin_top};
+            margin-bottom:{margin_bottom};
+        ">
             <p style="color:{text_color}; font-size:{font_size}; margin:0;">{text}</p>
         </div>
         """,
