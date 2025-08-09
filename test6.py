@@ -323,8 +323,8 @@ def styled_text(
     text_color="#000000",
     font_size="26px",
     height="30px",
-    margin_top="10px",
-    margin_bottom="10px"
+    margin_top="5px",
+    margin_bottom="5px"
 ):
     st.markdown(
         f"""
