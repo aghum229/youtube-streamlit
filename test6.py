@@ -317,11 +317,17 @@ def reset_form():
     st.session_state.manual_input_value = ""
     st.rerun()
 
-def styled_text(text, bg_color="#f0f8ff", text_color="#000000"):
+def styled_text(
+    text,
+    bg_color="#f0f8ff",
+    text_color="#000000",
+    font_size="16px",
+    height="auto"
+):
     st.markdown(
         f"""
-        <div style="background-color:{bg_color}; padding:10px; border-radius:5px;">
-            <p style="color:{text_color};">{text}</p>
+        <div style="background-color:{bg_color}; padding:10px; border-radius:5px; height:{height};">
+            <p style="color:{text_color}; font-size:{font_size}; margin:0;">{text}</p>
         </div>
         """,
         unsafe_allow_html=True
