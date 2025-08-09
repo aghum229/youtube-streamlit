@@ -579,9 +579,9 @@ else:
         production_order_value = "" if st.session_state.production_order is None else st.session_state.production_order
         # production_order_v = st.text_input("移行票番号 :", key="production_order_v", value=production_order_value)
         st.write(f"移行票番号: {production_order_value}")
-        tanaban_select_value = "" if st.session_state.tanaban_select is None else st.session_state.tanaban_select
+        # tanaban_select_value = "" if st.session_state.tanaban_select is None else st.session_state.tanaban_select
         # tanaban_select = st.text_input("棚番 :", key="tanaban_select", value=tanaban_select_value)
-        st.write(f"棚番: {tanaban_select_value}")
+        st.write(f"棚番: {tanaban}")
         if st.session_state.data:
             hinban = st.text_input("品番:", key="hinban", value=default_hinban)
             process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
