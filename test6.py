@@ -321,8 +321,9 @@ def styled_text(
     text,
     bg_color="#f0f8ff",
     text_color="#000000",
-    font_size="16px",
-    height="auto"
+    font_size="30px",
+    height="40px"
+    # height="auto"
 ):
     st.markdown(
         f"""
