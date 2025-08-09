@@ -660,11 +660,13 @@ def show_other11612_screen():
         hinban = st.text_input("品番 (品名)", placeholder="123-45H67-890 (PPPPP,QQQQQ RRRRR)")
         koutei = st.text_input("完了済工程", placeholder="20 GSN")
         suryo = st.text_input("数量", placeholder="3000")
-        left, right = st.columns([0.5, 0.5])
+        left, center, right = st.columns([0.3, 0,3, 0.4])
         with left:
-            button_set('button116121', '追加', 'other11611')
+            button_set('button116121', '追加', 'other11621')
+        with center:
+            button_set('button116122', '削除', 'other11622')
         with right:
-            button_set('button116122', '中止', 'other11611')
+            button_set('button116123', '取消', 'other11623')
     # button_set('button11611', '11611.在庫置場 参照', 'other11611')
     # button_set('button11612', '11612.在庫置場 追加', 'other11612')
     display_footer()
@@ -739,6 +741,7 @@ elif st.session_state['current_screen'] == 'other11613':
 else:
     unknown_screen()
 # '''
+
 
 
 
