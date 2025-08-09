@@ -573,6 +573,10 @@ else:
         # Campos de entrada
         owner_value = "" if st.session_state.data is None else st.session_state.owner
         owner = st.text_input("作業者 (社員番号):", key="owner", value=owner_value)
+        production_order_value = "" if st.session_state.production_order is None else st.session_state.production_order
+        production_order = st.text_input("移行票番号 :", key="production_order", value=production_order_value)
+        tanaban_select_value = "" if st.session_state.tanaban_select is None else st.session_state.tanaban_select
+        tanaban_select = st.text_input("棚番 :", key="tanaban_select", value=tanaban_select_value)
         if st.session_state.data:
             hinban = st.text_input("品番:", key="hinban", value=default_hinban)
             process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
