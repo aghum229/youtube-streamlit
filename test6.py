@@ -442,7 +442,7 @@ else:
         #                            max_chars=6,
         #                            key="manual_input")
         manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
-                                    value=st.session_state.manual_input_value,
+                                    value="",
                                     max_chars=6,
                                     key="manual_input")
         if manual_input and len(manual_input) == 6 and manual_input.isdigit():
