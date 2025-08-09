@@ -664,7 +664,7 @@ def show_other11612_screen():
         with left:
             button_set('button116121', '追加', 'other11611')
         with right:
-            button_set('button116122', 'キャンセル', 'other11611')
+            button_set('button116122', '中止', 'other11611')
     # button_set('button11611', '11611.在庫置場 参照', 'other11611')
     # button_set('button11612', '11612.在庫置場 追加', 'other11612')
     display_footer()
@@ -739,6 +739,7 @@ elif st.session_state['current_screen'] == 'other11613':
 else:
     unknown_screen()
 # '''
+
 
 
 
