@@ -442,6 +442,7 @@ else:
         #                            max_chars=6,
         #                            key="manual_input")
         manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
+                                    value=st.session_state.manual_input_value,
                                     max_chars=6,
                                     key="manual_input")
         if manual_input and len(manual_input) == 6 and manual_input.isdigit():
@@ -468,7 +469,7 @@ else:
             height=0,
         )
         
-        submit_button_modify = st.form_submit_button("再入力(移行票番号)")
+        submit_button_modify = st.form_submit_button("再入力(移行票番号)")  # 送信ボタンを配置しないとエラーになる
     _= '''
     if submit_button_modify:
         st.write("ok")
