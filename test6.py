@@ -327,7 +327,7 @@ def styled_text(
 ):
     st.markdown(
         f"""
-        <div style="background-color:{bg_color}; padding:10px; border-radius:5px; height:{height};">
+        <div style="background-color:{bg_color}; padding:2px; border-radius:5px; height:{height};">
             <p style="color:{text_color}; font-size:{font_size}; margin:0;">{text}</p>
         </div>
         """,
