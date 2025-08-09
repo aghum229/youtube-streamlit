@@ -317,6 +317,17 @@ def reset_form():
     st.session_state.manual_input_value = ""
     st.rerun()
 
+def styled_text(text, bg_color="#f0f8ff", text_color="#000000"):
+    st.markdown(
+        f"""
+        <div style="background-color:{bg_color}; padding:10px; border-radius:5px;">
+            <p style="color:{text_color};">{text}</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
     try:
@@ -575,7 +586,8 @@ else:
         # Campos de entrada
         owner_value = "" if st.session_state.data is None else st.session_state.owner
         # owner = st.text_input("作業者 (社員番号):", key="owner", value=owner_value)
-        st.write(f"作業者 (社員番号): {owner_value}")
+        # st.write(f"作業者 (社員番号): {owner_value}")
+        styled_text(f"作業者 (社員番号): {owner_value}", bg_color="#ffe4e1", text_color="#333333")
         production_order_value = "" if st.session_state.production_order is None else st.session_state.production_order
         # production_order_v = st.text_input("移行票番号 :", key="production_order_v", value=production_order_value)
         st.write(f"移行票番号: {production_order_value}")
