@@ -321,8 +321,8 @@ def styled_text(
     text,
     bg_color="#f0f8ff",
     text_color="#000000",
-    font_size="26px",
-    height="30px",
+    font_size="24px",
+    height="26px",
     margin_top="5px",
     margin_bottom="5px"
 ):
@@ -598,19 +598,28 @@ else:
             # reset_form()
             # st.stop()
         
+        left, right = st.columns([0.3, 0.7])
         # Campos de entrada
         owner_value = "" if st.session_state.data is None else st.session_state.owner
         # owner = st.text_input("作業者 (社員番号):", key="owner", value=owner_value)
         # st.write(f"作業者 (社員番号): {owner_value}")
-        styled_text(f"作業者 (社員番号) : {owner_value}", bg_color="#ffe4e1", text_color="#333333")
+        # styled_text(f"作業者 (社員番号) : {owner_value}", bg_color="#ffe4e1", text_color="#333333")
         production_order_value = "" if st.session_state.production_order is None else st.session_state.production_order
         # production_order_v = st.text_input("移行票番号 :", key="production_order_v", value=production_order_value)
         # st.write(f"移行票番号: {production_order_value}")
-        styled_text(f"移行票番号 : {production_order_value}", bg_color="#ffe4e1", text_color="#333333")
+        # styled_text(f"移行票番号 : {production_order_value}", bg_color="#ffe4e1", text_color="#333333")
         # tanaban_select_value = "" if st.session_state.tanaban_select is None else st.session_state.tanaban_select
         # tanaban_select = st.text_input("棚番 :", key="tanaban_select", value=tanaban_select_value)
         # st.write(f"棚番: {tanaban}")
-        styled_text(f"棚番 : {tanaban}", bg_color="#ffe4e1", text_color="#333333")
+        # styled_text(f"棚番 : {tanaban}", bg_color="#ffe4e1", text_color="#333333")
+        with left:
+            styled_text(f"作業者 (社員番号) : , bg_color="#ffe4e1", text_color="#333333")
+            styled_text(f"移行票番号 : ", bg_color="#ffe4e1", text_color="#333333")
+            styled_text(f"棚番 : ", bg_color="#ffe4e1", text_color="#333333")
+        with right:
+            styled_text(f"{owner_value}", bg_color="#ffe4e1", text_color="#333333")
+            styled_text(f"{production_order_value}", bg_color="#ffe4e1", text_color="#333333")
+            styled_text(f"{tanaban}", bg_color="#ffe4e1", text_color="#333333")
         if st.session_state.data:
             hinban = st.text_input("品番:", key="hinban", value=default_hinban)
             process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
