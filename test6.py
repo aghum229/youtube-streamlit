@@ -613,7 +613,7 @@ else:
         # st.write(f"棚番: {tanaban}")
         # styled_text(f"棚番 : {tanaban}", bg_color="#ffe4e1", text_color="#333333")
         with left:
-            styled_text(f"作業者 (社員番号) : , bg_color="#ffe4e1", text_color="#333333")
+            styled_text(f"作業者 (社員番号) : ", bg_color="#ffe4e1", text_color="#333333")
             styled_text(f"移行票番号 : ", bg_color="#ffe4e1", text_color="#333333")
             styled_text(f"棚番 : ", bg_color="#ffe4e1", text_color="#333333")
         with right:
