@@ -322,25 +322,27 @@ def styled_text(
     bg_color,
     text_color,
     font_size,
-    height="32px",
-    margin_top="5px",
-    margin_bottom="5px"
+    margin_top="2px",
+    margin_bottom="2px"
 ):
     st.markdown(
         f"""
         <div style="
             background-color:{bg_color};
-            padding:2px;
+            padding:0px 4px;
             border-radius:2px;
-            height:{height};
+            height:auto;
             margin-top:{margin_top};
             margin-bottom:{margin_bottom};
+            display:inline-block;
         ">
-            <p style="color:{text_color}; font-size:{font_size}; margin:0;">{text}</p>
+            <p style="color:{text_color}; font-size:{font_size}; margin:0; line-height:1;">{text}</p>
         </div>
         """,
         unsafe_allow_html=True
     )
+
+
 
 
 # Autenticar no Salesforce
