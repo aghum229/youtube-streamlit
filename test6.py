@@ -617,9 +617,9 @@ else:
             styled_text(f"移行票番号 : ", bg_color="#ffe4e1", text_color="#333333", font_size="16px")
             styled_text(f"棚番 : ", bg_color="#ffe4e1", text_color="#333333", font_size="16px")
         with right:
-            styled_text(f"{owner_value}", bg_color="#ffe4e1", text_color="#333333", font_size="22px")
-            styled_text(f"{production_order_value}", bg_color="#ffe4e1", text_color="#333333", font_size="22px")
-            styled_text(f"{tanaban}", bg_color="#ffe4e1", text_color="#333333", font_size="22px")
+            styled_text(f"{owner_value}", bg_color="#ffe4e1", text_color="#333333", font_size="24px")
+            styled_text(f"{production_order_value}", bg_color="#ffe4e1", text_color="#333333", font_size="24px")
+            styled_text(f"{tanaban}", bg_color="#ffe4e1", text_color="#333333", font_size="24px")
         if st.session_state.data:
             hinban = st.text_input("品番:", key="hinban", value=default_hinban)
             process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
