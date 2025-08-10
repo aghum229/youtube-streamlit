@@ -324,6 +324,7 @@ def styled_text(
     width,
     text_color,
     font_size,
+    border_color="#ccc",
     margin_top="2px",
     margin_bottom="2px"
 ):
@@ -337,6 +338,7 @@ def styled_text(
             width:{width};
             margin-top:{margin_top};
             margin-bottom:{margin_bottom};
+            border-bottom:1px solid {border_color};
             display:inline-block;
         ">
             <p style="color:{text_color}; font-size:{font_size}; margin:0; line-height:1;">{text}</p>
