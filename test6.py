@@ -621,12 +621,12 @@ else:
         # st.write(f"棚番: {tanaban}")
         # styled_text(f"棚番 : {tanaban}", bg_color="#ffe4e1", text_color="#333333")
         with left:
-            st.write(f"　　項　　目")
-            styled_text(f"作業者 (社員番号) : ", bg_color="#c0c0c0", padding="6px", width="150px", text_color="#333333", font_size="16px", border_thickness="3px")
-            styled_text(f"移行票番号 : ", bg_color="#c0c0c0", padding="6px", width="150px", text_color="#333333", font_size="16px", border_thickness="3px")
-            styled_text(f"棚番 : ", bg_color="#c0c0c0", padding="6px", width="150px", text_color="#333333", font_size="16px", border_thickness="3px")
+            styled_text(f"　　項　　目", bg_color="#c0c0c0", padding="6px", width="150px", text_color="#333333", font_size="16px", border_thickness="3px")
+            styled_text(f"作業者 (社員番号) : ", bg_color="#c0c0c0", padding="6px", width="150px", text_color="#333333", font_size="16px", border_thickness="0px")
+            styled_text(f"移行票番号 : ", bg_color="#c0c0c0", padding="6px", width="150px", text_color="#333333", font_size="16px", border_thickness="0px")
+            styled_text(f"棚番 : ", bg_color="#c0c0c0", padding="6px", width="150px", text_color="#333333", font_size="16px", border_thickness="0px")
         with right:
-            st.write(f"　　追加または削除の対象")
+            styled_text(f"　　追加または削除の対象", bg_color="#c0c0c0", padding="6px", width="150px", text_color="#333333", font_size="16px", border_thickness="3px")
             styled_text(f"{owner_value}", bg_color="#c0c0c0", padding="1px", width="300px", text_color="#333333", font_size="26px", border_thickness="0px")
             styled_text(f"{production_order_value}", bg_color="#FFFF00", padding="1px", width="300px", text_color="#333333", font_size="26px", border_thickness="0px")
             styled_text(f"{tanaban}", bg_color="#FFFF00", padding="1px", width="300px", text_color="#333333", font_size="26px", border_thickness="0px")
