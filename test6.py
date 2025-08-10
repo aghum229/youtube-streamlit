@@ -331,7 +331,7 @@ def styled_text(
             background-color:{bg_color};
             padding:0px 4px;
             border-radius:2px;
-            height:auto;
+            height:32px;
             margin-top:{margin_top};
             margin-bottom:{margin_bottom};
             display:inline-block;
