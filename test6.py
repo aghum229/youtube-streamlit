@@ -322,7 +322,7 @@ def styled_text(
     bg_color,
     text_color,
     font_size,
-    height="28px",
+    height="32px",
     margin_top="5px",
     margin_bottom="5px"
 ):
@@ -330,8 +330,8 @@ def styled_text(
         f"""
         <div style="
             background-color:{bg_color};
-            padding:1px;
-            border-radius:1px;
+            padding:2px;
+            border-radius:2px;
             height:{height};
             margin-top:{margin_top};
             margin-bottom:{margin_bottom};
@@ -598,7 +598,7 @@ else:
             # reset_form()
             # st.stop()
         
-        left, right = st.columns([0.2, 0.8])
+        left, right = st.columns([0.25, 0.75])
         # Campos de entrada
         owner_value = "" if st.session_state.data is None else st.session_state.owner
         # owner = st.text_input("作業者 (社員番号):", key="owner", value=owner_value)
