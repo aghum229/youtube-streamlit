@@ -168,6 +168,7 @@ def st_fixed_container(
 # 固定コンテナコードの終わり
 
 
+
 def carregar_credenciais():
     if os.path.exists('.streamlit/secrets.toml'):
         import toml
@@ -177,6 +178,316 @@ def carregar_credenciais():
     return secrets
 
 secrets = carregar_credenciais()
+jst = pytz.timezone('Asia/Tokyo')
+
+def authenticate_salesforce():
+    auth_url = f"{secrets['DOMAIN']}/services/oauth2/token"
+    auth_data = {
+        'grant_type': 'password',
+        'client_id': secrets['CONSUMER_KEY'],
+        'client_secret': secrets['CONSUMER_SECRET'],
+        'username': secrets['USERNAME'],
+        'password': secrets['PASSWORD']
+    }
+    _= '''
+    auth_url = st.secrets["token_url"]
+    auth_data = {
+        'grant_type': 'password',
+        'client_id': secrets['client_id'],
+        'client_secret': secrets['client_secret'],
+        'username': secrets['username'],
+        'password': secrets['password']
+    }
+    '''
+    try:
+        response = requests.post(auth_url, data=auth_data, timeout=10)
+        response.raise_for_status()
+        token_data = response.json()
+        access_token = token_data['access_token']
+        instance_url = token_data['instance_url']
+        return Salesforce(instance_url=instance_url, session_id=access_token)
+    except requests.exceptions.RequestException as e:
+        st.error(f"認証エラー: {e}")
+        st.stop()
+
+def consultar_salesforce(production_order, sf):
+    query = f"""
+        SELECT Id, Name, snps_um__ProcessName__c, snps_um__ActualQt__c, snps_um__Item__r.Id, 
+               snps_um__Item__r.Name, snps_um__ProcessOrderNo__c, snps_um__ProdOrder__r.Id, 
+               snps_um__ProdOrder__r.Name, snps_um__Status__c, snps_um__WorkPlace__r.Id, 
+               snps_um__WorkPlace__r.Name, snps_um__StockPlace__r.Name, snps_um__Item__c, 
+               snps_um__Process__r.AITC_Acumulated_Price__c, AITC_OrderQt__c, snps_um__EndDateTime__c, 
+               snps_um__Item__r.AITC_PrintItemName__c, snps_um__Process__r.AITC_ID18__c
+        FROM snps_um__WorkOrder__c 
+        WHERE snps_um__ProdOrder__r.Name = '{production_order}'
+    """
+    try:
+        result = sf.query(query)
+        records = result['records']
+        if not records:
+            st.write("❌00 **データの取り出しに失敗しました。**")
+            return pd.DataFrame(), None, None, 0.0
+        df = pd.DataFrame(records)
+        st.session_state.all_data = df.to_dict(orient="records")
+        
+        df_done = df[df['snps_um__Status__c'] == 'Done']
+        if not df_done.empty:
+            last_record = df_done.loc[df_done['snps_um__ProcessOrderNo__c'].idxmax()].to_dict()
+            cumulative_cost = last_record.get("snps_um__Process__r", {}).get("AITC_Acumulated_Price__c", 0.0)
+            if cumulative_cost is None:
+                cumulative_cost = 0.0
+
+            father_id = last_record['snps_um__Item__c']
+            composition_query = f"""
+                SELECT 
+                snps_um__ChildItem__r.Name,
+                snps_um__AddQt__c
+                FROM snps_um__Composition2__c
+                WHERE snps_um__ParentItem2__c = '{father_id}'
+            """
+            composition_result = sf.query(composition_query)
+            composition_records = composition_result['records']
+            if composition_records:
+                material = composition_records[0].get("snps_um__ChildItem__r", {}).get("Name", "N/A")
+                material_weight = composition_records[0].get("snps_um__AddQt__c", 0.0)
+            else:
+                material = "N/A"
+                material_weight = 0.0
+            return pd.DataFrame([last_record]), material, material_weight, cumulative_cost
+        else:
+            st.write("❌01 **データの取り出しに失敗しました。**")
+        return pd.DataFrame(), None, None, 0.0
+    except Exception as e:
+        st.error(f"Salesforceクエリエラー: {e}")
+        return pd.DataFrame(), None, None, 0.0
+
+def clean_quantity(value):
+    if isinstance(value, str):
+        num = re.sub(r'[^\d.]', '', value)
+        return float(num) if num else 0.0
+    return float(value) if value else 0.0
+
+def simplify_dataframe(df):
+    if df.empty:
+        return df
+    relevant_columns = [
+        'snps_um__ProcessName__c',
+        'snps_um__ProcessOrderNo__c',
+        'snps_um__Status__c',
+        'snps_um__WorkPlace__r.Name',
+        'snps_um__ActualQt__c',
+        'AITC_OrderQt__c'
+    ]
+    simplified_df = pd.DataFrame()
+    for col in relevant_columns:
+        if col in df.columns:
+            if col == 'snps_um__WorkPlace__r.Name':
+                simplified_df[col] = df[col].apply(lambda x: x.get('Name', '') if isinstance(x, dict) else '' if x is None else str(x))
+            elif col in ['snps_um__ActualQt__c', 'AITC_OrderQt__c']:
+                simplified_df[col] = df[col].apply(clean_quantity)
+            else:
+                simplified_df[col] = df[col]
+    return simplified_df
+
+def atualizar_tanaban_addkari(sf, item_id, zkTana):  # 棚番書き込み専用
+    try:
+        sf.snps_um__Process__c.update(item_id, {"zkTanaban__c": zkTana})
+        st.success("「zk棚番」に書き込みました！")
+    except Exception as e:
+        st.error(f"更新エラー: {e}")
+        # reset_form()
+        st.stop()
+        
+def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap):
+    try:
+        # sf.snps_um__Process__c.update(item_id, {"zkHinban__c": zkHin})
+        # _= '''
+        sf.snps_um__Process__c.update(item_id, {
+            "zkIkohyoNo__c": zkIko,
+            "zkHinban__c": zkHin,
+            "zkKanryoKoutei__c": zkKan,
+            "zkSuryo__c": zkSu,
+            "zkTuikaDatetime__c": zkTuiDa,
+            "zkTuikaSya__c": zkTuiSya,
+            "zkMap__c": zkMap
+        })
+        # '''
+        st.success("snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkIko}' を追加しました。")
+    except Exception as e:
+        st.error(f"更新エラー: {e}")
+        reset_form()
+        st.stop()
+
+def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya):
+    try:
+        sf.snps_um__Process__c.update(item_id, {
+            "zkIkohyoNo__c": zkIko,
+            "zkHinban__c": zkHin,
+            "zkKanryoKoutei__c": zkKan,
+            "zkSuryo__c": zkSu,
+            "zkTuikaDatetime__c": zkTuiDa,
+            "zkTuikaSya__c": zkTuiSya,
+            "zkMap__c": zkMap,
+            "zkDeleteDatetime__c": zkDelDa,
+            "zkDeleteIkohyoNo__c": zkDelIko,
+            "zkDeleteSya__c": zkDelSya
+        })
+        st.success("snps_um__Process__c の棚番 '{zkTana}' から移行票No '{zkIko}' を削除しました。")
+    except Exception as e:
+        st.error(f"更新エラー: {e}")
+        # reset_form()
+        st.stop()
+
+# WHERE Name LIKE '%{item_name}%' AND snps_um__ProcessOrderNo__c = 999
+def encontrar_item_por_nome(sf, item_id):
+    query = f"""
+        SELECT AITC_ID18__c, Name, zkShortcutButton__c, zkShortcutUser__c,
+            zkTanaban__c, zkIkohyoNo__c ,zkHinban__c, zkKanryoKoutei__c,
+            zkSuryo__c, zkTuikaDatetime__c, zkTuikaSya__c, zkMap__c,
+            zkDeleteDatetime__c, zkDeleteIkohyoNo__c, zkDeleteSya__c
+        FROM snps_um__Process__c
+        WHERE AITC_ID18__c = '{item_id}'
+    """
+    try:
+        result = sf.query(query)
+        records = result.get("records", [])
+        if records:
+            return records[0]
+        else:
+            st.warning(f"ID(18桁) '{item_id}' に一致する snps_um__Process__c が見つかりませんでした。")
+            return None
+            # reset_form()
+            st.stop()
+    except Exception as e:
+        st.error(f"ID(18桁)検索エラー: {e}")
+        return None
+        # reset_form()
+        st.stop()
+
+def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
+    """
+    指定されたlistNoの値を更新する関数。
+    "-"の場合はupdate_valueで上書き、それ以外はカンマ区切りで追加。
+
+    Parameters:
+    - zkKari: dict or list形式のデータ(注記.zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMapの順で処理の事)
+    - dbItem: データベースの項目名(注記.表示ラベルではない)
+    - listNo: 対象のインデックスまたはキー
+    - update_value: 追加する値
+    - flag: -1(追加 マップ座標の場合), 0(追加 移行票No以外), 1(追加 移行票Noの場合), 2(削除 移行票No以外), 3(削除 移行票Noの場合)
+
+    Returns:
+    - 更新後のzkKari
+    """
+    global zkSplitNo  # 初期値99
+    global zkSplitFlag  # 0:マップ座標以外  1;マップ座標
+    zkKari = record[dbItem].splitlines()  # 大項目リスト(改行区切り)
+    zkSplit = zkKari[listNo].split(",")  # 小項目リスト(カンマ区切り)
+    # st.write(f"zkSplitのリスト数：'{len(zkSplit)}'")
+    # st.write(f"追加削除フラグ：'{flag}'")
+    if flag >= 2:
+        if len(zkSplit) > 1:
+            if flag == 3:
+                for index, item in enumerate(zkSplit):
+                    if item == update_value:
+                        zkSplitNo = index
+                        break  # 条件を満たしたらループを終了
+                if zkSplitNo == 99:
+                    st.write(f"❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
+                    # reset_form()
+                    st.stop()  # 以降の処理を止める
+            if 0 <= zkSplitNo < len(zkSplit):
+                del zkSplit[zkSplitNo]  # 小項目の対象値削除
+            else:
+                # ログ出力やエラーハンドリング
+                # st.write(f"zkSplitNo {zkSplitNo} is out of range for zkSplit of length {len(zkSplit)}")
+                st.write(f"❌03 **有効な範囲ではありませんでした。'{zkSplitNo}'**")
+                # reset_form()
+                st.stop()  # 以降の処理を止める
+        else:
+            if flag == 3:
+                zkSplitNo = 0
+            zkSplit[zkSplitNo] = "-"  # 小項目の対象にデフォルト値反映
+        zkKari[listNo] = ",".join(zkSplit)  # 大項目に反映
+    else:
+        if zkKari[listNo] == "-":  # 大項目がデフォルト値の場合
+            if flag == -1 and zkSplitFlag == 1:  # マップ座標で2つ目以降の追加の場合
+                zkKari[listNo] += "," + update_value
+            else:
+                zkKari[listNo] = update_value
+        else:
+            if flag == 1:
+                for index, item in enumerate(zkSplit):
+                    if item == update_value:
+                        st.write(f"❌04 **すでに登録されている移行票Noです。'{update_value}'**")
+                        # reset_form()
+                        st.stop()  # 以降の処理を止める
+                zkSplitFlag = 1
+            zkKari[listNo] += "," + update_value
+    zkKari = "\n".join(zkKari) if isinstance(zkKari, list) else zkKari
+    return zkKari
+
+def reset_form():
+    st.session_state.production_order = None
+    # st.session_state.data = None
+    # st.session_state.material = None
+    # st.session_state.material_weight = None
+    # st.session_state.cumulative_cost = 0.0
+    st.session_state.manual_input_value = ""
+    st.rerun()
+
+def styled_text(
+    text,
+    bg_color,
+    padding,
+    width,
+    text_color,
+    font_size,
+    border_thickness,
+    border_color="#000000",
+    margin_top="2px",
+    margin_bottom="2px"
+):
+    st.markdown(
+        f"""
+        <div style="
+            background-color:{bg_color};
+            padding:{padding};
+            border-radius:2px;
+            height:30px;
+            width:{width};
+            margin-top:{margin_top};
+            margin-bottom:{margin_bottom};
+            border-bottom:{border_thickness} solid {border_color};
+            display:inline-block;
+        ">
+            <p style="color:{text_color}; font-size:{font_size}; margin:0; line-height:1;">{text}</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+def styled_input_text():
+    st.markdown(
+        """
+        <style>
+        input[type="text"], input[type="password"] {
+            font-size: 26px !important;
+            padding-top: 16px !important;
+            padding-bottom: 16px !important;
+            line-height: 2.5 !important;   /* 高さ調整のキモ */
+            box-sizing: border-box !important;
+        }
+        
+        /* 親コンテナの余白にも調整を加える */
+        div[data-testid="stTextInput"] {
+            padding-top: 2px !important;
+            padding-bottom: 2px !important
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 button_style = """
 <style>
