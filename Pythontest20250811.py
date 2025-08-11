@@ -814,9 +814,9 @@ def show_other0_screen():
     button_set('btn0', return_main, 'main')
     display_line()
     # button_set('button31', '116.在庫管理', 'other31')
-    button_set('button11611', '11611.在庫置場 参照', 'other11611')
-    button_set('button11612', '11612.在庫置場 追加', 'other11612')
-    button_set('button11613', '11613.在庫置場 削除', 'other11612')
+    button_set('btn11611', '11611.在庫置場 参照', 'other11611')
+    button_set('btn11612', '11612.在庫置場 追加', 'other11612')
+    button_set('btn11613', '11613.在庫置場 削除', 'other11612')
     display_footer()
 
 
@@ -857,12 +857,12 @@ def show_other1_screen():
     # btn0 = st.button("⏎ ☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
     display_line()
     # st.write('---')
-    button_set('button11', '11.製品', 'other11')
-    button_set('button12', '12.金型', 'other12')
-    button_set('button13', '13.治工具', 'other13')
-    button_set('button14', '14.検具', 'other14')
-    button_set('button15', '15.設備', 'other15')
-    button_set('button16', '16.備品', 'other16')
+    button_set('btn11', '11.製品', 'other11')
+    button_set('btn12', '12.金型', 'other12')
+    button_set('btn13', '13.治工具', 'other13')
+    button_set('btn14', '14.検具', 'other14')
+    button_set('btn15', '15.設備', 'other15')
+    button_set('btn16', '16.備品', 'other16')
     # button11 = st.button('11.製品', on_click=set_screen, args=('other11',))
     # button12 = st.button('12.金型', on_click=set_screen, args=('other12',))
     # button13 = st.button('13.治工具', on_click=set_screen, args=('other13',))
@@ -879,13 +879,13 @@ def show_other2_screen():
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
     display_line()
-    button_set('button21', '21.品質・環境マニュアル', 'other21')
-    button_set('button22', '22.規定', 'other22')
-    button_set('button23', '23.要領', 'other23')
-    button_set('button24', '24.外部文書', 'other24')
-    button_set('button25', '25.マネジメントレビュー', 'other25')
-    button_set('button26', '26.内部監査', 'other26')
-    button_set('button27', '27.外部監査', 'other27')
+    button_set('btn21', '21.品質・環境マニュアル', 'other21')
+    button_set('btn22', '22.規定', 'other22')
+    button_set('btn23', '23.要領', 'other23')
+    button_set('btn24', '24.外部文書', 'other24')
+    button_set('btn25', '25.マネジメントレビュー', 'other25')
+    button_set('btn26', '26.内部監査', 'other26')
+    button_set('btn27', '27.外部監査', 'other27')
     # button21 = st.button('21.品質・環境マニュアル', on_click=set_screen, args=('other21',))
     # button22 = st.button('22.規定', on_click=set_screen, args=('other22',))
     # button23 = st.button('23.要領', on_click=set_screen, args=('other23',))
@@ -902,9 +902,9 @@ def show_other3_screen():
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
     display_line()
-    button_set('button31', '31.就業規則', 'other31')
-    button_set('button32', '32.規定', 'other32')
-    button_set('button33', '33.外部監査', 'other33')
+    button_set('btn31', '31.就業規則', 'other31')
+    button_set('btn32', '32.規定', 'other32')
+    button_set('btn33', '33.外部監査', 'other33')
     display_footer()
 
 def show_other11_screen():
@@ -915,12 +915,12 @@ def show_other11_screen():
     button_set('btn0', return_main, 'main')
     button_set('btn1', return_1, 'other1')
     display_line()
-    button_set('button111', '111.図面', 'other111')
-    button_set('button112', '112.検査基準書', 'other112')
-    button_set('button113', '113.ＱＣ表', 'other113')
-    button_set('button114', '114.作業標準', 'other114')
-    button_set('button115', '115.検査表', 'other115')
-    button_set('button116', '116.在庫管理', 'other116')
+    button_set('btn111', '111.図面', 'other111')
+    button_set('btn112', '112.検査基準書', 'other112')
+    button_set('btn113', '113.ＱＣ表', 'other113')
+    button_set('btn114', '114.作業標準', 'other114')
+    button_set('btn115', '115.検査表', 'other115')
+    button_set('btn116', '116.在庫管理', 'other116')
     display_footer()
 
 def show_other116_screen():
@@ -932,8 +932,8 @@ def show_other116_screen():
     button_set('btn1', return_1, 'other1')
     button_set('btn11', return_11, 'other11')
     display_line()
-    button_set('button1161', '1161.在庫置場', 'other1161')
-    button_set('button1162', '1162.棚卸', 'other1162')
+    button_set('btn1161', '1161.在庫置場', 'other1161')
+    button_set('btn1162', '1162.棚卸', 'other1162')
     display_footer()
 
 def show_other1161_screen():
@@ -946,9 +946,9 @@ def show_other1161_screen():
     button_set('btn11', return_11, 'other11')
     button_set('btn116', return_116, 'other116')
     display_line()
-    button_set('button11611', '11611.在庫置場 参照', 'other11611')
-    button_set('button11612', '11612.在庫置場 追加', 'other11612')
-    button_set('button11613', '11613.在庫置場 削除', 'other11612')
+    button_set('btn11611', '11611.在庫置場 参照', 'other11611')
+    button_set('btn11612', '11612.在庫置場 追加', 'other11612')
+    button_set('btn11613', '11613.在庫置場 削除', 'other11612')
     display_footer()
 
 def show_other11611_screen():
@@ -984,12 +984,12 @@ def show_other11611_screen():
     st.write("示")
     st.write("予")
     st.write("定")
-    # button_set('button11611', '11611.在庫置場 参照', 'other11611')
-    # button_set('button11612', '11612.在庫置場 追加', 'other11612')
+    # button_set('btn11611', '11611.在庫置場 参照', 'other11611')
+    # button_set('btn11612', '11612.在庫置場 追加', 'other11612')
     display_footer()
     
 def show_other11612_screen():
-    display_container('blue', '11612.在庫置場 追加メニュー')
+    display_container('blue', '11612.在庫置場 追加・削除メニュー')
     # display_header('blue', '11612.在庫置場 追加メニュー')
     # with st_fixed_container(mode="fixed", position="top", transparent=True):
     _= '''
@@ -1012,11 +1012,11 @@ def show_other11612_screen():
     # okiba = st.selectbox("在庫置場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="E40")
     left, center, right = st.columns([0.25, 0.5, 0.25])
     with center:
-        okiba = st.selectbox("在庫置場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="F56")
-        seiban = st.text_input("移行票No", placeholder="PP-012345")
-        hinban = st.text_input("品番 (品名)", placeholder="123-45H67-890 (PPPPP,QQQQQ RRRRR)")
-        koutei = st.text_input("完了済工程", placeholder="20 GSN")
-        suryo = st.text_input("数量", placeholder="3000")
+        # okiba = st.selectbox("在庫置場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="F56")
+        # seiban = st.text_input("移行票No", placeholder="PP-012345")
+        # hinban = st.text_input("品番 (品名)", placeholder="123-45H67-890 (PPPPP,QQQQQ RRRRR)")
+        # koutei = st.text_input("完了済工程", placeholder="20 GSN")
+        # suryo = st.text_input("数量", placeholder="3000")
         left, center, right = st.columns([0.3, 0,3, 0.4])
         with left:
             button_set('btn116121', '追加', 'other11621')
@@ -1024,8 +1024,8 @@ def show_other11612_screen():
             button_set('btn116122', '削除', 'other11622')
         with right:
             button_set('btn116123', '取消', 'other11623')
-    # button_set('button11611', '11611.在庫置場 参照', 'other11611')
-    # button_set('button11612', '11612.在庫置場 追加', 'other11612')
+    # button_set('btn11611', '11611.在庫置場 参照', 'other11611')
+    # button_set('btn11612', '11612.在庫置場 追加', 'other11612')
     display_footer()
     
 # 不明な画面の場合の処理
@@ -1118,12 +1118,9 @@ else:
     # 在庫置場 参照メニュー
     elif st.session_state['current_screen'] == 'other11611':
         show_other11611_screen()
-    # 在庫置場 追加画面
+    # 在庫置場 追加削除メニュー
     elif st.session_state['current_screen'] == 'other11612':
         show_other11612_screen()
-    # 在庫置場 削除画面
-    elif st.session_state['current_screen'] == 'other11613':
-        show_other11613_screen()
     else:
         unknown_screen()
     # '''
