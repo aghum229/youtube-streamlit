@@ -354,10 +354,10 @@ def styled_input_text():
         <style>
         input[type="text"], input[type="password"] {
             font-size: 26px !important;
-            padding-top: 8px !important;
-            padding-bottom: 8px !important;
+            padding-top: 16px !important;
+            padding-bottom: 16px !important;
             height:28px;
-            width:350px;
+            width:400px;
             line-height: 2.5 !important;   /* 高さ調整のキモ */
             box-sizing: border-box !important;
         }
@@ -367,7 +367,7 @@ def styled_input_text():
             padding-top: 2px !important;
             padding-bottom: 2px !important;
             height:30px;
-            width:360px
+            width:410px
         }
         </style>
         """,
