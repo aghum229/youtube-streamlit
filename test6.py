@@ -543,7 +543,6 @@ else:
                 """,
                 height=0,
             )
-            
             submit_button_modify = st.form_submit_button("再入力(移行票番号)")  # 送信ボタンを配置しないとエラーになる
         
     zkSplitNo = 99
