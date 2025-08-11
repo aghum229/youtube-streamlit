@@ -791,64 +791,25 @@ else:
                             zkDelDa = datetime_str   # zk直近削除日時
                             zkDelIko = st.session_state.production_order   # zk直近削除移行票No
                             zkDelSya = owner   # zk直近削除者
-                        _= '''
-                        zkHin = record["zkHinban__c"].splitlines()   # zk品番
-                        zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
-                        zkSu = record["zkSuryo__c"].splitlines()   # zk数量
-                        zkTuiDa = record["zkTuikaDatetime__c"].splitlines()   # zk追加日時
-                        zkTuiSya = record["zkTuikaSya__c"].splitlines()   # zk追加者
-                        zkMap = record["zkMap__c"].splitlines()   # zkマップ座標
-                        '''
-                        _= '''
-                        if zkIko[listNumber] == "-":
-                            zkIko[listNumber] = st.session_state.production_order   # zk棚番
-                        else:
-                            zkIko[listNumber] = zkIko[listNumber] + "," + st.session_state.production_order   # zk棚番
-                        if zkHin[listNumber] == "-":
-                            zkHin[listNumber] = hinban   # zk品番
-                        else:
-                            zkHin[listNumber] = zkHin[listNumber] + "," + hinban   # zk品番
-                        if zkKan[listNumber] == "-":
-                            zkKan[listNumber] = process_order_name   # zk完了工程
-                        else:
-                            zkKan[listNumber] = zkKan[listNumber] + "," + process_order_name   # zk完了工程
-                        zkSu[listNumber] = f"{quantity}"   # zk数量
-                        zkTuiDa[listNumber] = datetime_str   # zk追加日時
-                        zkTuiSya[listNumber] = owner   # zk追加者
-                        zkMap[listNumber] = "-"   # zkマップ座標
-                        '''
-                        _= '''
-                        zkIko = "\n".join(zkIko) if isinstance(zkIko, list) else zkIko
-                        zkHin = "\n".join(zkHin) if isinstance(zkHin, list) else zkHin
-                        zkKan = "\n".join(zkKan) if isinstance(zkKan, list) else zkKan
-                        zkSu = "\n".join(zkSu) if isinstance(zkSu, list) else zkSu
-                        # if isinstance(zkSu, list):
-                        #     zkSu = "\n".join(str(item) for item in zkSu)
-                        zkTuiDa = "\n".join(zkTuiDa) if isinstance(zkTuiDa, list) else zkTuiDa
-                        zkTuiSya = "\n".join(zkTuiSya) if isinstance(zkTuiSya, list) else zkTuiSya
-                        zkMap = "\n".join(zkMap) if isinstance(zkMap, list) else zkMap
-                        '''
-                    _= '''
-                    zkHin = record["zkHinban__c"].splitlines()   # zk品番
-                    zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
-                    zkSu = record["zkSuryo__c"].splitlines()   # zk数量
-                    zkTuiDa = record["zkTuikaDatetime__c"].splitlines()   # zk追加日時
-                    zkTuiSya = record["zkTuikaSya__c"].splitlines()   # zk追加者
-                    zkMap = record["zkMap__c"].splitlines()   # zkマップ座標
-                    zkDelDa = record["zkDeleteDatetime__c"].split(",")   # zk直近削除日時
-                    zkDelIko = record["zkDeleteIkohyoNo__c"].split(",")   # zk直近削除移行票No
-                    zkDelSya = record["zkDeleteSya__c"].split(",")   # zk直近削除者
-                    zkShoBu = record["zkShortcutButton__c"].splitlines()   # zkショートカットボタン
-                    zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
-                    '''
-            
+                        
+                    # zkHin = record["zkHinban__c"].splitlines()   # zk品番
+                    # zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
+                    # zkSu = record["zkSuryo__c"].splitlines()   # zk数量
+                    # zkTuiDa = record["zkTuikaDatetime__c"].splitlines()   # zk追加日時
+                    # zkTuiSya = record["zkTuikaSya__c"].splitlines()   # zk追加者
+                    # zkMap = record["zkMap__c"].splitlines()   # zkマップ座標
+                    # zkDelDa = record["zkDeleteDatetime__c"].split(",")   # zk直近削除日時
+                    # zkDelIko = record["zkDeleteIkohyoNo__c"].split(",")   # zk直近削除移行票No
+                    # zkDelSya = record["zkDeleteSya__c"].split(",")   # zk直近削除者
+                    # zkShoBu = record["zkShortcutButton__c"].splitlines()   # zkショートカットボタン
+                    # zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
+                                
             if st.session_state.owner is None:
                 st.write(f"❌07 **作業者コード '{owner}' が未入力です。**")
                 # reset_form()
                 st.stop()  # 以降の処理を止める
             # if "rerun_flag" not in st.session_state:
             #     st.session_state.rerun_flag = False
-            # _= '''
             if item_id:
                 # atualizar_tanabangou(st.session_state.sf, item_id)
                 # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
@@ -858,20 +819,6 @@ else:
                 else: # 削除の場合
                     atualizar_tanaban_del(st.session_state.sf, item_id, tanaban, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
                 # reset_form()
-                _= '''
-                st.session_state.production_order = None
-                # st.session_state.data = None
-                # st.session_state.material = None
-                # st.session_state.material_weight = None
-                # st.session_state.cumulative_cost = 0.0
-                st.session_state.manual_input_value = ""
-                # st.session_state.manual_input = ""  # セッション状態を空にする
-                # if st.session_state.get("should_rerun"):
-                #     st.session_state.should_rerun = False
-                #     st.experimental_rerun()
-                st.session_state.rerun_flag = True
-                st.rerun()
-                '''
                 # JavaScriptでフォーカスを当てる
                 if st.session_state.rerun_flag:
                     components.html(
@@ -891,20 +838,7 @@ else:
                         height=0,
                     )
                     st.session_state.rerun_flag = False
-                _= '''
-                reset_keys = {
-                    "production_order": None,
-                    "data": None,
-                    "material": None,
-                    "material_weight": None,
-                    "cumulative_cost": 0.0,
-                    "manual_input_value": ""
-                }
-                for key, value in reset_keys.items():
-                    st.session_state[key] = value
-                st.experimental_rerun()
-                '''
-            # '''
+    
     _= '''
     if submit_button_modify:
         st.write("ok")
