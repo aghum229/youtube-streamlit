@@ -531,6 +531,7 @@ else:
             # st.session_state.manual_input_value = production_order[3:8]
             st.session_state.show_camera = False
             st.session_state.qr_code = None  # 処理済みなのでクリア
+            st.rerun()
                        
         #if st.session_state.get("trigger_rerun"):
         #    st.session_state.trigger_rerun = False
