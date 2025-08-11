@@ -334,6 +334,27 @@ def button_make(button_text, screen_name):
     # if st.button(button_text, key=button_text): # keyを設定して複数のボタンを区別
     #     set_screen(screen_name)
 
+def styled_input_text():
+    st.markdown(
+        """
+        <style>
+        input[type="text"], input[type="password"] {
+            font-size: 26px !important;
+            padding-top: 16px !important;
+            padding-bottom: 16px !important;
+            line-height: 2.5 !important;   /* 高さ調整のキモ */
+            box-sizing: border-box !important;
+        }
+        
+        /* 親コンテナの余白にも調整を加える */
+        div[data-testid="stTextInput"] {
+            padding-top: 2px !important;
+            padding-bottom: 2px !important
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 return_main = "⏎ ☆メイン画面☆　へ戻る"
 return_1 = "⏎ 1.製造関連メニュー　へ戻る"
