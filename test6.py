@@ -356,7 +356,7 @@ def styled_input_text():
             font-size: 26px !important;
             padding-top: 8px !important;
             padding-bottom: 8px !important;
-            height:30px;
+            height:28px;
             width:350px;
             line-height: 2.5 !important;   /* 高さ調整のキモ */
             box-sizing: border-box !important;
@@ -364,10 +364,10 @@ def styled_input_text():
         
         /* 親コンテナの余白にも調整を加える */
         div[data-testid="stTextInput"] {
-            padding-top: 8px !important;
-            padding-bottom: 8px !important;
+            padding-top: 2px !important;
+            padding-bottom: 2px !important;
             height:30px;
-            width:350px
+            width:360px
         }
         </style>
         """,
