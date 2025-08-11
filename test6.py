@@ -502,7 +502,7 @@ else:
         if tanaban != "":
             st.session_state.tanaban = tanaban
             st.session_state.tanaban_select = tanaban
-            st.session_state.show_camera = False
+            # st.session_state.show_camera = False
             st.session_state.qr_code_tana = True
             st.rerun()  # 再描画して次のステップへ
     else:
@@ -625,19 +625,22 @@ else:
                     # reset_form()
                     # st.stop()
             else:
-                print("データが見つかりませんでした。")
-                # st.warning("データが見つかりませんでした。")
+                # print("移行票番号が見つかりませんでした。")
+                st.warning("移行票番号が見つかりませんでした。")
                 # reset_form()
                 # st.stop()
             
             left, right = st.columns([0.14, 0.86])
             # Campos de entrada
-            owner_value = "" if st.session_state.data is None else st.session_state.owner
+            owner_value = st.session_state.owner
+            # owner_value = "" if st.session_state.data is None else st.session_state.owner
             # owner = st.text_input("作業者(社員番号):", key="owner", value=owner_value)
             # st.write(f"作業者 (社員番号): {owner_value}")
             # styled_text(f"作業者 (社員番号) : {owner_value}", bg_color="#ffe4e1", text_color="#333333")
-            tanaban = "" if st.session_state.tanaban is None else st.session_state.tanaban
-            production_order_value = "" if st.session_state.production_order is None else st.session_state.production_order
+            tanaban = st.session_state.tanaban
+            # tanaban = "" if st.session_state.tanaban is None else st.session_state.tanaban
+            production_order_value = st.session_state.production_order
+            # production_order_value = "" if st.session_state.production_order is None else st.session_state.production_order
             # production_order_v = st.text_input("移行票番号 :", key="production_order_v", value=production_order_value)
             # st.write(f"移行票番号: {production_order_value}")
             # styled_text(f"移行票番号 : {production_order_value}", bg_color="#ffe4e1", text_color="#333333")
