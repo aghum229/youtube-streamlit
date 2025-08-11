@@ -473,6 +473,26 @@ else:
     if tanaban:
         # st.session_state.tanaban_select = tanaban
         st.session_state.show_camera = False
+
+    if not st.session_state.production_order and st.session_state.show_camera:
+        st.write("QRコードをスキャンして開始してください:")
+        production_order = qrcode_scanner(key="qrcode_scanner_fixed")
+        st.write("読み取り結果:", production_order)
+        if production_order:
+            st.session_state.production_order = production_order
+            st.write(production_order[3:8])
+            st.session_state.manual_input_value = production_order[3:8]
+            st.session_state.show_camera = False
+            st.toast("読み取り完了、画面を更新します")
+            st.experimental_set_query_params(dummy="1")  # rerunトリガー用の工夫
+            st.rerun()
+    
+    # Botão de reexibição sempre visível
+    if st.form_submit_button("カメラを再表示"):
+        st.session_state.show_camera = True
+        st.session_state.production_order = None
+        st.session_state.manual_input_value = ""
+        st.rerun()
     
     styled_input_text()
     with st.form(key="manual_input_form", clear_on_submit=True):
@@ -520,7 +540,7 @@ else:
             # st.rerun()
         '''
         
-        # _= '''
+        _= '''
         # Exibir câmera apenas se production_order for None e show_camera for True
         if not st.session_state.production_order and st.session_state.show_camera:
             st.write("QRコードをスキャンして開始してください:")
@@ -541,7 +561,7 @@ else:
             st.session_state.production_order = None
             st.session_state.manual_input_value = ""
             st.rerun()
-        # '''
+        '''
     
     
     zkSplitNo = 99
