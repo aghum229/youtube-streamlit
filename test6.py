@@ -506,82 +506,83 @@ else:
             st.session_state.qr_code_tana = True
             st.rerun()  # 再描画して次のステップへ
     else:
-        st.write(st.session_state.tanaban) 
-        qr_code = ""
-        if st.button("カメラを再表示", key="camera_rerun"):
-            st.session_state.show_camera = True
-            st.session_state.production_order = None
-            # st.session_state.manual_input_value = ""
-            st.rerun()
-        if st.session_state.show_camera:
-            st.write("移行票(製造オーダー)のQRコードをスキャンして開始してください:")
-            qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
-            if qr_code:
-                st.session_state.qr_code = qr_code.strip()
-            # if not st.session_state.production_order and st.session_state.show_camera:
-            #     st.write("QRコードをスキャンして開始してください:")
-            #     try:
-            #         qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
-            #     except Exception as e:
-            #         st.error(f"表示中にエラー: {type(e).__name__} - {e}")
-            #     if isinstance(qr_code, str) and qr_code:
-            #         st.session_state.qr_code = qr_code
-            #         st.rerun()  # ← ここで明示的に再描画
-            if st.session_state.qr_code != "":
-                # st.write("QRコードの型:", type(st.session_state.qr_code))
-                # st.write("QRコードの中身:", repr(st.session_state.qr_code))
-                
-                # production_order = st.session_state.qr_code
-                # st.write(production_order[3:8])
-                st.session_state.production_order = f"{st.session_state.qr_code}"
-                # st.session_state.manual_input_value = production_order[3:8]
-                #st.session_state.show_camera = False
-                st.session_state.qr_code = None  # 処理済みなのでクリア
-                # st.rerun()
-                st.session_state.trigger_rerun = True
-            if st.session_state.get("trigger_rerun"):
-                st.session_state.show_camera = False
-                st.session_state.trigger_rerun = False
-                # st.rerun()
-        
-        st.write(st.session_state.production_order)                           
-        styled_input_text()
-        with st.form(key="manual_input_form", clear_on_submit=True):
-            # manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
-            if manual_input_flag == 1:
-                # Opção de digitação manual do production_order
-                # manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
-                #                            value=st.session_state.manual_input_value,
-                #                            max_chars=6,
-                #                            key="manual_input")
-                manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
-                                            value="",
-                                            max_chars=6,
-                                            key="manual_input")
-                if manual_input and len(manual_input) == 6 and manual_input.isdigit():
-                    st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
-                    # st.session_state.manual_input_value = manual_input
+        st.write(st.session_state.tanaban)
+        if manual_input_flag == 0:
+            qr_code = ""
+            if st.button("カメラを再表示", key="camera_rerun"):
+                st.session_state.show_camera = True
+                st.session_state.production_order = None
+                # st.session_state.manual_input_value = ""
+                st.rerun()
+            if st.session_state.show_camera:
+                st.write("移行票(製造オーダー)のQRコードをスキャンして開始してください:")
+                qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
+                if qr_code:
+                    st.session_state.qr_code = qr_code.strip()
+                # if not st.session_state.production_order and st.session_state.show_camera:
+                #     st.write("QRコードをスキャンして開始してください:")
+                #     try:
+                #         qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
+                #     except Exception as e:
+                #         st.error(f"表示中にエラー: {type(e).__name__} - {e}")
+                #     if isinstance(qr_code, str) and qr_code:
+                #         st.session_state.qr_code = qr_code
+                #         st.rerun()  # ← ここで明示的に再描画
+                if st.session_state.qr_code != "":
+                    # st.write("QRコードの型:", type(st.session_state.qr_code))
+                    # st.write("QRコードの中身:", repr(st.session_state.qr_code))
+                    
+                    # production_order = st.session_state.qr_code
+                    # st.write(production_order[3:8])
+                    st.session_state.production_order = f"{st.session_state.qr_code}"
+                    # st.session_state.manual_input_value = production_order[3:8]
+                    #st.session_state.show_camera = False
+                    st.session_state.qr_code = None  # 処理済みなのでクリア
+                    # st.rerun()
+                    st.session_state.trigger_rerun = True
+                if st.session_state.get("trigger_rerun"):
                     st.session_state.show_camera = False
-                
-                # 入力欄の直後に JavaScript を挿入
-                components.html(
-                    """
-                    <script>
-                        setTimeout(() => {
-                            const inputs = window.parent.document.querySelectorAll('input');
-                            for (let input of inputs) {
-                                if (input.placeholder.includes("移行票番号")) {
-                                    input.focus();
-                                    break;
+                    st.session_state.trigger_rerun = False
+                    # st.rerun()
+        else:                   
+            styled_input_text()
+            with st.form(key="manual_input_form", clear_on_submit=True):
+                # manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
+                if manual_input_flag == 1:
+                    # Opção de digitação manual do production_order
+                    # manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
+                    #                            value=st.session_state.manual_input_value,
+                    #                            max_chars=6,
+                    #                            key="manual_input")
+                    manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
+                                                value="",
+                                                max_chars=6,
+                                                key="manual_input")
+                    if manual_input and len(manual_input) == 6 and manual_input.isdigit():
+                        st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
+                        # st.session_state.manual_input_value = manual_input
+                        st.session_state.show_camera = False
+                    
+                    # 入力欄の直後に JavaScript を挿入
+                    components.html(
+                        """
+                        <script>
+                            setTimeout(() => {
+                                const inputs = window.parent.document.querySelectorAll('input');
+                                for (let input of inputs) {
+                                    if (input.placeholder.includes("移行票番号")) {
+                                        input.focus();
+                                        break;
+                                    }
                                 }
-                            }
-                        }, 500);
-                    </script>
-                    """,
-                    height=0,
-                )
-                submit_button_modify = st.form_submit_button("再入力(移行票番号)")  # 送信ボタンを配置しないとエラーになる
-            
+                            }, 500);
+                        </script>
+                        """,
+                        height=0,
+                    )
+                    submit_button_modify = st.form_submit_button("再入力(移行票番号)")  # 送信ボタンを配置しないとエラーになる
+        
+        st.write(st.session_state.production_order)     
         zkSplitNo = 99
         zkSplitFlag = 0
         # Formulário sempre renderizado
