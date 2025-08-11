@@ -502,9 +502,9 @@ else:
             # st.rerun()
             st.session_state.trigger_rerun = True  # rerunフラグを立てる
             
-    if st.session_state.get("trigger_rerun"):
-        st.session_state.trigger_rerun = False
-        st.rerun()
+    #if st.session_state.get("trigger_rerun"):
+    #    st.session_state.trigger_rerun = False
+    #    st.rerun()
     
     # Botão de reexibição sempre visível
     if st.button("カメラを再表示"):
@@ -599,7 +599,7 @@ else:
             # reset_form()
             # st.stop()
         
-        left, right = st.columns([0.25, 0.75])
+        left, right = st.columns([0.2, 0.8])
         # Campos de entrada
         owner_value = "" if st.session_state.data is None else st.session_state.owner
         # owner = st.text_input("作業者 (社員番号):", key="owner", value=owner_value)
