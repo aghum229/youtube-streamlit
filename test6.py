@@ -519,7 +519,7 @@ else:
             # st.rerun()
         '''
         
-        _= '''
+        # _= '''
         # Exibir câmera apenas se production_order for None e show_camera for True
         if not st.session_state.production_order and st.session_state.show_camera:
             st.write("QRコードをスキャンして開始してください:")
@@ -536,7 +536,7 @@ else:
             st.session_state.production_order = None
             st.session_state.manual_input_value = ""
             st.rerun()
-        '''
+        # '''
     
     
     zkSplitNo = 99
