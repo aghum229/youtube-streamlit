@@ -492,9 +492,10 @@ else:
     if not st.session_state.production_order and st.session_state.show_camera:
         st.write("QRコードをスキャンして開始してください:")
         qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
-    if qr_code:
         st.write("qr_codeの型:", type(qr_code))
         st.write("qr_codeの中身:", repr(qr_code))
+        st.stop
+    if qr_code:
         # production_order = qr_code.strip()
         # st.write("デバッグ: production_order =", repr(production_order))
         production_order = ""
