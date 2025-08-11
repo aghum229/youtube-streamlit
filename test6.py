@@ -499,12 +499,13 @@ else:
         #                     max_chars=6,
         #                     key="manual_input_tana")
         if tanaban != "":
+            st.session_state.tanaban = tanaban
             st.session_state.tanaban_select = tanaban
             st.session_state.show_camera = False
             st.session_state.qr_code_tana = True
             st.rerun()  # 再描画して次のステップへ
     else:
-        st.write(tanaban) 
+        st.write(st.session_state.tanaban) 
         qr_code = ""
         if not st.session_state.production_order and st.session_state.show_camera:
             st.write("QRコードをスキャンして開始してください:")
