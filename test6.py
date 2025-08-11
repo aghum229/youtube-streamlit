@@ -507,11 +507,12 @@ else:
         st.session_state.production_order = None
         st.session_state.manual_input_value = ""
         st.rerun()
-    
+
+    manual_input_flag = 0
     styled_input_text()
     with st.form(key="manual_input_form", clear_on_submit=True):
         # manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
-        if manual_input_flag :
+        if manual_input_flag == 1:
             # Opção de digitação manual do production_order
             # manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
             #                            value=st.session_state.manual_input_value,
