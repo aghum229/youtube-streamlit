@@ -839,11 +839,4 @@ else:
                     )
                     st.session_state.rerun_flag = False
     
-    _= '''
-    if submit_button_modify:
-        st.write("ok")
-        st.session_state.manual_input_value = ""
-        # st.session_state["manual_input_key"] = ""
-        # st.rerun()
-    '''
 
