@@ -427,6 +427,9 @@ if "tanaban" not in st.session_state:
     st.session_state.tanaban = ""
 if "tanaban_select" not in st.session_state:
     st.session_state.tanaban_select = ""
+if "qr_code" not in st.session_state:
+    st.session_state.qr_code = None
+
 
 if "user_code_entered" not in st.session_state:
     st.session_state.user_code_entered = False
@@ -492,25 +495,24 @@ else:
     if not st.session_state.production_order and st.session_state.show_camera:
         st.write("QRコードをスキャンして開始してください:")
         qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
+        if isinstance(qr_code, str) and qr_code:
+            st.session_state.qr_code = qr_code
         try:
             st.write("qr_codeの型:", type(qr_code))
             st.write("qr_codeの中身:", repr(qr_code))
         except Exception as e:
             st.error(f"表示中にエラー: {type(e).__name__} - {e}")
-    if qr_code:
-        # production_order = qr_code.strip()
-        # st.write("デバッグ: production_order =", repr(production_order))
-        production_order = ""
-        if production_order:
-            st.session_state.production_order = production_order
-            st.write(production_order[3:8])
-            st.session_state.manual_input_value = production_order[3:8]
-            st.session_state.show_camera = False
-            # st.toast("読み取り完了、画面を更新します")
-            # st.experimental_set_query_params(dummy="1")  # rerunトリガー用の工夫
-            # st.rerun()
-            # st.session_state.trigger_rerun = True  # rerunフラグを立てる
-            
+    if st.session_state.qr_code:
+        st.write("QRコードの型:", type(st.session_state.qr_code))
+        st.write("QRコードの中身:", repr(st.session_state.qr_code))
+        
+        production_order = st.session_state.qr_code.strip()
+        st.write(production_order[3:8])
+        st.session_state.production_order = production_order
+        st.session_state.manual_input_value = production_order[3:8]
+        st.session_state.show_camera = False
+        st.session_state.qr_code = None  # 処理済みなのでクリア
+                   
     #if st.session_state.get("trigger_rerun"):
     #    st.session_state.trigger_rerun = False
     #    st.rerun()
