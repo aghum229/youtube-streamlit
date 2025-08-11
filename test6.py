@@ -529,21 +529,22 @@ else:
             # st.write(production_order[3:8])
             st.session_state.production_order = f"{st.session_state.qr_code}"
             # st.session_state.manual_input_value = production_order[3:8]
-            st.session_state.show_camera = False
+            #st.session_state.show_camera = False
             st.session_state.qr_code = None  # 処理済みなのでクリア
-            st.rerun()
+            # st.rerun()
+            st.session_state.trigger_rerun = True
                        
-        #if st.session_state.get("trigger_rerun"):
-        #    st.session_state.trigger_rerun = False
-        #    st.rerun()
-        
-        # Botão de reexibição sempre visível
         if st.button("カメラを再表示"):
             st.session_state.show_camera = True
             st.session_state.production_order = None
             # st.session_state.manual_input_value = ""
             st.rerun()
-    
+            
+        if st.session_state.get("trigger_rerun"):
+            st.session_state.show_camera = False
+            st.session_state.trigger_rerun = False
+            st.rerun()
+            
         styled_input_text()
         with st.form(key="manual_input_form", clear_on_submit=True):
             # manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
