@@ -430,7 +430,7 @@ if "tanaban_select" not in st.session_state:
 if "qr_code" not in st.session_state:
     st.session_state.qr_code = None
 if "qr_code_tana" not in st.session_state:
-    st.session_state.qr_code_tana = None
+    st.session_state.qr_code_tana = False
 
 if "user_code_entered" not in st.session_state:
     st.session_state.user_code_entered = False
@@ -467,8 +467,8 @@ else:
     '''
 
     manual_input_flag = 0
-    tanaban = ""
     if not st.session_state.qr_code_tana:
+        tanaban = ""
         st.write("棚番のQRコードをスキャンして開始してください:")
         qr_code_tana = qrcode_scanner(key='qrcode_scanner_tana')  
     
@@ -504,6 +504,7 @@ else:
             st.session_state.qr_code_tana = True
             st.rerun()  # 再描画して次のステップへ
     else:
+        st.write(tanaban) 
         qr_code = ""
         if not st.session_state.production_order and st.session_state.show_camera:
             st.write("QRコードをスキャンして開始してください:")
@@ -514,7 +515,7 @@ else:
             if isinstance(qr_code, str) and qr_code:
                 st.session_state.qr_code = qr_code
                 st.rerun()  # ← ここで明示的に再描画
-        if st.session_state.qr_code:
+        if st.session_state.qr_code != "":
             st.write("QRコードの型:", type(st.session_state.qr_code))
             st.write("QRコードの中身:", repr(st.session_state.qr_code))
             
