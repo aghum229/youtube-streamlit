@@ -348,8 +348,29 @@ def styled_text(
         unsafe_allow_html=True
     )
 
-
-
+def styled_input_text():
+    st.markdown(
+        """
+        <style>
+        input[type="text"], input[type="password"] {
+            font-size: 26px !important;
+            padding-top: 16px !important;
+            padding-bottom: 16px !important;
+            height:30px;
+            width:350px;
+            line-height: 2.5 !important;   /* 高さ調整のキモ */
+            box-sizing: border-box !important;
+        }
+        
+        /* 親コンテナの余白にも調整を加える */
+        div[data-testid="stTextInput"] {
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
@@ -400,26 +421,7 @@ if "user_code_entered" not in st.session_state:
     st.session_state.user_code = ""
     
 if not st.session_state.user_code_entered:
-    st.markdown(
-        """
-        <style>
-        input[type="text"], input[type="password"] {
-            font-size: 30px !important;
-            padding-top: 16px !important;
-            padding-bottom: 16px !important;
-            line-height: 2.5 !important;   /* 高さ調整のキモ */
-            box-sizing: border-box !important;
-        }
-        
-        /* 親コンテナの余白にも調整を加える */
-        div[data-testid="stTextInput"] {
-            padding-top: 8px !important;
-            padding-bottom: 8px !important;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+    styled_input_text()
     st.title("作業者コード入力画面")
     st.session_state['owner'] = st.text_input("作業者コード(社員番号)を入力してください (3～4桁、例: 999:",
                                               max_chars=4,
@@ -447,7 +449,7 @@ else:
         else:
             st.success("登録が正常に完了しました！")
     '''
-
+    
     zkTanalist = """
         完A-1,完A-2,完A-3,完A-4,完A-5,完A-6,完A-7,完A-8,完A-9,完A-10,完A-11,完A-12,完A-13,完A-14,完A-15,完A-16,完A-17,完A-18,完A-19,完A-20,
         完B-1,完B-2,完B-3,完B-4,完B-5,完B-6,完B-7,完B-8,完B-9,完B-10,完B-11,完B-12,完B-13,完B-14,完B-15,完B-16,完B-17,完B-18,完B-19,完B-20,
@@ -473,28 +475,8 @@ else:
     if tanaban:
         # st.session_state.tanaban_select = tanaban
         st.session_state.show_camera = False
-
-    st.markdown(
-        """
-        <style>
-        input[type="text"], input[type="number"] {
-            font-size: 30px !important;
-            padding-top: 16px !important;
-            padding-bottom: 16px !important;
-            line-height: 2.5 !important;   /* 高さ調整のキモ */
-            box-sizing: border-box !important;
-        }
-        
-        /* 親コンテナの余白にも調整を加える */
-        div[data-testid="stTextInput"] {
-            padding-top: 8px !important;
-            padding-bottom: 8px !important;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
     
+    styled_input_text()
     with st.form(key="manual_input_form", clear_on_submit=True):
         # manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
         # _= '''
