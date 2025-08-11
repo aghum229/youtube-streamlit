@@ -724,8 +724,8 @@ if "user_code_entered" not in st.session_state:
     
 if not st.session_state.user_code_entered:
     styled_input_text()
-    st.title("作業者コード入力画面")
-    st.session_state['owner'] = st.text_input("作業者コード(社員番号)を入力してください (3～4桁、例: 999:",
+    st.title("作業者コード入力")
+    st.session_state['owner'] = st.text_input("作業者コード(社員番号)を入力してください (3～4桁、例: 999)",
                                               max_chars=4,
                                               key="owner_input")
     
