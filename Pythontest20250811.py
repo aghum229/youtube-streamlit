@@ -409,7 +409,7 @@ def show_main_screen():
     with right:
         st.write('(仮)')
     
-    # display_container('yellow', '☆メイン画面☆')
+    display_container('yellow', '☆メイン画面☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('button0', '0.ショートカット', 'other0')
