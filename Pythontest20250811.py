@@ -1038,6 +1038,15 @@ def unknown_screen():
     display_footer()
 
 
+
+if "sf" not in st.session_state:
+    try:
+        st.session_state.sf = authenticate_salesforce()
+        # st.success("Salesforceに正常に接続しました！")
+    except Exception as e:
+        st.error(f"認証エラー: {e}")
+        st.stop()
+
 if "user_code_entered" not in st.session_state:
     st.session_state.user_code_entered = False
     st.session_state.user_code = ""
