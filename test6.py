@@ -508,43 +508,43 @@ else:
     else:
         st.write(st.session_state.tanaban) 
         qr_code = ""
-        st.write("移行票(製造オーダー)のQRコードをスキャンして開始してください:")
-        qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
-        if qr_code:
-            st.session_state.qr_code = qr_code.strip()
-        # if not st.session_state.production_order and st.session_state.show_camera:
-        #     st.write("QRコードをスキャンして開始してください:")
-        #     try:
-        #         qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
-        #     except Exception as e:
-        #         st.error(f"表示中にエラー: {type(e).__name__} - {e}")
-        #     if isinstance(qr_code, str) and qr_code:
-        #         st.session_state.qr_code = qr_code
-        #         st.rerun()  # ← ここで明示的に再描画
-        if st.session_state.qr_code != "":
-            # st.write("QRコードの型:", type(st.session_state.qr_code))
-            # st.write("QRコードの中身:", repr(st.session_state.qr_code))
-            
-            # production_order = st.session_state.qr_code
-            # st.write(production_order[3:8])
-            st.session_state.production_order = f"{st.session_state.qr_code}"
-            # st.session_state.manual_input_value = production_order[3:8]
-            #st.session_state.show_camera = False
-            st.session_state.qr_code = None  # 処理済みなのでクリア
-            # st.rerun()
-            st.session_state.trigger_rerun = True
-                       
-        if st.button("カメラを再表示"):
+        if st.session_state.show_camera:
+            st.write("移行票(製造オーダー)のQRコードをスキャンして開始してください:")
+            qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
+            if qr_code:
+                st.session_state.qr_code = qr_code.strip()
+            # if not st.session_state.production_order and st.session_state.show_camera:
+            #     st.write("QRコードをスキャンして開始してください:")
+            #     try:
+            #         qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
+            #     except Exception as e:
+            #         st.error(f"表示中にエラー: {type(e).__name__} - {e}")
+            #     if isinstance(qr_code, str) and qr_code:
+            #         st.session_state.qr_code = qr_code
+            #         st.rerun()  # ← ここで明示的に再描画
+            if st.session_state.qr_code != "":
+                # st.write("QRコードの型:", type(st.session_state.qr_code))
+                # st.write("QRコードの中身:", repr(st.session_state.qr_code))
+                
+                # production_order = st.session_state.qr_code
+                # st.write(production_order[3:8])
+                st.session_state.production_order = f"{st.session_state.qr_code}"
+                # st.session_state.manual_input_value = production_order[3:8]
+                #st.session_state.show_camera = False
+                st.session_state.qr_code = None  # 処理済みなのでクリア
+                # st.rerun()
+                st.session_state.trigger_rerun = True
+            if st.session_state.get("trigger_rerun"):
+                st.session_state.show_camera = False
+                st.session_state.trigger_rerun = False
+                # st.rerun()
+        
+        if st.button("カメラを再表示", key="camera_rerun"):
             st.session_state.show_camera = True
             st.session_state.production_order = None
             # st.session_state.manual_input_value = ""
             st.rerun()
-            
-        if st.session_state.get("trigger_rerun"):
-            st.session_state.show_camera = False
-            st.session_state.trigger_rerun = False
-            # st.rerun()
-            
+                   
         styled_input_text()
         with st.form(key="manual_input_form", clear_on_submit=True):
             # manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
