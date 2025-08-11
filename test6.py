@@ -495,6 +495,7 @@ else:
         st.write("qr_codeの中身:", repr(qr_code))
         # production_order = qr_code.strip()
         # st.write("デバッグ: production_order =", repr(production_order))
+        production_order = ""
         if production_order:
             st.session_state.production_order = production_order
             st.write(production_order[3:8])
@@ -503,7 +504,7 @@ else:
             # st.toast("読み取り完了、画面を更新します")
             # st.experimental_set_query_params(dummy="1")  # rerunトリガー用の工夫
             # st.rerun()
-            st.session_state.trigger_rerun = True  # rerunフラグを立てる
+            # st.session_state.trigger_rerun = True  # rerunフラグを立てる
             
     #if st.session_state.get("trigger_rerun"):
     #    st.session_state.trigger_rerun = False
