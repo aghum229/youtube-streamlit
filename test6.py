@@ -508,6 +508,11 @@ else:
     else:
         st.write(st.session_state.tanaban) 
         qr_code = ""
+        if st.button("カメラを再表示", key="camera_rerun"):
+            st.session_state.show_camera = True
+            st.session_state.production_order = None
+            # st.session_state.manual_input_value = ""
+            st.rerun()
         if st.session_state.show_camera:
             st.write("移行票(製造オーダー)のQRコードをスキャンして開始してください:")
             qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
@@ -538,13 +543,7 @@ else:
                 st.session_state.show_camera = False
                 st.session_state.trigger_rerun = False
                 # st.rerun()
-        
-        if st.button("カメラを再表示", key="camera_rerun"):
-            st.session_state.show_camera = True
-            st.session_state.production_order = None
-            # st.session_state.manual_input_value = ""
-            st.rerun()
-                   
+                          
         styled_input_text()
         with st.form(key="manual_input_form", clear_on_submit=True):
             # manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
