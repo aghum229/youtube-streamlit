@@ -435,7 +435,7 @@ if "user_code_entered" not in st.session_state:
 if not st.session_state.user_code_entered:
     styled_input_text()
     st.title("作業者コード？")
-    st.session_state['owner'] = st.text_input("作業者コード(社員番号)を入力してください (3～4桁、例: 999:",
+    st.session_state['owner'] = st.text_input("作業者コード(社員番号)を入力してください。\n(3～4桁、例: 999)",
                                               max_chars=4,
                                               key="owner_input")
     
@@ -490,7 +490,8 @@ else:
 
     if not st.session_state.production_order and st.session_state.show_camera:
         st.write("QRコードをスキャンして開始してください:")
-        production_order = qrcode_scanner(key="qrcode_scanner_fixed")
+        qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
+        production_order = qr_code.strip()
         st.write("デバッグ: production_order =", repr(production_order))
         if production_order:
             st.session_state.production_order = production_order
