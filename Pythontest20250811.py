@@ -707,7 +707,7 @@ def show_other11612_screen():
     
 # 不明な画面の場合の処理
 def unknown_screen():
-    display_container('red', '現在、メンテナンス中です。')
+    display_container('red', '現在、作製またはメンテナンス中です。')
     # display_header('red', '現在、メンテナンス中です。')
     display_line()
     # st.write('---')
