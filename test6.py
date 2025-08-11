@@ -354,8 +354,8 @@ def styled_input_text():
         <style>
         input[type="text"], input[type="password"] {
             font-size: 26px !important;
-            padding-top: 16px !important;
-            padding-bottom: 16px !important;
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
             height:30px;
             width:350px;
             line-height: 2.5 !important;   /* 高さ調整のキモ */
@@ -366,6 +366,8 @@ def styled_input_text():
         div[data-testid="stTextInput"] {
             padding-top: 8px !important;
             padding-bottom: 8px !important;
+            height:30px;
+            width:350px
         }
         </style>
         """,
