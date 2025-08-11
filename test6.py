@@ -494,14 +494,12 @@ else:
     qr_code = ""
     if not st.session_state.production_order and st.session_state.show_camera:
         st.write("QRコードをスキャンして開始してください:")
-        qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
-        if isinstance(qr_code, str) and qr_code:
-            st.session_state.qr_code = qr_code
         try:
-            st.write("qr_codeの型:", type(qr_code))
-            st.write("qr_codeの中身:", repr(qr_code))
+            qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
         except Exception as e:
             st.error(f"表示中にエラー: {type(e).__name__} - {e}")
+        if isinstance(qr_code, str) and qr_code:
+            st.session_state.qr_code = qr_code
     if st.session_state.qr_code:
         st.write("QRコードの型:", type(st.session_state.qr_code))
         st.write("QRコードの中身:", repr(st.session_state.qr_code))
