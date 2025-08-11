@@ -543,7 +543,7 @@ else:
         if st.session_state.get("trigger_rerun"):
             st.session_state.show_camera = False
             st.session_state.trigger_rerun = False
-            st.rerun()
+            # st.rerun()
             
         styled_input_text()
         with st.form(key="manual_input_form", clear_on_submit=True):
