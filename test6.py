@@ -487,10 +487,12 @@ else:
     if tanaban:
         # st.session_state.tanaban_select = tanaban
         st.session_state.show_camera = False
-
+    
+    qr_code = ""
     if not st.session_state.production_order and st.session_state.show_camera:
         st.write("QRコードをスキャンして開始してください:")
         qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
+    if qr_code:
         st.write("qr_codeの型:", type(qr_code))
         st.write("qr_codeの中身:", repr(qr_code))
         # production_order = qr_code.strip()
@@ -603,10 +605,10 @@ else:
             # reset_form()
             # st.stop()
         
-        left, right = st.columns([0.16, 0.84])
+        left, right = st.columns([0.14, 0.86])
         # Campos de entrada
         owner_value = "" if st.session_state.data is None else st.session_state.owner
-        # owner = st.text_input("作業者 (社員番号):", key="owner", value=owner_value)
+        # owner = st.text_input("作業者(社員番号):", key="owner", value=owner_value)
         # st.write(f"作業者 (社員番号): {owner_value}")
         # styled_text(f"作業者 (社員番号) : {owner_value}", bg_color="#ffe4e1", text_color="#333333")
         production_order_value = "" if st.session_state.production_order is None else st.session_state.production_order
@@ -619,22 +621,22 @@ else:
         # styled_text(f"棚番 : {tanaban}", bg_color="#ffe4e1", text_color="#333333")
         with left:
             styled_text(f"　項　　目", bg_color="#c0c0c0", padding="9px", width="100px", text_color="#333333", font_size="10px", border_thickness="3px")
-            styled_text(f"作業者 (社員番号) : ", bg_color="#c0c0c0", padding="10px", width="100px", text_color="#333333", font_size="10px", border_thickness="0px")
-            styled_text(f"棚番 : ", bg_color="#c0c0c0", padding="10px", width="100px", text_color="#333333", font_size="10px", border_thickness="0px")
-            styled_text(f"移行票番号 : ", bg_color="#c0c0c0", padding="10px", width="100px", text_color="#333333", font_size="10px", border_thickness="0px")
-            styled_text(f"品番 : ", bg_color="#c0c0c0", padding="10px", width="100px", text_color="#333333", font_size="10px", border_thickness="0px")
-            styled_text(f"工順 : ", bg_color="#c0c0c0", padding="10px", width="100px", text_color="#333333", font_size="10px", border_thickness="0px")
-            styled_text(f"工程名 : ", bg_color="#c0c0c0", padding="10px", width="100px", text_color="#333333", font_size="10px", border_thickness="0px")
-            styled_text(f"数量 (工程) : ", bg_color="#c0c0c0", padding="10px", width="100px", text_color="#333333", font_size="10px", border_thickness="0px")
+            styled_text(f"作業者(社員番号) :", bg_color="#c0c0c0", padding="10px", width="100px", text_color="#333333", font_size="10px", border_thickness="0px")
+            styled_text(f"棚番 :", bg_color="#c0c0c0", padding="10px", width="100px", text_color="#333333", font_size="10px", border_thickness="0px")
+            styled_text(f"移行票番号 :", bg_color="#c0c0c0", padding="10px", width="100px", text_color="#333333", font_size="10px", border_thickness="0px")
+            styled_text(f"品番 :", bg_color="#c0c0c0", padding="10px", width="100px", text_color="#333333", font_size="10px", border_thickness="0px")
+            styled_text(f"工順 :", bg_color="#c0c0c0", padding="10px", width="100px", text_color="#333333", font_size="10px", border_thickness="0px")
+            styled_text(f"工程名 :", bg_color="#c0c0c0", padding="10px", width="100px", text_color="#333333", font_size="10px", border_thickness="0px")
+            styled_text(f"数量(工程) :", bg_color="#c0c0c0", padding="10px", width="100px", text_color="#333333", font_size="10px", border_thickness="0px")
         with right:
-            styled_text(f"　追加または削除の対象", bg_color="#c0c0c0", padding="9px", width="180px", text_color="#333333", font_size="10px", border_thickness="3px")
-            styled_text(f"{owner_value}", bg_color="#c0c0c0", padding="4px", width="180px", text_color="#333333", font_size="18px", border_thickness="0px")
-            styled_text(f"{tanaban}", bg_color="#FFFF00", padding="4px", width="180px", text_color="#333333", font_size="18px", border_thickness="0px")
-            styled_text(f"{production_order_value}", bg_color="#FFFF00", padding="4px", width="180px", text_color="#333333", font_size="18px", border_thickness="0px")
-            styled_text(f"{default_hinban}", bg_color="#FFFF00", padding="4px", width="180px", text_color="#333333", font_size="18px", border_thickness="0px")
-            styled_text(f"{default_process_order}", bg_color="#FFFF00", padding="4px", width="180px", text_color="#333333", font_size="18px", border_thickness="0px")
-            styled_text(f"{default_process_order_name}", bg_color="#FFFF00", padding="4px", width="180px", text_color="#333333", font_size="18px", border_thickness="0px")
-            styled_text(f"{default_quantity}", bg_color="#FFFF00", padding="4px", width="180px", text_color="#333333", font_size="18px", border_thickness="0px")
+            styled_text(f"　追加または削除の対象", bg_color="#c0c0c0", padding="9px", width="160px", text_color="#333333", font_size="10px", border_thickness="3px")
+            styled_text(f"{owner_value}", bg_color="#c0c0c0", padding="4px", width="160px", text_color="#333333", font_size="18px", border_thickness="0px")
+            styled_text(f"{tanaban}", bg_color="#FFFF00", padding="4px", width="160px", text_color="#333333", font_size="18px", border_thickness="0px")
+            styled_text(f"{production_order_value}", bg_color="#FFFF00", padding="4px", width="160px", text_color="#333333", font_size="18px", border_thickness="0px")
+            styled_text(f"{default_hinban}", bg_color="#FFFF00", padding="4px", width="160px", text_color="#333333", font_size="18px", border_thickness="0px")
+            styled_text(f"{default_process_order}", bg_color="#FFFF00", padding="4px", width="160px", text_color="#333333", font_size="18px", border_thickness="0px")
+            styled_text(f"{default_process_order_name}", bg_color="#FFFF00", padding="4px", width="160px", text_color="#333333", font_size="18px", border_thickness="0px")
+            styled_text(f"{default_quantity}", bg_color="#FFFF00", padding="4px", width="160px", text_color="#333333", font_size="18px", border_thickness="0px")
         if st.session_state.data:
             hinban = st.text_input("品番:", key="hinban", value=default_hinban)
             process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
