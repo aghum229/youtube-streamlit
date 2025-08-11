@@ -634,6 +634,7 @@ else:
             # owner = st.text_input("作業者(社員番号):", key="owner", value=owner_value)
             # st.write(f"作業者 (社員番号): {owner_value}")
             # styled_text(f"作業者 (社員番号) : {owner_value}", bg_color="#ffe4e1", text_color="#333333")
+            tanaban = "" if st.session_state.tanaban is None else st.session_state.tanaban
             production_order_value = "" if st.session_state.production_order is None else st.session_state.production_order
             # production_order_v = st.text_input("移行票番号 :", key="production_order_v", value=production_order_value)
             # st.write(f"移行票番号: {production_order_value}")
