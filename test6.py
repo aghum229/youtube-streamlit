@@ -621,15 +621,15 @@ else:
         # st.write(f"棚番: {tanaban}")
         # styled_text(f"棚番 : {tanaban}", bg_color="#ffe4e1", text_color="#333333")
         with left:
-            styled_text(f"　項　　目", bg_color="#c0c0c0", padding="8px", width="150px", text_color="#333333", font_size="16px", border_thickness="3px")
+            styled_text(f"　項　　目", bg_color="#c0c0c0", padding="7px", width="150px", text_color="#333333", font_size="16px", border_thickness="3px")
             styled_text(f"作業者 (社員番号) : ", bg_color="#c0c0c0", padding="8px", width="150px", text_color="#333333", font_size="16px", border_thickness="0px")
             styled_text(f"移行票番号 : ", bg_color="#c0c0c0", padding="8px", width="150px", text_color="#333333", font_size="16px", border_thickness="0px")
             styled_text(f"棚番 : ", bg_color="#c0c0c0", padding="8px", width="150px", text_color="#333333", font_size="16px", border_thickness="0px")
         with right:
-            styled_text(f"　追加または削除の対象", bg_color="#c0c0c0", padding="8px", width="300px", text_color="#333333", font_size="16px", border_thickness="3px")
-            styled_text(f"{owner_value}", bg_color="#c0c0c0", padding="1px", width="300px", text_color="#333333", font_size="26px", border_thickness="0px")
-            styled_text(f"{production_order_value}", bg_color="#FFFF00", padding="1px", width="300px", text_color="#333333", font_size="26px", border_thickness="0px")
-            styled_text(f"{tanaban}", bg_color="#FFFF00", padding="1px", width="300px", text_color="#333333", font_size="26px", border_thickness="0px")
+            styled_text(f"　追加または削除の対象", bg_color="#c0c0c0", padding="7px", width="300px", text_color="#333333", font_size="16px", border_thickness="3px")
+            styled_text(f"{owner_value}", bg_color="#c0c0c0", padding="2px", width="300px", text_color="#333333", font_size="26px", border_thickness="0px")
+            styled_text(f"{production_order_value}", bg_color="#FFFF00", padding="2px", width="300px", text_color="#333333", font_size="26px", border_thickness="0px")
+            styled_text(f"{tanaban}", bg_color="#FFFF00", padding="2px", width="300px", text_color="#333333", font_size="26px", border_thickness="0px")
         if st.session_state.data:
             hinban = st.text_input("品番:", key="hinban", value=default_hinban)
             process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
