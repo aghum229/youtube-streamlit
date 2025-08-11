@@ -14,6 +14,8 @@ import re
 # from gspread_dataframe import set_with_dataframe
 import toml
 import streamlit.components.v1 as components
+import qrcode
+from PIL import Image
 
 
 # Função para carregar credenciais
@@ -490,6 +492,10 @@ else:
     if tanaban:
         # st.session_state.tanaban_select = tanaban
         st.session_state.show_camera = False
+
+    qr_text = "PO-009386"
+    img = qrcode.make(qr_text)
+    st.image(img, caption=f"QRコード: {qr_text}")
     
     qr_code = ""
     if not st.session_state.production_order and st.session_state.show_camera:
