@@ -755,7 +755,6 @@ else:
                         st.write(f"❌06 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
                         # reset_form()
                         st.stop()  # 以降の処理を止める
-                        # _= '''
                         zkKari = "-"
                         separator = "\n"
                         zkIko = f"{separator.join([zkKari] * listCount)}"
@@ -771,7 +770,6 @@ else:
                         # zkDelSya = zkDelDa
                         # zkShoBu = zkIko
                         # zkShoU = zkIko
-                        # '''
                     else:
                         st.write(f"Index: '{listNumber}'") 
                         if add_del_flag == 0: # 追加の場合
