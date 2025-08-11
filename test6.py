@@ -725,22 +725,20 @@ else:
                     st.write(f"❌05 **棚番 '{tanaban}' の追加は許可されてません。**")
                     # reset_form()
                     st.stop()  # 以降の処理を止める
-                    _= '''
-                    # zkTana = f"{record["zkTanaban__c"]},{tanaban}"
-                    zkTana = record["zkTanaban__c"] + "\n" + tanaban
-                    zkIko = record["zkIkohyoNo__c"] + "\n" + st.session_state.production_order  # zk移行票No
-                    zkHin = record["zkHinban__c"] + "\n" + hinban   # zk品番
-                    zkKan = record["zkKanryoKoutei__c"] + "\n" + process_order_name   # zk完了工程
-                    zkSu = f"{record["zkSuryo__c"]}\n{quantity}"   # zk数量
-                    zkTuiDa = f"{record["zkTuikaDatetime__c"]}\n{datetime_str}"   # zk追加日時
-                    zkTuiSya = record["zkTuikaSya__c"] + "\n" + owner   # zk追加者
-                    zkMap = record["zkMap__c"] + "\n" + "-"   # zkマップ座標
-                    # zkDelDa = record["zkDeleteDatetime__c"] + "," +    # zk直近削除日時
-                    # zkDelIko = record["zkDeleteIkohyoNo__c"] + "," +    # zk直近削除移行票No
-                    # zkDelSya = record["zkDeleteSya__c"] + "," +    # zk直近削除者
-                    # zkShoBu = record["zkShortcutButton__c"] + "\n" +    # zkショートカットボタン
-                    # zkShoU = record["zkShortcutUser__c"] + "\n" +    # zkショートカットユーザー
-                    '''
+                    # # zkTana = f"{record["zkTanaban__c"]},{tanaban}"
+                    # zkTana = record["zkTanaban__c"] + "\n" + tanaban
+                    # zkIko = record["zkIkohyoNo__c"] + "\n" + st.session_state.production_order  # zk移行票No
+                    # zkHin = record["zkHinban__c"] + "\n" + hinban   # zk品番
+                    # zkKan = record["zkKanryoKoutei__c"] + "\n" + process_order_name   # zk完了工程
+                    # zkSu = f"{record["zkSuryo__c"]}\n{quantity}"   # zk数量
+                    # zkTuiDa = f"{record["zkTuikaDatetime__c"]}\n{datetime_str}"   # zk追加日時
+                    # zkTuiSya = record["zkTuikaSya__c"] + "\n" + owner   # zk追加者
+                    # zkMap = record["zkMap__c"] + "\n" + "-"   # zkマップ座標
+                    # # zkDelDa = record["zkDeleteDatetime__c"] + "," +    # zk直近削除日時
+                    # # zkDelIko = record["zkDeleteIkohyoNo__c"] + "," +    # zk直近削除移行票No
+                    # # zkDelSya = record["zkDeleteSya__c"] + "," +    # zk直近削除者
+                    # # zkShoBu = record["zkShortcutButton__c"] + "\n" +    # zkショートカットボタン
+                    # # zkShoU = record["zkShortcutUser__c"] + "\n" +    # zkショートカットユーザー
                 else:
                     # print(f"zkIkohyoNo__c の型: {type(record.get('zkIkohyoNo__c'))}")
                     # print(f"値: {record.get('zkIkohyoNo__c')}")
