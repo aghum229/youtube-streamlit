@@ -464,6 +464,11 @@ else:
         else:
             st.success("登録が正常に完了しました！")
     '''
+
+    qr_code_tana = qrcode_scanner(key='qrcode_scanner_tana')  
+
+    if qr_code_tana:  
+      st.write(qr_code_tana) 
     
     zkTanalist = """
         完A-1,完A-2,完A-3,完A-4,完A-5,完A-6,完A-7,完A-8,完A-9,完A-10,完A-11,完A-12,完A-13,完A-14,完A-15,完A-16,完A-17,完A-18,完A-19,完A-20,
