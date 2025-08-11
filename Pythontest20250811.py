@@ -1016,24 +1016,28 @@ def show_other11612_screen():
         suryo = st.text_input("数量", placeholder="3000")
         left, center, right = st.columns([0.3, 0,3, 0.4])
         with left:
-            button_set('button116121', '追加', 'other11621')
+            button_set('btn116121', '追加', 'other11621')
         with center:
-            button_set('button116122', '削除', 'other11622')
+            button_set('btn116122', '削除', 'other11622')
         with right:
-            button_set('button116123', '取消', 'other11623')
+            button_set('btn116123', '取消', 'other11623')
     # button_set('button11611', '11611.在庫置場 参照', 'other11611')
     # button_set('button11612', '11612.在庫置場 追加', 'other11612')
     display_footer()
     
 # 不明な画面の場合の処理
 def unknown_screen():
-    display_container('red', '現在、作製またはメンテナンス中です。')
+    display_container('red', '現在、準備中です。')
     # display_header('red', '現在、メンテナンス中です。')
     display_line()
     # st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
+    left, center, right = st.columns([0.2, 0.6, 0.2])
+    with center:
+        btnKari = button_set('btn99999', '前の画面に戻る', 'other99999')
     if len(st.session_state['history']) > 1:
-        if st.button("前の画面に戻る", on_click=go_back, key="back_button"):
+        # if st.button("前の画面に戻る", on_click=go_back, key="back_button"):
+        if btnKari:
             pass
     display_footer()
 
