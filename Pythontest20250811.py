@@ -628,7 +628,10 @@ def display_container(color, text):
 def button_set(button_name, button_text, screen_name):
     left, center, right = st.columns([0.25, 0.5, 0.25])
     with center:
-        button_name = st.button(button_text, on_click=set_screen, args=(screen_name,))
+        if button_name == "btn99999":
+            button_name = st.button(button_text, on_click=go_back, args=(screen_name,))
+        else:
+            button_name = st.button(button_text, on_click=set_screen, args=(screen_name,))
 
 def button_make(button_text, screen_name):
     st.markdown("""
@@ -1032,10 +1035,7 @@ def unknown_screen():
     display_line()
     # st.write('---')
     st.markdown(button_style, unsafe_allow_html=True)
-    left, center, right = st.columns([0.2, 0.6, 0.2])
-    with center:
-        # btnKari = button_set('btn99999', '前の画面に戻る', 'other99999')
-        btnKari = st.button("前の画面に戻る", on_click=go_back, key="back_button")
+    btnKari = button_set('btn99999', '前の画面に戻る', 'other99999')
     if len(st.session_state['history']) > 1:
         # if st.button("前の画面に戻る", on_click=go_back, key="back_button"):
         if btnKari:
