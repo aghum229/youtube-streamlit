@@ -499,7 +499,7 @@ else:
             st.session_state.show_camera = False
             # st.toast("読み取り完了、画面を更新します")
             # st.experimental_set_query_params(dummy="1")  # rerunトリガー用の工夫
-            # st.rerun()
+            st.rerun()
     
     # Botão de reexibição sempre visível
     if st.button("カメラを再表示"):
