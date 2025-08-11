@@ -531,6 +531,8 @@ else:
                 st.write(production_order[3:8])
                 st.session_state.manual_input_value = production_order[3:8]
                 st.session_state.show_camera = False
+                st.toast("読み取り完了、画面を更新します")
+                st.experimental_set_query_params(dummy="1")  # rerunトリガー用の工夫
                 st.rerun()
         
         # Botão de reexibição sempre visível
