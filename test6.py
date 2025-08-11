@@ -526,9 +526,9 @@ else:
             # st.write("QRコードの中身:", repr(st.session_state.qr_code))
             
             # production_order = st.session_state.qr_code
-            st.write(st.session_state.qr_code[3:8])
-            st.session_state.production_order = st.session_state.qr_code
-            st.session_state.manual_input_value = st.session_state.qr_code[3:8]
+            # st.write(production_order[3:8])
+            st.session_state.production_order = f"{st.session_state.qr_code}"
+            # st.session_state.manual_input_value = production_order[3:8]
             st.session_state.show_camera = False
             st.session_state.qr_code = None  # 処理済みなのでクリア
                        
@@ -540,7 +540,7 @@ else:
         if st.button("カメラを再表示"):
             st.session_state.show_camera = True
             st.session_state.production_order = None
-            st.session_state.manual_input_value = ""
+            # st.session_state.manual_input_value = ""
             st.rerun()
     
         styled_input_text()
@@ -558,7 +558,7 @@ else:
                                             key="manual_input")
                 if manual_input and len(manual_input) == 6 and manual_input.isdigit():
                     st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
-                    st.session_state.manual_input_value = manual_input
+                    # st.session_state.manual_input_value = manual_input
                     st.session_state.show_camera = False
                 
                 # 入力欄の直後に JavaScript を挿入
