@@ -1038,7 +1038,8 @@ def unknown_screen():
     if len(st.session_state['history']) > 1:
         # if st.button("前の画面に戻る", on_click=go_back, key="back_button"):
         if btnKari:
-            pass
+            go_back()
+            # pass
     display_footer()
 
 
