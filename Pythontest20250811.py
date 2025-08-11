@@ -629,7 +629,7 @@ def button_set(button_name, button_text, screen_name):
     left, center, right = st.columns([0.25, 0.5, 0.25])
     with center:
         if button_name == "btn99999":
-            button_name = st.button(button_text, on_click=go_back, args=(screen_name,))
+            button_name = st.button(button_text, on_click=go_back)
         else:
             button_name = st.button(button_text, on_click=set_screen, args=(screen_name,))
 
