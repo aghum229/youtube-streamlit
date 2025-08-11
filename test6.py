@@ -531,7 +531,7 @@ else:
                 st.rerun()
         
         # Botão de reexibição sempre visível
-        if st.button("カメラを再表示"):
+        if st.form_submit_button("カメラを再表示"):
             st.session_state.show_camera = True
             st.session_state.production_order = None
             st.session_state.manual_input_value = ""
