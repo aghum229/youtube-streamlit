@@ -168,6 +168,15 @@ def st_fixed_container(
 # 固定コンテナコードの終わり
 
 
+def carregar_credenciais():
+    if os.path.exists('.streamlit/secrets.toml'):
+        import toml
+        secrets = toml.load('.streamlit/secrets.toml')
+    else:
+        secrets = st.secrets
+    return secrets
+
+secrets = carregar_credenciais()
 
 button_style = """
 <style>
