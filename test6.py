@@ -477,7 +477,7 @@ else:
     styled_input_text()
     with st.form(key="manual_input_form", clear_on_submit=True):
         # manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
-        # _= '''
+        _= '''
         # Opção de digitação manual do production_order
         # manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
         #                            value=st.session_state.manual_input_value,
@@ -512,6 +512,7 @@ else:
         )
         
         submit_button_modify = st.form_submit_button("再入力(移行票番号)")  # 送信ボタンを配置しないとエラーになる
+        '''
         _= '''
         if submit_button_modify:
             st.write("ok")
@@ -526,7 +527,8 @@ else:
             production_order = qrcode_scanner(key="qrcode_scanner_fixed")
             if production_order:
                 st.session_state.production_order = production_order
-                st.session_state.manual_input_value = ""
+                st.write(production_order[3:8])
+                st.session_state.manual_input_value = production_order[3:8]
                 st.session_state.show_camera = False
                 st.rerun()
         
