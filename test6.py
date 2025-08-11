@@ -501,6 +501,7 @@ else:
         if tanaban != "":
             st.session_state.tanaban_select = tanaban
             st.session_state.show_camera = False
+            st.session_state.qr_code_tana = true
             st.rerun()  # 再描画して次のステップへ
     else:
         qr_code = ""
