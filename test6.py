@@ -493,7 +493,7 @@ else:
         qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
         st.write("qr_codeの型:", type(qr_code))
         st.write("qr_codeの中身:", repr(qr_code))
-        production_order = qr_code.strip()
+        # production_order = qr_code.strip()
         st.write("デバッグ: production_order =", repr(production_order))
         if production_order:
             st.session_state.production_order = production_order
