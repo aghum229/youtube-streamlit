@@ -1034,12 +1034,12 @@ def unknown_screen():
     st.markdown(button_style, unsafe_allow_html=True)
     left, center, right = st.columns([0.2, 0.6, 0.2])
     with center:
-        btnKari = button_set('btn99999', '前の画面に戻る', 'other99999')
+        # btnKari = button_set('btn99999', '前の画面に戻る', 'other99999')
+        btnKari = st.button("前の画面に戻る", on_click=go_back, key="back_button")
     if len(st.session_state['history']) > 1:
         # if st.button("前の画面に戻る", on_click=go_back, key="back_button"):
         if btnKari:
-            go_back()
-            # pass
+            pass
     display_footer()
 
 
