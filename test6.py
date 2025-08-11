@@ -543,7 +543,8 @@ else:
                 st.session_state.show_camera = False
                 st.session_state.trigger_rerun = False
                 # st.rerun()
-                          
+        
+        st.write(st.session_state.production_order)                           
         styled_input_text()
         with st.form(key="manual_input_form", clear_on_submit=True):
             # manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
