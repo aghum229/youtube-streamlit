@@ -540,29 +540,6 @@ else:
             # st.rerun()
         '''
         
-        _= '''
-        # Exibir câmera apenas se production_order for None e show_camera for True
-        if not st.session_state.production_order and st.session_state.show_camera:
-            st.write("QRコードをスキャンして開始してください:")
-            production_order = qrcode_scanner(key="qrcode_scanner_fixed")
-            st.write("読み取り結果:", production_order)
-            if production_order:
-                st.session_state.production_order = production_order
-                st.write(production_order[3:8])
-                st.session_state.manual_input_value = production_order[3:8]
-                st.session_state.show_camera = False
-                st.toast("読み取り完了、画面を更新します")
-                st.experimental_set_query_params(dummy="1")  # rerunトリガー用の工夫
-                st.rerun()
-        
-        # Botão de reexibição sempre visível
-        if st.form_submit_button("カメラを再表示"):
-            st.session_state.show_camera = True
-            st.session_state.production_order = None
-            st.session_state.manual_input_value = ""
-            st.rerun()
-        '''
-    
     
     zkSplitNo = 99
     zkSplitFlag = 0
@@ -676,7 +653,7 @@ else:
             elif submit_button_del:
                 add_del_flag = 1    
             item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※限定
-            /* _= '''
+            _= '''
             # 棚番設定用マスタ(棚番を変更する場合には、下記に追加または削除してからatualizar_tanaban_addkari()を実行の事。尚、棚番は改行区切りである。)
             zkTana = """
                 完A-1\n完A-2\n完A-3\n完A-4\n完A-5\n完A-6\n完A-7\n完A-8\n完A-9\n完A-10\n完A-11\n完A-12\n完A-13\n完A-14\n完A-15\n完A-16\n完A-17\n完A-18\n完A-19\n完A-20\n
@@ -691,10 +668,10 @@ else:
                 H-1\nH-2\nH-3\nH-4\nH-5\nH-6\nH-7\nH-8\nH-9\nH-10\nH-11\nH-12\nH-13\nH-14\nH-15\nH-16\nH-17\nH-18\nH-19\nH-20\nH-21\nH-22\nH-23\nH-24\nH-25\nH-26\nH-27\nH-28\nH-29\nH-30\nH-31\nH-32\nH-33\nH-34\nH-35\nH-36\nH-37\nH-38\nH-39\nH-40\n
                 R-1\nR-2\nR-3\nR-4\nR-5\nR-6\nR-7\nR-8\nR-9\nR-10\nR-11\nR-12\nR-13\nR-14\nR-15\nR-16\nR-17\nR-18\nR-19\nR-20\n
                 S-1\nS-2\nS-3\nS-4\nS-5\nS-6\nS-7\nS-8\nS-9\nS-10\nS-11\nS-12\nS-13\nS-14\nS-15\nS-16\nS-17\nS-18\nS-19\nS-20
-                """
+            """
             atualizar_tanaban_addkari(st.session_state.sf, item_id, zkTana)
             st.stop()  # 以降の処理を止める
-            ''' */
+            '''
             
             # tanaban = "完A-3"  # 仮で設定
             listCount = 0
