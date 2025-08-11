@@ -1,11 +1,24 @@
-# import streamlit as st
+import streamlit as st
+import requests
+
+from streamlit_qrcode_scanner import qrcode_scanner
+import pandas as pd
+import os
+import pytz
+from simple_salesforce import Salesforce
+from datetime import datetime as dt
+import re
 # import time
+# import gspread
+# from google.oauth2.service_account import Credentials
+# from gspread_dataframe import set_with_dataframe
+import toml
+import streamlit.components.v1 as components
 
 # 固定コンテナコードの始まり
 from typing import Literal
-
-import streamlit as st
 from streamlit.components.v1 import html
+
 _= '''
 """
 st_fixed_container consist of two parts - fixed container and opaque container.
