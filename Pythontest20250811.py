@@ -696,61 +696,78 @@ def unknown_screen():
             pass
     display_footer()
 
-# _= '''
-# 画面の切り替え
-# メイン画面
-if st.session_state['current_screen'] == 'main':
-    show_main_screen()
-# ショートカットボタンメニュー
-elif st.session_state['current_screen'] == 'other0':
-    show_other0_screen()
-# 製造関連メニュー
-elif st.session_state['current_screen'] == 'other1':
-    show_other1_screen()
-# ISO関連メニュー
-elif st.session_state['current_screen'] == 'other2':
-    show_other2_screen()
-# 労務関連メニュー
-elif st.session_state['current_screen'] == 'other3':
-    show_other3_screen()
-# 製品メニュー
-elif st.session_state['current_screen'] == 'other11':
-    show_other11_screen()
-# 金型メニュー
-elif st.session_state['current_screen'] == 'other12':
-    # show_other12_screen()
-    unknown_screen()
-# 治工具メニュー
-elif st.session_state['current_screen'] == 'other13':
-    # show_other13_screen()
-    unknown_screen()
-# 検具メニュー
-elif st.session_state['current_screen'] == 'other14':
-    # show_other14_screen()
-    unknown_screen()
-# 設備メニュー
-elif st.session_state['current_screen'] == 'other15':
-    # show_other15_screen()
-    unknown_screen()
-# 備品メニュー
-elif st.session_state['current_screen'] == 'other16':
-    # show_other16_screen()
-    unknown_screen()
-# 在庫管理メニュー
-elif st.session_state['current_screen'] == 'other116':
-    show_other116_screen()
-# 在庫置場メニュー
-elif st.session_state['current_screen'] == 'other1161':
-    show_other1161_screen()
-# 在庫置場 参照メニュー
-elif st.session_state['current_screen'] == 'other11611':
-    show_other11611_screen()
-# 在庫置場 追加画面
-elif st.session_state['current_screen'] == 'other11612':
-    show_other11612_screen()
-# 在庫置場 削除画面
-elif st.session_state['current_screen'] == 'other11613':
-    show_other11613_screen()
+
+if "user_code_entered" not in st.session_state:
+    st.session_state.user_code_entered = False
+    st.session_state.user_code = ""
+    
+if not st.session_state.user_code_entered:
+    styled_input_text()
+    st.title("作業者コード入力画面")
+    st.session_state['owner'] = st.text_input("作業者コード(社員番号)を入力してください (3～4桁、例: 999:",
+                                              max_chars=4,
+                                              key="owner_input")
+    
+    if st.session_state['owner']:  # 入力があれば保存して完了フラグを立てる
+        st.session_state.user_code = st.session_state['owner']
+        st.session_state.user_code_entered = True
+        st.rerun()  # 再描画して次のステップへ
 else:
-    unknown_screen()
-# '''
+    # _= '''
+    # 画面の切り替え
+    # メイン画面
+    if st.session_state['current_screen'] == 'main':
+        show_main_screen()
+    # ショートカットボタンメニュー
+    elif st.session_state['current_screen'] == 'other0':
+        show_other0_screen()
+    # 製造関連メニュー
+    elif st.session_state['current_screen'] == 'other1':
+        show_other1_screen()
+    # ISO関連メニュー
+    elif st.session_state['current_screen'] == 'other2':
+        show_other2_screen()
+    # 労務関連メニュー
+    elif st.session_state['current_screen'] == 'other3':
+        show_other3_screen()
+    # 製品メニュー
+    elif st.session_state['current_screen'] == 'other11':
+        show_other11_screen()
+    # 金型メニュー
+    elif st.session_state['current_screen'] == 'other12':
+        # show_other12_screen()
+        unknown_screen()
+    # 治工具メニュー
+    elif st.session_state['current_screen'] == 'other13':
+        # show_other13_screen()
+        unknown_screen()
+    # 検具メニュー
+    elif st.session_state['current_screen'] == 'other14':
+        # show_other14_screen()
+        unknown_screen()
+    # 設備メニュー
+    elif st.session_state['current_screen'] == 'other15':
+        # show_other15_screen()
+        unknown_screen()
+    # 備品メニュー
+    elif st.session_state['current_screen'] == 'other16':
+        # show_other16_screen()
+        unknown_screen()
+    # 在庫管理メニュー
+    elif st.session_state['current_screen'] == 'other116':
+        show_other116_screen()
+    # 在庫置場メニュー
+    elif st.session_state['current_screen'] == 'other1161':
+        show_other1161_screen()
+    # 在庫置場 参照メニュー
+    elif st.session_state['current_screen'] == 'other11611':
+        show_other11611_screen()
+    # 在庫置場 追加画面
+    elif st.session_state['current_screen'] == 'other11612':
+        show_other11612_screen()
+    # 在庫置場 削除画面
+    elif st.session_state['current_screen'] == 'other11613':
+        show_other11613_screen()
+    else:
+        unknown_screen()
+    # '''
