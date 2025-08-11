@@ -500,7 +500,7 @@ else:
             st.error(f"表示中にエラー: {type(e).__name__} - {e}")
         if isinstance(qr_code, str) and qr_code:
             st.session_state.qr_code = qr_code
-            st.rerun()  # ← ここで明示的に再描画
+        st.rerun()  # ← ここで明示的に再描画
     if st.session_state.qr_code:
         st.write("QRコードの型:", type(st.session_state.qr_code))
         st.write("QRコードの中身:", repr(st.session_state.qr_code))
@@ -642,16 +642,20 @@ else:
             styled_text(f"{default_process_order_name}", bg_color="#FFFF00", padding="4px", width="140px", text_color="#333333", font_size="18px", border_thickness="0px")
             styled_text(f"{default_quantity}", bg_color="#FFFF00", padding="4px", width="140px", text_color="#333333", font_size="18px", border_thickness="0px")
         if st.session_state.data:
-            hinban = st.text_input("品番:", key="hinban", value=default_hinban)
-            process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
-            process_order_name = st.text_input("工程名:", key="process_order_name", value=default_process_order_name)
-            quantity = st.number_input("数量 (工程):", value=default_quantity, key="quantity")
+            hinban = default_hinban
+            process_order = default_process_order
+            process_order_name = default_process_order_name
+            quantity = default_quantity
+            # hinban = st.text_input("品番:", key="hinban", value=default_hinban)
+            # process_order = st.number_input("工程順序:", value=default_process_order, step=1, key="process_order")
+            # process_order_name = st.text_input("工程名:", key="process_order_name", value=default_process_order_name)
+            # quantity = st.number_input("数量 (工程):", value=default_quantity, key="quantity")
             # hinmei = st.text_input("品名:", key="hinmei", value=default_hinmei)
         else:
-            hinban = st.text_input("品番:", key="hinban", value="-")
-            process_order = st.number_input("工程順序:", value=0, key="process_order", disabled=True)
-            process_order_name = st.text_input("工程名:", key="process_order_name", value="-")
-            quantity = st.number_input("数量 (工程):", value=0.0, key="quantity", disabled=True)
+            hinban = "-"
+            process_order = 0
+            process_order_name = "-"
+            quantity = 0.0
             # hinmei = st.text_input("品名:", key="hinmei", value="-")
               
         add_del_flag = 0  # 0:追加 1:削除
