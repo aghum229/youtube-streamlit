@@ -676,7 +676,7 @@ else:
             elif submit_button_del:
                 add_del_flag = 1    
             item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※限定
-            _= '''
+            /* _= '''
             # 棚番設定用マスタ(棚番を変更する場合には、下記に追加または削除してからatualizar_tanaban_addkari()を実行の事。尚、棚番は改行区切りである。)
             zkTana = """
                 完A-1\n完A-2\n完A-3\n完A-4\n完A-5\n完A-6\n完A-7\n完A-8\n完A-9\n完A-10\n完A-11\n完A-12\n完A-13\n完A-14\n完A-15\n完A-16\n完A-17\n完A-18\n完A-19\n完A-20\n
@@ -694,7 +694,7 @@ else:
                 """
             atualizar_tanaban_addkari(st.session_state.sf, item_id, zkTana)
             st.stop()  # 以降の処理を止める
-            '''
+            ''' */
             
             # tanaban = "完A-3"  # 仮で設定
             listCount = 0
