@@ -781,7 +781,7 @@ else:
             #     submit_button_add = st.form_submit_button("追加")
             # with center:
             #     submit_button_del = st.form_submit_button("削除")
-            if add_del_flag = 0 or add_del_flag = 1: 
+            if add_del_flag == 0 or add_del_flag == 1: 
                 item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※限定
                 
                 # 棚番設定用マスタ(棚番を変更する場合には、下記に追加または削除してからatualizar_tanaban_addkari()を実行の事。尚、棚番は改行区切りである。)
