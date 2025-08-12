@@ -213,7 +213,7 @@ def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
         reset_form()
         st.stop()
 
-def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya):
+def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelTana, zkDelIko, zkDelSya):
     try:
         sf.snps_um__Process__c.update(item_id, {
             "zkIkohyoNo__c": zkIko,
@@ -224,6 +224,7 @@ def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
             "zkTuikaSya__c": zkTuiSya,
             "zkMap__c": zkMap,
             "zkDeleteDatetime__c": zkDelDa,
+            "zkDeleteTanaban__c": zkDelTana,
             "zkDeleteIkohyoNo__c": zkDelIko,
             "zkDeleteSya__c": zkDelSya
         })
@@ -767,14 +768,14 @@ else:
                 # styled_text(f"{default_process_order}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
                 # styled_text(f"{default_process_order_name}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
                 # styled_text(f"{default_quantity}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"項　　目　 :　追加または削除の対象", bg_color="#c0c0c0", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="3px")
-            styled_text(f"社員番号　 : {owner_value}", bg_color="#c0c0c0", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"棚　　番　 : {tanaban_select}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"移行票番号 : {production_order_value}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"品　　番　 : {default_hinban}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"工　　順　 : {default_process_order}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"工 程 名　 : {default_process_order_name}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"数量(工程) : {default_quantity}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+            styled_text(f"項　　目　 :　追加または削除の対象", bg_color="#c0c0c0", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="3px")
+            styled_text(f"社員番号　 : {owner_value}", bg_color="#c0c0c0", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="0px")
+            styled_text(f"棚　　番　 : {tanaban_select}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="0px")
+            styled_text(f"移行票番号 : {production_order_value}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="0px")
+            styled_text(f"品　　番　 : {default_hinban}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="0px")
+            styled_text(f"工　　順　 : {default_process_order}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="0px")
+            styled_text(f"工 程 名　 : {default_process_order_name}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="0px")
+            styled_text(f"数量(工程) : {default_quantity}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="0px")
             if st.session_state.data:
                 hinban = default_hinban
                 process_order = default_process_order
@@ -840,6 +841,7 @@ else:
                 zkTuiSya = ""
                 zkMap = ""
                 zkDelDa = ""
+                zkDelTana = ""
                 zkDelIko = ""
                 zkDelSya = ""
                 zkShoBu = ""
@@ -889,6 +891,7 @@ else:
                         # zkTuiSya = record["zkTuikaSya__c"] + "\n" + owner_value   # zk追加者
                         # zkMap = record["zkMap__c"] + "\n" + "-"   # zkマップ座標
                         # # zkDelDa = record["zkDeleteDatetime__c"] + "," +    # zk直近削除日時
+                        # # zkDelTana = record["zkDeleteTanaban__c"] + "," +    # zk直近削除棚番
                         # # zkDelIko = record["zkDeleteIkohyoNo__c"] + "," +    # zk直近削除移行票No
                         # # zkDelSya = record["zkDeleteSya__c"] + "," +    # zk直近削除者
                         # # zkShoBu = record["zkShortcutButton__c"] + "\n" +    # zkショートカットボタン
@@ -943,6 +946,7 @@ else:
                                 zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner_value, 2)   # zk追加者
                                 zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 2)   # zkマップ座標
                                 zkDelDa = datetime_str   # zk直近削除日時
+                                zkDelTana = tanaban_select   # zk直近削除棚番
                                 zkDelIko = st.session_state.production_order   # zk直近削除移行票No
                                 zkDelSya = owner_value   # zk直近削除者
                             
@@ -971,7 +975,7 @@ else:
                     if add_del_flag == 0: # 追加の場合
                         atualizar_tanaban_add(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
                     else: # 削除の場合
-                        atualizar_tanaban_del(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
+                        atualizar_tanaban_del(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelTana, zkDelIko, zkDelSya)
                     # reset_form()
                     # JavaScriptでフォーカスを当てる
                     if st.session_state.rerun_flag:
