@@ -538,7 +538,7 @@ else:
         
             if qr_code_tana:  
                 # st.write(qr_code_tana) 
-                st.session_state.tanaban_select = qr_code_tana.strip()
+                tanaban_select = qr_code_tana.strip()
         else:
             zkTanalist = """
                 完A-0,完A-1,完A-2,完A-3,完A-4,完A-5,完A-6,完A-7,完A-8,完A-9,完A-10,完A-11,完A-12,完A-13,完A-14,完A-15,完A-16,完A-17,完A-18,完A-19,完A-20,
@@ -555,19 +555,19 @@ else:
                 S-1,S-2,S-3,S-4,S-5,S-6,S-7,S-8,S-9,S-10,S-11,S-12,S-13,S-14,S-15,S-16,S-17,S-18,S-19,S-20
                 """
             zkTanalistSplit = zkTanalist.split(",")
-            st.session_state.tanaban_select = st.selectbox(
+            tanaban_select = st.selectbox(
                 "棚番号を選んでください", zkTanalistSplit, key="tanaban_select"
             )
             # options = zkTanalistSplit
             # st.session_state.tanaban_select = st.selectbox("棚番号を選んでください", options, key="tanaban_select")
             # st.write(type(tanaban_select))
             # st.stop
-            st.write(f"選択された棚番号: {st.session_state.tanaban_select}")
+            st.write(f"選択された棚番号: {tanaban_select}")
     
         # tanaban = st.text_input("棚番号を選択または入力してください (例: H-15):",
         #                     max_chars=6,
         #                     key="manual_input_tana")
-        if st.session_state.tanaban_select and st.session_state.tanaban_select != "完A-0": # 完A-0は存在しない置き場(変更前提の初期値としてのみ利用)
+        if tanaban_select and tanaban_select != "完A-0": # 完A-0は存在しない置き場(変更前提の初期値としてのみ利用)
             # st.session_state.tanaban = tanaban_select
             st.session_state.tanaban_select_temp = st.session_state.tanaban_select
             st.session_state.show_camera = False
