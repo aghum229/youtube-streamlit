@@ -756,6 +756,11 @@ else:
                     add_del_flag = 1
                 elif submit_button_cancel:
                     add_del_flag = 9
+                    st.session_state.qr_code_tana = False
+                    st.session_state.tanaban = ""
+                    st.session_state.tanaban_select = ""
+                    st.session_state.show_camera = True  # 必要に応じて棚番再選択
+                    st.rerun()
                 item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※限定
                 
                 # 棚番設定用マスタ(棚番を変更する場合には、下記に追加または削除してからatualizar_tanaban_addkari()を実行の事。尚、棚番は改行区切りである。)
