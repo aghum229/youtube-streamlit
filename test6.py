@@ -423,8 +423,8 @@ def button_make(button_text, screen_name):
             text-align: center;
             font-weight: bold;
             border-radius: 5px;
-            width: 200px;
-            max-width: 200px;
+            width: 50px;
+            max-width: 50px;
             height: 20px;
             margin: 5px; /* ボタン間の間隔など調整 */
         }
@@ -763,16 +763,10 @@ else:
                 # hinmei = st.text_input("品名:", key="hinmei", value="-")
             
             add_del_flag = 0  # 0:追加 1:削除 9:取消
-            
-            if action == "btnAdd":
-                st.write("ボタン1が押されました")
-            elif action == "btnDel":
-                st.write("ボタン2が押されました")
-            elif action == "btnCancel":
-                st.write("ボタン3が押されました")
-            
+                       
             left, center, right = st.columns(3)
             with left:
+                button_make("追加",'main')
                 submit_button_add = st.form_submit_button("追加")
             with center:
                 submit_button_del = st.form_submit_button("削除")
