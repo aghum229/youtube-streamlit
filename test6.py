@@ -874,5 +874,5 @@ else:
                             height=0,
                         )
                         st.session_state.rerun_flag = False
-    
+        st.session_state.show_camera = False
 
