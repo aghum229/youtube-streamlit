@@ -572,6 +572,7 @@ else:
             st.session_state.tanaban_select_temp = tanaban_select
             st.session_state.show_camera = False
             st.session_state.qr_code_tana = True
+            st.write(st.session_state.qr_code_tana)
             st.rerun()  # 再描画して次のステップへ
     else:
         st.write(st.session_state.tanaban_select_temp)
