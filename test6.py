@@ -774,7 +774,7 @@ else:
                 add_del_flag = 1
             elif action == "btnCancel":
                 add_del_flag = 9
-            if st.button("棚番を再選択"):
+            if st.form_submit_button("棚番を再選択"):
                 st.session_state.qr_code_tana = False
                 st.session_state.tanaban = ""
                 st.session_state.tanaban_select = ""
