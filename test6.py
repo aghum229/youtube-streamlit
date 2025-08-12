@@ -554,11 +554,21 @@ else:
             # if st.session_state.show_camera:
                 st.session_state.show_camera = True
                 st.write("移行票(製造オーダー)のQRコードをスキャンしてください:")
-                qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
+                # qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
                 st.write(f"読取直後qr_code : {st.session_state.production_order}")
                 if qr_code is not None and qr_code.strip() != "":
                 # if qr_code:
                     st.session_state.qr_code = qr_code.strip()
+                    st.markdown(
+                        """
+                        <script>
+                            document.getElementById("scroll-target").scrollIntoView({ behavior: "smooth" });
+                        </script>
+                        """,
+                        unsafe_allow_html=True
+                    )
+
+
                 # if not st.session_state.production_order and st.session_state.show_camera:
                 #     st.write("QRコードをスキャンして開始してください:")
                 #     try:
@@ -575,9 +585,9 @@ else:
                     
                     # production_order = st.session_state.qr_code
                     # st.write(production_order[3:8])
-                    st.write(f"qr_code : {st.session_state.production_order}")
+                    # st.write(f"qr_code : {st.session_state.production_order}")
                     st.session_state.production_order = f"{st.session_state.qr_code}"
-                    st.write(f"production_order : {st.session_state.production_order}")
+                    # st.write(f"production_order : {st.session_state.production_order}")
                     # st.session_state.manual_input_value = production_order[3:8]
                     # st.write("カメラONの session_state:", st.session_state)
                     st.session_state.show_camera = False
@@ -714,14 +724,14 @@ else:
                 # styled_text(f"{default_process_order}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
                 # styled_text(f"{default_process_order_name}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
                 # styled_text(f"{default_quantity}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"項　　目　 :　追加または削除の対象", bg_color="#c0c0c0", padding="10px", width="100%", text_color="#333333", font_size="10px", border_thickness="3px")
-            styled_text(f"社員番号　 : {owner_value}", bg_color="#c0c0c0", padding="6px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"棚　　番　 : {tanaban}", bg_color="#FFFF00", padding="6px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"移行票番号 : {production_order_value}", bg_color="#FFFF00", padding="6px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"品　　番　 : {default_hinban}", bg_color="#FFFF00", padding="6px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"工　　順　 : {default_process_order}", bg_color="#FFFF00", padding="6px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"工　程　名 : {default_process_order_name}", bg_color="#FFFF00", padding="6px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"数量(工程) : {default_quantity}", bg_color="#FFFF00", padding="6px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+            styled_text(f"項　　目　 :　追加または削除の対象", bg_color="#c0c0c0", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="3px")
+            styled_text(f"社員番号　 : {owner_value}", bg_color="#c0c0c0", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+            styled_text(f"棚　　番　 : {tanaban}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+            styled_text(f"移行票番号 : {production_order_value}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+            styled_text(f"品　　番　 : {default_hinban}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+            styled_text(f"工　　順　 : {default_process_order}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+            styled_text(f"工 程 名　 : {default_process_order_name}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+            styled_text(f"数量(工程) : {default_quantity}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
             if st.session_state.data:
                 hinban = default_hinban
                 process_order = default_process_order
@@ -738,10 +748,11 @@ else:
                 process_order_name = "-"
                 quantity = 0.0
                 # hinmei = st.text_input("品名:", key="hinmei", value="-")
-                  
+            
             add_del_flag = 0  # 0:追加 1:削除
             left, center, right = st.columns([0.3, 0.4, 0.3])
             with left:
+                st.markdown('<div id="scroll-target"></div>', unsafe_allow_html=True)
                 submit_button_add = st.form_submit_button("追加")
             with center:
                 submit_button_del = st.form_submit_button("削除")
