@@ -524,7 +524,8 @@ else:
         else:
             st.success("登録が正常に完了しました！")
     '''
-
+    
+    st.session_state.qr_code_tana = False
     st.write(st.session_state.qr_code_tana)
     st.session_state.manual_input_flag = 1
     if not st.session_state.qr_code_tana:
@@ -565,7 +566,7 @@ else:
             # st.session_state.tanaban = tanaban_select
             st.session_state.tanaban_select_temp = tanaban_select
             st.session_state.show_camera = False
-            st.session_state.qr_code_tana = False
+            st.session_state.qr_code_tana = True
             st.rerun()  # 再描画して次のステップへ
     else:
         st.write(st.session_state.tanaban_select_temp)
