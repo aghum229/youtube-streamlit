@@ -647,7 +647,7 @@ else:
                 # reset_form()
                 # st.stop()
             
-            left, right = st.columns([0.14, 0.86])
+            left, right = st.columns([0.2, 0.8])
             # Campos de entrada
             owner_value = st.session_state.owner
             # owner_value = "" if st.session_state.data is None else st.session_state.owner
@@ -676,15 +676,15 @@ else:
                 styled_text(f"工程名 :", bg_color="#c0c0c0", padding="10px", width="80px", text_color="#333333", font_size="10px", border_thickness="0px")
                 styled_text(f"数量(工程) :", bg_color="#c0c0c0", padding="10px", width="80px", text_color="#333333", font_size="10px", border_thickness="0px")
             with right:
-                # styled_text(f"　追加または削除の対象", bg_color="#c0c0c0", padding="9px", width="110px", text_color="#333333", font_size="10px", border_thickness="3px")
-                styled_text(f"　追加または削除の対象", bg_color="#c0c0c0", padding="9px", width="110px", text_color="#333333", font_size="10px", border_thickness="3px")
-                styled_text(f"{owner_value}", bg_color="#c0c0c0", padding="4px", width="110px", text_color="#333333", font_size="18px", border_thickness="0px")
-                styled_text(f"{tanaban}", bg_color="#FFFF00", padding="4px", width="110px", text_color="#333333", font_size="18px", border_thickness="0px")
-                styled_text(f"{production_order_value}", bg_color="#FFFF00", padding="4px", width="110px", text_color="#333333", font_size="18px", border_thickness="0px")
-                styled_text(f"{default_hinban}", bg_color="#FFFF00", padding="4px", width="110px", text_color="#333333", font_size="18px", border_thickness="0px")
-                styled_text(f"{default_process_order}", bg_color="#FFFF00", padding="4px", width="110px", text_color="#333333", font_size="18px", border_thickness="0px")
-                styled_text(f"{default_process_order_name}", bg_color="#FFFF00", padding="4px", width="110px", text_color="#333333", font_size="18px", border_thickness="0px")
-                styled_text(f"{default_quantity}", bg_color="#FFFF00", padding="4px", width="110px", text_color="#333333", font_size="18px", border_thickness="0px")
+                # styled_text(f"　追加または削除の対象", bg_color="#c0c0c0", padding="9px", width="130px", text_color="#333333", font_size="10px", border_thickness="3px")
+                styled_text(f"　追加または削除の対象", bg_color="#c0c0c0", padding="9px", width="130px", text_color="#333333", font_size="10px", border_thickness="3px")
+                styled_text(f"{owner_value}", bg_color="#c0c0c0", padding="4px", width="130px", text_color="#333333", font_size="18px", border_thickness="0px")
+                styled_text(f"{tanaban}", bg_color="#FFFF00", padding="4px", width="130px", text_color="#333333", font_size="18px", border_thickness="0px")
+                styled_text(f"{production_order_value}", bg_color="#FFFF00", padding="4px", width="130px", text_color="#333333", font_size="18px", border_thickness="0px")
+                styled_text(f"{default_hinban}", bg_color="#FFFF00", padding="4px", width="130px", text_color="#333333", font_size="18px", border_thickness="0px")
+                styled_text(f"{default_process_order}", bg_color="#FFFF00", padding="4px", width="130px", text_color="#333333", font_size="18px", border_thickness="0px")
+                styled_text(f"{default_process_order_name}", bg_color="#FFFF00", padding="4px", width="130px", text_color="#333333", font_size="18px", border_thickness="0px")
+                styled_text(f"{default_quantity}", bg_color="#FFFF00", padding="4px", width="130px", text_color="#333333", font_size="18px", border_thickness="0px")
             if st.session_state.data:
                 hinban = default_hinban
                 process_order = default_process_order
