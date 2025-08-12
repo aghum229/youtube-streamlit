@@ -766,8 +766,7 @@ else:
             """, unsafe_allow_html=True)
             
             # クエリパラメータでどのボタンが押されたか判定
-            query_params = st.experimental_get_query_params()
-            action = query_params.get("action", [None])[0]
+            action = st.query_params.get("action", [None])[0]
             
             if action == "btnAdd":
                 add_del_flag = 0
