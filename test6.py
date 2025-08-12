@@ -581,6 +581,7 @@ else:
         if st.session_state.tanaban_select_temp == "完A-0":
             st.session_state.qr_code_tana = False
             # st.session_state.tanaban = ""
+            st.session_state.tanaban_select = ""
             st.session_state.tanaban_select_temp = ""
             if st.session_state.manual_input_flag == 0:
                 st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
@@ -588,6 +589,7 @@ else:
         if st.button("棚番を再選択"):
             st.session_state.qr_code_tana = False
             # st.session_state.tanaban = ""
+            st.session_state.tanaban_select = ""
             st.session_state.tanaban_select_temp = ""
             if st.session_state.manual_input_flag == 0:
                 st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
