@@ -412,7 +412,29 @@ def styled_input_text():
         """,
         unsafe_allow_html=True
     )
-
+    
+def button_make(button_text, screen_name):
+    st.markdown("""
+        <style>
+        .stButton>button { /* Streamlitのボタン要素に直接スタイルを適用 */
+            background-color: #FF0;
+            color: black;
+            font-size: 10px !important;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+            width: 200px;
+            max-width: 200px;
+            height: 20px;
+            margin: 5px; /* ボタン間の間隔など調整 */
+        }
+        .stButton>button:hover {
+            opacity: 0.8;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    st.button(button_text, key=button_text, on_click=set_screen, args=(screen_name,))
+    
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
     try:
