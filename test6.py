@@ -507,6 +507,7 @@ if not st.session_state.user_code_entered:
     if st.session_state['owner']:  # 入力があれば保存して完了フラグを立てる
         st.session_state.user_code = st.session_state['owner']
         st.session_state.user_code_entered = True
+        st.session_state.qr_code_tana = False
         st.rerun()  # 再描画して次のステップへ
 else:
     _= '''
@@ -527,7 +528,6 @@ else:
             st.success("登録が正常に完了しました！")
     '''
     
-    st.session_state.qr_code_tana = False
     st.write(st.session_state.qr_code_tana)
     st.session_state.manual_input_flag = 1
     if not st.session_state.qr_code_tana:
