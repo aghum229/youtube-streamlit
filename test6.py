@@ -539,8 +539,8 @@ else:
                     #st.session_state.show_camera = False
                     st.session_state.qr_code = None  # 処理済みなのでクリア
                     # st.rerun()
-                    st.session_state.trigger_rerun = True
-                if st.session_state.get("trigger_rerun"):
+                    # st.session_state.trigger_rerun = True
+                # if st.session_state.get("trigger_rerun"):
                     st.session_state.show_camera = False
                     st.session_state.trigger_rerun = False
                     # st.rerun()
