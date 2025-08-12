@@ -482,8 +482,8 @@ if "manual_input" not in st.session_state:
     st.session_state.manual_input = ""
 # if "tanaban" not in st.session_state:
 #     st.session_state.tanaban = ""
-if "tanaban_select" not in st.session_state:
-    st.session_state.tanaban_select = ""
+if "tanaban_select_temp" not in st.session_state:
+    st.session_state.tanaban_select_temp = ""
 if "qr_code" not in st.session_state:
     st.session_state.qr_code = None
 if "qr_code_tana" not in st.session_state:
@@ -560,16 +560,16 @@ else:
         #                     key="manual_input_tana")
         if tanaban_select != "":
             # st.session_state.tanaban = tanaban_select
-            st.session_state.tanaban_select = tanaban_select
+            st.session_state.tanaban_select_temp = tanaban_select
             st.session_state.show_camera = False
             st.session_state.qr_code_tana = True
             st.rerun()  # 再描画して次のステップへ
     else:
-        st.write(st.session_state.tanaban_select)
+        st.write(st.session_state.tanaban_select_temp)
         if st.button("棚番を再選択"):
             st.session_state.qr_code_tana = False
             # st.session_state.tanaban = ""
-            st.session_state.tanaban_select = ""
+            st.session_state.tanaban_select_temp = ""
             st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
             st.rerun()
         
@@ -714,7 +714,7 @@ else:
             # owner = st.text_input("作業者(社員番号):", key="owner", value=owner_value)
             # st.write(f"作業者 (社員番号): {owner_value}")
             # styled_text(f"作業者 (社員番号) : {owner_value}", bg_color="#ffe4e1", text_color="#333333")
-            tanaban_select = st.session_state.tanaban_select
+            tanaban_select = st.session_state.tanaban_select_temp
             # tanaban = "" if st.session_state.tanaban is None else st.session_state.tanaban
             production_order_value = st.session_state.production_order
             # production_order_value = "" if st.session_state.production_order is None else st.session_state.production_order
@@ -793,7 +793,7 @@ else:
                 if add_del_flag == 9:
                     st.session_state.qr_code_tana = False
                     # st.session_state.tanaban = ""
-                    st.session_state.tanaban_select = ""
+                    st.session_state.tanaban_select_temp = ""
                     st.session_state.show_camera = True  # 必要に応じて棚番再選択
                     st.rerun()
                 item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※限定
