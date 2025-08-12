@@ -534,7 +534,9 @@ else:
                     
                     # production_order = st.session_state.qr_code
                     # st.write(production_order[3:8])
+                    st.write(f"qr_code : {st.session_state.production_order}")
                     st.session_state.production_order = f"{st.session_state.qr_code}"
+                    st.write(f"production_order : {st.session_state.production_order}")
                     # st.session_state.manual_input_value = production_order[3:8]
                     #st.session_state.show_camera = False
                     st.session_state.qr_code = None  # 処理済みなのでクリア
