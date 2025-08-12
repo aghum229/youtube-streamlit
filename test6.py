@@ -480,8 +480,8 @@ if "manual_input_value" not in st.session_state:
     st.session_state.manual_input_value = ""
 if "manual_input" not in st.session_state:
     st.session_state.manual_input = ""
-if "tanaban" not in st.session_state:
-    st.session_state.tanaban = ""
+# if "tanaban" not in st.session_state:
+#     st.session_state.tanaban = ""
 if "tanaban_select" not in st.session_state:
     st.session_state.tanaban_select = ""
 if "qr_code" not in st.session_state:
@@ -550,23 +550,23 @@ else:
                 """
             zkTanalistSplit = zkTanalist.split(",")
             options = zkTanalistSplit
-            tanaban_select = st.selectbox("棚番号を選んでください", options, key="tanaban")
+            tanaban_select = st.selectbox("棚番号を選んでください", options, key="tanaban_select")
             st.write(f"選択された棚番号: {tanaban_select}")
     
         # tanaban = st.text_input("棚番号を選択または入力してください (例: H-15):",
         #                     max_chars=6,
         #                     key="manual_input_tana")
         if tanaban_select != "":
-            st.session_state.tanaban = tanaban_select
+            # st.session_state.tanaban = tanaban_select
             st.session_state.tanaban_select = tanaban_select
             st.session_state.show_camera = False
             st.session_state.qr_code_tana = True
             st.rerun()  # 再描画して次のステップへ
     else:
-        st.write(st.session_state.tanaban)
+        st.write(st.session_state.tanaban_select)
         if st.button("棚番を再選択"):
             st.session_state.qr_code_tana = False
-            st.session_state.tanaban = ""
+            # st.session_state.tanaban = ""
             st.session_state.tanaban_select = ""
             st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
             st.rerun()
@@ -712,7 +712,7 @@ else:
             # owner = st.text_input("作業者(社員番号):", key="owner", value=owner_value)
             # st.write(f"作業者 (社員番号): {owner_value}")
             # styled_text(f"作業者 (社員番号) : {owner_value}", bg_color="#ffe4e1", text_color="#333333")
-            tanaban_select = st.session_state.tanaban
+            tanaban_select = st.session_state.tanaban_select
             # tanaban = "" if st.session_state.tanaban is None else st.session_state.tanaban
             production_order_value = st.session_state.production_order
             # production_order_value = "" if st.session_state.production_order is None else st.session_state.production_order
@@ -790,7 +790,7 @@ else:
                 #     add_del_flag = 9
                 if add_del_flag == 9:
                     st.session_state.qr_code_tana = False
-                    st.session_state.tanaban = ""
+                    # st.session_state.tanaban = ""
                     st.session_state.tanaban_select = ""
                     st.session_state.show_camera = True  # 必要に応じて棚番再選択
                     st.rerun()
