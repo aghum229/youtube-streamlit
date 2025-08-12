@@ -525,14 +525,14 @@ else:
 
     manual_input_flag = 1
     if not st.session_state.qr_code_tana:
-        tanaban = ""
+        tanaban_select = ""
         if manual_input_flag == 0:
             st.write("棚番のQRコードをスキャンしてください:")
             qr_code_tana = qrcode_scanner(key='qrcode_scanner_tana')  
         
             if qr_code_tana:  
                 # st.write(qr_code_tana) 
-                tanaban = qr_code_tana.strip()
+                tanaban_select = qr_code_tana.strip()
         else:
             zkTanalist = """
                 完A-1,完A-2,完A-3,完A-4,完A-5,完A-6,完A-7,完A-8,完A-9,完A-10,完A-11,完A-12,完A-13,完A-14,完A-15,完A-16,完A-17,完A-18,完A-19,完A-20,
@@ -551,15 +551,14 @@ else:
             zkTanalistSplit = zkTanalist.split(",")
             options = zkTanalistSplit
             tanaban_select = st.selectbox("棚番号を選んでください", options, key="tanaban")
-            tanaban = f"{tanaban_select}"
-            st.write(f"選択された棚番号: {tanaban}")
+            st.write(f"選択された棚番号: {tanaban_select}")
     
         # tanaban = st.text_input("棚番号を選択または入力してください (例: H-15):",
         #                     max_chars=6,
         #                     key="manual_input_tana")
-        if tanaban != "":
-            st.session_state.tanaban = tanaban
-            st.session_state.tanaban_select = tanaban
+        if tanaban_select != "":
+            st.session_state.tanaban = tanaban_select
+            st.session_state.tanaban_select = tanaban_select
             st.session_state.show_camera = False
             st.session_state.qr_code_tana = True
             st.rerun()  # 再描画して次のステップへ
@@ -713,7 +712,7 @@ else:
             # owner = st.text_input("作業者(社員番号):", key="owner", value=owner_value)
             # st.write(f"作業者 (社員番号): {owner_value}")
             # styled_text(f"作業者 (社員番号) : {owner_value}", bg_color="#ffe4e1", text_color="#333333")
-            tanaban = st.session_state.tanaban
+            tanaban_select = st.session_state.tanaban
             # tanaban = "" if st.session_state.tanaban is None else st.session_state.tanaban
             production_order_value = st.session_state.production_order
             # production_order_value = "" if st.session_state.production_order is None else st.session_state.production_order
@@ -746,7 +745,7 @@ else:
                 # styled_text(f"{default_quantity}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
             styled_text(f"項　　目　 :　追加または削除の対象", bg_color="#c0c0c0", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="3px")
             styled_text(f"社員番号　 : {owner_value}", bg_color="#c0c0c0", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
-            styled_text(f"棚　　番　 : {tanaban}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+            styled_text(f"棚　　番　 : {tanaban_select}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
             styled_text(f"移行票番号 : {production_order_value}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
             styled_text(f"品　　番　 : {default_hinban}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
             styled_text(f"工　　順　 : {default_process_order}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
@@ -801,7 +800,7 @@ else:
                 # atualizar_tanaban_addkari(st.session_state.sf, item_id)
                 # st.stop()  # 以降の処理を止める
                 
-                # tanaban = "完A-3"  # 仮で設定
+                # tanaban_select = "完A-3"  # 仮で設定
                 listCount = 0
                 listCountEtc = 0
                 listAdd = 0  # リストに追加する場合は 1 
@@ -851,11 +850,11 @@ else:
                     datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                     # tdatetime = dt.strptime(datetime_str, '%Y/%m/%d %H:%M:%S')
                     if listAdd == 1: # 棚番が無い場合
-                        st.write(f"❌05 **棚番 '{tanaban}' の追加は許可されてません。**")
+                        st.write(f"❌05 **棚番 '{tanaban_select}' の追加は許可されてません。**")
                         # reset_form()
                         st.stop()  # 以降の処理を止める
-                        # # zkTana = f"{record["zkTanaban__c"]},{tanaban}"
-                        # zkTana = record["zkTanaban__c"] + "\n" + tanaban
+                        # # zkTana = f"{record["zkTanaban__c"]},{tanaban_select}"
+                        # zkTana = record["zkTanaban__c"] + "\n" + tanaban_select
                         # zkIko = record["zkIkohyoNo__c"] + "\n" + st.session_state.production_order  # zk移行票No
                         # zkHin = record["zkHinban__c"] + "\n" + hinban   # zk品番
                         # zkKan = record["zkKanryoKoutei__c"] + "\n" + process_order_name   # zk完了工程
