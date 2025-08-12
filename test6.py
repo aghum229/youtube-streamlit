@@ -969,9 +969,9 @@ else:
                     # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
                     # datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
                     if add_del_flag == 0: # 追加の場合
-                        atualizar_tanaban_add(st.session_state.sf, item_id, tanaban, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
+                        atualizar_tanaban_add(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
                     else: # 削除の場合
-                        atualizar_tanaban_del(st.session_state.sf, item_id, tanaban, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
+                        atualizar_tanaban_del(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
                     # reset_form()
                     # JavaScriptでフォーカスを当てる
                     if st.session_state.rerun_flag:
