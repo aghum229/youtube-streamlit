@@ -753,13 +753,13 @@ else:
                 }
                 </style>
                 <div class="button-row">
-                    <form action="?action=btnAdd" method="post">
+                    <form action="?action=btnAdd" method="get">
                         <button type="submit">追加</button>
                     </form>
-                    <form action="?action=btnDel" method="post">
+                    <form action="?action=btnDel" method="get">
                         <button type="submit">削除</button>
                     </form>
-                    <form action="?action=btnCancel" method="post">
+                    <form action="?action=btnCancel" method="get">
                         <button type="submit">取消</button>
                     </form>
                 </div>
@@ -774,13 +774,18 @@ else:
                 add_del_flag = 1
             elif action == "btnCancel":
                 add_del_flag = 9
-
+            if st.button("棚番を再選択"):
+                st.session_state.qr_code_tana = False
+                st.session_state.tanaban = ""
+                st.session_state.tanaban_select = ""
+                st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
+                st.rerun()
             # left, center, right = st.columns([0.3, 0.4, 0.3])
             # with left:
             #     submit_button_add = st.form_submit_button("追加")
             # with center:
             #     submit_button_del = st.form_submit_button("削除")
-            if add_del_flag == 0 or add_del_flag == 1: 
+            if action == "btnAdd" or action == "btnDel": 
                 item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※限定
                 
                 # 棚番設定用マスタ(棚番を変更する場合には、下記に追加または削除してからatualizar_tanaban_addkari()を実行の事。尚、棚番は改行区切りである。)
