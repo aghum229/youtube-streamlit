@@ -470,7 +470,7 @@ else:
     if not st.session_state.qr_code_tana:
         tanaban = ""
         if manual_input_flag == 0:
-            st.write("棚番のQRコードをスキャンして開始してください:")
+            st.write("棚番のQRコードをスキャンしてください:")
             qr_code_tana = qrcode_scanner(key='qrcode_scanner_tana')  
         
             if qr_code_tana:  
@@ -507,7 +507,7 @@ else:
             st.rerun()  # 再描画して次のステップへ
     else:
         st.write(st.session_state.tanaban)
-        if st.button("棚番を再選択する"):
+        if st.button("棚番を再選択"):
             st.session_state.qr_code_tana = False
             st.session_state.tanaban = ""
             st.session_state.tanaban_select = ""
@@ -516,7 +516,7 @@ else:
         
         if manual_input_flag == 0:
             qr_code = ""
-            if st.button("カメラを再表示", key="camera_rerun"):
+            if st.button("移行票(製造オーダー)を再選択", key="camera_rerun"):
                 st.session_state.show_camera = True
                 st.session_state.production_order = None
                 # st.session_state.manual_input_value = ""
@@ -524,7 +524,7 @@ else:
             if qr_code == "":
             # if st.session_state.show_camera:
                 st.session_state.show_camera = True
-                st.write("移行票(製造オーダー)のQRコードをスキャンして開始してください:")
+                st.write("移行票(製造オーダー)のQRコードをスキャンしてください:")
                 qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
                 st.write(f"読取直後qr_code : {st.session_state.production_order}")
                 if qr_code is not None and qr_code.strip() != "":
