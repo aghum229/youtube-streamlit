@@ -502,7 +502,7 @@ else:
         if tanaban != "":
             st.session_state.tanaban = tanaban
             st.session_state.tanaban_select = tanaban
-            # st.session_state.show_camera = False
+            st.session_state.show_camera = False
             st.session_state.qr_code_tana = True
             st.rerun()  # 再描画して次のステップへ
     else:
@@ -514,7 +514,8 @@ else:
                 st.session_state.production_order = None
                 # st.session_state.manual_input_value = ""
                 st.rerun()
-            if st.session_state.show_camera:
+            if qr_code == "":
+            # if st.session_state.show_camera:
                 st.write("移行票(製造オーダー)のQRコードをスキャンして開始してください:")
                 qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
                 st.write(f"読取直後qr_code : {st.session_state.production_order}")
@@ -542,7 +543,7 @@ else:
                     st.write(f"production_order : {st.session_state.production_order}")
                     # st.session_state.manual_input_value = production_order[3:8]
                     # st.write("カメラONの session_state:", st.session_state)
-                    # st.session_state.show_camera = False
+                    st.session_state.show_camera = False
                     # st.write("カメラOFFの session_state:", st.session_state)
                     # st.session_state.qr_code = None  # 処理済みなのでクリア
                     # st.rerun()
