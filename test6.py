@@ -518,7 +518,8 @@ else:
                 st.write("移行票(製造オーダー)のQRコードをスキャンして開始してください:")
                 qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
                 st.write(f"読取直後qr_code : {st.session_state.production_order}")
-                if qr_code:
+                if qr_code is not None and qr_code.strip() != "":
+                # if qr_code:
                     st.session_state.qr_code = qr_code.strip()
                 # if not st.session_state.production_order and st.session_state.show_camera:
                 #     st.write("QRコードをスキャンして開始してください:")
@@ -529,7 +530,8 @@ else:
                 #     if isinstance(qr_code, str) and qr_code:
                 #         st.session_state.qr_code = qr_code
                 #         st.rerun()  # ← ここで明示的に再描画
-                if st.session_state.qr_code != "":
+                if "qr_code" in st.session_state and st.session_state.qr_code != "":
+                # if st.session_state.qr_code != "":
                     # st.write("QRコードの型:", type(st.session_state.qr_code))
                     # st.write("QRコードの中身:", repr(st.session_state.qr_code))
                     
@@ -539,7 +541,9 @@ else:
                     st.session_state.production_order = f"{st.session_state.qr_code}"
                     st.write(f"production_order : {st.session_state.production_order}")
                     # st.session_state.manual_input_value = production_order[3:8]
-                    #st.session_state.show_camera = False
+                    st.write("カメラONの session_state:", st.session_state)
+                    st.session_state.show_camera = False
+                    st.write("カメラOFFの session_state:", st.session_state)
                     # st.session_state.qr_code = None  # 処理済みなのでクリア
                     # st.rerun()
                     # st.session_state.trigger_rerun = True
