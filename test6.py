@@ -641,7 +641,7 @@ else:
                     #                            value=st.session_state.manual_input_value,
                     #                            max_chars=6,
                     #                            key="manual_input")
-                    manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
+                    manual_input = st.text_input("移行票番号を入力し、Enterを押してください (6桁、例: 000000):",
                                                 value="",
                                                 max_chars=6,
                                                 key="manual_input")
