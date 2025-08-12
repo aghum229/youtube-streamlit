@@ -962,8 +962,8 @@ else:
                     st.write(f"❌07 **作業者コード '{owner}' が未入力です。**")
                     # reset_form()
                     st.stop()  # 以降の処理を止める
-                # if "rerun_flag" not in st.session_state:
-                #     st.session_state.rerun_flag = False
+                if "rerun_flag" not in st.session_state:
+                    st.session_state.rerun_flag = False
                 if item_id:
                     # atualizar_tanabangou(st.session_state.sf, item_id)
                     # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
