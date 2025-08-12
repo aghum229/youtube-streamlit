@@ -567,9 +567,9 @@ else:
         # tanaban = st.text_input("棚番号を選択または入力してください (例: H-15):",
         #                     max_chars=6,
         #                     key="manual_input_tana")
-        if st.session_state.tanaban_select and st.session_state.tanaban_select != "完A-0": # 完A-0は存在しない置き場(変更前提の初期値としてのみ利用)
+        if tanaban_select != "" and tanaban_select != "完A-0": # 完A-0は存在しない置き場(変更前提の初期値としてのみ利用)
             # st.session_state.tanaban = tanaban_select
-            st.session_state.tanaban_select_temp = st.session_state.tanaban_select
+            st.session_state.tanaban_select_temp = tanaban_select
             st.session_state.show_camera = False
             st.session_state.qr_code_tana = True
             st.rerun()  # 再描画して次のステップへ
