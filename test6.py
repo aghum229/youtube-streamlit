@@ -414,8 +414,10 @@ def styled_input_text():
     )
 
 def set_flag(flag):
-    global add_del_flag = flag
-    global button_flag = 1
+    global add_del_flag
+    global button_flag
+    add_del_flag = flag
+    button_flag = 1
 
 def button_make(button_text, flag):
     st.markdown("""
