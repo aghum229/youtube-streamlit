@@ -516,6 +516,7 @@ else:
                 st.rerun()
             if qr_code == "":
             # if st.session_state.show_camera:
+                st.session_state.show_camera = True
                 st.write("移行票(製造オーダー)のQRコードをスキャンして開始してください:")
                 qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
                 st.write(f"読取直後qr_code : {st.session_state.production_order}")
@@ -546,7 +547,7 @@ else:
                     st.session_state.show_camera = False
                     # st.write("カメラOFFの session_state:", st.session_state)
                     # st.session_state.qr_code = None  # 処理済みなのでクリア
-                    # st.rerun()
+                    st.rerun()
                     # st.session_state.trigger_rerun = True
                 # if st.session_state.get("trigger_rerun"):
                     # st.session_state.show_camera = False
