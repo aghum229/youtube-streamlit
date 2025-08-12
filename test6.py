@@ -537,7 +537,7 @@ else:
                 tanaban_select = qr_code_tana.strip()
         else:
             zkTanalist = """
-                完A-1,完A-2,完A-3,完A-4,完A-5,完A-6,完A-7,完A-8,完A-9,完A-10,完A-11,完A-12,完A-13,完A-14,完A-15,完A-16,完A-17,完A-18,完A-19,完A-20,
+                完A-0,完A-1,完A-2,完A-3,完A-4,完A-5,完A-6,完A-7,完A-8,完A-9,完A-10,完A-11,完A-12,完A-13,完A-14,完A-15,完A-16,完A-17,完A-18,完A-19,完A-20,
                 完B-1,完B-2,完B-3,完B-4,完B-5,完B-6,完B-7,完B-8,完B-9,完B-10,完B-11,完B-12,完B-13,完B-14,完B-15,完B-16,完B-17,完B-18,完B-19,完B-20,
                 完C-1,完C-2,完C-3,完C-4,完C-5,完C-6,完C-7,完C-8,完C-9,完C-10,完C-11,完C-12,完C-13,完C-14,完C-15,完C-16,完C-17,完C-18,完C-19,完C-20,
                 完D-1,完D-2,完D-3,完D-4,完D-5,完D-6,完D-7,完D-8,完D-9,完D-10,完D-11,完D-12,完D-13,完D-14,完D-15,完D-16,完D-17,完D-18,完D-19,完D-20,
@@ -560,7 +560,7 @@ else:
         # tanaban = st.text_input("棚番号を選択または入力してください (例: H-15):",
         #                     max_chars=6,
         #                     key="manual_input_tana")
-        if tanaban_select != "":
+        if tanaban_select != "完A-0": # 完A-0は存在しない置き場(変更前提の初期値としてのみ利用)
             # st.session_state.tanaban = tanaban_select
             st.session_state.tanaban_select_temp = tanaban_select
             st.session_state.show_camera = False
@@ -834,8 +834,8 @@ else:
                     if listCount > 2:
                         for index, item in enumerate(zkTana_list):
                             # st.write(f"for文で検索した棚番: '{item}'") 
-                            # st.write(f"検索させる棚番: '{tanaban}'")  
-                            if item == tanaban:
+                            # st.write(f"検索させる棚番: '{tanaban_select}'")  
+                            if item == tanaban_select:
                                 listNumber = index
                                 listAdd = 0
                                 break  # 条件を満たしたらループを終了
@@ -843,14 +843,14 @@ else:
                                 listAdd = 1
                     else:
                         if listCount == 1:
-                            if zkTana_list != tanaban:
+                            if zkTana_list != tanaban_select:
                                 listAdd = 1
                             else:
                                 listNumber = 0
                         else:
-                            if zkTana_list[0] != tanaban and zkTana_list[1] != tanaban:
+                            if zkTana_list[0] != tanaban_select and zkTana_list[1] != tanaban_select:
                                 listAdd = 1
-                            elif zkTana_list[0] == tanaban:
+                            elif zkTana_list[0] == tanaban_select:
                                 listNumber = 0
                             else:
                                 listNumber = 1
