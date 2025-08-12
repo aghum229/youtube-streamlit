@@ -740,52 +740,22 @@ else:
                 quantity = 0.0
                 # hinmei = st.text_input("品名:", key="hinmei", value="-")
             
-            add_del_flag = 0  # 0:追加 1:削除
-            # HTMLとCSSでボタンを横並びに配置
-            st.markdown("""
-                <style>
-                .button-row {
-                    display: flex;
-                    gap: 10px;
-                }
-                .button-row form {
-                    margin: 0;
-                }
-                </style>
-                <div class="button-row">
-                    <form action="?action=btnAdd" method="get">
-                        <button type="submit">追加</button>
-                    </form>
-                    <form action="?action=btnDel" method="get">
-                        <button type="submit">削除</button>
-                    </form>
-                    <form action="?action=btnCancel" method="get">
-                        <button type="submit">取消</button>
-                    </form>
-                </div>
-            """, unsafe_allow_html=True)
+            add_del_flag = 0  # 0:追加 1:削除 9:取消
             
-            # クエリパラメータでどのボタンが押されたか判定
-            action = st.query_params.get("action", [None])[0]
-            
-            if action == "btnAdd":
-                add_del_flag = 0
-            elif action == "btnDel":
-                add_del_flag = 1
-            elif action == "btnCancel":
-                add_del_flag = 9
-            if st.form_submit_button("棚番を再選択"):
-                st.session_state.qr_code_tana = False
-                st.session_state.tanaban = ""
-                st.session_state.tanaban_select = ""
-                st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
-                st.rerun()
-            # left, center, right = st.columns([0.3, 0.4, 0.3])
-            # with left:
-            #     submit_button_add = st.form_submit_button("追加")
-            # with center:
-            #     submit_button_del = st.form_submit_button("削除")
-            if action == "btnAdd" or action == "btnDel": 
+            left, center, right = st.columns(3)
+            with left:
+                submit_button_add = st.form_submit_button("追加")
+            with center:
+                submit_button_del = st.form_submit_button("削除")
+            with center:
+                submit_button_cancel = st.form_submit_button("取消")
+            if submit_button_add or submit_button_del or submit_button_cancel: 
+                if submit_button_add:
+                    add_del_flag = 0
+                elif submit_button_del:
+                    add_del_flag = 1
+                else submit_button_cancel:
+                    add_del_flag = 9
                 item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※限定
                 
                 # 棚番設定用マスタ(棚番を変更する場合には、下記に追加または削除してからatualizar_tanaban_addkari()を実行の事。尚、棚番は改行区切りである。)
