@@ -559,14 +559,6 @@ else:
                 if qr_code is not None and qr_code.strip() != "":
                 # if qr_code:
                     st.session_state.qr_code = qr_code.strip()
-                    st.markdown(
-                        """
-                        <script>
-                            document.getElementById("scroll-target").scrollIntoView({ behavior: "smooth" });
-                        </script>
-                        """,
-                        unsafe_allow_html=True
-                    )
                 
                 # if not st.session_state.production_order and st.session_state.show_camera:
                 #     st.write("QRコードをスキャンして開始してください:")
@@ -749,17 +741,47 @@ else:
                 # hinmei = st.text_input("品名:", key="hinmei", value="-")
             
             add_del_flag = 0  # 0:追加 1:削除
-            left, center, right = st.columns([0.3, 0.4, 0.3])
-            with left:
-                st.markdown('<div id="scroll-target"></div>', unsafe_allow_html=True)
-                submit_button_add = st.form_submit_button("追加")
-            with center:
-                submit_button_del = st.form_submit_button("削除")
-            if submit_button_add or submit_button_del:
-                if submit_button_add:
-                    add_del_flag = 0
-                elif submit_button_del:
-                    add_del_flag = 1    
+            # HTMLとCSSでボタンを横並びに配置
+            st.markdown("""
+                <style>
+                .button-row {
+                    display: flex;
+                    gap: 10px;
+                }
+                .button-row form {
+                    margin: 0;
+                }
+                </style>
+                <div class="button-row">
+                    <form action="?action=btnAdd" method="post">
+                        <button type="submit">追加</button>
+                    </form>
+                    <form action="?action=btnDel" method="post">
+                        <button type="submit">削除</button>
+                    </form>
+                    <form action="?action=btnCancel" method="post">
+                        <button type="submit">取消</button>
+                    </form>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            # クエリパラメータでどのボタンが押されたか判定
+            query_params = st.experimental_get_query_params()
+            action = query_params.get("action", [None])[0]
+            
+            if action == "btnAdd":
+                add_del_flag = 0
+            elif action == "btnDel":
+                add_del_flag = 1
+            elif action == "btnCancel":
+                add_del_flag = 9
+
+            # left, center, right = st.columns([0.3, 0.4, 0.3])
+            # with left:
+            #     submit_button_add = st.form_submit_button("追加")
+            # with center:
+            #     submit_button_del = st.form_submit_button("削除")
+            if add_del_flag = 0 or add_del_flag = 1: 
                 item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※限定
                 
                 # 棚番設定用マスタ(棚番を変更する場合には、下記に追加または削除してからatualizar_tanaban_addkari()を実行の事。尚、棚番は改行区切りである。)
@@ -874,7 +896,7 @@ else:
                                 zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 0)   # zk追加日時
                                 zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner, 0)   # zk追加者
                                 zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", -1)   # zkマップ座標
-                            else: # 削除の場合
+                            elseif add_del_flag == 1: # 削除の場合
                                 zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order, 3)   # zk棚番
                                 zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 2)   # zk品番
                                 zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 2)   # zk完了工程
