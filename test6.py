@@ -790,7 +790,7 @@ else:
                 #     add_del_flag = 1
                 # elif submit_button_cancel:
                 #     add_del_flag = 9
-                if add_del_flag == 9:
+                if add_del_flag == 9 or st.form_submit_button("棚番を再選択"):
                     st.session_state.qr_code_tana = False
                     # st.session_state.tanaban = ""
                     st.session_state.tanaban_select_temp = ""
