@@ -551,8 +551,8 @@ else:
             zkTanalistSplit = zkTanalist.split(",")
             options = zkTanalistSplit
             tanaban_select = st.selectbox("棚番号を選んでください", options, key="tanaban_select")
-            st.write(type(tanaban_select))
-            st.stop
+            # st.write(type(tanaban_select))
+            # st.stop
             st.write(f"選択された棚番号: {tanaban_select}")
     
         # tanaban = st.text_input("棚番号を選択または入力してください (例: H-15):",
@@ -771,26 +771,27 @@ else:
                 # hinmei = st.text_input("品名:", key="hinmei", value="-")
             
             add_del_flag = 0  # 0:追加 1:削除 9:取消
-            button_flag = 0           
+            # button_flag = 0           
             left, center, right = st.columns(3)
             with left:
-                button_make("追加",0)
-                # submit_button_add = st.form_submit_button("追加")
+                # button_make("追加",0)
+                submit_button_add = st.form_submit_button("追加")
             with center:
-                button_make("削除",1)
-                # submit_button_del = st.form_submit_button("削除")
+                # button_make("削除",1)
+                submit_button_del = st.form_submit_button("削除")
             with right:
-                button_make("取消",9)
-                # submit_button_cancel = st.form_submit_button("取消")
-            # if submit_button_add or submit_button_del or submit_button_cancel: 
-            if button_flag == 1: 
-                # if submit_button_add:
-                #     add_del_flag = 0
-                # elif submit_button_del:
-                #     add_del_flag = 1
-                # elif submit_button_cancel:
-                #     add_del_flag = 9
-                if add_del_flag == 9 or st.form_submit_button("棚番を再選択"):
+                # button_make("取消",9)
+                submit_button_cancel = st.form_submit_button("取消")
+            if submit_button_add or submit_button_del or submit_button_cancel: 
+            # if button_flag == 1: 
+                if submit_button_add:
+                    add_del_flag = 0
+                elif submit_button_del:
+                    add_del_flag = 1
+                elif submit_button_cancel:
+                    add_del_flag = 9
+                if add_del_flag == 9:
+                # if add_del_flag == 9 or st.form_submit_button("棚番を再選択"):
                     st.session_state.qr_code_tana = False
                     # st.session_state.tanaban = ""
                     st.session_state.tanaban_select_temp = ""
