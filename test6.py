@@ -530,7 +530,7 @@ else:
     '''
     
     st.write(st.session_state.qr_code_tana)
-    st.session_state.manual_input_flag = 0
+    st.session_state.manual_input_flag = 1
     if not st.session_state.qr_code_tana:
         tanaban_select = ""
         if st.session_state.manual_input_flag == 0:
@@ -684,7 +684,19 @@ else:
                     )
                     submit_button_modify = st.form_submit_button("再入力(移行票番号)")  # 送信ボタンを配置しないとエラーになる
         
-        st.write(f"移行票番号 : {st.session_state.production_order}")     
+        st.write(f"移行票番号 : {st.session_state.production_order}") 
+        st.write("移行票番号(製造オーダー)は、'{st.session_state.production_order}'　でよろしいですか？")
+        left, right = st.columns(2)
+        with left:
+            check_button_ok = st.button("ＯＫ", key="check_ok")
+        with right:
+            check_button_ng = st.button("ＮＧ", key="check_ng")
+        if check_button_ng:
+            st.session_state.show_camera = True
+            st.session_state.production_order = None
+            # st.session_state.manual_input_value = ""
+            st.rerun()
+        
         zkSplitNo = 99
         zkSplitFlag = 0
         # Formulário sempre renderizado
