@@ -480,6 +480,8 @@ if "manual_input_value" not in st.session_state:
     st.session_state.manual_input_value = ""
 if "manual_input" not in st.session_state:
     st.session_state.manual_input = ""
+if "manual_input_flag" not in st.session_state:
+    st.session_state.manual_input_flag = 0
 # if "tanaban" not in st.session_state:
 #     st.session_state.tanaban = ""
 if "tanaban_select_temp" not in st.session_state:
@@ -523,10 +525,10 @@ else:
             st.success("登録が正常に完了しました！")
     '''
 
-    manual_input_flag = 1
+    st.session_state.manual_input_flag = 1
     if not st.session_state.qr_code_tana:
         tanaban_select = ""
-        if manual_input_flag == 0:
+        if st.session_state.manual_input_flag == 0:
             st.write("棚番のQRコードをスキャンしてください:")
             qr_code_tana = qrcode_scanner(key='qrcode_scanner_tana')  
         
@@ -570,11 +572,11 @@ else:
             st.session_state.qr_code_tana = False
             # st.session_state.tanaban = ""
             st.session_state.tanaban_select_temp = ""
-            if manual_input_flag == 0:
+            if st.session_state.manual_input_flag == 0:
                 st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
             st.rerun()
         
-        if manual_input_flag == 0:
+        if st.session_state.manual_input_flag == 0:
             qr_code = ""
             if st.button("移行票(製造オーダー)を再選択", key="camera_rerun"):
                 st.session_state.show_camera = True
@@ -625,7 +627,7 @@ else:
             styled_input_text()
             with st.form(key="manual_input_form", clear_on_submit=True):
                 # manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
-                if manual_input_flag == 1:
+                if st.session_state.manual_input_flag == 1:
                     # Opção de digitação manual do production_order
                     # manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
                     #                            value=st.session_state.manual_input_value,
@@ -796,7 +798,7 @@ else:
                     st.session_state.qr_code_tana = False
                     # st.session_state.tanaban = ""
                     st.session_state.tanaban_select_temp = ""
-                    if manual_input_flag == 0:
+                    if st.session_state.manual_input_flag == 0:
                         st.session_state.show_camera = True  # 必要に応じて棚番再選択
                     st.rerun()
                 item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※限定
