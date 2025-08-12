@@ -676,7 +676,7 @@ else:
                 # reset_form()
                 # st.stop()
             
-            left, right = st.columns([0.3, 0.7])
+            left, right = st.columns([0.5, 0.5])
             # Campos de entrada
             owner_value = st.session_state.owner
             # owner_value = "" if st.session_state.data is None else st.session_state.owner
