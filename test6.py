@@ -570,7 +570,8 @@ else:
             st.session_state.qr_code_tana = False
             # st.session_state.tanaban = ""
             st.session_state.tanaban_select_temp = ""
-            st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
+            if manual_input_flag == 0:
+                st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
             st.rerun()
         
         if manual_input_flag == 0:
@@ -795,7 +796,8 @@ else:
                     st.session_state.qr_code_tana = False
                     # st.session_state.tanaban = ""
                     st.session_state.tanaban_select_temp = ""
-                    st.session_state.show_camera = True  # 必要に応じて棚番再選択
+                    if manual_input_flag == 0:
+                        st.session_state.show_camera = True  # 必要に応じて棚番再選択
                     st.rerun()
                 item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※限定
                 
