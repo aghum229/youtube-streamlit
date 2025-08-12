@@ -607,8 +607,11 @@ else:
             # if st.session_state.show_camera:
                 st.session_state.show_camera = True
                 st.write("移行票(製造オーダー)のQRコードをスキャンしてください:")
-                qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
-                # st.write(f"読取直後qr_code : {st.session_state.production_order}")
+                left, right = st.columns(2)
+                with left:
+                    qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
+                with right:
+                    st.write(f"読取直後qr_code : {qr_code}")
                 if qr_code is not None and qr_code.strip() != "":
                 # if qr_code:
                     st.session_state.qr_code = qr_code.strip()
@@ -681,7 +684,7 @@ else:
                     )
                     submit_button_modify = st.form_submit_button("再入力(移行票番号)")  # 送信ボタンを配置しないとエラーになる
         
-        st.write(st.session_state.production_order)     
+        st.write(f"移行票番号 : {st.session_state.production_order}")     
         zkSplitNo = 99
         zkSplitFlag = 0
         # Formulário sempre renderizado
@@ -769,13 +772,13 @@ else:
                 # styled_text(f"{default_process_order_name}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
                 # styled_text(f"{default_quantity}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
             styled_text(f"項　　目　 :　追加または削除の対象", bg_color="#c0c0c0", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="3px")
-            styled_text(f"社員番号　 : {owner_value}", bg_color="#c0c0c0", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="0px")
-            styled_text(f"棚　　番　 : {tanaban_select}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="0px")
-            styled_text(f"移行票番号 : {production_order_value}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="0px")
-            styled_text(f"品　　番　 : {default_hinban}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="0px")
-            styled_text(f"工　　順　 : {default_process_order}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="0px")
-            styled_text(f"工 程 名　 : {default_process_order_name}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="0px")
-            styled_text(f"数量(工程) : {default_quantity}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="0px")
+            styled_text(f"社員番号　 : {owner_value}", bg_color="#c0c0c0", padding="7px", width="100%", text_color="#333333", font_size="20px", border_thickness="0px")
+            styled_text(f"棚　　番　 : {tanaban_select}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="20px", border_thickness="0px")
+            styled_text(f"移行票番号 : {production_order_value}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="20px", border_thickness="0px")
+            styled_text(f"品　　番　 : {default_hinban}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="20px", border_thickness="0px")
+            styled_text(f"工　　順　 : {default_process_order}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="20px", border_thickness="0px")
+            styled_text(f"工 程 名　 : {default_process_order_name}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="20px", border_thickness="0px")
+            styled_text(f"数量(工程) : {default_quantity}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="20px", border_thickness="0px")
             if st.session_state.data:
                 hinban = default_hinban
                 process_order = default_process_order
