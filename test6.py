@@ -331,7 +331,7 @@ def reset_form():
     st.session_state.manual_input_value = ""
     st.rerun()
 
-def styled_text(
+def styled_text_old(
     text,
     bg_color,
     padding,
@@ -355,6 +355,35 @@ def styled_text(
             margin-bottom:{margin_bottom};
             border-bottom:{border_thickness} solid {border_color};
             display:inline-block;
+        ">
+            <p style="color:{text_color}; font-size:{font_size}; margin:0; line-height:1;">{text}</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
+def styled_text(
+    text,
+    bg_color,
+    padding,
+    width,
+    text_color,
+    font_size,
+    border_thickness,
+    border_color="#000000",
+    margin_top="2px",
+    margin_bottom="2px"
+):
+    st.markdown(
+        f"""
+        <div style="
+            background-color:{bg_color};
+            padding:{padding};
+            border-radius:2px;
+            width:{width};
+            margin-top:{margin_top};
+            margin-bottom:{margin_bottom};
+            border-bottom:{border_thickness} solid {border_color};
         ">
             <p style="color:{text_color}; font-size:{font_size}; margin:0; line-height:1;">{text}</p>
         </div>
@@ -647,7 +676,7 @@ else:
                 # reset_form()
                 # st.stop()
             
-            left, right = st.columns([0.4, 0.6])
+            left, right = st.columns([0.3, 0.7])
             # Campos de entrada
             owner_value = st.session_state.owner
             # owner_value = "" if st.session_state.data is None else st.session_state.owner
@@ -667,24 +696,24 @@ else:
             # styled_text(f"棚番 : {tanaban}", bg_color="#ffe4e1", text_color="#333333")
             with left:
                 # styled_text(f"　項　　目", bg_color="#c0c0c0", padding="9px", width="60px", text_color="#333333", font_size="10px", border_thickness="3px")
-                styled_text(f"　項　　目", bg_color="#c0c0c0", padding="9px", width="60px", text_color="#333333", font_size="10px", border_thickness="3px")
-                styled_text(f"社員番号 :", bg_color="#c0c0c0", padding="10px", width="60px", text_color="#333333", font_size="10px", border_thickness="0px")
-                styled_text(f"棚番 :", bg_color="#c0c0c0", padding="10px", width="60px", text_color="#333333", font_size="10px", border_thickness="0px")
-                styled_text(f"移行票番号 :", bg_color="#c0c0c0", padding="10px", width="60px", text_color="#333333", font_size="10px", border_thickness="0px")
-                styled_text(f"品番 :", bg_color="#c0c0c0", padding="10px", width="60px", text_color="#333333", font_size="10px", border_thickness="0px")
-                styled_text(f"工順 :", bg_color="#c0c0c0", padding="10px", width="60px", text_color="#333333", font_size="10px", border_thickness="0px")
-                styled_text(f"工程名 :", bg_color="#c0c0c0", padding="10px", width="60px", text_color="#333333", font_size="10px", border_thickness="0px")
-                styled_text(f"数量(工程) :", bg_color="#c0c0c0", padding="10px", width="60px", text_color="#333333", font_size="10px", border_thickness="0px")
+                styled_text(f"　項　　目", bg_color="#c0c0c0", padding="9px", width="100%", text_color="#333333", font_size="10px", border_thickness="3px")
+                styled_text(f"社員番号 :", bg_color="#c0c0c0", padding="10px", width="100%", text_color="#333333", font_size="10px", border_thickness="0px")
+                styled_text(f"棚番 :", bg_color="#c0c0c0", padding="10px", width="100%", text_color="#333333", font_size="10px", border_thickness="0px")
+                styled_text(f"移行票番号 :", bg_color="#c0c0c0", padding="10px", width="100%", text_color="#333333", font_size="10px", border_thickness="0px")
+                styled_text(f"品番 :", bg_color="#c0c0c0", padding="10px", width="100%", text_color="#333333", font_size="10px", border_thickness="0px")
+                styled_text(f"工順 :", bg_color="#c0c0c0", padding="10px", width="100%", text_color="#333333", font_size="10px", border_thickness="0px")
+                styled_text(f"工程名 :", bg_color="#c0c0c0", padding="10px", width="100%", text_color="#333333", font_size="10px", border_thickness="0px")
+                styled_text(f"数量(工程) :", bg_color="#c0c0c0", padding="10px", width="100%", text_color="#333333", font_size="10px", border_thickness="0px")
             with right:
                 # styled_text(f"　追加または削除の対象", bg_color="#c0c0c0", padding="10px", width="120px", text_color="#333333", font_size="10px", border_thickness="3px")
-                styled_text(f"　追加または削除の対象", bg_color="#c0c0c0", padding="10px", width="120px", text_color="#333333", font_size="10px", border_thickness="3px")
-                styled_text(f"{owner_value}", bg_color="#c0c0c0", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
-                styled_text(f"{tanaban}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
-                styled_text(f"{production_order_value}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
-                styled_text(f"{default_hinban}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
-                styled_text(f"{default_process_order}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
-                styled_text(f"{default_process_order_name}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
-                styled_text(f"{default_quantity}", bg_color="#FFFF00", padding="6px", width="120px", text_color="#333333", font_size="14px", border_thickness="0px")
+                styled_text(f"　追加または削除の対象", bg_color="#c0c0c0", padding="10px", width="100%", text_color="#333333", font_size="10px", border_thickness="3px")
+                styled_text(f"{owner_value}", bg_color="#c0c0c0", padding="6px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+                styled_text(f"{tanaban}", bg_color="#FFFF00", padding="6px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+                styled_text(f"{production_order_value}", bg_color="#FFFF00", padding="6px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+                styled_text(f"{default_hinban}", bg_color="#FFFF00", padding="6px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+                styled_text(f"{default_process_order}", bg_color="#FFFF00", padding="6px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+                styled_text(f"{default_process_order_name}", bg_color="#FFFF00", padding="6px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
+                styled_text(f"{default_quantity}", bg_color="#FFFF00", padding="6px", width="100%", text_color="#333333", font_size="14px", border_thickness="0px")
             if st.session_state.data:
                 hinban = default_hinban
                 process_order = default_process_order
