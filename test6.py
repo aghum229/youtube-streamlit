@@ -753,13 +753,13 @@ else:
                 }
                 </style>
                 <div class="button-row">
-                    <form action="?action=btnAdd" method="post">
+                    <form action="?action=btnAdd" method="get">
                         <button type="submit">追加</button>
                     </form>
-                    <form action="?action=btnDel" method="post">
+                    <form action="?action=btnDel" method="get">
                         <button type="submit">削除</button>
                     </form>
-                    <form action="?action=btnCancel" method="post">
+                    <form action="?action=btnCancel" method="get">
                         <button type="submit">取消</button>
                     </form>
                 </div>
