@@ -551,6 +551,8 @@ else:
             zkTanalistSplit = zkTanalist.split(",")
             options = zkTanalistSplit
             tanaban_select = st.selectbox("棚番号を選んでください", options, key="tanaban_select")
+            st.write(type(tanaban_select))
+            st.stop
             st.write(f"選択された棚番号: {tanaban_select}")
     
         # tanaban = st.text_input("棚番号を選択または入力してください (例: H-15):",
