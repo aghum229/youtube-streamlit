@@ -820,7 +820,7 @@ else:
                     if st.session_state.manual_input_flag == 0:
                         st.session_state.show_camera = True  # 必要に応じて棚番再選択
                     st.rerun()
-                item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※限定
+                item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※固定
                 
                 # 棚番設定用マスタ(棚番を変更する場合には、下記に追加または削除してからatualizar_tanaban_addkari()を実行の事。尚、棚番は改行区切りである。)
                 # atualizar_tanaban_addkari(st.session_state.sf, item_id)
@@ -886,7 +886,7 @@ else:
                         # zkKan = record["zkKanryoKoutei__c"] + "\n" + process_order_name   # zk完了工程
                         # zkSu = f"{record["zkSuryo__c"]}\n{quantity}"   # zk数量
                         # zkTuiDa = f"{record["zkTuikaDatetime__c"]}\n{datetime_str}"   # zk追加日時
-                        # zkTuiSya = record["zkTuikaSya__c"] + "\n" + owner   # zk追加者
+                        # zkTuiSya = record["zkTuikaSya__c"] + "\n" + owner_value   # zk追加者
                         # zkMap = record["zkMap__c"] + "\n" + "-"   # zkマップ座標
                         # # zkDelDa = record["zkDeleteDatetime__c"] + "," +    # zk直近削除日時
                         # # zkDelIko = record["zkDeleteIkohyoNo__c"] + "," +    # zk直近削除移行票No
@@ -932,7 +932,7 @@ else:
                                 zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
                                 zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
                                 zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 0)   # zk追加日時
-                                zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner, 0)   # zk追加者
+                                zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner_value, 0)   # zk追加者
                                 zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", -1)   # zkマップ座標
                             elif add_del_flag == 1: # 削除の場合
                                 zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order, 3)   # zk棚番
@@ -940,11 +940,11 @@ else:
                                 zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 2)   # zk完了工程
                                 zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 2)   # zk数量
                                 zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 2)   # zk追加日時
-                                zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner, 2)   # zk追加者
+                                zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner_value, 2)   # zk追加者
                                 zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 2)   # zkマップ座標
                                 zkDelDa = datetime_str   # zk直近削除日時
                                 zkDelIko = st.session_state.production_order   # zk直近削除移行票No
-                                zkDelSya = owner   # zk直近削除者
+                                zkDelSya = owner_value   # zk直近削除者
                             
                         # zkHin = record["zkHinban__c"].splitlines()   # zk品番
                         # zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
