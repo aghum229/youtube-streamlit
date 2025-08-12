@@ -507,6 +507,13 @@ else:
             st.rerun()  # 再描画して次のステップへ
     else:
         st.write(st.session_state.tanaban)
+        if st.button("棚番を再選択する"):
+            st.session_state.qr_code_tana = False
+            st.session_state.tanaban = ""
+            st.session_state.tanaban_select = ""
+            st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
+            st.rerun()
+        
         if manual_input_flag == 0:
             qr_code = ""
             if st.button("カメラを再表示", key="camera_rerun"):
@@ -547,7 +554,7 @@ else:
                     st.session_state.show_camera = False
                     # st.write("カメラOFFの session_state:", st.session_state)
                     # st.session_state.qr_code = None  # 処理済みなのでクリア
-                    st.rerun()
+                    # st.rerun()
                     # st.session_state.trigger_rerun = True
                 # if st.session_state.get("trigger_rerun"):
                     # st.session_state.show_camera = False
@@ -876,5 +883,3 @@ else:
                             height=0,
                         )
                         st.session_state.rerun_flag = False
-        st.session_state.show_camera = False
-
