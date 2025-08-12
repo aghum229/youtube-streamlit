@@ -567,8 +567,8 @@ else:
                         """,
                         unsafe_allow_html=True
                     )
-
-
+                
+                
                 # if not st.session_state.production_order and st.session_state.show_camera:
                 #     st.write("QRコードをスキャンして開始してください:")
                 #     try:
