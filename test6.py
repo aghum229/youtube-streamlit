@@ -539,12 +539,12 @@ else:
                     st.write(f"production_order : {st.session_state.production_order}")
                     # st.session_state.manual_input_value = production_order[3:8]
                     #st.session_state.show_camera = False
-                    st.session_state.qr_code = None  # 処理済みなのでクリア
+                    # st.session_state.qr_code = None  # 処理済みなのでクリア
                     # st.rerun()
                     # st.session_state.trigger_rerun = True
                 # if st.session_state.get("trigger_rerun"):
                     st.session_state.show_camera = False
-                    st.session_state.trigger_rerun = False
+                    # st.session_state.trigger_rerun = False
                     # st.rerun()
         else:                   
             styled_input_text()
