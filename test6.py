@@ -559,15 +559,6 @@ else:
                 if qr_code is not None and qr_code.strip() != "":
                 # if qr_code:
                     st.session_state.qr_code = qr_code.strip()
-                    st.markdown(
-                        """
-                        <script>
-                            document.getElementById("scroll-target").scrollIntoView({ behavior: "smooth" });
-                        </script>
-                        """,
-                        unsafe_allow_html=True
-                    )
-                
                 
                 # if not st.session_state.production_order and st.session_state.show_camera:
                 #     st.write("QRコードをスキャンして開始してください:")
@@ -752,7 +743,6 @@ else:
             add_del_flag = 0  # 0:追加 1:削除
             left, center, right = st.columns([0.3, 0.4, 0.3])
             with left:
-                st.markdown('<div id="scroll-target"></div>', unsafe_allow_html=True)
                 submit_button_add = st.form_submit_button("追加")
             with center:
                 submit_button_del = st.form_submit_button("削除")
