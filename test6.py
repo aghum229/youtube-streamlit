@@ -556,7 +556,7 @@ else:
                 """
             zkTanalistSplit = zkTanalist.split(",")
             options = zkTanalistSplit
-            tanaban_select = st.selectbox("棚番号を選んでください", options, key="tanaban_select")
+            st.session_state.tanaban_select = st.selectbox("棚番号を選んでください", options, key="tanaban_select")
             # st.write(type(tanaban_select))
             # st.stop
             st.write(f"選択された棚番号: {st.session_state.tanaban_select}")
