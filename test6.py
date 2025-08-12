@@ -412,8 +412,12 @@ def styled_input_text():
         """,
         unsafe_allow_html=True
     )
-    
-def button_make(button_text, screen_name):
+
+def set_flag(flag):
+    global add_del_flag = flag
+    global button_flag = 1
+
+def button_make(button_text, flag):
     st.markdown("""
         <style>
         .stButton>button { /* Streamlitのボタン要素に直接スタイルを適用 */
@@ -433,7 +437,7 @@ def button_make(button_text, screen_name):
         }
         </style>
     """, unsafe_allow_html=True)
-    st.button(button_text, key=button_text, on_click=set_screen, args=(screen_name,))
+    st.button(button_text, key=button_text, on_click=set_flag, args=(flag,))
     
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
@@ -763,22 +767,26 @@ else:
                 # hinmei = st.text_input("品名:", key="hinmei", value="-")
             
             add_del_flag = 0  # 0:追加 1:削除 9:取消
-                       
+            button_flag = 0           
             left, center, right = st.columns(3)
             with left:
-                button_make("追加",'main')
-                submit_button_add = st.form_submit_button("追加")
+                button_make("追加",0)
+                # submit_button_add = st.form_submit_button("追加")
             with center:
-                submit_button_del = st.form_submit_button("削除")
-            with center:
-                submit_button_cancel = st.form_submit_button("取消")
-            if submit_button_add or submit_button_del or submit_button_cancel: 
-                if submit_button_add:
-                    add_del_flag = 0
-                elif submit_button_del:
-                    add_del_flag = 1
-                elif submit_button_cancel:
-                    add_del_flag = 9
+                button_make("削除",1)
+                # submit_button_del = st.form_submit_button("削除")
+            with right:
+                button_make("取消",9)
+                # submit_button_cancel = st.form_submit_button("取消")
+            # if submit_button_add or submit_button_del or submit_button_cancel: 
+            if button_flag == 1: 
+                # if submit_button_add:
+                #     add_del_flag = 0
+                # elif submit_button_del:
+                #     add_del_flag = 1
+                # elif submit_button_cancel:
+                #     add_del_flag = 9
+                if add_del_flag == 9:
                     st.session_state.qr_code_tana = False
                     st.session_state.tanaban = ""
                     st.session_state.tanaban_select = ""
