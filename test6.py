@@ -523,7 +523,7 @@ else:
             st.success("登録が正常に完了しました！")
     '''
 
-    manual_input_flag = 0
+    manual_input_flag = 1
     if not st.session_state.qr_code_tana:
         tanaban = ""
         if manual_input_flag == 0:
