@@ -741,6 +741,35 @@ else:
                 # hinmei = st.text_input("品名:", key="hinmei", value="-")
             
             add_del_flag = 0  # 0:追加 1:削除 9:取消
+            st.markdown("""
+                <style>
+                .button-row {
+                    display: flex;
+                    gap: 10px;
+                }
+                .button-row form {
+                    margin: 0;
+                }
+                </style>
+                <div class="button-row">
+                    <form action="?action=btnAdd">
+                        <button type="submit">追加</button>
+                    </form>
+                    <form action="?action=btnDel">
+                        <button type="submit">削除</button>
+                    </form>
+                    <form action="?action=btnCancel">
+                        <button type="submit">取消</button>
+                    </form>
+                </div>
+            """, unsafe_allow_html=True)
+            action = st.query_params.get("action", [None])[0]
+            if action == "btnAdd":
+                st.write("ボタン1が押されました")
+            elif action == "btnDel":
+                st.write("ボタン2が押されました")
+            elif action == "btnCancel":
+                st.write("ボタン3が押されました")
             
             left, center, right = st.columns(3)
             with left:
