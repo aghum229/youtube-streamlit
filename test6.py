@@ -754,7 +754,7 @@ else:
                     add_del_flag = 0
                 elif submit_button_del:
                     add_del_flag = 1
-                else submit_button_cancel:
+                elif submit_button_cancel:
                     add_del_flag = 9
                 item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※限定
                 
