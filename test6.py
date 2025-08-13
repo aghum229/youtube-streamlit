@@ -639,11 +639,6 @@ else:
                         # st.rerun()
             else:                   
                 styled_input_text()
-                # with st.form(key="manual_input_form", clear_on_submit=True):
-                # manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
-                #                            value=st.session_state.manual_input_value,
-                #                            max_chars=6,
-                #                            key="manual_input")
                 manual_input = st.text_input("移行票番号を入力し、Enterを押してください (1～6桁、例: 12345):",
                                             value="",
                                             max_chars=6,
@@ -654,29 +649,26 @@ else:
                     st.session_state.show_camera = False
                 
                 # 入力欄の直後に JavaScript を挿入
-                components.html(
-                    """
-                    <script>
-                        setTimeout(() => {
-                            const inputs = window.parent.document.querySelectorAll('input');
-                            for (let input of inputs) {
-                                if (input.placeholder.includes("移行票番号")) {
-                                    input.focus();
-                                    break;
-                                }
-                            }
-                        }, 500);
-                    </script>
-                    """,
-                    height=0,
-                )
-                    # submit_button_modify = st.form_submit_button("再入力(移行票番号)　※仮置きの為機能しません")  # 送信ボタンを配置しないとエラーになる
+                # components.html(
+                #     """
+                #     <script>
+                #         setTimeout(() => {
+                #             const inputs = window.parent.document.querySelectorAll('input');
+                #             for (let input of inputs) {
+                #                 if (input.placeholder.includes("移行票番号")) {
+                #                     input.focus();
+                #                     break;
+                #                 }
+                #             }
+                #         }, 500);
+                #     </script>
+                #     """,
+                #     height=0,
+                # )
             
             # st.write(f"移行票番号 : {st.session_state.production_order}") 
             st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
-            st.write(f"移行票番号(製造オーダー)は、")
-            st.write(f"## 「{st.session_state.production_order}」")
-            st.write(f"でよろしいですか？")
+            st.write(f"移行票番号(製造オーダー)は、 「{st.session_state.production_order}」 でよろしいですか？")
             # check_button_ok = st.button("ＯＫ", key="check_ok")
             left, right = st.columns(2)
             with left:
@@ -998,8 +990,8 @@ else:
                         st.write(f"### ❌08 **作業者コード '{owner}' が未入力です。**")
                         # reset_form()
                         st.stop()  # 以降の処理を止める
-                    if "rerun_flag" not in st.session_state:
-                        st.session_state.rerun_flag = False
+                    # if "rerun_flag" not in st.session_state:
+                    #     st.session_state.rerun_flag = False
                     if item_id:
                         # atualizar_tanabangou(st.session_state.sf, item_id)
                         # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
@@ -1011,21 +1003,21 @@ else:
                         st.write(f"###### 次の処理に進むには、「取消」ボタンを押してください。")
                         # reset_form()
                         # JavaScriptでフォーカスを当てる
-                        if st.session_state.rerun_flag:
-                            components.html(
-                                """
-                                <script>
-                                    setTimeout(() => {
-                                        const inputs = window.parent.document.querySelectorAll('input');
-                                        for (let input of inputs) {
-                                            if (input.placeholder === "移行票番号を入力してください (6桁、例: 000000):") {
-                                                input.focus();
-                                                break;
-                                            }
-                                        }
-                                    }, 500);
-                                </script>
-                                """,
-                                height=0,
-                            )
-                        st.session_state.rerun_flag = False
+                        # if st.session_state.rerun_flag:
+                        #     components.html(
+                        #         """
+                        #         <script>
+                        #             setTimeout(() => {
+                        #                 const inputs = window.parent.document.querySelectorAll('input');
+                        #                 for (let input of inputs) {
+                        #                     if (input.placeholder === "移行票番号を入力してください (6桁、例: 000000):") {
+                        #                         input.focus();
+                        #                         break;
+                        #                     }
+                        #                 }
+                        #             }, 500);
+                        #         </script>
+                        #         """,
+                        #         height=0,
+                        #     )
+                        # st.session_state.rerun_flag = False
