@@ -207,8 +207,8 @@ def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
             "zkMap__c": zkMap
         })
         # '''
-        # st.success("##### snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkIko}' を追加しました。")
-        st.success("##### 棚番 '{zkTana}' に、移行票No '{zkIko}' を追加しました。")
+        # st.success(f"##### snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkIko}' を追加しました。")
+        st.success(f"##### 棚番 '{zkTana}' に、移行票No '{zkIko}' を追加しました。")
     except Exception as e:
         st.error(f"更新エラー: {e}")
         reset_form()
@@ -229,8 +229,8 @@ def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
             "zkDeleteIkohyoNo__c": zkDelIko,
             "zkDeleteSya__c": zkDelSya
         })
-        # st.success("##### snps_um__Process__c の棚番 '{zkTana}' から移行票No '{zkIko}' を削除しました。")
-        st.success("##### 棚番 '{zkTana}' から、移行票No '{zkIko}' を削除しました。")
+        # st.success(f"##### snps_um__Process__c の棚番 '{zkTana}' から移行票No '{zkIko}' を削除しました。")
+        st.success(f"##### 棚番 '{zkTana}' から、移行票No '{zkIko}' を削除しました。")
     except Exception as e:
         st.error(f"更新エラー: {e}")
         # reset_form()
