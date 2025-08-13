@@ -587,15 +587,18 @@ else:
             st.session_state.tanaban_select_temp = ""
             if st.session_state.manual_input_flag == 0:
                 st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
+            st.session_state.production_order = ""
+            st.session_state.production_order_flag = False
             st.rerun()
         if st.button("棚番を再選択"):
             st.session_state.qr_code_tana = False
-            st.session_state.tanaban_select = ""
             st.session_state.tanaban_select_temp = ""
             if st.session_state.manual_input_flag == 0:
                 st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
+            st.session_state.production_order = ""
+            st.session_state.production_order_flag = False
             st.rerun()
-
+        
         if not st.session_state.production_order_flag:
             if st.session_state.manual_input_flag == 0:
                 qr_code = ""
@@ -650,38 +653,38 @@ else:
                         # st.rerun()
             else:                   
                 styled_input_text()
-                with st.form(key="manual_input_form", clear_on_submit=True):
-                    # manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
-                    #                            value=st.session_state.manual_input_value,
-                    #                            max_chars=6,
-                    #                            key="manual_input")
-                    manual_input = st.text_input("移行票番号を入力し、Enterを押してください (1～6桁、例: 12345):",
-                                                value="",
-                                                max_chars=6,
-                                                key="manual_input")
-                    if manual_input and manual_input.isdigit():
-                        st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
-                        # st.session_state.manual_input_value = manual_input
-                        st.session_state.show_camera = False
-                    
-                    # 入力欄の直後に JavaScript を挿入
-                    components.html(
-                        """
-                        <script>
-                            setTimeout(() => {
-                                const inputs = window.parent.document.querySelectorAll('input');
-                                for (let input of inputs) {
-                                    if (input.placeholder.includes("移行票番号")) {
-                                        input.focus();
-                                        break;
-                                    }
+                # with st.form(key="manual_input_form", clear_on_submit=True):
+                # manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
+                #                            value=st.session_state.manual_input_value,
+                #                            max_chars=6,
+                #                            key="manual_input")
+                manual_input = st.text_input("移行票番号を入力し、Enterを押してください (1～6桁、例: 12345):",
+                                            value="",
+                                            max_chars=6,
+                                            key="manual_input")
+                if manual_input and manual_input.isdigit():
+                    st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
+                    # st.session_state.manual_input_value = manual_input
+                    st.session_state.show_camera = False
+                
+                # 入力欄の直後に JavaScript を挿入
+                components.html(
+                    """
+                    <script>
+                        setTimeout(() => {
+                            const inputs = window.parent.document.querySelectorAll('input');
+                            for (let input of inputs) {
+                                if (input.placeholder.includes("移行票番号")) {
+                                    input.focus();
+                                    break;
                                 }
-                            }, 500);
-                        </script>
-                        """,
-                        height=0,
-                    )
-                    submit_button_modify = st.form_submit_button("再入力(移行票番号)　※仮置きの為機能しません")  # 送信ボタンを配置しないとエラーになる
+                            }
+                        }, 500);
+                    </script>
+                    """,
+                    height=0,
+                )
+                    # submit_button_modify = st.form_submit_button("再入力(移行票番号)　※仮置きの為機能しません")  # 送信ボタンを配置しないとエラーになる
             
             # st.write(f"移行票番号 : {st.session_state.production_order}") 
             st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
