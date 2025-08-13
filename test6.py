@@ -532,7 +532,7 @@ else:
     '''
     
     # st.write(st.session_state.qr_code_tana)
-    st.session_state.manual_input_flag = 1
+    st.session_state.manual_input_flag = 0
     if not st.session_state.qr_code_tana:
         tanaban_select = ""
         if st.session_state.manual_input_flag == 0:
