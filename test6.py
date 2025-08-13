@@ -676,10 +676,10 @@ else:
             else:
                 if st.session_state.manual_input_flag == 0:
                     st.session_state.show_camera = True
+                st.session_state.production_order_flag = False
                 st.session_state.qr_code = None
                 st.session_state.production_order = None
-                # st.session_state.manual_input_value = ""
-                st.rerun()
+                # st.rerun()
         else:
             if st.button("移行票番号を再入力"):
                 st.session_state.data = None
