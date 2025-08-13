@@ -14,6 +14,9 @@ import re
 # from gspread_dataframe import set_with_dataframe
 import toml
 import streamlit.components.v1 as components
+import numpy as np 
+from PIL import Image, ImageDraw
+import easyocr
 
 
 # Função para carregar credenciais
