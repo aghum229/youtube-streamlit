@@ -235,12 +235,12 @@ def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
         st.stop()
 
 # WHERE Name LIKE '%{item_name}%' AND snps_um__ProcessOrderNo__c = 999
-def encontrar_item_por_nome(sf, item_id):
+def data_catch(sf, item_id):
     query = f"""
         SELECT AITC_ID18__c, Name, zkShortcutButton__c, zkShortcutUser__c,
             zkTanaban__c, zkIkohyoNo__c ,zkHinban__c, zkKanryoKoutei__c,
             zkSuryo__c, zkTuikaDatetime__c, zkTuikaSya__c, zkMap__c,
-            zkDeleteDatetime__c, zkDeleteIkohyoNo__c, zkDeleteSya__c
+            zkDeleteDatetime__c, zkDeleteTanaban__c, zkDeleteIkohyoNo__c, zkDeleteSya__c
         FROM snps_um__Process__c
         WHERE AITC_ID18__c = '{item_id}'
     """
@@ -770,7 +770,6 @@ else:
                     # st.stop()
                 
                 # left, right = st.columns([0.5, 0.5])
-                # Campos de entrada
                 owner_value = st.session_state.owner
                 # owner_value = "" if st.session_state.data is None else st.session_state.owner
                 # owner = st.text_input("作業者(社員番号):", key="owner", value=owner_value)
@@ -862,7 +861,7 @@ else:
                         st.session_state.production_order = ""
                         st.session_state.production_order_flag = False
                         st.rerun()
-                    item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※固定
+                    item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※変更禁止
                     
                     # 棚番設定用マスタ(棚番を変更する場合には、下記に追加または削除してからatualizar_tanaban_addkari()を実行の事。尚、棚番は改行区切りである。)
                     # atualizar_tanaban_addkari(st.session_state.sf, item_id)
@@ -887,11 +886,11 @@ else:
                     zkDelSya = ""
                     zkShoBu = ""
                     zkShoU = ""
-                    record = encontrar_item_por_nome(st.session_state.sf, item_id)
+                    record = data_catch(st.session_state.sf, item_id)
                     if record:
                         # zkTana = record["zkTanaban__c"].split(",")   # zk棚番
                         # listCount = len(zkTana)
-                        zkTana_list = record["zkTanaban__c"].splitlines()
+                        zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
                         listCount = len(zkTana_list)
                         if listCount > 2:
                             for index, item in enumerate(zkTana_list):
@@ -942,13 +941,14 @@ else:
                             # print(f"値: {record.get('zkIkohyoNo__c')}")
                             # zkIko = record["zkIkohyoNo__c"].splitlines()   # zk移行票No
                             zkIko_raw = record.get("zkIkohyoNo__c", "")
+                            st.write(f"移行票番号 : {zkIko_raw}")
                             if isinstance(zkIko_raw, str):
                                 zkIko = zkIko_raw.splitlines()
                             else:
                                 zkIko = []
                             listCountEtc = len(zkIko)
-                            st.write(listCountEtc)
-                            st.write(listCount)
+                            # st.write(listCountEtc)
+                            # st.write(listCount)
                             if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐(初期設定時のみ使用)
                                 st.write(f"❌06 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
                                 # reset_form()
