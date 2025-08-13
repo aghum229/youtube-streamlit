@@ -531,7 +531,7 @@ else:
             st.success("登録が正常に完了しました！")
     '''
     
-    st.write(st.session_state.qr_code_tana)
+    # st.write(st.session_state.qr_code_tana)
     st.session_state.manual_input_flag = 1
     if not st.session_state.qr_code_tana:
         tanaban_select = ""
@@ -558,20 +558,14 @@ else:
                 S-1,S-2,S-3,S-4,S-5,S-6,S-7,S-8,S-9,S-10,S-11,S-12,S-13,S-14,S-15,S-16,S-17,S-18,S-19,S-20
                 """
             zkTanalistSplit = zkTanalist.split(",")
-            st.write(f"選択前棚番号: {tanaban_select}")
+            # st.write(f"選択前棚番号: {tanaban_select}")
             tanaban_select = st.selectbox(
                 "棚番号を選んでください", zkTanalistSplit, key="tanaban_select"
             )
             # options = zkTanalistSplit
             # st.session_state.tanaban_select = st.selectbox("棚番号を選んでください", options, key="tanaban_select")
-            # st.write(type(tanaban_select))
-            # st.stop
-            st.write(f"選択された棚番号: {st.session_state.tanaban_select}")
-    
-        # tanaban = st.text_input("棚番号を選択または入力してください (例: H-15):",
-        #                     max_chars=6,
-        #                     key="manual_input_tana")
-        st.write(tanaban_select != "完A-0")
+            # st.write(f"選択された棚番号: {st.session_state.tanaban_select}")
+        
         if tanaban_select != "" and tanaban_select != "完A-0": # 完A-0は存在しない置き場(変更前提の初期値としてのみ利用)
             # st.session_state.tanaban = tanaban_select
             st.session_state.tanaban_select_temp = tanaban_select
@@ -580,7 +574,7 @@ else:
             # st.write(st.session_state.qr_code_tana)
             st.rerun()  # 再描画して次のステップへ
     else:
-        st.write(st.session_state.tanaban_select_temp)
+        # st.write(st.session_state.tanaban_select_temp)
         if st.session_state.tanaban_select_temp == "完A-0":
             st.session_state.qr_code_tana = False
             st.session_state.tanaban_select = ""
@@ -688,7 +682,9 @@ else:
             
             # st.write(f"移行票番号 : {st.session_state.production_order}") 
             st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
-            st.write(f"移行票番号(製造オーダー)は、「{st.session_state.production_order}」　でよろしいですか？")
+            st.write(f"移行票番号(製造オーダー)は、")
+            st.write(f"## 「{st.session_state.production_order}」")
+            st.write(f"でよろしいですか？")
             # check_button_ok = st.button("ＯＫ", key="check_ok")
             left, right = st.columns(2)
             with left:
