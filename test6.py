@@ -968,7 +968,7 @@ else:
                                 # zkShoBu = zkIko
                                 # zkShoU = zkIko
                             else:
-                                " st.write(f"Index: '{listNumber}'") 
+                                # st.write(f"Index: '{listNumber}'") 
                                 if add_del_flag == 0: # 追加の場合
                                     zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order, 1)   # zk棚番
                                     zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
