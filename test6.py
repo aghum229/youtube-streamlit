@@ -1005,7 +1005,7 @@ else:
                         else: # 削除の場合
                             atualizar_tanaban_del(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelTana, zkDelIko, zkDelSya, zkOrder)
                         st.write("次の処理に進むには、「取消」ボタンを押してください。")
-                        if zkScroll_flag = 1:
+                        if zkScroll_flag == 1:
                             components.html("""
                                 <script>
                                   window.scrollTo({
