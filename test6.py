@@ -850,6 +850,8 @@ else:
                         st.session_state.tanaban_select_temp = ""
                         if st.session_state.manual_input_flag == 0:
                             st.session_state.show_camera = True  # 必要に応じて棚番再選択
+                        st.session_state.production_order = ""
+                        st.session_state.production_order_flag = False
                         st.rerun()
                     item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※固定
                     
