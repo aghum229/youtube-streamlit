@@ -193,7 +193,7 @@ def atualizar_tanaban_addkari(sf, item_id):  # 棚番書き込み専用
         # reset_form()
     st.stop()
         
-def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap):
+def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkOrder):
     try:
         # sf.snps_um__Process__c.update(item_id, {"zkHinban__c": zkHin})
         # _= '''
@@ -207,14 +207,14 @@ def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
             "zkMap__c": zkMap
         })
         # '''
-        # st.success(f"##### snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkIko}' を追加しました。")
-        st.success(f"棚番 '{zkTana}' に、移行票No '{zkIko}' を追加しました。")
+        # st.success(f"##### snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkOrder}' を追加しました。")
+        st.success(f"棚番 '{zkTana}' に、移行票No '{zkOrder}' を追加しました。")
     except Exception as e:
         st.error(f"更新エラー: {e}")
         reset_form()
         st.stop()
 
-def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelTana, zkDelIko, zkDelSya):
+def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelTana, zkDelIko, zkDelSya, zkOrder):
     try:
         sf.snps_um__Process__c.update(item_id, {
             "zkIkohyoNo__c": zkIko,
@@ -229,8 +229,8 @@ def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
             "zkDeleteIkohyoNo__c": zkDelIko,
             "zkDeleteSya__c": zkDelSya
         })
-        # st.success(f"##### snps_um__Process__c の棚番 '{zkTana}' から移行票No '{zkIko}' を削除しました。")
-        st.success(f"棚番 '{zkTana}' から、移行票No '{zkIko}' を削除しました。")
+        # st.success(f"##### snps_um__Process__c の棚番 '{zkTana}' から移行票No '{zkOrder}' を削除しました。")
+        st.success(f"棚番 '{zkTana}' から、移行票No '{zkOrder}' を削除しました。")
     except Exception as e:
         st.error(f"更新エラー: {e}")
         # reset_form()
@@ -1002,9 +1002,9 @@ else:
                         # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
                         # datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
                         if add_del_flag == 0: # 追加の場合
-                            atualizar_tanaban_add(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
+                            atualizar_tanaban_add(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, st.session_state.production_order)
                         else: # 削除の場合
-                            atualizar_tanaban_del(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelTana, zkDelIko, zkDelSya)
+                            atualizar_tanaban_del(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelTana, zkDelIko, zkDelSya, st.session_state.production_order)
                         st.write("次の処理に進むには、「取消」ボタンを押してください。")
                         # reset_form()
                         # JavaScriptでフォーカスを当てる
