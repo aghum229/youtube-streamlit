@@ -598,11 +598,12 @@ else:
                 # if st.session_state.show_camera:
                     st.session_state.show_camera = True
                     st.write("移行票(製造オーダー)のQRコードをスキャンしてください:")
-                    left, right = st.columns(2)
-                    with left:
-                        qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
-                    with right:
-                        # st.write(f"読取直後qr_code : {qr_code}")
+                    qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
+                    # left, right = st.columns(2)
+                    # with left:
+                    #     qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
+                    # with right:
+                    #     st.write(f"読取直後qr_code : {qr_code}")
                     if qr_code is not None and qr_code.strip() != "":
                     # if qr_code:
                         st.session_state.qr_code = qr_code.strip()
