@@ -104,7 +104,7 @@ def consultar_salesforce(production_order, sf):
         result = sf.query(query)
         records = result['records']
         if not records:
-            st.write("### ❌00 **データの取り出しに失敗しました。**")
+            st.write("❌00 **データの取り出しに失敗しました。**")
             return pd.DataFrame(), None, None, 0.0
         df = pd.DataFrame(records)
         st.session_state.all_data = df.to_dict(orient="records")
@@ -134,7 +134,7 @@ def consultar_salesforce(production_order, sf):
                 material_weight = 0.0
             return pd.DataFrame([last_record]), material, material_weight, cumulative_cost
         else:
-            st.write("### ❌01 **データの取り出しに失敗しました。**")
+            st.write("❌01 **データの取り出しに失敗しました。**")
         return pd.DataFrame(), None, None, 0.0
     except Exception as e:
         st.error(f"Salesforceクエリエラー: {e}")
@@ -291,7 +291,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
                         zkSplitNo = index
                         break  # 条件を満たしたらループを終了
                 if zkSplitNo == 99:
-                    st.write(f"### ❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
+                    st.write(f"❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
                     # reset_form()
                     st.stop()  # 以降の処理を止める
             if 0 <= zkSplitNo < len(zkSplit):
@@ -299,7 +299,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
             else:
                 # ログ出力やエラーハンドリング
                 # st.write(f"zkSplitNo {zkSplitNo} is out of range for zkSplit of length {len(zkSplit)}")
-                st.write(f"### ❌03 **有効な範囲ではありませんでした。'{zkSplitNo}'**")
+                st.write(f"❌03 **有効な範囲ではありませんでした。'{zkSplitNo}'**")
                 # reset_form()
                 st.stop()  # 以降の処理を止める
         else:
@@ -317,7 +317,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
             if flag == 1:
                 for index, item in enumerate(zkSplit):
                     if item == update_value:
-                        st.write(f"### ❌04 **すでに登録されている移行票Noです。'{update_value}'**")
+                        st.write(f"❌04 **すでに登録されている移行票Noです。'{update_value}'**")
                         # reset_form()
                         st.stop()  # 以降の処理を止める
                 zkSplitFlag = 1
