@@ -187,7 +187,7 @@ def atualizar_tanaban_addkari(sf, item_id):  # 棚番書き込み専用
     """
     try:
         sf.snps_um__Process__c.update(item_id, {"zkTanaban__c": zkTana})
-        st.success("### 「zk棚番」に書き込みました！")
+        st.success("##### 「zk棚番」に書き込みました！")
     except Exception as e:
         st.error(f"更新エラー: {e}")
         # reset_form()
@@ -207,7 +207,7 @@ def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
             "zkMap__c": zkMap
         })
         # '''
-        st.success("### snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkIko}' を追加しました。")
+        st.success("##### snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkIko}' を追加しました。")
     except Exception as e:
         st.error(f"更新エラー: {e}")
         reset_form()
@@ -228,7 +228,7 @@ def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
             "zkDeleteIkohyoNo__c": zkDelIko,
             "zkDeleteSya__c": zkDelSya
         })
-        st.success("### snps_um__Process__c の棚番 '{zkTana}' から移行票No '{zkIko}' を削除しました。")
+        st.success("##### snps_um__Process__c の棚番 '{zkTana}' から移行票No '{zkIko}' を削除しました。")
     except Exception as e:
         st.error(f"更新エラー: {e}")
         # reset_form()
@@ -1016,6 +1016,7 @@ else:
                             atualizar_tanaban_add(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
                         else: # 削除の場合
                             atualizar_tanaban_del(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelTana, zkDelIko, zkDelSya)
+                        st.write(f"###### 次の処理に進むには、「取消」ボタンを押してください。")
                         # reset_form()
                         # JavaScriptでフォーカスを当てる
                         if st.session_state.rerun_flag:
