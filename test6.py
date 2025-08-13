@@ -104,7 +104,7 @@ def consultar_salesforce(production_order, sf):
         result = sf.query(query)
         records = result['records']
         if not records:
-            st.write("❌00 **データの取り出しに失敗しました。**")
+            st.write("### ❌00 **データの取り出しに失敗しました。**")
             return pd.DataFrame(), None, None, 0.0
         df = pd.DataFrame(records)
         st.session_state.all_data = df.to_dict(orient="records")
@@ -134,7 +134,7 @@ def consultar_salesforce(production_order, sf):
                 material_weight = 0.0
             return pd.DataFrame([last_record]), material, material_weight, cumulative_cost
         else:
-            st.write("❌01 **データの取り出しに失敗しました。**")
+            st.write("### ❌01 **データの取り出しに失敗しました。**")
         return pd.DataFrame(), None, None, 0.0
     except Exception as e:
         st.error(f"Salesforceクエリエラー: {e}")
@@ -187,7 +187,7 @@ def atualizar_tanaban_addkari(sf, item_id):  # 棚番書き込み専用
     """
     try:
         sf.snps_um__Process__c.update(item_id, {"zkTanaban__c": zkTana})
-        st.success("「zk棚番」に書き込みました！")
+        st.success("### 「zk棚番」に書き込みました！")
     except Exception as e:
         st.error(f"更新エラー: {e}")
         # reset_form()
@@ -207,7 +207,7 @@ def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
             "zkMap__c": zkMap
         })
         # '''
-        st.success("snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkIko}' を追加しました。")
+        st.success("### snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkIko}' を追加しました。")
     except Exception as e:
         st.error(f"更新エラー: {e}")
         reset_form()
@@ -228,7 +228,7 @@ def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
             "zkDeleteIkohyoNo__c": zkDelIko,
             "zkDeleteSya__c": zkDelSya
         })
-        st.success("snps_um__Process__c の棚番 '{zkTana}' から移行票No '{zkIko}' を削除しました。")
+        st.success("### snps_um__Process__c の棚番 '{zkTana}' から移行票No '{zkIko}' を削除しました。")
     except Exception as e:
         st.error(f"更新エラー: {e}")
         # reset_form()
@@ -289,7 +289,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
                         zkSplitNo = index
                         break  # 条件を満たしたらループを終了
                 if zkSplitNo == 99:
-                    st.write(f"❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
+                    st.write(f"### ❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
                     # reset_form()
                     st.stop()  # 以降の処理を止める
             if 0 <= zkSplitNo < len(zkSplit):
@@ -297,7 +297,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
             else:
                 # ログ出力やエラーハンドリング
                 # st.write(f"zkSplitNo {zkSplitNo} is out of range for zkSplit of length {len(zkSplit)}")
-                st.write(f"❌03 **有効な範囲ではありませんでした。'{zkSplitNo}'**")
+                st.write(f"### ❌03 **有効な範囲ではありませんでした。'{zkSplitNo}'**")
                 # reset_form()
                 st.stop()  # 以降の処理を止める
         else:
@@ -315,7 +315,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
             if flag == 1:
                 for index, item in enumerate(zkSplit):
                     if item == update_value:
-                        st.write(f"❌04 **すでに登録されている移行票Noです。'{update_value}'**")
+                        st.write(f"### ❌04 **すでに登録されている移行票Noです。'{update_value}'**")
                         # reset_form()
                         st.stop()  # 以降の処理を止める
                 zkSplitFlag = 1
@@ -918,7 +918,7 @@ else:
                         datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                         # tdatetime = dt.strptime(datetime_str, '%Y/%m/%d %H:%M:%S')
                         if listAdd == 1: # 棚番が無い場合
-                            st.write(f"❌05 **棚番 '{tanaban_select}' の追加は許可されてません。**")
+                            st.write(f"### ❌05 **棚番 '{tanaban_select}' の追加は許可されてません。**")
                             # reset_form()
                             st.stop()  # 以降の処理を止める
                             # # zkTana = f"{record["zkTanaban__c"]},{tanaban_select}"
@@ -941,20 +941,19 @@ else:
                             # print(f"値: {record.get('zkIkohyoNo__c')}")
                             # zkIko = record["zkIkohyoNo__c"].splitlines()   # zk移行票No
                             zkIko_raw = record.get("zkIkohyoNo__c", "")
-                            st.write(f"移行票番号 : {zkIko_raw}")
                             if isinstance(zkIko_raw, str):
                                 zkIko = zkIko_raw.splitlines()
                             else:
                                 zkIko = []
                             listCountEtc = len(zkIko)
-                            st.write(f"移行票番号 : {zkIko[listNumber]}")
+                            # st.write(f"移行票番号 : {zkIko[listNumber]}")
                             if zkIko[listNumber] == "-" and add_del_flag == 1:
-                                st.write(f"❌06 **移行票番号の登録はありません。**")
+                                st.write(f"### ❌06 **移行票番号の登録はありませんので、処理を中止します。**")
                                 st.stop()  # 以降の処理を止める
                             # st.write(listCountEtc)
                             # st.write(listCount)
                             if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐(初期設定時のみ使用)
-                                st.write(f"❌07 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
+                                st.write(f"### ❌07 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
                                 # reset_form()
                                 st.stop()  # 以降の処理を止める
                                 zkKari = "-"
@@ -973,7 +972,7 @@ else:
                                 # zkShoBu = zkIko
                                 # zkShoU = zkIko
                             else:
-                                st.write(f"Index: '{listNumber}'") 
+                                " st.write(f"Index: '{listNumber}'") 
                                 if add_del_flag == 0: # 追加の場合
                                     zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order, 1)   # zk棚番
                                     zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
@@ -1008,7 +1007,7 @@ else:
                             # zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                                         
                     if st.session_state.owner is None:
-                        st.write(f"❌08 **作業者コード '{owner}' が未入力です。**")
+                        st.write(f"### ❌08 **作業者コード '{owner}' が未入力です。**")
                         # reset_form()
                         st.stop()  # 以降の処理を止める
                     if "rerun_flag" not in st.session_state:
