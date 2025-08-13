@@ -947,10 +947,14 @@ else:
                             else:
                                 zkIko = []
                             listCountEtc = len(zkIko)
+                            st.write(f"移行票番号 : {zkIko[listNumber]}")
+                            if zkIko[listNumber] == "-" and add_del_flag == 1:
+                                st.write(f"❌06 **移行票番号の登録はありません。**")
+                                st.stop()  # 以降の処理を止める
                             # st.write(listCountEtc)
                             # st.write(listCount)
                             if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐(初期設定時のみ使用)
-                                st.write(f"❌06 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
+                                st.write(f"❌07 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
                                 # reset_form()
                                 st.stop()  # 以降の処理を止める
                                 zkKari = "-"
@@ -1004,7 +1008,7 @@ else:
                             # zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                                         
                     if st.session_state.owner is None:
-                        st.write(f"❌07 **作業者コード '{owner}' が未入力です。**")
+                        st.write(f"❌08 **作業者コード '{owner}' が未入力です。**")
                         # reset_form()
                         st.stop()  # 以降の処理を止める
                     if "rerun_flag" not in st.session_state:
