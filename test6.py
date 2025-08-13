@@ -602,7 +602,7 @@ else:
                     with left:
                         qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
                     with right:
-                        st.write(f"読取直後qr_code : {qr_code}")
+                        # st.write(f"読取直後qr_code : {qr_code}")
                     if qr_code is not None and qr_code.strip() != "":
                     # if qr_code:
                         st.session_state.qr_code = qr_code.strip()
