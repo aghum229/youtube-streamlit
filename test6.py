@@ -455,6 +455,8 @@ if "sf" not in st.session_state:
 # Inicializar estados necessários
 if "production_order" not in st.session_state:
     st.session_state.production_order = None
+if "production_order_flag" not in st.session_state:
+    st.session_state.production_order_flag = False
 # if "sf" not in st.session_state:
 #     st.session_state.sf = None  # Salesforceオブジェクトを適切に設定
 if "show_camera" not in st.session_state:
@@ -596,7 +598,7 @@ else:
                 st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
             st.rerun()
 
-        if not st.session_state.production_order:
+        if not st.session_state.production_order_flag:
             if st.session_state.manual_input_flag == 0:
                 qr_code = ""
                 if st.button("移行票(製造オーダー)を再選択", key="camera_rerun"):
@@ -692,9 +694,10 @@ else:
             #     check_button_ok = st.button("ＯＫ", key="check_ok")
             # with right:
             #     check_button_ng = st.button("ＮＧ", key="check_ng")
-            check_okng = st.radio(f"移行票番号(製造オーダー)は、「{st.session_state.production_order}」　でよろしいですか？", ["はい", "いいえ"])
+            check_okng = st.radio(f"移行票番号(製造オーダー)は、「{st.session_state.production_order}」　でよろしいですか？", ["はい", "いいえ"], index=1)
             if check_okng == "はい":
                 st.session_state.show_camera = False
+                st.session_state.production_order_flag = True
                 st.rerun()
             else:
                 st.session_state.show_camera = True
@@ -702,6 +705,12 @@ else:
                 # st.session_state.manual_input_value = ""
                 st.rerun()
         else:
+            if st.button("移行票番号を再入力"):
+                st.session_state.production_order_flag = False
+                st.session_state.production_order = ""
+                if st.session_state.manual_input_flag == 0:
+                    st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
+                st.rerun()
             
             zkSplitNo = 99
             zkSplitFlag = 0
