@@ -535,7 +535,6 @@ else:
     st.session_state.manual_input_flag = 1
     if not st.session_state.qr_code_tana:
         tanaban_select = ""
-        st.session_state.user_code_entered = False
         if st.session_state.manual_input_flag == 0:
             st.write("棚番のQRコードをスキャンしてください:")
             qr_code_tana = qrcode_scanner(key='qrcode_scanner_tana')  
@@ -577,15 +576,6 @@ else:
             st.rerun()  # 再描画して次のステップへ
     else:
         # st.write(st.session_state.tanaban_select_temp)
-        if st.session_state.tanaban_select_temp == "完A-0":
-            st.session_state.qr_code_tana = False
-            st.session_state.tanaban_select = ""
-            st.session_state.tanaban_select_temp = ""
-            if st.session_state.manual_input_flag == 0:
-                st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
-            st.session_state.production_order = ""
-            st.session_state.production_order_flag = False
-            st.rerun()
         if st.button("棚番を再選択"):
             st.session_state.qr_code_tana = False
             st.session_state.tanaban_select_temp = ""
