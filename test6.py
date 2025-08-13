@@ -1014,6 +1014,7 @@ else:
                                   });
                                 </script>
                                 """, height=0)
+                            zkScroll_flag = 0
 
                         # reset_form()
                         # JavaScriptでフォーカスを当てる
