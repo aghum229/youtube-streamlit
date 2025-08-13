@@ -583,7 +583,6 @@ else:
         st.write(st.session_state.tanaban_select_temp)
         if st.session_state.tanaban_select_temp == "完A-0":
             st.session_state.qr_code_tana = False
-            # st.session_state.tanaban = ""
             st.session_state.tanaban_select = ""
             st.session_state.tanaban_select_temp = ""
             if st.session_state.manual_input_flag == 0:
@@ -591,7 +590,6 @@ else:
             st.rerun()
         if st.button("棚番を再選択"):
             st.session_state.qr_code_tana = False
-            # st.session_state.tanaban = ""
             st.session_state.tanaban_select = ""
             st.session_state.tanaban_select_temp = ""
             if st.session_state.manual_input_flag == 0:
@@ -653,51 +651,51 @@ else:
             else:                   
                 styled_input_text()
                 with st.form(key="manual_input_form", clear_on_submit=True):
-                    # manual_input_key = st.session_state.get("manual_input_key", "manual_input_default")
-                    if st.session_state.manual_input_flag == 1:
-                        # Opção de digitação manual do production_order
-                        # manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
-                        #                            value=st.session_state.manual_input_value,
-                        #                            max_chars=6,
-                        #                            key="manual_input")
-                        manual_input = st.text_input("移行票番号を入力し、Enterを押してください (6桁、例: 000000):",
-                                                    value="",
-                                                    max_chars=6,
-                                                    key="manual_input")
-                        if manual_input and manual_input.isdigit():
-                            st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
-                            # st.session_state.manual_input_value = manual_input
-                            st.session_state.show_camera = False
-                        
-                        # 入力欄の直後に JavaScript を挿入
-                        components.html(
-                            """
-                            <script>
-                                setTimeout(() => {
-                                    const inputs = window.parent.document.querySelectorAll('input');
-                                    for (let input of inputs) {
-                                        if (input.placeholder.includes("移行票番号")) {
-                                            input.focus();
-                                            break;
-                                        }
+                    # manual_input = st.text_input("移行票番号を入力してください (6桁、例: 000000):",
+                    #                            value=st.session_state.manual_input_value,
+                    #                            max_chars=6,
+                    #                            key="manual_input")
+                    manual_input = st.text_input("移行票番号を入力し、Enterを押してください (1～6桁、例: 12345):",
+                                                value="",
+                                                max_chars=6,
+                                                key="manual_input")
+                    if manual_input and manual_input.isdigit():
+                        st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
+                        # st.session_state.manual_input_value = manual_input
+                        st.session_state.show_camera = False
+                    
+                    # 入力欄の直後に JavaScript を挿入
+                    components.html(
+                        """
+                        <script>
+                            setTimeout(() => {
+                                const inputs = window.parent.document.querySelectorAll('input');
+                                for (let input of inputs) {
+                                    if (input.placeholder.includes("移行票番号")) {
+                                        input.focus();
+                                        break;
                                     }
-                                }, 500);
-                            </script>
-                            """,
-                            height=0,
-                        )
-                        submit_button_modify = st.form_submit_button("再入力(移行票番号)")  # 送信ボタンを配置しないとエラーになる
+                                }
+                            }, 500);
+                        </script>
+                        """,
+                        height=0,
+                    )
+                    submit_button_modify = st.form_submit_button("再入力(移行票番号)　※仮置きの為機能しません")  # 送信ボタンを配置しないとエラーになる
             
             # st.write(f"移行票番号 : {st.session_state.production_order}") 
-            # st.write(f"移行票番号(製造オーダー)は、「{st.session_state.production_order}」　でよろしいですか？")
-            # left, right = st.columns(2)
-            # with left:
-            #     check_button_ok = st.button("ＯＫ", key="check_ok")
-            # with right:
-            #     check_button_ng = st.button("ＮＧ", key="check_ng")
-            st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。") 
-            check_okng = st.radio(f"移行票番号(製造オーダー)は、「{st.session_state.production_order}」　でよろしいですか？", ["はい", "いいえ"], index=1)
-            if check_okng == "はい":
+            st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
+            st.write(f"移行票番号(製造オーダー)は、「{st.session_state.production_order}」　でよろしいですか？")
+            # check_button_ok = st.button("ＯＫ", key="check_ok")
+            left, right = st.columns(2)
+            with left:
+                check_button_ok = st.button("ＯＫ", key="check_ok")
+            with right:
+                check_button_ng = st.button("ＮＧ", key="check_ng")
+            # st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。") 
+            # check_okng = st.radio(f"移行票番号(製造オーダー)は、「{st.session_state.production_order}」　でよろしいですか？", ["はい", "いいえ"], index=1)
+            # if check_okng == "はい":
+            if check_button_ok:
                 st.session_state.show_camera = False
                 st.session_state.production_order_flag = True
                 st.rerun()
