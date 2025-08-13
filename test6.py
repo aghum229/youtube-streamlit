@@ -902,7 +902,7 @@ else:
                         datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                         # tdatetime = dt.strptime(datetime_str, '%Y/%m/%d %H:%M:%S')
                         if listAdd == 1: # 棚番が無い場合
-                            st.write(f"### ❌05 **棚番 '{tanaban_select}' の追加は許可されてません。**")
+                            st.write(f"❌05 **棚番 '{tanaban_select}' の追加は許可されてません。**")
                             # reset_form()
                             st.stop()  # 以降の処理を止める
                             # # zkTana = f"{record["zkTanaban__c"]},{tanaban_select}"
@@ -932,12 +932,12 @@ else:
                             listCountEtc = len(zkIko)
                             # st.write(f"移行票番号 : {zkIko[listNumber]}")
                             if zkIko[listNumber] == "-" and add_del_flag == 1:
-                                st.write(f"### ❌06 **移行票番号の登録はありませんので、処理を中止します。**")
+                                st.write(f"❌06 **移行票番号の登録はありませんので、処理を中止します。**")
                                 st.stop()  # 以降の処理を止める
                             # st.write(listCountEtc)
                             # st.write(listCount)
                             if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐(初期設定時のみ使用)
-                                st.write(f"### ❌07 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
+                                st.write(f"❌07 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
                                 # reset_form()
                                 st.stop()  # 以降の処理を止める
                                 zkKari = "-"
@@ -991,7 +991,7 @@ else:
                             # zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                                         
                     if st.session_state.owner is None:
-                        st.write(f"### ❌08 **作業者コード '{owner}' が未入力です。**")
+                        st.write(f"❌08 **作業者コード '{owner}' が未入力です。**")
                         # reset_form()
                         st.stop()  # 以降の処理を止める
                     # if "rerun_flag" not in st.session_state:
@@ -1004,7 +1004,7 @@ else:
                             atualizar_tanaban_add(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap)
                         else: # 削除の場合
                             atualizar_tanaban_del(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelTana, zkDelIko, zkDelSya)
-                        st.write(f"###### 次の処理に進むには、「取消」ボタンを押してください。")
+                        st.write("次の処理に進むには、「取消」ボタンを押してください。")
                         # reset_form()
                         # JavaScriptでフォーカスを当てる
                         # if st.session_state.rerun_flag:
