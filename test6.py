@@ -666,7 +666,8 @@ else:
                 #     """,
                 #     height=0,
                 # )
-            
+
+            st.write(f"現在選択されている棚番 : {st.session_state.tanaban_select_temp}")
             # st.write(f"移行票番号 : {st.session_state.production_order}") 
             st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
             st.write(f"移行票番号(製造オーダー)は、 「{st.session_state.production_order}」 でよろしいですか？")
