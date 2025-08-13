@@ -688,20 +688,22 @@ else:
                         )
                         submit_button_modify = st.form_submit_button("再入力(移行票番号)")  # 送信ボタンを配置しないとエラーになる
             
-            st.write(f"移行票番号 : {st.session_state.production_order}") 
+            # st.write(f"移行票番号 : {st.session_state.production_order}") 
             # st.write(f"移行票番号(製造オーダー)は、「{st.session_state.production_order}」　でよろしいですか？")
             # left, right = st.columns(2)
             # with left:
             #     check_button_ok = st.button("ＯＫ", key="check_ok")
             # with right:
             #     check_button_ng = st.button("ＮＧ", key="check_ng")
+            st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。") 
             check_okng = st.radio(f"移行票番号(製造オーダー)は、「{st.session_state.production_order}」　でよろしいですか？", ["はい", "いいえ"], index=1)
             if check_okng == "はい":
                 st.session_state.show_camera = False
                 st.session_state.production_order_flag = True
                 st.rerun()
             else:
-                st.session_state.show_camera = True
+                if st.session_state.manual_input_flag == 0:
+                    st.session_state.show_camera = True
                 st.session_state.production_order = None
                 # st.session_state.manual_input_value = ""
                 st.rerun()
