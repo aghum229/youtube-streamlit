@@ -574,6 +574,7 @@ else:
             st.session_state.show_camera = False
             st.session_state.qr_code_tana = True
             # st.write(st.session_state.qr_code_tana)
+            st.session_state.qr_code = ""
             st.session_state.production_order = ""
             st.session_state.production_order_flag = False
             st.rerun()  # 再描画して次のステップへ
@@ -584,32 +585,34 @@ else:
             st.session_state.tanaban_select_temp = ""
             if st.session_state.manual_input_flag == 0:
                 st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
+            st.session_state.qr_code = ""
             st.session_state.production_order = ""
             st.session_state.production_order_flag = False
             st.rerun()
         
         if not st.session_state.production_order_flag:
             if st.session_state.manual_input_flag == 0:
-                qr_code = ""
+                qr_code_kari = ""
                 if st.button("移行票(製造オーダー)を再選択", key="camera_rerun"):
                     st.session_state.show_camera = True
+                    st.session_state.qr_code = ""
                     st.session_state.production_order = None
                     st.session_state.production_order_flag = False
                     # st.session_state.manual_input_value = ""
                     st.rerun()
-                if qr_code == "":
+                if qr_code_kari == "":
                 # if st.session_state.show_camera:
                     st.session_state.show_camera = True
                     st.write("移行票(製造オーダー)のQRコードをスキャンしてください:")
-                    qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
+                    qr_code_kari = qrcode_scanner(key="qrcode_scanner_fixed")
                     # left, right = st.columns(2)
                     # with left:
                     #     qr_code = qrcode_scanner(key="qrcode_scanner_fixed")
                     # with right:
                     #     st.write(f"読取直後qr_code : {qr_code}")
-                    if qr_code is not None and qr_code.strip() != "":
+                    if qr_code_kari is not None and qr_code_kari.strip() != "":
                     # if qr_code:
-                        st.session_state.qr_code = qr_code.strip()
+                        st.session_state.qr_code = qr_code_kari.strip()
                     
                     # if not st.session_state.production_order and st.session_state.show_camera:
                     #     st.write("QRコードをスキャンして開始してください:")
@@ -621,26 +624,9 @@ else:
                     #         st.session_state.qr_code = qr_code
                     #         st.rerun()  # ← ここで明示的に再描画
                     if "qr_code" in st.session_state and st.session_state.qr_code != "":
-                    # if st.session_state.qr_code != "":
-                        # st.write("QRコードの型:", type(st.session_state.qr_code))
-                        # st.write("QRコードの中身:", repr(st.session_state.qr_code))
-                        
-                        # production_order = st.session_state.qr_code
-                        # st.write(production_order[3:8])
-                        # st.write(f"qr_code : {st.session_state.production_order}")
                         st.session_state.production_order = f"{st.session_state.qr_code}"
-                        # st.write(f"production_order : {st.session_state.production_order}")
-                        # st.session_state.manual_input_value = production_order[3:8]
-                        # st.write("カメラONの session_state:", st.session_state)
                         st.session_state.show_camera = False
-                        # st.write("カメラOFFの session_state:", st.session_state)
-                        # st.session_state.qr_code = None  # 処理済みなのでクリア
-                        # st.rerun()
-                        # st.session_state.trigger_rerun = True
-                    # if st.session_state.get("trigger_rerun"):
-                        # st.session_state.show_camera = False
-                        # st.session_state.trigger_rerun = False
-                        # st.rerun()
+                        
             else:                   
                 styled_input_text()
                 manual_input = st.text_input("移行票番号を入力し、Enterを押してください (1～6桁、例: 12345):",
@@ -690,6 +676,7 @@ else:
             else:
                 if st.session_state.manual_input_flag == 0:
                     st.session_state.show_camera = True
+                st.session_state.qr_code = None
                 st.session_state.production_order = None
                 # st.session_state.manual_input_value = ""
                 st.rerun()
@@ -700,6 +687,7 @@ else:
                 st.session_state.material_weight = None
                 st.session_state.cumulative_cost = 0.0
                 st.session_state.production_order_flag = False
+                st.session_state.qr_code = ""
                 st.session_state.production_order = ""
                 if st.session_state.manual_input_flag == 0:
                     st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
@@ -843,6 +831,7 @@ else:
                         st.session_state.tanaban_select_temp = ""
                         if st.session_state.manual_input_flag == 0:
                             st.session_state.show_camera = True  # 必要に応じて棚番再選択
+                        st.session_state.qr_code = ""
                         st.session_state.production_order = ""
                         st.session_state.production_order_flag = False
                         st.rerun()
@@ -871,6 +860,7 @@ else:
                     zkDelSya = ""
                     zkShoBu = ""
                     zkShoU = ""
+                    zkOrder = ""
                     record = data_catch(st.session_state.sf, item_id)
                     if record:
                         # zkTana = record["zkTanaban__c"].split(",")   # zk棚番
@@ -958,8 +948,9 @@ else:
                                 # zkShoU = zkIko
                             else:
                                 # st.write(f"Index: '{listNumber}'") 
+                                zkOrder = st.session_state.production_order
                                 if add_del_flag == 0: # 追加の場合
-                                    zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order, 1)   # zk棚番
+                                    zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 1)   # zk移行票No
                                     zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
                                     zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
                                     zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
@@ -967,7 +958,7 @@ else:
                                     zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner_value, 0)   # zk追加者
                                     zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", -1)   # zkマップ座標
                                 elif add_del_flag == 1: # 削除の場合
-                                    zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, st.session_state.production_order, 3)   # zk棚番
+                                    zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 3)   # zk移行票No
                                     zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 2)   # zk品番
                                     zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 2)   # zk完了工程
                                     zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 2)   # zk数量
@@ -976,7 +967,7 @@ else:
                                     zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 2)   # zkマップ座標
                                     zkDelDa = datetime_str   # zk直近削除日時
                                     zkDelTana = tanaban_select   # zk直近削除棚番
-                                    zkDelIko = st.session_state.production_order   # zk直近削除移行票No
+                                    zkDelIko = zkOrder   # zk直近削除移行票No
                                     zkDelSya = owner_value   # zk直近削除者
                                 
                             # zkHin = record["zkHinban__c"].splitlines()   # zk品番
@@ -1002,9 +993,9 @@ else:
                         # atualizar_tanaban(st.session_state.sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya)
                         # datetime_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
                         if add_del_flag == 0: # 追加の場合
-                            atualizar_tanaban_add(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, st.session_state.production_order)
+                            atualizar_tanaban_add(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkOrder)
                         else: # 削除の場合
-                            atualizar_tanaban_del(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelTana, zkDelIko, zkDelSya, st.session_state.production_order)
+                            atualizar_tanaban_del(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelTana, zkDelIko, zkDelSya, zkOrder)
                         st.write("次の処理に進むには、「取消」ボタンを押してください。")
                         # reset_form()
                         # JavaScriptでフォーカスを当てる
