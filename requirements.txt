@@ -11,4 +11,3 @@ pytz
 flask
 easyocr
 torch
-image_coordinates
