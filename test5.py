@@ -1,7 +1,9 @@
+_= '''
 import json
 import streamlit as st
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
+'''
 
 import numpy as np 
 from PIL import Image, ImageDraw
@@ -22,6 +24,8 @@ for bbox, text, confidence in results:
     st.write(f'Text: {text}, Confidence: {confidence:.2f}')
 st.stop()
 
+
+_= '''
 def authenticate():
     # Secretsからサービスアカウント情報を取得
     credentials_dict = st.secrets["service_account"]
@@ -82,3 +86,4 @@ if st.button("認証＆スプレッドシート作成"):
         share_spreadsheet(drive_service, spreadsheet_id, email)
         st.success(f"{email} と共有しました！")
 
+'''
