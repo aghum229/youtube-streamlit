@@ -37,7 +37,7 @@ import numpy as np
 
 # 画像読み込み
 img = Image.open("TanaMap20250814.png")
-st.image(img, caption="画像を確認してください", use_column_width=True)
+st.image(img, caption="画像", use_container_width=True)
 
 # 座標入力
 x = st.number_input("x座標", min_value=0)
