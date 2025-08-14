@@ -11,7 +11,8 @@ import easyocr
 import streamlit as st
 
 reader = easyocr.Reader(['ja','en'])
-selected_image = st.file_uploader('TanaMap20250814', type='png')
+# selected_image = st.file_uploader('TanaMap20250814', type='png')
+selected_image = 'TanaMap20250814.png'
 
 original_image = st.empty()
 result_image = st.empty()
