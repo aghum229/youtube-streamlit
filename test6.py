@@ -23,7 +23,7 @@ import easyocr
 reader = easyocr.Reader(['ja', 'en'])
 
 # 画像ファイルのパス
-image_path = 'sample_image.png'
+image_path = 'TanaMap20250814.png'
 
 # OCR実行
 results = reader.readtext(image_path)
