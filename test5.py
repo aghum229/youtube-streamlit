@@ -40,7 +40,7 @@ import numpy as np
 reader = easyocr.Reader(['ja', 'en'])
 
 # 画像ファイルのパス
-image_path = 'TanaMap20250814.png'
+image_path = 'TanaMap20250815.png'
 
 # OCR実行
 results = reader.readtext(image_path)
