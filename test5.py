@@ -5,6 +5,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 '''
 
+import streamlit as st
 import numpy as np 
 from PIL import Image, ImageDraw
 import easyocr
