@@ -5,24 +5,26 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 '''
 
-import streamlit as st
 import numpy as np 
 from PIL import Image, ImageDraw
 import easyocr
+import streamlit as st
 
+reader = easyocr.Reader(['ja','en'])
+selected_image = st.file_uploader('TanaMap20250814', type='png')
 
-# 読み取り対象の言語を指定（例：日本語と英語）
-reader = easyocr.Reader(['ja', 'en'])
+original_image = st.empty()
+result_image = st.empty()
 
-# 画像ファイルのパス
-image_path = 'TanaMap20250814.png'
-
-# OCR実行
-results = reader.readtext(image_path)
-
-# 結果の表示
-for bbox, text, confidence in results:
-    st.write(f'Text: {text}, Confidence: {confidence:.2f}')
+if (selected_image != None):
+    original_image.image(selected_image)
+    pil = Image.open(selected_image)
+    result = reader.readtext(np.array(pil))
+    draw = ImageDraw.Draw(pil)
+    for each_result in result:
+        draw.rectangle(tuple(each_result[0][0] + each_result[0][2]), outline=(0, 0, 255), width=3)
+        st.write(each_result[1])
+    result_image.image(pil)
 st.stop()
 
 
