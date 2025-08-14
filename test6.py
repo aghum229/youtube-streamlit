@@ -906,8 +906,8 @@ else:
                     item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※変更禁止
                     
                     # 棚番設定用マスタ(棚番を変更する場合には、下記に追加または削除してからatualizar_tanaban_addkari()を実行の事。尚、棚番は改行区切りである。)
-                    # atualizar_tanaban_addkari(st.session_state.sf, item_id)
-                    # st.stop()  # 以降の処理を止める
+                    atualizar_tanaban_addkari(st.session_state.sf, item_id)
+                    st.stop()  # 以降の処理を止める
                     
                     # tanaban_select = "完A-3"  # 仮で設定
                     listCount = 0
