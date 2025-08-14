@@ -904,7 +904,7 @@ else:
                     if record:
                         # zkTana = record["zkTanaban__c"].split(",")   # zk棚番
                         # listCount = len(zkTana)
-                        zkHistory = record["zkHistory__c"].splitlines()  # 改行区切り
+                        zkHistory = record["zkHistory__c"]  # zk履歴
                         zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
                         listCount = len(zkTana_list)
                         if listCount > 2:
