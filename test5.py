@@ -30,17 +30,32 @@ st.stop()
 '''
 
 import streamlit as st
-from streamlit_image_coordinates import image_coordinates
 from PIL import Image
+import easyocr
+import cv2
+import numpy as np
 
 # 画像読み込み
 img = Image.open("TanaMap20250814.png")
-st.image(img, caption="画像をクリックして座標取得", use_column_width=True)
+st.image(img, caption="画像を確認してください", use_column_width=True)
 
-# 座標取得
-coords = image_coordinates(img)
-if coords:
-    st.write(f"クリック座標: x={coords['x']}, y={coords['y']}")
+# 座標入力
+x = st.number_input("x座標", min_value=0)
+y = st.number_input("y座標", min_value=0)
+w = st.number_input("幅 (w)", min_value=1)
+h = st.number_input("高さ (h)", min_value=1)
+
+if st.button("OCR実行"):
+    img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+    roi = img_cv[int(y):int(y+h), int(x):int(x+w)]
+    rotated = cv2.rotate(roi, cv2.ROTATE_90_CLOCKWISE)
+
+    reader = easyocr.Reader(['ja', 'en'])
+    results = reader.readtext(rotated)
+
+    for _, text, conf in results:
+        st.write(f"認識結果: {text}（信頼度: {conf:.2f}）")
+
 
 st.stop()
 
