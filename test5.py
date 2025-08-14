@@ -4,7 +4,7 @@ import streamlit as st
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 '''
-
+_= '''
 import numpy as np 
 from PIL import Image, ImageDraw
 import easyocr
@@ -27,6 +27,43 @@ if (selected_image != None):
         st.write(each_result[1])
     result_image.image(pil)
 st.stop()
+'''
+
+import streamlit as st
+import cv2
+import easyocr
+
+def click_event(event, x, y, flags, param):
+    if event == cv2.EVENT_LBUTTONDOWN:
+        st.write(f"クリック座標: x={x}, y={y}")
+
+# 画像読み込み
+img = cv2.imread('TanaMap20250814.png')
+cv2.imshow('画像をクリックして座標取得', img)
+cv2.setMouseCallback('画像をクリックして座標取得', click_event)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+st.stop()
+
+# 画像読み込み
+img = cv2.imread('TanaMap20250814.png')
+
+# R-1の位置（例：手動で指定）
+x, y, w, h = 300, 400, 50, 150  # 適宜調整
+roi = img[y:y+h, x:x+w]
+
+# 回転して横向きに
+rotated = cv2.rotate(roi, cv2.ROTATE_90_CLOCKWISE)
+
+# OCR実行
+reader = easyocr.Reader(['ja', 'en'])
+results = reader.readtext(rotated)
+
+# 結果表示
+for bbox, text, conf in results:
+    st.write(f"認識結果: {text}（信頼度: {conf:.2f}）")
+st.stop()
+
 
 
 _= '''
