@@ -188,20 +188,20 @@ def simplify_dataframe(df):
     return simplified_df
 
 def atualizar_tanaban_addkari(sf, item_id):  # 棚番書き込み専用
-    zkTana = """
-        完A-1\n完A-2\n完A-3\n完A-4\n完A-5\n完A-6\n完A-7\n完A-8\n完A-9\n完A-10\n完A-11\n完A-12\n完A-13\n完A-14\n完A-15\n完A-16\n完A-17\n完A-18\n完A-19\n完A-20\n
-        完B-1\n完B-2\n完B-3\n完B-4\n完B-5\n完B-6\n完B-7\n完B-8\n完B-9\n完B-10\n完B-11\n完B-12\n完B-13\n完B-14\n完B-15\n完B-16\n完B-17\n完B-18\n完B-19\n完B-20\n
-        完C-1\n完C-2\n完C-3\n完C-4\n完C-5\n完C-6\n完C-7\n完C-8\n完C-9\n完C-10\n完C-11\n完C-12\n完C-13\n完C-14\n完C-15\n完C-16\n完C-17\n完C-18\n完C-19\n完C-20\n
-        完D-1\n完D-2\n完D-3\n完D-4\n完D-5\n完D-6\n完D-7\n完D-8\n完D-9\n完D-10\n完D-11\n完D-12\n完D-13\n完D-14\n完D-15\n完D-16\n完D-17\n完D-18\n完D-19\n完D-20\n
-        A-1\nA-2\nA-3\nA-4\nA-5\nA-6\nA-7\nA-8\nA-9\nA-10\nA-11\nA-12\nA-13\nA-14\nA-15\nA-16\nA-17\nA-18\nA-19\nA-20\nA-21\nA-22\nA-23\nA-24\nA-25\nA-26\nA-27\nA-28\nA-29\nA-30\n
-        D-1\nD-2\nD-3\nD-4\nD-5\nD-6\nD-7\nD-8\nD-9\nD-10\nD-11\nD-12\nD-13\nD-14\nD-15\nD-16\nD-17\nD-18\nD-19\nD-20\nD-21\nD-22\nD-23\nD-24\nD-25\nD-26\nD-27\nD-28\nD-29\nD-30\n
-        E-31\nE-32\nE-33\nE-34\nE-35\nE-36\nE-37\nE-38\nE-39\nE-40\nE-41\nE-42\nE-43\nE-44\nE-45\nE-46\nE-47\nE-48\nE-49\nE-50\nE-51\nE-52\nE-53\nE-54\nE-55\nE-56\nE-57\nE-58\nE-59\nE-60\nE-61\nE-62\nE-63\nE-64\nE-65\nE-66\nE-67\nE-68\nE-69\nE-70\n
-        F-1\nF-2\nF-3\nF-4\nF-5\nF-6\nF-7\nF-8\nF-9\nF-10\nF-11\nF-12\nF-13\nF-14\nF-15\nF-16\nF-17\nF-18\nF-19\nF-20\nF-21\nF-22\nF-23\nF-24\nF-25\nF-26\nF-27\nF-28\nF-29\nF-30\nF-31\nF-32\nF-33\nF-34\nF-35\nF-36\nF-37\nF-38\nF-39\nF-40\n
-        G-1\nG-2\nG-3\nG-4\nG-5\nG-6\nG-7\nG-8\nG-9\nG-10\nG-11\nG-12\nG-13\nG-14\nG-15\nG-16\nG-17\nG-18\nG-19\nG-20\nG-21\nG-22\nG-23\nG-24\nG-25\nG-26\nG-27\nG-28\nG-29\nG-30\nG-31\nG-32\nG-33\nG-34\nG-35\nG-36\nG-37\nG-38\nG-39\nG-40\n
-        H-1\nH-2\nH-3\nH-4\nH-5\nH-6\nH-7\nH-8\nH-9\nH-10\nH-11\nH-12\nH-13\nH-14\nH-15\nH-16\nH-17\nH-18\nH-19\nH-20\nH-21\nH-22\nH-23\nH-24\nH-25\nH-26\nH-27\nH-28\nH-29\nH-30\nH-31\nH-32\nH-33\nH-34\nH-35\nH-36\nH-37\nH-38\nH-39\nH-40\n
-        R-1\nR-2\nR-3\nR-4\nR-5\nR-6\nR-7\nR-8\nR-9\nR-10\nR-11\nR-12\nR-13\nR-14\nR-15\nR-16\nR-17\nR-18\nR-19\nR-20\n
-        S-1\nS-2\nS-3\nS-4\nS-5\nS-6\nS-7\nS-8\nS-9\nS-10\nS-11\nS-12\nS-13\nS-14\nS-15\nS-16\nS-17\nS-18\nS-19\nS-20
-    """
+    # zkTana = """
+    #     完A-1\n完A-2\n完A-3\n完A-4\n完A-5\n完A-6\n完A-7\n完A-8\n完A-9\n完A-10\n完A-11\n完A-12\n完A-13\n完A-14\n完A-15\n完A-16\n完A-17\n完A-18\n完A-19\n完A-20\n
+    #     完B-1\n完B-2\n完B-3\n完B-4\n完B-5\n完B-6\n完B-7\n完B-8\n完B-9\n完B-10\n完B-11\n完B-12\n完B-13\n完B-14\n完B-15\n完B-16\n完B-17\n完B-18\n完B-19\n完B-20\n
+    #     完C-1\n完C-2\n完C-3\n完C-4\n完C-5\n完C-6\n完C-7\n完C-8\n完C-9\n完C-10\n完C-11\n完C-12\n完C-13\n完C-14\n完C-15\n完C-16\n完C-17\n完C-18\n完C-19\n完C-20\n
+    #     完D-1\n完D-2\n完D-3\n完D-4\n完D-5\n完D-6\n完D-7\n完D-8\n完D-9\n完D-10\n完D-11\n完D-12\n完D-13\n完D-14\n完D-15\n完D-16\n完D-17\n完D-18\n完D-19\n完D-20\n
+    #     A-1\nA-2\nA-3\nA-4\nA-5\nA-6\nA-7\nA-8\nA-9\nA-10\nA-11\nA-12\nA-13\nA-14\nA-15\nA-16\nA-17\nA-18\nA-19\nA-20\nA-21\nA-22\nA-23\nA-24\nA-25\nA-26\nA-27\nA-28\nA-29\nA-30\n
+    #     D-1\nD-2\nD-3\nD-4\nD-5\nD-6\nD-7\nD-8\nD-9\nD-10\nD-11\nD-12\nD-13\nD-14\nD-15\nD-16\nD-17\nD-18\nD-19\nD-20\nD-21\nD-22\nD-23\nD-24\nD-25\nD-26\nD-27\nD-28\nD-29\nD-30\n
+    #     E-31\nE-32\nE-33\nE-34\nE-35\nE-36\nE-37\nE-38\nE-39\nE-40\nE-41\nE-42\nE-43\nE-44\nE-45\nE-46\nE-47\nE-48\nE-49\nE-50\nE-51\nE-52\nE-53\nE-54\nE-55\nE-56\nE-57\nE-58\nE-59\nE-60\nE-61\nE-62\nE-63\nE-64\nE-65\nE-66\nE-67\nE-68\nE-69\nE-70\n
+    #     F-1\nF-2\nF-3\nF-4\nF-5\nF-6\nF-7\nF-8\nF-9\nF-10\nF-11\nF-12\nF-13\nF-14\nF-15\nF-16\nF-17\nF-18\nF-19\nF-20\nF-21\nF-22\nF-23\nF-24\nF-25\nF-26\nF-27\nF-28\nF-29\nF-30\nF-31\nF-32\nF-33\nF-34\nF-35\nF-36\nF-37\nF-38\nF-39\nF-40\n
+    #     G-1\nG-2\nG-3\nG-4\nG-5\nG-6\nG-7\nG-8\nG-9\nG-10\nG-11\nG-12\nG-13\nG-14\nG-15\nG-16\nG-17\nG-18\nG-19\nG-20\nG-21\nG-22\nG-23\nG-24\nG-25\nG-26\nG-27\nG-28\nG-29\nG-30\nG-31\nG-32\nG-33\nG-34\nG-35\nG-36\nG-37\nG-38\nG-39\nG-40\n
+    #     H-1\nH-2\nH-3\nH-4\nH-5\nH-6\nH-7\nH-8\nH-9\nH-10\nH-11\nH-12\nH-13\nH-14\nH-15\nH-16\nH-17\nH-18\nH-19\nH-20\nH-21\nH-22\nH-23\nH-24\nH-25\nH-26\nH-27\nH-28\nH-29\nH-30\nH-31\nH-32\nH-33\nH-34\nH-35\nH-36\nH-37\nH-38\nH-39\nH-40\n
+    #     R-1\nR-2\nR-3\nR-4\nR-5\nR-6\nR-7\nR-8\nR-9\nR-10\nR-11\nR-12\nR-13\nR-14\nR-15\nR-16\nR-17\nR-18\nR-19\nR-20\n
+    #     S-1\nS-2\nS-3\nS-4\nS-5\nS-6\nS-7\nS-8\nS-9\nS-10\nS-11\nS-12\nS-13\nS-14\nS-15\nS-16\nS-17\nS-18\nS-19\nS-20
+    # """
     zkTana = """
         1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n
         41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n
@@ -211,14 +211,16 @@ def atualizar_tanaban_addkari(sf, item_id):  # 棚番書き込み専用
         201\n202\n203\n204\n205\n206\n207\n208\n209\n210\n211\n212\n213\n214\n215\n216\n217\n218\n219\n220\n221\n222\n223\n224\n225\n226\n227\n228\n229\n230\n
         241\n242\n243\n244\n245\n246\n247\n248\n249\n250\n251\n252\n253\n254\n255\n256\n257\n258\n259\n260\n261\n262\n263\n264\n265\n266\n267\n268\n269\n270\n271\n272\n273\n274\n275\n276\n277\n278\n279\n280\n
         301\n302\n303\n304\n305\n306\n307\n308\n309\n310\n311\n312\n313\n314\n315\n316\n317\n318\n319\n320\n321\n322\n323\n324\n325\n326\n327\n328\n329\n330\n331\n332\n333\n334\n335\n336\n337\n338\n339\n340\n
-        361\nG-2\nG-3\nG-4\nG-5\nG-6\nG-7\nG-8\nG-9\nG-10\nG-11\nG-12\nG-13\nG-14\nG-15\nG-16\nG-17\nG-18\nG-19\nG-20\nG-21\nG-22\nG-23\nG-24\nG-25\nG-26\nG-27\nG-28\nG-29\nG-30\nG-31\nG-32\nG-33\nG-34\nG-35\nG-36\nG-37\nG-38\nG-39\nG-40\n
-        H-1\nH-2\nH-3\nH-4\nH-5\nH-6\nH-7\nH-8\nH-9\nH-10\nH-11\nH-12\nH-13\nH-14\nH-15\nH-16\nH-17\nH-18\nH-19\nH-20\nH-21\nH-22\nH-23\nH-24\nH-25\nH-26\nH-27\nH-28\nH-29\nH-30\nH-31\nH-32\nH-33\nH-34\nH-35\nH-36\nH-37\nH-38\nH-39\nH-40\n
-        R-1\nR-2\nR-3\nR-4\nR-5\nR-6\nR-7\nR-8\nR-9\nR-10\nR-11\nR-12\nR-13\nR-14\nR-15\nR-16\nR-17\nR-18\nR-19\nR-20\n
-        S-1\nS-2\nS-3\nS-4\nS-5\nS-6\nS-7\nS-8\nS-9\nS-10\nS-11\nS-12\nS-13\nS-14\nS-15\nS-16\nS-17\nS-18\nS-19\nS-20
+        361\n362\n363\n364\n365\n366\n367\n368\n369\n370\n371\n372\n373\n374\n375\n376\n377\n378\n379\n380\n381\n382\n383\n384\n385\n386\n387\n388\n389\n390\n391\n392\n393\n394\n395\n396\n397\n398\n399\n400\n
+        421\n422\n423\n424\n425\n426\n427\n428\n429\n430\n431\n432\n433\n434\n435\n436\n437\n438\n439\n440\n441\n442\n443\n444\n445\n446\n447\n448\n449\n450\n451\n452\n453\n454\n455\n456\n457\n458\n459\n460\n
+        481\n482\n483\n484\n485\n486\n487\n488\n489\n490\n491\n492\n493\n494\n495\n496\n497\n498\n499\n500\n
+        521\n522\n523\n524\n525\n526\n527\n528\n529\n530\n531\n532\n533\n534\n535\n536\n537\n538\n539\n540
     """
     try:
-        sf.snps_um__Process__c.update(item_id, {"zkTanaban__c": zkTana})
-        st.success("##### 「zk棚番」に書き込みました！")
+        # sf.snps_um__Process__c.update(item_id, {"zkTanaban__c": zkTana})
+        # st.success("##### 「zk棚番」に書き込みました！")
+        sf.snps_um__Process__c.update(item_id, {"zkMapNo__c": zkTana})
+        st.success("##### 「zkマップ表示」に書き込みました！")
     except Exception as e:
         st.error(f"更新エラー: {e}")
         # reset_form()
