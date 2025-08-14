@@ -30,19 +30,18 @@ st.stop()
 '''
 
 import streamlit as st
-import cv2
-import easyocr
-
-def click_event(event, x, y, flags, param):
-    if event == cv2.EVENT_LBUTTONDOWN:
-        st.write(f"クリック座標: x={x}, y={y}")
+from streamlit_image_coordinates import image_coordinates
+from PIL import Image
 
 # 画像読み込み
-img = cv2.imread('TanaMap20250814.png')
-cv2.imshow('画像をクリックして座標取得', img)
-cv2.setMouseCallback('画像をクリックして座標取得', click_event)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+img = Image.open("TanaMap20250814.png")
+st.image(img, caption="画像をクリックして座標取得", use_column_width=True)
+
+# 座標取得
+coords = image_coordinates(img)
+if coords:
+    st.write(f"クリック座標: x={coords['x']}, y={coords['y']}")
+
 st.stop()
 
 # 画像読み込み
