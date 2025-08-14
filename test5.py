@@ -3,6 +3,24 @@ import streamlit as st
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
+import numpy as np 
+from PIL import Image, ImageDraw
+import easyocr
+
+
+# 読み取り対象の言語を指定（例：日本語と英語）
+reader = easyocr.Reader(['ja', 'en'])
+
+# 画像ファイルのパス
+image_path = 'TanaMap20250814.png'
+
+# OCR実行
+results = reader.readtext(image_path)
+
+# 結果の表示
+for bbox, text, confidence in results:
+    st.write(f'Text: {text}, Confidence: {confidence:.2f}')
+st.stop()
 
 def authenticate():
     # Secretsからサービスアカウント情報を取得
