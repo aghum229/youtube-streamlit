@@ -35,27 +35,19 @@ import easyocr
 import cv2
 import numpy as np
 
-# 画像読み込み
-img = Image.open("TanaMap20250814.png")
-st.image(img, caption="画像", use_container_width=True)
 
-# 座標入力
-x = st.number_input("x座標", min_value=0)
-y = st.number_input("y座標", min_value=0)
-w = st.number_input("幅 (w)", min_value=1)
-h = st.number_input("高さ (h)", min_value=1)
+# 読み取り対象の言語を指定（例：日本語と英語）
+reader = easyocr.Reader(['ja', 'en'])
 
-if st.button("OCR実行"):
-    img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-    roi = img_cv[int(y):int(y+h), int(x):int(x+w)]
-    rotated = cv2.rotate(roi, cv2.ROTATE_90_CLOCKWISE)
+# 画像ファイルのパス
+image_path = 'TanaMap20250814.png'
 
-    reader = easyocr.Reader(['ja', 'en'])
-    results = reader.readtext(rotated)
+# OCR実行
+results = reader.readtext(image_path)
 
-    for _, text, conf in results:
-        st.write(f"認識結果: {text}（信頼度: {conf:.2f}）")
-
+# 結果の表示
+for bbox, text, confidence in results:
+    st.write(f'Text: {text}, Confidence: {confidence:.2f}')
 
 st.stop()
 
