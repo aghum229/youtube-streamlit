@@ -560,10 +560,12 @@ else:
         left, right = st.columns(2)
         with left:
             button_qr = st.button("QRコード")
+            st.write("棚番と移行票番号をQRコードで入力")
         with right:
             button_manual = st.button("手動入力")
+            st.write("棚番と移行票番号を手動で入力")
         if button_qr or button_manual: 
-            if submit_button_add:
+            if button_qr:
                 st.session_state.manual_input_flag = 0
             else:
                 st.session_state.manual_input_flag = 1
