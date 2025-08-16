@@ -570,6 +570,7 @@ else:
             else:
                 st.session_state.manual_input_flag = 1
             st.session_state.manual_input_check = True
+            st.rerun()
     else:
         _= '''
         # 入力完了後はメイン処理を表示
