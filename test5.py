@@ -30,24 +30,41 @@ st.stop()
 '''
 
 import streamlit as st
-from PIL import Image
 import easyocr
 import cv2
 import numpy as np
+from PIL import Image
+
+st.title("ローカル画像から数字と中心座標を抽出")
+
+# ファイルアップロード（またはファイル名指定）
+uploaded_file = st.file_uploader("画像ファイルをアップロードしてください", type=["png", "jpg", "jpeg"])
+
+if uploaded_file:
+    # PILで読み込み → NumPy配列に変換
+    image = Image.open(uploaded_file).convert("RGB")
+    image_np = np.array(image)
+
+    # OCR実行
+    reader = easyocr.Reader(['en'], gpu=False)
+    results = reader.readtext(image_np)
+
+    # 数字と中心座標抽出
+    digit_positions = []
+    for bbox, text, prob in results:
+        if text.isdigit():
+            (tl, tr, br, bl) = bbox
+            center_x = int((tl[0] + br[0]) / 2)
+            center_y = int((tl[1] + br[1]) / 2)
+            digit_positions.append((text, (center_x, center_y)))
+
+    # 結果表示
+    st.image(image, caption="元画像", use_column_width=True)
+    st.subheader("抽出された数字と中心座標")
+    for digit, (x, y) in digit_positions:
+        st.write(f"数字: {digit}, 中心座標: ({x}, {y})")
 
 
-# 読み取り対象の言語を指定（例：日本語と英語）
-reader = easyocr.Reader(['ja', 'en'])
-
-# 画像ファイルのパス
-image_path = 'TanaMap20250815_2.png'
-
-# OCR実行
-results = reader.readtext(image_path)
-
-# 結果の表示
-for bbox, text, confidence in results:
-    st.write(f'Text: {text}, Confidence: {confidence:.2f}')
 
 st.stop()
 
