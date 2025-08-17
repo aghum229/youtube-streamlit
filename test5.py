@@ -14,6 +14,12 @@ from PIL import Image
 import glob
 import os
 
+def preprocess_image(image_np):
+    gray = cv2.cvtColor(image_np, cv2.COLOR_RGB2GRAY)
+    blurred = cv2.GaussianBlur(gray, (3, 3), 0)
+    _, thresh = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    return thresh
+
 st.title("複数画像から指定文字を検出して赤い円（○）を描画")
 
 # 🔤 検出したい文字を入力
@@ -33,9 +39,10 @@ else:
         # 画像読み込みとNumPy変換
         image = Image.open(image_path).convert("RGB")
         image_np = np.array(image)
+        processed = preprocess_image(image_np)
 
         # OCR実行
-        results = reader.readtext(image_np)
+        results = reader.readtext(processed)
         target_center = None
 
         for bbox, text, prob in results:
@@ -47,7 +54,7 @@ else:
                 break
 
         # 赤い円（○）を描画
-        image_with_circle = image_np.copy()
+        image_with_circle = processed.copy()
         if target_center:
             cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
             st.image(image_with_circle, caption=f"{target_text} を検出しました", use_container_width=True)
