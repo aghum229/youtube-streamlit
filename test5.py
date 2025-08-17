@@ -36,7 +36,10 @@ import cv2
 from PIL import Image
 import os
 
-st.title("数字265の位置に赤丸を描画")
+st.title("入力した文字の位置に赤い円（○）を描画")
+
+# 🔤 ユーザー入力欄
+target_text = st.text_input("検出したい文字を入力してください", value="167")
 
 image_filename = "TanaMap20250815_2.png"
 
@@ -49,11 +52,10 @@ else:
     reader = easyocr.Reader(['en'], gpu=False)
     results = reader.readtext(image_np)
 
-    target_text = "265"
     target_center = None
 
     for bbox, text, prob in results:
-        if text == target_text:
+        if text.strip() == target_text.strip():
             (tl, tr, br, bl) = bbox
             center_x = int((tl[0] + br[0]) / 2)
             center_y = int((tl[1] + br[1]) / 2)
@@ -61,15 +63,14 @@ else:
             break
 
     if target_center:
-        # 赤丸描画（直径5mm ≒ 半径9〜10px）
-        radius_px = 20
+        radius_px = 9
         image_with_circle = image_np.copy()
         cv2.circle(image_with_circle, target_center, radius_px, (255, 0, 0), thickness=2)
 
-        st.image(image_with_circle, caption="167の位置に赤い円（○）を描画", use_container_width=True)
-        st.success(f"167 を検出しました。座標: {target_center}")
+        st.image(image_with_circle, caption=f"{target_text} の位置に赤い円（○）を描画", use_container_width=True)
+        st.success(f"{target_text} を検出しました。座標: {target_center}")
     else:
-        st.warning("167 は画像内に見つかりませんでした。")
+        st.warning(f"{target_text} は画像内に見つかりませんでした。")
 
 st.stop()
 
