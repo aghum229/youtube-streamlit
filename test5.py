@@ -17,11 +17,11 @@ import os
 st.title("複数画像から指定文字を検出して赤い円（○）を描画")
 
 # 🔤 検出したい文字を入力
-target_text = st.text_input("検出したい文字を入力してください", value="368")
+target_text = st.text_input("検出したい文字を入力してください", value="")
 
 # 📂 同じフォルダ内の画像ファイル一覧を取得（PNG/JPG）
 image_files = sorted(glob.glob("*.png") + glob.glob("*.jpg") + glob.glob("*.jpeg"))
-
+image_flag = False
 if not image_files:
     st.warning("画像ファイルが見つかりませんでした。")
 else:
@@ -52,11 +52,14 @@ else:
             cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
             st.image(image_with_circle, caption=f"{target_text} を検出しました", use_container_width=True)
             st.success(f"座標: {target_center}")
+            image_flag = True
             break
         else:
-            st.image(image_with_circle, caption=f"{target_text} は検出されませんでした", use_container_width=True)
-            st.warning(f"{target_text} はこの画像には見つかりませんでした。")
-
+            None
+            # st.image(image_with_circle, caption=f"{target_text} は検出されませんでした", use_container_width=True)
+            # st.warning(f"{target_text} はこの画像には見つかりませんでした。")
+    if image_flag == False:
+        st.warning(f"{target_text} はこの画像には見つかりませんでした。")
 st.stop()
 # '''
 _= '''
