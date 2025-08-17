@@ -66,7 +66,7 @@ else:
         image_with_circle = image_np.copy()
         cv2.circle(image_with_circle, target_center, radius_px, (255, 0, 0), thickness=2)
 
-        st.image(image_with_circle, caption="167の位置に赤丸を描画", use_column_width=True)
+        st.image(image_with_circle, caption="167の位置に赤い円（○）を描画", use_container_width=True)
         st.success(f"167 を検出しました。座標: {target_center}")
     else:
         st.warning("167 は画像内に見つかりませんでした。")
