@@ -49,7 +49,7 @@ else:
     reader = easyocr.Reader(['en'], gpu=False)
     results = reader.readtext(image_np)
 
-    target_text = "167"
+    target_text = st.text_input()
     target_center = None
 
     for bbox, text, prob in results:
