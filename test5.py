@@ -49,7 +49,7 @@ else:
     image = Image.open(image_filename).convert("RGB")
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     blurred = cv2.GaussianBlur(gray, (3, 3), 0)
-        _, thresh = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    _, thresh = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     image_np = np.array(image)
 
     reader = easyocr.Reader(['ja', 'en'], gpu=False)
