@@ -62,9 +62,9 @@ else:
 
     if target_center:
         # 赤丸描画（直径5mm ≒ 半径9〜10px）
-        radius_px = 9
+        radius_px = 20
         image_with_circle = image_np.copy()
-        cv2.circle(image_with_circle, target_center, radius_px, (255, 0, 0), thickness=-1)
+        cv2.circle(image_with_circle, target_center, radius_px, (255, 0, 0), thickness=2)
 
         st.image(image_with_circle, caption="167の位置に赤丸を描画", use_column_width=True)
         st.success(f"167 を検出しました。座標: {target_center}")
