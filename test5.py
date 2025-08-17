@@ -39,10 +39,10 @@ else:
         # 画像読み込みとNumPy変換
         image = Image.open(image_path).convert("RGB")
         image_np = np.array(image)
-        processed = preprocess_image(image_np)
+        # processed = preprocess_image(image_np)
 
         # OCR実行
-        results = reader.readtext(processed)
+        results = reader.readtext(image_np)
         target_center = None
 
         for bbox, text, prob in results:
@@ -54,7 +54,7 @@ else:
                 break
 
         # 赤い円（○）を描画
-        image_with_circle = processed.copy()
+        image_with_circle = image_np.copy()
         if target_center:
             cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
             st.image(image_with_circle, caption=f"{target_text} を検出しました", use_container_width=True)
