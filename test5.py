@@ -39,7 +39,7 @@ import os
 st.title("入力した文字の位置に赤い円（○）を描画")
 
 # 🔤 ユーザー入力欄
-target_text = st.text_input("検出したい文字を入力してください", value="167")
+target_text = st.text_input("検出したい文字を入力してください", value="368")
 
 image_filename = "TanaMap20250815_2.png"
 
@@ -63,7 +63,7 @@ else:
             break
 
     if target_center:
-        radius_px = 9
+        radius_px = 20
         image_with_circle = image_np.copy()
         cv2.circle(image_with_circle, target_center, radius_px, (255, 0, 0), thickness=2)
 
