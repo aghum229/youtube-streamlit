@@ -36,7 +36,7 @@ import cv2
 from PIL import Image
 import os
 
-st.title("数字167の位置に赤丸を描画")
+st.title("数字168の位置に赤丸を描画")
 
 image_filename = "TanaMap20250815_2.png"
 
@@ -49,7 +49,7 @@ else:
     reader = easyocr.Reader(['en'], gpu=False)
     results = reader.readtext(image_np)
 
-    target_text = st.text_input()
+    target_text = "168"
     target_center = None
 
     for bbox, text, prob in results:
