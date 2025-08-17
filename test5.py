@@ -63,9 +63,9 @@ else:
             break
 
     if target_center:
-        radius_px = 26
+        radius_px = 30
         image_with_circle = image_np.copy()
-        cv2.circle(image_with_circle, target_center, radius_px, (255, 0, 0), thickness=3)
+        cv2.circle(image_with_circle, target_center, radius_px, (255, 0, 0), thickness=4)
 
         st.image(image_with_circle, caption=f"{target_text} の位置に赤い円（○）を描画", use_container_width=True)
         st.success(f"{target_text} を検出しました。座標: {target_center}")
