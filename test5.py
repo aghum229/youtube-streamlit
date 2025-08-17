@@ -31,40 +31,45 @@ st.stop()
 
 import streamlit as st
 import easyocr
-import cv2
 import numpy as np
+import cv2
 from PIL import Image
+import os
 
-st.title("ローカル画像から数字と中心座標を抽出")
+st.title("数字167の位置に赤丸を描画")
 
-# ファイルアップロード（またはファイル名指定）
-uploaded_file = st.file_uploader("画像ファイルをアップロードしてください", type=["png", "jpg", "jpeg"])
+image_filename = "TanaMap20250815_2.png"
 
-if uploaded_file:
-    # PILで読み込み → NumPy配列に変換
-    image = Image.open(uploaded_file).convert("RGB")
+if not os.path.exists(image_filename):
+    st.error(f"画像ファイル '{image_filename}' が見つかりません。")
+else:
+    image = Image.open(image_filename).convert("RGB")
     image_np = np.array(image)
 
-    # OCR実行
     reader = easyocr.Reader(['en'], gpu=False)
     results = reader.readtext(image_np)
 
-    # 数字と中心座標抽出
-    digit_positions = []
+    target_text = "167"
+    target_center = None
+
     for bbox, text, prob in results:
-        if text.isdigit():
+        if text == target_text:
             (tl, tr, br, bl) = bbox
             center_x = int((tl[0] + br[0]) / 2)
             center_y = int((tl[1] + br[1]) / 2)
-            digit_positions.append((text, (center_x, center_y)))
+            target_center = (center_x, center_y)
+            break
 
-    # 結果表示
-    st.image(image, caption="元画像", use_column_width=True)
-    st.subheader("抽出された数字と中心座標")
-    for digit, (x, y) in digit_positions:
-        st.write(f"数字: {digit}, 中心座標: ({x}, {y})")
+    if target_center:
+        # 赤丸描画（直径5mm ≒ 半径9〜10px）
+        radius_px = 9
+        image_with_circle = image_np.copy()
+        cv2.circle(image_with_circle, target_center, radius_px, (255, 0, 0), thickness=-1)
 
-
+        st.image(image_with_circle, caption="167の位置に赤丸を描画", use_column_width=True)
+        st.success(f"167 を検出しました。座標: {target_center}")
+    else:
+        st.warning("167 は画像内に見つかりませんでした。")
 
 st.stop()
 
