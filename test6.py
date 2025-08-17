@@ -546,7 +546,7 @@ if "user_code_entered" not in st.session_state:
 if not st.session_state.user_code_entered:
     styled_input_text()
     st.title("作業者コード？")
-    st.session_state['owner'] = st.text_input("作業者コード(社員番号)を入力してください。\n(3～4桁、例: 999)",
+    st.session_state['owner'] = st.text_input("作業者コード(社員番号)を入力し、Enterを押してください。\n(3～4桁、例: 999)",
                                               max_chars=4,
                                               key="owner_input")
     
@@ -692,7 +692,7 @@ else:
                             
                 else:                   
                     styled_input_text()
-                    manual_input = st.text_input("移行票番号を入力し、Enterを押してください (1～6桁、例: 12345):",
+                    manual_input = st.text_input("移行票番号を入力し、Enterを押してください。 (1～6桁、例: 12345):",
                                                 value="",
                                                 max_chars=6,
                                                 key="manual_input")
