@@ -23,51 +23,75 @@ def preprocess_image(image_np):
 st.title("複数画像から指定文字を検出して赤い円（○）を描画")
 
 # 🔤 検出したい文字を入力
-target_text = st.text_input("検出したい文字を入力してください", value="A-11")
-
-# 📂 同じフォルダ内の画像ファイル一覧を取得（PNG/JPG）
-image_files = sorted(glob.glob("TanaMap*.png") + glob.glob("TanaMap*.jpg") + glob.glob("TanaMap*.jpeg"))
-image_flag = False
-if not image_files:
-    st.warning("画像ファイルが見つかりませんでした。")
+target_text = st.text_input("検出したい文字を入力してください", value="")
+if target_text == "":
+    None
 else:
-    reader = easyocr.Reader(['ja', 'en'], gpu=False)
-
-    for image_path in image_files:
-        st.subheader(f"画像ファイル: {os.path.basename(image_path)}")
-
-        # 画像読み込みとNumPy変換
-        image = Image.open(image_path).convert("RGB")
-        image_np = np.array(image)
-        # processed = preprocess_image(image_np)
-
-        # OCR実行
-        results = reader.readtext(image_np)
-        target_center = None
-
-        for bbox, text, prob in results:
-            if text.strip() == target_text.strip():
-                (tl, tr, br, bl) = bbox
-                center_x = int((tl[0] + br[0]) / 2)
-                center_y = int((tl[1] + br[1]) / 2)
-                target_center = (center_x, center_y)
-                break
-
-        # 赤い円（○）を描画
-        image_with_circle = image_np.copy()
-        if target_center:
-            cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
-            st.image(image_with_circle, caption=f"{target_text} を検出しました", use_container_width=True)
-            st.success(f"座標: {target_center}")
-            image_flag = True
-            break
-        else:
-            None
-            # st.image(image_with_circle, caption=f"{target_text} は検出されませんでした", use_container_width=True)
-            # st.warning(f"{target_text} はこの画像には見つかりませんでした。")
-    if image_flag == False:
-        st.warning(f"{target_text} はこの画像には見つかりませんでした。")
-st.stop()
+    # 📂 同じフォルダ内の画像ファイル一覧を取得（PNG/JPG）
+    image_files = sorted(glob.glob("TanaMap*.png") + glob.glob("TanaMap*.jpg") + glob.glob("TanaMap*.jpeg"))
+    image_flag = False
+    image_search_flag = False
+    if not image_files:
+        st.warning("画像ファイルが見つかりませんでした。")
+    else:
+        reader = easyocr.Reader(['ja', 'en'], gpu=False)
+        first_char = target_text[0]
+        
+        for image_path in image_files:
+            st.subheader(f"画像ファイル: {os.path.basename(image_path)}")
+            if first_char == "完" and os.path.basename(image_path) == "TanaMap20250815_1":
+                image_search_flag = True
+            elif first_char == "A" or first_char == "D" or first_char == "F":
+                if os.path.basename(image_path) == "TanaMap20250815_3.png" or os.path.basename(image_path) == "TanaMap20250815_5.png":
+                    image_search_flag = True
+            elif first_char == "E":
+                if os.path.basename(image_path) == "TanaMap20250815_2.png" or os.path.basename(image_path) == "TanaMap20250815_3.png" or os.path.basename(image_path) == "TanaMap20250815_4.png" or os.path.basename(image_path) == "TanaMap20250815_5.png":
+                    image_search_flag = True
+            elif first_char == "G":
+                if os.path.basename(image_path) == "TanaMap20250815_2.png" or os.path.basename(image_path) == "TanaMap20250815_4.png":
+                    image_search_flag = True
+            elif first_char == "H":
+                if os.path.basename(image_path) == "TanaMap20250815_2.png" or os.path.basename(image_path) == "TanaMap20250815_4.png" or os.path.basename(image_path) == "TanaMap20250815_5.png":
+                    image_search_flag = True
+            elif first_char == "R":
+                if os.path.basename(image_path) == "TanaMap20250815_2.png":
+                    image_search_flag = True
+            elif first_char == "S":
+                if os.path.basename(image_path) == "TanaMap20250815_5.png":
+                    image_search_flag = True
+            if image_search_flag:
+                # 画像読み込みとNumPy変換
+                image = Image.open(image_path).convert("RGB")
+                image_np = np.array(image)
+                # processed = preprocess_image(image_np)
+        
+                # OCR実行
+                results = reader.readtext(image_np)
+                target_center = None
+        
+                for bbox, text, prob in results:
+                    if text.strip() == target_text.strip():
+                        (tl, tr, br, bl) = bbox
+                        center_x = int((tl[0] + br[0]) / 2)
+                        center_y = int((tl[1] + br[1]) / 2)
+                        target_center = (center_x, center_y)
+                        break
+        
+                # 赤い円（○）を描画
+                image_with_circle = image_np.copy()
+                if target_center:
+                    cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
+                    st.image(image_with_circle, caption=f"{target_text} を検出しました", use_container_width=True)
+                    st.success(f"座標: {target_center}")
+                    image_flag = True
+                    break
+                else:
+                    None
+                    # st.image(image_with_circle, caption=f"{target_text} は検出されませんでした", use_container_width=True)
+                    # st.warning(f"{target_text} はこの画像には見つかりませんでした。")
+        if image_flag == False:
+            st.warning(f"{target_text} はこの画像には見つかりませんでした。")
+    st.stop()
 # '''
 _= '''
 import streamlit as st
@@ -118,24 +142,7 @@ else:
 
 st.stop()
 '''
-# 画像読み込み
-img = cv2.imread('TanaMap20250814.png')
 
-# R-1の位置（例：手動で指定）
-x, y, w, h = 300, 400, 50, 150  # 適宜調整
-roi = img[y:y+h, x:x+w]
-
-# 回転して横向きに
-rotated = cv2.rotate(roi, cv2.ROTATE_90_CLOCKWISE)
-
-# OCR実行
-reader = easyocr.Reader(['ja', 'en'])
-results = reader.readtext(rotated)
-
-# 結果表示
-for bbox, text, conf in results:
-    st.write(f"認識結果: {text}（信頼度: {conf:.2f}）")
-st.stop()
 
 
 
