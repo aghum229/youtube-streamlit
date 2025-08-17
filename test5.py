@@ -20,7 +20,7 @@ st.title("複数画像から指定文字を検出して赤い円（○）を描�
 target_text = st.text_input("検出したい文字を入力してください", value="")
 
 # 📂 同じフォルダ内の画像ファイル一覧を取得（PNG/JPG）
-image_files = sorted(glob.glob("*.png") + glob.glob("*.jpg") + glob.glob("*.jpeg"))
+image_files = sorted(glob.glob("TanaMap*.png") + glob.glob("TanaMap*.jpg") + glob.glob("TanaMap*.jpeg"))
 image_flag = False
 if not image_files:
     st.warning("画像ファイルが見つかりませんでした。")
