@@ -23,7 +23,7 @@ def preprocess_image(image_np):
 st.title("複数画像から指定文字を検出して赤い円（○）を描画")
 
 # 🔤 検出したい文字を入力
-target_text = st.text_input("検出したい文字を入力してください", value="")
+target_text = st.text_input("検出したい文字を入力してください", value="A-11")
 
 # 📂 同じフォルダ内の画像ファイル一覧を取得（PNG/JPG）
 image_files = sorted(glob.glob("TanaMap*.png") + glob.glob("TanaMap*.jpg") + glob.glob("TanaMap*.jpeg"))
