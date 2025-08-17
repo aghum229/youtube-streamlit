@@ -41,7 +41,7 @@ st.title("入力した文字の位置に赤い円（○）を描画")
 # 🔤 ユーザー入力欄
 target_text = st.text_input("検出したい文字を入力してください", value="368")
 
-image_filename = "TanaMap20250815_2.png"
+image_filename = "TanaMap20250815_21.png"
 
 if not os.path.exists(image_filename):
     st.error(f"画像ファイル '{image_filename}' が見つかりません。")
