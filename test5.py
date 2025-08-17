@@ -4,31 +4,62 @@ import streamlit as st
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 '''
-_= '''
-import numpy as np 
-from PIL import Image, ImageDraw
-import easyocr
+
+# _= '''
 import streamlit as st
+import easyocr
+import numpy as np
+import cv2
+from PIL import Image
+import glob
+import os
 
-reader = easyocr.Reader(['ja','en'])
-# selected_image = st.file_uploader('TanaMap20250814', type='png')
-selected_image = 'TanaMap20250814.png'
+st.title("複数画像から指定文字を検出して赤い円（○）を描画")
 
-original_image = st.empty()
-result_image = st.empty()
+# 🔤 検出したい文字を入力
+target_text = st.text_input("検出したい文字を入力してください", value="368")
 
-if (selected_image != None):
-    original_image.image(selected_image)
-    pil = Image.open(selected_image)
-    result = reader.readtext(np.array(pil))
-    draw = ImageDraw.Draw(pil)
-    for each_result in result:
-        draw.rectangle(tuple(each_result[0][0] + each_result[0][2]), outline=(0, 0, 255), width=3)
-        st.write(each_result[1])
-    result_image.image(pil)
+# 📂 同じフォルダ内の画像ファイル一覧を取得（PNG/JPG）
+image_files = sorted(glob.glob("*.png") + glob.glob("*.jpg") + glob.glob("*.jpeg"))
+
+if not image_files:
+    st.warning("画像ファイルが見つかりませんでした。")
+else:
+    reader = easyocr.Reader(['ja', 'en'], gpu=False)
+
+    for image_path in image_files:
+        st.subheader(f"画像ファイル: {os.path.basename(image_path)}")
+
+        # 画像読み込みとNumPy変換
+        image = Image.open(image_path).convert("RGB")
+        image_np = np.array(image)
+
+        # OCR実行
+        results = reader.readtext(image_np)
+        target_center = None
+
+        for bbox, text, prob in results:
+            if text.strip() == target_text.strip():
+                (tl, tr, br, bl) = bbox
+                center_x = int((tl[0] + br[0]) / 2)
+                center_y = int((tl[1] + br[1]) / 2)
+                target_center = (center_x, center_y)
+                break
+
+        # 赤い円（○）を描画
+        image_with_circle = image_np.copy()
+        if target_center:
+            cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
+            st.image(image_with_circle, caption=f"{target_text} を検出しました", use_container_width=True)
+            st.success(f"座標: {target_center}")
+            break
+        else:
+            st.image(image_with_circle, caption=f"{target_text} は検出されませんでした", use_container_width=True)
+            st.warning(f"{target_text} はこの画像には見つかりませんでした。")
+
 st.stop()
-'''
-
+# '''
+_= '''
 import streamlit as st
 import easyocr
 import numpy as np
@@ -76,7 +107,7 @@ else:
         st.warning(f"{target_text} は画像内に見つかりませんでした。")
 
 st.stop()
-
+'''
 # 画像読み込み
 img = cv2.imread('TanaMap20250814.png')
 
