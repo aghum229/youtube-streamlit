@@ -526,12 +526,8 @@ if "manual_input" not in st.session_state:
     st.session_state.manual_input = ""
 if "manual_input_check" not in st.session_state:
     st.session_state.manual_input_check = False
-if "manual_input_check_select" not in st.session_state:
-    st.session_state.manual_input_check_select = False
 if "manual_input_flag" not in st.session_state:
     st.session_state.manual_input_flag = 0
-if "manual_input_check_flag" not in st.session_state:
-    st.session_state.manual_input_check_flag = 0
 # if "tanaban" not in st.session_state:
 #     st.session_state.tanaban = ""
 if "tanaban_select" not in st.session_state:
@@ -598,129 +594,13 @@ else:
             st.rerun()
     else:
         if st.session_state.manual_input_flag == 9:
-            if not st.session_state.manual_input_check_select:
-                left, center, right = st.columns(3)
-                with left:
-                    button_qr_Ikohyo = st.button("移行票番号(QRコード)")
-                    st.write("移行票番号をQRコードで検索")
-                with center:
-                    button_manual_Hinban = st.button("品番(手動入力)")
-                    st.write("品番を手動で入力し検索(曖昧検索可)")
-                with right:
-                    button_manual_Tanaban = st.button("棚番(手動入力)")
-                    st.write("棚番を手動で選択し検索")
-                if button_qr_Ikohyo or button_manual_Hinban or button_manual_Tanaban: 
-                    if button_qr_Ikohyo:
-                        st.session_state.manual_input_check_flag = 0
-                    if button_manual_Hinban:
-                        st.session_state.manual_input_check_flag = 1
-                    else:
-                        st.session_state.manual_input_check_flag = 9
-                    st.session_state.manual_input_check_select = True
-                    st.rerun()
-            else:
-                if st.session_state.manual_input_check_flag == 0:
-                    if not st.session_state.production_order_flag:
-                        if st.session_state.manual_input_flag == 0:
-                            qr_code_kari = ""
-                            if st.button("移行票(製造オーダー)を再選択", key="camera_rerun"):
-                                st.session_state.show_camera = True
-                                st.session_state.qr_code = ""
-                                st.session_state.production_order = None
-                                st.session_state.production_order_flag = False
-                                st.rerun()
-                            if qr_code_kari == "":
-                                st.session_state.show_camera = True
-                                st.write("移行票(製造オーダー)のQRコードをスキャンしてください:")
-                                qr_code_kari = qrcode_scanner(key="qrcode_scanner_fixed")
-                                if qr_code_kari is not None and qr_code_kari.strip() != "":
-                                    st.session_state.qr_code = qr_code_kari.strip()
-                                
-                                if "qr_code" in st.session_state and st.session_state.qr_code != "":
-                                    st.session_state.production_order = f"{st.session_state.qr_code}"
-                                    st.session_state.show_camera = False
-                                    
-                        else:                   
-                            styled_input_text()
-                            manual_input = st.text_input("移行票番号を入力し、Enterを押してください。 (1～6桁、例: 12345):",
-                                                        value="",
-                                                        max_chars=6,
-                                                        key="manual_input")
-                            if manual_input and manual_input.isdigit():
-                                st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
-                                # st.session_state.manual_input_value = manual_input
-                                st.session_state.show_camera = False
-                            
-           
-                        st.write(f"#### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}")
-                        # st.write(f"移行票番号 : {st.session_state.production_order}") 
-                        st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
-                        st.write(f"""
-                            ###### 移行票番号(製造オーダー)は、
-                            ## 「 {st.session_state.production_order} 」
-                            ###### でよろしいですか？
-                            """)
-                        left, right = st.columns(2)
-                        with left:
-                            check_button_ok = st.button("ＯＫ", key="check_ok")
-                        with right:
-                            check_button_ng = st.button("ＮＧ", key="check_ng")
-                        if check_button_ok:
-                            st.session_state.show_camera = False
-                            st.session_state.production_order_flag = True
-                            st.rerun()
-                        else:
-                            if st.session_state.manual_input_flag == 0:
-                                st.session_state.show_camera = True
-                            st.session_state.production_order_flag = False
-                            st.session_state.qr_code = None
-                            st.session_state.production_order = None
-                            # st.rerun()
-                    else:
-                        if st.button("移行票番号を再入力"):
-                            st.session_state.data = None
-                            st.session_state.material = None
-                            st.session_state.material_weight = None
-                            st.session_state.cumulative_cost = 0.0
-                            st.session_state.production_order_flag = False
-                            st.session_state.qr_code = ""
-                            st.session_state.production_order = ""
-                            if st.session_state.manual_input_flag == 0:
-                                st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
-                            st.rerun() 
-                elif st.session_state.manual_input_check_flag == 1:
-                    None
-                else:
-                    if not st.session_state.qr_code_tana:
-                        if st.button("入力方法を再選択"):
-                            st.session_state.manual_input_check = False
-                            st.session_state.manual_input_flag = 0
-                            st.session_state.qr_code_tana = False
-                            st.session_state.tanaban_select_temp = ""
-                            st.rerun()
-                        tanaban_select = ""
-                        if st.session_state.manual_input_flag == 0:
-                            st.write("棚番のQRコードをスキャンしてください:")
-                            qr_code_tana = qrcode_scanner(key='qrcode_scanner_tana')  
-                        
-                            if qr_code_tana:  
-                                # st.write(qr_code_tana) 
-                                tanaban_select = qr_code_tana.strip()
-                        else:
-                            zkTanalistSplit = zkTanalist.split(",")
-                            tanaban_select = st.selectbox(
-                                "棚番号を選んでください", zkTanalistSplit, key="tanaban_select"
-                            )
-                        
-                        if tanaban_select != "" and tanaban_select != "完A-0": # 完A-0は存在しない置き場(変更前提の初期値としてのみ利用)
-                            st.session_state.tanaban_select_temp = tanaban_select
-                            st.session_state.show_camera = False
-                            st.session_state.qr_code_tana = True
-                            st.session_state.qr_code = ""
-                            st.session_state.production_order = ""
-                            st.session_state.production_order_flag = False
-                            st.rerun()  # 再描画して次のステップへ
-                    else:
+            st.write("現在、参照機能は使用できません。")
+            if st.button("入力方法を再選択"):
+                st.session_state.manual_input_check = False
+                st.session_state.manual_input_flag = 0
+                st.session_state.qr_code_tana = False
+                st.session_state.tanaban_select_temp = ""
+                st.rerun()
         else:  # st.session_state.manual_input_flag が 0 or 1 の場合
             # st.write(st.session_state.qr_code_tana)
             # st.session_state.manual_input_flag = 1
