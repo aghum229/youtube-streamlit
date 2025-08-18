@@ -87,11 +87,11 @@ else:
             results = reader.readtext(image_np)
             target_center = None
             if first_char == "完":
-                target_pattern = re.compile(fr"完{second_char}-{after_hyphen_int}")
+                target_pattern = re.compile(fr"{second_char}-{after_hyphen_int}")
                 # st.write(target_pattern)
                 for bbox, text, prob in results:
                     cleaned = text.replace(" ", "")
-                    st.write(cleaned)
+                    # st.write(cleaned)
                     if target_pattern.search(cleaned):
                         (tl, tr, br, bl) = bbox
                         center_x = int((tl[0] + br[0]) / 2)
