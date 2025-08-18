@@ -455,6 +455,9 @@ def styled_input_text():
         unsafe_allow_html=True
     )
 
+def tool_tips(text):
+    st.markdown('<p style="font-size:12px;">{text}</p>', unsafe_allow_html=True)
+
 def set_flag(flag):
     global add_del_flag
     global button_flag
@@ -579,14 +582,15 @@ else:
         left, center, right = st.columns(3)
         with left:
             button_qr = st.button("QRコード")
-            st.markdown('<p style="font-size:10px;">(棚番と移行票番号をQRコードで入力)</p>', unsafe_allow_html=True)
+            tool_tips("(棚番と移行票番号をQRコードで入力)")
+            # st.markdown('<p style="font-size:12px;">(棚番と移行票番号をQRコードで入力)</p>', unsafe_allow_html=True)
             # st.write("###### (棚番と移行票番号をQRコードで入力)")
         with center:
             button_manual = st.button("手動入力")
-            st.markdown('<p style="font-size:10px;">(棚番と移行票番号を手動で入力)</p>', unsafe_allow_html=True)
+            tool_tips("(棚番と移行票番号を手動で入力)")
         with right:
             button_reference = st.button("参照")
-            st.markdown('<p style="font-size:10px;">(品番や移行票番号から棚番を検索)</p>', unsafe_allow_html=True)
+            tool_tips("(品番や移行票番号から棚番を検索)")
         if button_qr or button_manual or button_reference: 
             if button_qr:
                 st.session_state.manual_input_flag = 0
