@@ -589,7 +589,7 @@ else:
         if button_qr or button_manual or button_reference: 
             if button_qr:
                 st.session_state.manual_input_flag = 0
-            if button_manual:
+            elif button_manual:
                 st.session_state.manual_input_flag = 1
             else:
                 st.session_state.manual_input_flag = 9
@@ -612,7 +612,7 @@ else:
                 if button_qr_Ikohyo or button_manual_Hinban or button_manual_Tanaban: 
                     if button_qr_Ikohyo:
                         st.session_state.manual_input_check_flag = 0
-                    if button_manual_Hinban:
+                    elif button_manual_Hinban:
                         st.session_state.manual_input_check_flag = 1
                     else:
                         st.session_state.manual_input_check_flag = 9
