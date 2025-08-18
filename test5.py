@@ -88,7 +88,7 @@ else:
             target_center = None
             if first_char == "完":
                 target_pattern = re.compile(fr"完{second_char}-{after_hyphen_int}")
-                st.write(target_pattern)
+                # st.write(target_pattern)
                 for bbox, text, prob in results:
                     cleaned = text.replace(" ", "")
                     st.write(cleaned)
