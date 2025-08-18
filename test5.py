@@ -39,7 +39,7 @@ else:
         first_char = target_text[0]
         # after_hyphen = int(target_text.split("-")[1])
         match = re.search(r"-(.+)", target_text)
-        after_hyphen = match.group(1) if match else ""
+        after_hyphen = int(match.group(1) if match else "")
         st.write(first_char)
         st.write(after_hyphen)
         
@@ -47,25 +47,25 @@ else:
             # st.subheader(f"画像ファイル: {os.path.basename(image_path)}")
             if first_char == "完":
                 if os.path.basename(image_path) == "TanaMap20250815_1.png":
-                    # image_search_flag = True
-                    target_pattern = re.compile(r"完[ABCD][-–—]?(1[0-5]|[1-9])")
-                    for bbox, text, prob in results:
-                        cleaned = text.replace(" ", "")
-                        if target_pattern.search(cleaned):
-                            (tl, tr, br, bl) = bbox
-                            center_x = int((tl[0] + br[0]) / 2)
-                            center_y = int((tl[1] + br[1]) / 2)
-                            target_center = (center_x, center_y)
-                            break
-                    image_with_circle = image_np.copy()
-                    if target_center:
-                        cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
-                        st.image(image_with_circle, caption=f"{target_text} を検出しました", use_container_width=True)
-                        st.success(f"座標: {target_center}")
-                        image_flag = True
-                        break
-                    else:
-                        None
+                    image_search_flag = True
+                    # target_pattern = re.compile(r"完[ABCD][-–—]?(1[0-5]|[1-9])")
+                    # for bbox, text, prob in results:
+                    #     cleaned = text.replace(" ", "")
+                    #     if target_pattern.search(cleaned):
+                    #         (tl, tr, br, bl) = bbox
+                    #         center_x = int((tl[0] + br[0]) / 2)
+                    #         center_y = int((tl[1] + br[1]) / 2)
+                    #         target_center = (center_x, center_y)
+                    #         break
+                    # image_with_circle = image_np.copy()
+                    # if target_center:
+                    #     cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
+                    #     st.image(image_with_circle, caption=f"{target_text} を検出しました", use_container_width=True)
+                    #     st.success(f"座標: {target_center}")
+                    #     image_flag = True
+                    #     break
+                    # else:
+                    #     None
                 else:
                     break
             elif (first_char == "E" and 31 <= after_hyphen <= 37) or (first_char == "G" and after_hyphen <= 18) or (first_char == "H" and after_hyphen <= 18) or (first_char == "R" and after_hyphen <= 19):
