@@ -456,7 +456,7 @@ def styled_input_text():
     )
 
 def tool_tips(text):
-    st.markdown('<p style="font-size:12px;">{text}</p>', unsafe_allow_html=True)
+    st.markdown(f"<p style='font-size:12px;'>{text}</p>", unsafe_allow_html=True)
 
 def set_flag(flag):
     global add_del_flag
