@@ -721,6 +721,7 @@ else:
                             st.session_state.production_order_flag = False
                             st.rerun()  # 再描画して次のステップへ
                     else:
+                        None
         else:  # st.session_state.manual_input_flag が 0 or 1 の場合
             # st.write(st.session_state.qr_code_tana)
             # st.session_state.manual_input_flag = 1
