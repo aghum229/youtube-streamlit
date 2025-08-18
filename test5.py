@@ -36,7 +36,7 @@ else:
     else:
         reader = easyocr.Reader(['ja', 'en'], gpu=False)
         first_char = target_text[0]
-        after_hyphen = text.split("-")[1]
+        after_hyphen = target_text.split("-")[1]
         
         for image_path in image_files:
             # st.subheader(f"画像ファイル: {os.path.basename(image_path)}")
