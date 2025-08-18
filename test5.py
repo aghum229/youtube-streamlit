@@ -40,8 +40,9 @@ else:
         
         for image_path in image_files:
             # st.subheader(f"画像ファイル: {os.path.basename(image_path)}")
-            if first_char == "完" and os.path.basename(image_path) == "TanaMap20250815_1.png":
-                image_search_flag = True
+            if first_char == "完":
+                if os.path.basename(image_path) == "TanaMap20250815_1.png":
+                    image_search_flag = True
             elif (first_char == "E" and 31 <= after_hyphen <= 37) or (first_char == "G" and after_hyphen <= 18) or (first_char == "H" and after_hyphen <= 18) or (first_char == "R" and after_hyphen <= 19):
                 if os.path.basename(image_path) == "TanaMap20250815_2.png":
                     image_search_flag = True
