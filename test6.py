@@ -526,8 +526,12 @@ if "manual_input" not in st.session_state:
     st.session_state.manual_input = ""
 if "manual_input_check" not in st.session_state:
     st.session_state.manual_input_check = False
+if "manual_input_check_select" not in st.session_state:
+    st.session_state.manual_input_check_select = False
 if "manual_input_flag" not in st.session_state:
     st.session_state.manual_input_flag = 0
+if "manual_input_check_flag" not in st.session_state:
+    st.session_state.manual_input_check_flag = 0
 # if "tanaban" not in st.session_state:
 #     st.session_state.tanaban = ""
 if "tanaban_select" not in st.session_state:
@@ -542,7 +546,22 @@ if "qr_code_tana" not in st.session_state:
 if "user_code_entered" not in st.session_state:
     st.session_state.user_code_entered = False
     st.session_state.user_code = ""
-    
+
+zkTanalist = """
+    完A-0,完A-1,完A-2,完A-3,完A-4,完A-5,完A-6,完A-7,完A-8,完A-9,完A-10,完A-11,完A-12,完A-13,完A-14,完A-15,完A-16,完A-17,完A-18,完A-19,完A-20,
+    完B-1,完B-2,完B-3,完B-4,完B-5,完B-6,完B-7,完B-8,完B-9,完B-10,完B-11,完B-12,完B-13,完B-14,完B-15,完B-16,完B-17,完B-18,完B-19,完B-20,
+    完C-1,完C-2,完C-3,完C-4,完C-5,完C-6,完C-7,完C-8,完C-9,完C-10,完C-11,完C-12,完C-13,完C-14,完C-15,完C-16,完C-17,完C-18,完C-19,完C-20,
+    完D-1,完D-2,完D-3,完D-4,完D-5,完D-6,完D-7,完D-8,完D-9,完D-10,完D-11,完D-12,完D-13,完D-14,完D-15,完D-16,完D-17,完D-18,完D-19,完D-20,
+    A-1,A-2,A-3,A-4,A-5,A-6,A-7,A-8,A-9,A-10,A-11,A-12,A-13,A-14,A-15,A-16,A-17,A-18,A-19,A-20,A-21,A-22,A-23,A-24,A-25,A-26,A-27,A-28,A-29,A-30,
+    D-1,D-2,D-3,D-4,D-5,D-6,D-7,D-8,D-9,D-10,D-11,D-12,D-13,D-14,D-15,D-16,D-17,D-18,D-19,D-20,D-21,D-22,D-23,D-24,D-25,D-26,D-27,D-28,D-29,D-30,
+    E-31,E-32,E-33,E-34,E-35,E-36,E-37,E-38,E-39,E-40,E-41,E-42,E-43,E-44,E-45,E-46,E-47,E-48,E-49,E-50,E-51,E-52,E-53,E-54,E-55,E-56,E-57,E-58,E-59,E-60,E-61,E-62,E-63,E-64,E-65,E-66,E-67,E-68,E-69,E-70,
+    F-1,F-2,F-3,F-4,F-5,F-6,F-7,F-8,F-9,F-10,F-11,F-12,F-13,F-14,F-15,F-16,F-17,F-18,F-19,F-20,F-21,F-22,F-23,F-24,F-25,F-26,F-27,F-28,F-29,F-30,F-31,F-32,F-33,F-34,F-35,F-36,F-37,F-38,F-39,F-40,
+    G-1,G-2,G-3,G-4,G-5,G-6,G-7,G-8,G-9,G-10,G-11,G-12,G-13,G-14,G-15,G-16,G-17,G-18,G-19,G-20,G-21,G-22,G-23,G-24,G-25,G-26,G-27,G-28,G-29,G-30,G-31,G-32,G-33,G-34,G-35,G-36,G-37,G-38,G-39,G-40,
+    H-1,H-2,H-3,H-4,H-5,H-6,H-7,H-8,H-9,H-10,H-11,H-12,H-13,H-14,H-15,H-16,H-17,H-18,H-19,H-20,H-21,H-22,H-23,H-24,H-25,H-26,H-27,H-28,H-29,H-30,H-31,H-32,H-33,H-34,H-35,H-36,H-37,H-38,H-39,H-40,
+    R-1,R-2,R-3,R-4,R-5,R-6,R-7,R-8,R-9,R-10,R-11,R-12,R-13,R-14,R-15,R-16,R-17,R-18,R-19,R-20,
+    S-1,S-2,S-3,S-4,S-5,S-6,S-7,S-8,S-9,S-10,S-11,S-12,S-13,S-14,S-15,S-16,S-17,S-18,S-19,S-20
+    """
+
 if not st.session_state.user_code_entered:
     styled_input_text()
     st.title("作業者コード？")
@@ -575,29 +594,134 @@ else:
             else:
                 st.session_state.manual_input_flag = 9
             st.session_state.manual_input_check = True
+            st.session_state.manual_input_check_select = False
             st.rerun()
     else:
         if st.session_state.manual_input_flag == 9:
-            left, center, right = st.columns(3)
-            with left:
-                button_qr_Ikohyo = st.button("移行票番号(QRコード)")
-                st.write("棚番と移行票番号をQRコードで入力")
-            with center:
-                button_manual_Hinban = st.button("品番(手動入力)")
-                st.write("棚番と移行票番号を手動で入力")
-            with right:
-                button_manual_Tanaban = st.button("棚番(手動入力)")
-                st.write("品番や移行票番号から棚番を検索")
-            if button_qr or button_manual or button_reference: 
-                if button_qr:
-                    st.session_state.manual_input_flag = 0
-                if button_manual:
-                    st.session_state.manual_input_flag = 1
+            if not st.session_state.manual_input_check_select:
+                left, center, right = st.columns(3)
+                with left:
+                    button_qr_Ikohyo = st.button("移行票番号(QRコード)")
+                    st.write("移行票番号をQRコードで検索")
+                with center:
+                    button_manual_Hinban = st.button("品番(手動入力)")
+                    st.write("品番を手動で入力し検索(曖昧検索可)")
+                with right:
+                    button_manual_Tanaban = st.button("棚番(手動入力)")
+                    st.write("棚番を手動で選択し検索")
+                if button_qr_Ikohyo or button_manual_Hinban or button_manual_Tanaban: 
+                    if button_qr_Ikohyo:
+                        st.session_state.manual_input_check_flag = 0
+                    if button_manual_Hinban:
+                        st.session_state.manual_input_check_flag = 1
+                    else:
+                        st.session_state.manual_input_check_flag = 9
+                    st.session_state.manual_input_check_select = True
+                    st.rerun()
+            else:
+                if st.session_state.manual_input_check_flag == 0:
+                    if not st.session_state.production_order_flag:
+                        if st.session_state.manual_input_flag == 0:
+                            qr_code_kari = ""
+                            if st.button("移行票(製造オーダー)を再選択", key="camera_rerun"):
+                                st.session_state.show_camera = True
+                                st.session_state.qr_code = ""
+                                st.session_state.production_order = None
+                                st.session_state.production_order_flag = False
+                                st.rerun()
+                            if qr_code_kari == "":
+                                st.session_state.show_camera = True
+                                st.write("移行票(製造オーダー)のQRコードをスキャンしてください:")
+                                qr_code_kari = qrcode_scanner(key="qrcode_scanner_fixed")
+                                if qr_code_kari is not None and qr_code_kari.strip() != "":
+                                    st.session_state.qr_code = qr_code_kari.strip()
+                                
+                                if "qr_code" in st.session_state and st.session_state.qr_code != "":
+                                    st.session_state.production_order = f"{st.session_state.qr_code}"
+                                    st.session_state.show_camera = False
+                                    
+                        else:                   
+                            styled_input_text()
+                            manual_input = st.text_input("移行票番号を入力し、Enterを押してください。 (1～6桁、例: 12345):",
+                                                        value="",
+                                                        max_chars=6,
+                                                        key="manual_input")
+                            if manual_input and manual_input.isdigit():
+                                st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
+                                # st.session_state.manual_input_value = manual_input
+                                st.session_state.show_camera = False
+                            
+           
+                        st.write(f"#### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}")
+                        # st.write(f"移行票番号 : {st.session_state.production_order}") 
+                        st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
+                        st.write(f"""
+                            ###### 移行票番号(製造オーダー)は、
+                            ## 「 {st.session_state.production_order} 」
+                            ###### でよろしいですか？
+                            """)
+                        left, right = st.columns(2)
+                        with left:
+                            check_button_ok = st.button("ＯＫ", key="check_ok")
+                        with right:
+                            check_button_ng = st.button("ＮＧ", key="check_ng")
+                        if check_button_ok:
+                            st.session_state.show_camera = False
+                            st.session_state.production_order_flag = True
+                            st.rerun()
+                        else:
+                            if st.session_state.manual_input_flag == 0:
+                                st.session_state.show_camera = True
+                            st.session_state.production_order_flag = False
+                            st.session_state.qr_code = None
+                            st.session_state.production_order = None
+                            # st.rerun()
+                    else:
+                        if st.button("移行票番号を再入力"):
+                            st.session_state.data = None
+                            st.session_state.material = None
+                            st.session_state.material_weight = None
+                            st.session_state.cumulative_cost = 0.0
+                            st.session_state.production_order_flag = False
+                            st.session_state.qr_code = ""
+                            st.session_state.production_order = ""
+                            if st.session_state.manual_input_flag == 0:
+                                st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
+                            st.rerun() 
+                elif st.session_state.manual_input_check_flag == 1:
+                    None
                 else:
-                    st.session_state.manual_input_flag = 9
-                st.session_state.manual_input_check = True
-                st.rerun()
-        else:
+                    if not st.session_state.qr_code_tana:
+                        if st.button("入力方法を再選択"):
+                            st.session_state.manual_input_check = False
+                            st.session_state.manual_input_flag = 0
+                            st.session_state.qr_code_tana = False
+                            st.session_state.tanaban_select_temp = ""
+                            st.rerun()
+                        tanaban_select = ""
+                        if st.session_state.manual_input_flag == 0:
+                            st.write("棚番のQRコードをスキャンしてください:")
+                            qr_code_tana = qrcode_scanner(key='qrcode_scanner_tana')  
+                        
+                            if qr_code_tana:  
+                                # st.write(qr_code_tana) 
+                                tanaban_select = qr_code_tana.strip()
+                        else:
+                            zkTanalistSplit = zkTanalist.split(",")
+                            tanaban_select = st.selectbox(
+                                "棚番号を選んでください", zkTanalistSplit, key="tanaban_select"
+                            )
+                        
+                        if tanaban_select != "" and tanaban_select != "完A-0": # 完A-0は存在しない置き場(変更前提の初期値としてのみ利用)
+                            st.session_state.tanaban_select_temp = tanaban_select
+                            st.session_state.show_camera = False
+                            st.session_state.qr_code_tana = True
+                            st.session_state.qr_code = ""
+                            st.session_state.production_order = ""
+                            st.session_state.production_order_flag = False
+                            st.rerun()  # 再描画して次のステップへ
+                    else:
+        else:  # st.session_state.manual_input_flag が 0 or 1 の場合
             # st.write(st.session_state.qr_code_tana)
             # st.session_state.manual_input_flag = 1
             if not st.session_state.qr_code_tana:
@@ -616,20 +740,6 @@ else:
                         # st.write(qr_code_tana) 
                         tanaban_select = qr_code_tana.strip()
                 else:
-                    zkTanalist = """
-                        完A-0,完A-1,完A-2,完A-3,完A-4,完A-5,完A-6,完A-7,完A-8,完A-9,完A-10,完A-11,完A-12,完A-13,完A-14,完A-15,完A-16,完A-17,完A-18,完A-19,完A-20,
-                        完B-1,完B-2,完B-3,完B-4,完B-5,完B-6,完B-7,完B-8,完B-9,完B-10,完B-11,完B-12,完B-13,完B-14,完B-15,完B-16,完B-17,完B-18,完B-19,完B-20,
-                        完C-1,完C-2,完C-3,完C-4,完C-5,完C-6,完C-7,完C-8,完C-9,完C-10,完C-11,完C-12,完C-13,完C-14,完C-15,完C-16,完C-17,完C-18,完C-19,完C-20,
-                        完D-1,完D-2,完D-3,完D-4,完D-5,完D-6,完D-7,完D-8,完D-9,完D-10,完D-11,完D-12,完D-13,完D-14,完D-15,完D-16,完D-17,完D-18,完D-19,完D-20,
-                        A-1,A-2,A-3,A-4,A-5,A-6,A-7,A-8,A-9,A-10,A-11,A-12,A-13,A-14,A-15,A-16,A-17,A-18,A-19,A-20,A-21,A-22,A-23,A-24,A-25,A-26,A-27,A-28,A-29,A-30,
-                        D-1,D-2,D-3,D-4,D-5,D-6,D-7,D-8,D-9,D-10,D-11,D-12,D-13,D-14,D-15,D-16,D-17,D-18,D-19,D-20,D-21,D-22,D-23,D-24,D-25,D-26,D-27,D-28,D-29,D-30,
-                        E-31,E-32,E-33,E-34,E-35,E-36,E-37,E-38,E-39,E-40,E-41,E-42,E-43,E-44,E-45,E-46,E-47,E-48,E-49,E-50,E-51,E-52,E-53,E-54,E-55,E-56,E-57,E-58,E-59,E-60,E-61,E-62,E-63,E-64,E-65,E-66,E-67,E-68,E-69,E-70,
-                        F-1,F-2,F-3,F-4,F-5,F-6,F-7,F-8,F-9,F-10,F-11,F-12,F-13,F-14,F-15,F-16,F-17,F-18,F-19,F-20,F-21,F-22,F-23,F-24,F-25,F-26,F-27,F-28,F-29,F-30,F-31,F-32,F-33,F-34,F-35,F-36,F-37,F-38,F-39,F-40,
-                        G-1,G-2,G-3,G-4,G-5,G-6,G-7,G-8,G-9,G-10,G-11,G-12,G-13,G-14,G-15,G-16,G-17,G-18,G-19,G-20,G-21,G-22,G-23,G-24,G-25,G-26,G-27,G-28,G-29,G-30,G-31,G-32,G-33,G-34,G-35,G-36,G-37,G-38,G-39,G-40,
-                        H-1,H-2,H-3,H-4,H-5,H-6,H-7,H-8,H-9,H-10,H-11,H-12,H-13,H-14,H-15,H-16,H-17,H-18,H-19,H-20,H-21,H-22,H-23,H-24,H-25,H-26,H-27,H-28,H-29,H-30,H-31,H-32,H-33,H-34,H-35,H-36,H-37,H-38,H-39,H-40,
-                        R-1,R-2,R-3,R-4,R-5,R-6,R-7,R-8,R-9,R-10,R-11,R-12,R-13,R-14,R-15,R-16,R-17,R-18,R-19,R-20,
-                        S-1,S-2,S-3,S-4,S-5,S-6,S-7,S-8,S-9,S-10,S-11,S-12,S-13,S-14,S-15,S-16,S-17,S-18,S-19,S-20
-                        """
                     zkTanalistSplit = zkTanalist.split(",")
                     # st.write(f"選択前棚番号: {tanaban_select}")
                     tanaban_select = st.selectbox(
