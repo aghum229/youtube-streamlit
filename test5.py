@@ -37,8 +37,9 @@ else:
     else:
         reader = easyocr.Reader(['ja', 'en'], gpu=False)
         first_char = target_text[0]
-        after_hyphen = str(target_text.split("-")[1])
+        after_hyphen = target_text.split("-")[1]
         after_hyphen_int = int(after_hyphen)
+        st.write(f"ハイフン以降の数値: {after_hyphen_int}（型: {type(after_hyphen_int)}）")
         # match = re.search(r"-(.+)", target_text)
         # after_hyphen = match.group(1) if match else ""
         # after_hyphen_int = int(after_hyphen)
