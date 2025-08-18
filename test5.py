@@ -91,7 +91,7 @@ else:
                 # st.write(target_pattern)
                 for bbox, text, prob in results:
                     cleaned = text.replace(" ", "")
-                    # st.write(cleaned)
+                    st.write(cleaned)
                     if target_pattern.search(cleaned):
                         (tl, tr, br, bl) = bbox
                         center_x = int((tl[0] + br[0]) / 2)
