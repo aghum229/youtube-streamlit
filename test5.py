@@ -39,9 +39,10 @@ else:
         first_char = target_text[0]
         # after_hyphen = int(target_text.split("-")[1])
         match = re.search(r"-(.+)", target_text)
-        after_hyphen = int(match.group(1) if match else "")
+        after_hyphen = match.group(1) if match else ""
+        after_hyphen_int = int(after_hyphen)
         st.write(first_char)
-        st.write(after_hyphen)
+        st.write(after_hyphen_int)
         
         for image_path in image_files:
             # st.subheader(f"画像ファイル: {os.path.basename(image_path)}")
