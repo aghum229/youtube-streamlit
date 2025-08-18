@@ -43,18 +43,28 @@ else:
             if first_char == "完":
                 if os.path.basename(image_path) == "TanaMap20250815_1.png":
                     image_search_flag = True
+                else:
+                    break
             elif (first_char == "E" and 31 <= after_hyphen <= 37) or (first_char == "G" and after_hyphen <= 18) or (first_char == "H" and after_hyphen <= 18) or (first_char == "R" and after_hyphen <= 19):
                 if os.path.basename(image_path) == "TanaMap20250815_2.png":
                     image_search_flag = True
+                else:
+                    break
             elif (first_char == "A" and after_hyphen <= 16) or (first_char == "D" and after_hyphen <= 16) or (first_char == "E" and 51 <= after_hyphen <= 57) or (first_char == "F" and after_hyphen <= 16):
                 if os.path.basename(image_path) == "TanaMap20250815_3.png":
                     image_search_flag = True
+                else:
+                    break
             elif (first_char == "E" and 38 <= after_hyphen <= 50) or (first_char == "G" and 20 <= after_hyphen <= 33) or (first_char == "H" and 31 <= after_hyphen <= 37):
                 if os.path.basename(image_path) == "TanaMap20250815_4.png":
                     image_search_flag = True
+                else:
+                    break
             elif (first_char == "A" and 19 <= after_hyphen <= 30) or (first_char == "D" and 18 <= after_hyphen <= 28) or (first_char == "F" and 20 <= after_hyphen <= 32) or (first_char == "H" and 26 <= after_hyphen <= 30) or (first_char == "S" and after_hyphen <= 12):
                 if os.path.basename(image_path) == "TanaMap20250815_5.png":
                     image_search_flag = True
+                else:
+                    break
             if image_search_flag:
                 # 画像読み込みとNumPy変換
                 image = Image.open(image_path).convert("RGB")
@@ -109,9 +119,9 @@ if not os.path.exists(image_filename):
 else:
     image = Image.open(image_filename).convert("RGB")
     image_np = np.array(image)
-    gray = cv2.cvtColor(image_np, cv2.COLOR_RGB2GRAY)
-    blurred = cv2.GaussianBlur(gray, (3, 3), 0)
-    _, thresh = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    # gray = cv2.cvtColor(image_np, cv2.COLOR_RGB2GRAY)
+    # blurred = cv2.GaussianBlur(gray, (3, 3), 0)
+    # _, thresh = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
     reader = easyocr.Reader(['ja', 'en'], gpu=False)
     results = reader.readtext(image_np)
