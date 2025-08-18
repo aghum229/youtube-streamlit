@@ -14,7 +14,6 @@ from PIL import Image
 import glob
 import os
 import re
-import pytesseract
 
 
 def preprocess_image(image_np):
