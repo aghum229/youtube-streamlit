@@ -579,13 +579,13 @@ else:
         left, center, right = st.columns(3)
         with left:
             button_qr = st.button("QRコード")
-            st.write("棚番と移行票番号をQRコードで入力")
+            st.write("###### (棚番と移行票番号をQRコードで入力)")
         with center:
             button_manual = st.button("手動入力")
-            st.write("棚番と移行票番号を手動で入力")
+            st.write("###### (棚番と移行票番号を手動で入力)")
         with right:
             button_reference = st.button("参照")
-            st.write("品番や移行票番号から棚番を検索")
+            st.write("###### (品番や移行票番号から棚番を検索)")
         if button_qr or button_manual or button_reference: 
             if button_qr:
                 st.session_state.manual_input_flag = 0
