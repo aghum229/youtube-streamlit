@@ -37,6 +37,7 @@ else:
     else:
         reader = easyocr.Reader(['ja', 'en'], gpu=False)
         first_char = target_text[0]
+        second_char = target_text[1]
         after_hyphen = target_text.split("-")[1]
         after_hyphen_int = int(after_hyphen)
         st.write(f"ハイフン以降の数値: {after_hyphen_int}（型: {type(after_hyphen_int)}）")
@@ -44,6 +45,7 @@ else:
         # after_hyphen = match.group(1) if match else ""
         # after_hyphen_int = int(after_hyphen)
         st.write(first_char)
+        st.write(second_char)
         st.write(f"{after_hyphen_int}")
         
         if first_char == "完":
@@ -83,7 +85,7 @@ else:
             results = reader.readtext(image_np)
             target_center = None
             if first_char == "完":
-                target_pattern = re.compile(r"完[ABCD][-–—]?(1[0-5]|[1-9])")
+                target_pattern = re.compile(r"完[{second_char}][-–—]?{after_hyphen_int}")
                 for bbox, text, prob in results:
                     cleaned = text.replace(" ", "")
                     if target_pattern.search(cleaned):
