@@ -46,83 +46,62 @@ else:
         st.write(first_char)
         st.write(f"{after_hyphen_int}")
         
-        for image_path in image_files:
-            # st.subheader(f"画像ファイル: {os.path.basename(image_path)}")
-            if first_char == "完":
-                if os.path.basename(image_path) == "TanaMap20250815_1.png":
-                    image_search_flag = True
-                    # target_pattern = re.compile(r"完[ABCD][-–—]?(1[0-5]|[1-9])")
-                    # for bbox, text, prob in results:
-                    #     cleaned = text.replace(" ", "")
-                    #     if target_pattern.search(cleaned):
-                    #         (tl, tr, br, bl) = bbox
-                    #         center_x = int((tl[0] + br[0]) / 2)
-                    #         center_y = int((tl[1] + br[1]) / 2)
-                    #         target_center = (center_x, center_y)
-                    #         break
-                    # image_with_circle = image_np.copy()
-                    # if target_center:
-                    #     cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
-                    #     st.image(image_with_circle, caption=f"{target_text} を検出しました", use_container_width=True)
-                    #     st.success(f"座標: {target_center}")
-                    #     image_flag = True
-                    #     break
-                    # else:
-                    #     None
-            elif ((first_char == "E" and 31 <= after_hyphen_int <= 37) 
-                or (first_char == "G" and after_hyphen_int <= 18) 
-                or (first_char == "H" and after_hyphen_int <= 18) 
-                or (first_char == "R" and after_hyphen_int <= 19)):
-                if os.path.basename(image_path) == "TanaMap20250815_2.png":
-                    image_search_flag = True
-            elif ((first_char == "A" and after_hyphen_int <= 16) 
-                or (first_char == "D" and after_hyphen_int <= 16) 
-                or (first_char == "E" and 51 <= after_hyphen_int <= 57) 
-                or (first_char == "F" and after_hyphen_int <= 16)):
-                if os.path.basename(image_path) == "TanaMap20250815_3.png":
-                    image_search_flag = True
-            elif ((first_char == "E" and 38 <= after_hyphen_int <= 50) 
-                or (first_char == "G" and 20 <= after_hyphen_int <= 33) 
-                or (first_char == "H" and 31 <= after_hyphen_int <= 37)):
-                if os.path.basename(image_path) == "TanaMap20250815_4.png":
-                    image_search_flag = True
-            elif ((first_char == "A" and 19 <= after_hyphen_int <= 30) 
-                or (first_char == "D" and 18 <= after_hyphen_int <= 28) 
-                or (first_char == "F" and 20 <= after_hyphen_int <= 32) 
-                or (first_char == "H" and 26 <= after_hyphen_int <= 30) 
-                or (first_char == "S" and after_hyphen <= 12)):
-                if os.path.basename(image_path) == "TanaMap20250815_5.png":
-                    image_search_flag = True
-            if image_search_flag:
-                # 画像読み込みとNumPy変換
-                image = Image.open(image_path).convert("RGB")
-                image_np = np.array(image)
-                # processed = preprocess_image(image_np)
-        
-                # OCR実行
-                results = reader.readtext(image_np)
-                target_center = None
-        
-                for bbox, text, prob in results:
-                    if text.strip() == target_text.strip():
-                        (tl, tr, br, bl) = bbox
-                        center_x = int((tl[0] + br[0]) / 2)
-                        center_y = int((tl[1] + br[1]) / 2)
-                        target_center = (center_x, center_y)
-                        break
-        
-                # 赤い円（○）を描画
-                image_with_circle = image_np.copy()
-                if target_center:
-                    cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
-                    st.image(image_with_circle, caption=f"{target_text} を検出しました", use_container_width=True)
-                    st.success(f"座標: {target_center}")
-                    image_flag = True
+        if first_char == "完":
+            image_path = "TanaMap20250815_1.png"
+            image_search_flag = True
+        elif ((first_char == "E" and 31 <= after_hyphen_int <= 37) 
+            or (first_char == "G" and after_hyphen_int <= 18) 
+            or (first_char == "H" and after_hyphen_int <= 18) 
+            or (first_char == "R" and after_hyphen_int <= 19)):
+            image_path = "TanaMap20250815_2.png"
+            image_search_flag = True
+        elif ((first_char == "A" and after_hyphen_int <= 16) 
+            or (first_char == "D" and after_hyphen_int <= 16) 
+            or (first_char == "E" and 51 <= after_hyphen_int <= 57) 
+            or (first_char == "F" and after_hyphen_int <= 16)):
+            image_path = "TanaMap20250815_3.png"
+            image_search_flag = True
+        elif ((first_char == "E" and 38 <= after_hyphen_int <= 50) 
+            or (first_char == "G" and 20 <= after_hyphen_int <= 33) 
+            or (first_char == "H" and 31 <= after_hyphen_int <= 37)):
+            image_path = "TanaMap20250815_4.png"
+            image_search_flag = True
+        elif ((first_char == "A" and 19 <= after_hyphen_int <= 30) 
+            or (first_char == "D" and 18 <= after_hyphen_int <= 28) 
+            or (first_char == "F" and 20 <= after_hyphen_int <= 32) 
+            or (first_char == "H" and 26 <= after_hyphen_int <= 30) 
+            or (first_char == "S" and after_hyphen <= 12)):
+            image_path = "TanaMap20250815_5.png"
+            image_search_flag = True
+        if image_search_flag:
+            # 画像読み込みとNumPy変換
+            image = Image.open(image_path).convert("RGB")
+            image_np = np.array(image)
+            # processed = preprocess_image(image_np)
+    
+            # OCR実行
+            results = reader.readtext(image_np)
+            target_center = None
+    
+            for bbox, text, prob in results:
+                if text.strip() == target_text.strip():
+                    (tl, tr, br, bl) = bbox
+                    center_x = int((tl[0] + br[0]) / 2)
+                    center_y = int((tl[1] + br[1]) / 2)
+                    target_center = (center_x, center_y)
                     break
-                else:
-                    None
-                    # st.image(image_with_circle, caption=f"{target_text} は検出されませんでした", use_container_width=True)
-                    # st.warning(f"{target_text} はこの画像には見つかりませんでした。")
+    
+            # 赤い円（○）を描画
+            image_with_circle = image_np.copy()
+            if target_center:
+                cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
+                st.image(image_with_circle, caption=f"{target_text} を検出しました", use_container_width=True)
+                st.success(f"座標: {target_center}")
+                image_flag = True
+            else:
+                None
+                # st.image(image_with_circle, caption=f"{target_text} は検出されませんでした", use_container_width=True)
+                # st.warning(f"{target_text} はこの画像には見つかりませんでした。")
         if image_flag == False:
             st.warning(f"{target_text} はこの画像には見つかりませんでした。")
     st.stop()
