@@ -37,7 +37,9 @@ else:
     else:
         reader = easyocr.Reader(['ja', 'en'], gpu=False)
         first_char = target_text[0]
-        after_hyphen = int(target_text.split("-")[1])
+        # after_hyphen = int(target_text.split("-")[1])
+        match = re.search(r"-(.+)", target_text)
+        after_hyphen = match.group(1) if match else ""
         st.write(first_char)
         st.write(after_hyphen)
         
