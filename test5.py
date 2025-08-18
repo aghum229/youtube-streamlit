@@ -40,13 +40,13 @@ else:
         
         for image_path in image_files:
             # st.subheader(f"画像ファイル: {os.path.basename(image_path)}")
-            if first_char == "完" and os.path.basename(image_path) == "TanaMap20250815_1":
+            if first_char == "完" and os.path.basename(image_path) == "TanaMap20250815_1.png":
                 image_search_flag = True
-            elif (first_char == "A" and after_hyphen <= 16) or (first_char == "D" and after_hyphen <= 16) or (first_char == "E" and 51 <= after_hyphen <= 57) or (first_char == "F" and after_hyphen <= 16):
-                if os.path.basename(image_path) == "TanaMap20250815_3.png":
-                    image_search_flag = True
             elif (first_char == "E" and 31 <= after_hyphen <= 37) or (first_char == "G" and after_hyphen <= 18) or (first_char == "H" and after_hyphen <= 18) or (first_char == "R" and after_hyphen <= 19):
                 if os.path.basename(image_path) == "TanaMap20250815_2.png":
+                    image_search_flag = True
+            elif (first_char == "A" and after_hyphen <= 16) or (first_char == "D" and after_hyphen <= 16) or (first_char == "E" and 51 <= after_hyphen <= 57) or (first_char == "F" and after_hyphen <= 16):
+                if os.path.basename(image_path) == "TanaMap20250815_3.png":
                     image_search_flag = True
             elif (first_char == "E" and 38 <= after_hyphen <= 50) or (first_char == "G" and 20 <= after_hyphen <= 33) or (first_char == "H" and 31 <= after_hyphen <= 37):
                 if os.path.basename(image_path) == "TanaMap20250815_4.png":
