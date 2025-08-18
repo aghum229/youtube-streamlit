@@ -13,6 +13,7 @@ import cv2
 from PIL import Image
 import glob
 import os
+import re
 
 def preprocess_image(image_np):
     gray = cv2.cvtColor(image_np, cv2.COLOR_RGB2GRAY)
@@ -42,7 +43,16 @@ else:
             # st.subheader(f"画像ファイル: {os.path.basename(image_path)}")
             if first_char == "完":
                 if os.path.basename(image_path) == "TanaMap20250815_1.png":
-                    image_search_flag = True
+                    # image_search_flag = True
+                    target_pattern = re.compile(r"完[ABC][-–—]?(1[0-5]|[1-9])")
+                    for bbox, text, prob in results:
+                        cleaned = text.replace(" ", "")
+                        if target_pattern.search(cleaned):
+                            (tl, tr, br, bl) = bbox
+                            center_x = int((tl[0] + br[0]) / 2)
+                            center_y = int((tl[1] + br[1]) / 2)
+                            target_center = (center_x, center_y)
+                            break
                 else:
                     break
             elif (first_char == "E" and 31 <= after_hyphen <= 37) or (first_char == "G" and after_hyphen <= 18) or (first_char == "H" and after_hyphen <= 18) or (first_char == "R" and after_hyphen <= 19):
@@ -69,10 +79,10 @@ else:
                 # 画像読み込みとNumPy変換
                 image = Image.open(image_path).convert("RGB")
                 image_np = np.array(image)
-                processed = preprocess_image(image_np)
+                # processed = preprocess_image(image_np)
         
                 # OCR実行
-                results = reader.readtext(processed)
+                results = reader.readtext(image_np)
                 target_center = None
         
                 for bbox, text, prob in results:
@@ -84,7 +94,7 @@ else:
                         break
         
                 # 赤い円（○）を描画
-                image_with_circle = processed.copy()
+                image_with_circle = image_np.copy()
                 if target_center:
                     cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
                     st.image(image_with_circle, caption=f"{target_text} を検出しました", use_container_width=True)
