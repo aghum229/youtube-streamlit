@@ -96,7 +96,10 @@ else:
                         (tl, tr, br, bl) = bbox
                         center_x = int((tl[0] + br[0]) / 2)
                         center_y = int((tl[1] + br[1]) / 2)
-                        target_center = (center_x, center_y)
+                        if second_char == "B" or second_char == "D":
+                            target_center = (center_x + 20, center_y)
+                        else:
+                            target_center = (center_x -20, center_y)
                         break
             else:
                 for bbox, text, prob in results:
