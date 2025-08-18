@@ -14,6 +14,8 @@ from PIL import Image
 import glob
 import os
 import re
+import pytesseract
+
 
 def preprocess_image(image_np):
     gray = cv2.cvtColor(image_np, cv2.COLOR_RGB2GRAY)
@@ -85,7 +87,7 @@ else:
             results = reader.readtext(image_np)
             target_center = None
             if first_char == "完":
-                target_pattern = re.compile(fr"完.?{second_char}[-–—]?{after_hyphen_int}")
+                target_pattern = re.compile(fr"完{second_char}-{after_hyphen_int}")
                 st.write(target_pattern)
                 for bbox, text, prob in results:
                     cleaned = text.replace(" ", "")
