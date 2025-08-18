@@ -82,14 +82,24 @@ else:
             # OCR実行
             results = reader.readtext(image_np)
             target_center = None
-    
-            for bbox, text, prob in results:
-                if text.strip() == target_text.strip():
-                    (tl, tr, br, bl) = bbox
-                    center_x = int((tl[0] + br[0]) / 2)
-                    center_y = int((tl[1] + br[1]) / 2)
-                    target_center = (center_x, center_y)
-                    break
+            if first_char == "完":
+                target_pattern = re.compile(r"完[ABCD][-–—]?(1[0-5]|[1-9])")
+                for bbox, text, prob in results:
+                    cleaned = text.replace(" ", "")
+                    if target_pattern.search(cleaned):
+                        (tl, tr, br, bl) = bbox
+                        center_x = int((tl[0] + br[0]) / 2)
+                        center_y = int((tl[1] + br[1]) / 2)
+                        target_center = (center_x, center_y)
+                        break
+            else:
+                for bbox, text, prob in results:
+                    if text.strip() == target_text.strip():
+                        (tl, tr, br, bl) = bbox
+                        center_x = int((tl[0] + br[0]) / 2)
+                        center_y = int((tl[1] + br[1]) / 2)
+                        target_center = (center_x, center_y)
+                        break
     
             # 赤い円（○）を描画
             image_with_circle = image_np.copy()
