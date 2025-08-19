@@ -50,7 +50,7 @@ else:
         st.write(f"{after_hyphen_int}")
         
         if first_char == "完":
-            image_path = "TanaMap20250815_1_1.png"
+            image_path = "TanaMap20250815_1_2.png"
             image_search_flag = True
         elif ((first_char == "E" and 31 <= after_hyphen_int <= 37) 
             or (first_char == "G" and after_hyphen_int <= 18) 
@@ -87,7 +87,8 @@ else:
             results = reader.readtext(image_np)
             target_center = None
             if first_char == "完":
-                target_pattern = re.compile(fr"{second_char}-{after_hyphen_int}")
+                target_pattern = re.compile(fr"完{second_char}-{after_hyphen_int}")
+                target_pattern_b = re.compile(fr"{second_char}-{after_hyphen_int}")
                 # st.write(target_pattern)
                 for bbox, text, prob in results:
                     cleaned = text.replace(" ", "")
@@ -102,6 +103,17 @@ else:
                             center_x -= 50
                         target_center = (center_x, center_y)
                         break
+                    else:
+                        if target_pattern_b.search(cleaned):
+                            (tl, tr, br, bl) = bbox
+                            center_x = int((tl[0] + br[0]) / 2)
+                            center_y = int((tl[1] + br[1]) / 2)
+                            if second_char == "B" or second_char == "D":
+                                center_x += 50
+                            else:
+                                center_x -= 50
+                            target_center = (center_x, center_y)
+                            break
             else:
                 for bbox, text, prob in results:
                     if text.strip() == target_text.strip():
