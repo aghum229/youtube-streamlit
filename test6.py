@@ -585,7 +585,7 @@ else:
         if button_qr or button_manual or button_reference: 
             if button_qr:
                 st.session_state.manual_input_flag = 0
-            if button_manual:
+            elif button_manual:
                 st.session_state.manual_input_flag = 1
             else:
                 st.session_state.manual_input_flag = 9
