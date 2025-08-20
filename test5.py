@@ -131,7 +131,7 @@ else:
             # 赤い円（○）を描画
             image_with_circle = image_sub_np.copy()
             if target_center:
-                cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
+                cv2.circle(image_with_circle, target_center, 60, (255, 0, 0), thickness=8)
                 st.image(image_with_circle, caption=f"{sub_text} を検出しました", use_container_width=True)
                 st.success(f"座標: {target_center}")
                 image_sub_flag = True
@@ -180,7 +180,10 @@ else:
             # 赤い円（○）を描画
             image_with_circle = image_np.copy()
             if target_center:
-                cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
+                # cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
+                axes = (120, 60)  # 横長：横70、縦40
+                angle = 0         # 回転なし
+                cv2.ellipse(image_with_circle, target_center, axes, angle, 0, 360, (255, 0, 0), thickness=8)
                 st.image(image_with_circle, caption=f"{target_text} を検出しました", use_container_width=True)
                 st.success(f"座標: {target_center}")
                 image_flag = True
