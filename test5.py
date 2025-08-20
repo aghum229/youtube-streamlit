@@ -128,7 +128,7 @@ else:
                 # st.image(image_with_circle, caption=f"{sub_text} は検出されませんでした", use_container_width=True)
                 # st.warning(f"{sub_text} はこの画像には見つかりませんでした。")
             if image_sub_flag == False:
-                st.warning(f"{targsub_textet_text} はこの画像には見つかりませんでした。")
+                st.warning(f"{sub_text} はこの画像には見つかりませんでした。")
             
             results = reader.readtext(image_np)
             target_center = None
