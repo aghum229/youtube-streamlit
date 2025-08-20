@@ -86,7 +86,14 @@ else:
             # processed = preprocess_image(image_np)
     
             # OCR実行   r"完.?[ABC][-–—]?(1[0-5]|[1-9])"
-
+            
+            if os.path.exists(image_path):
+                image = Image.open(image_path).convert("RGB")
+                image_np = np.array(image)
+            else:
+                st.error(f"画像ファイルが見つかりません: {image_path}")
+                st.stop()
+            
             results = reader.readtext(image_np)
             target_center = None
             if first_char == "完":
