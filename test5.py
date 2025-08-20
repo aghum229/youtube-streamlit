@@ -94,7 +94,7 @@ else:
     
             # OCR実行   r"完.?[ABC][-–—]?(1[0-5]|[1-9])"
 
-            image_sub = Image.open("TanaMap20250820.png").convert("RGB")
+            image_sub = Image.open("TanaMap20250820-0.png").convert("RGB")
             image_sub_np = np.array(image_sub)
             if os.path.exists(image_path):
                 image = Image.open(image_path).convert("RGB")
