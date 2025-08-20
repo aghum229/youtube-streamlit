@@ -50,10 +50,10 @@ else:
         st.write(f"{after_hyphen_int}")
         
         if first_char == "完" and after_hyphen_int <= 9:
-            image_path = "TanaMap20250820_1.png"
+            image_path = "TanaMap20250820-1.png"
             image_search_flag = True
         elif (first_char == "完" and 10 <= after_hyphen_int <= 15): 
-            image_path = "TanaMap20250820_2.png"
+            image_path = "TanaMap20250820-2.png"
             image_search_flag = True
         elif ((first_char == "E" and 31 <= after_hyphen_int <= 37) 
             or (first_char == "G" and after_hyphen_int <= 18) 
