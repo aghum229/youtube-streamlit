@@ -81,8 +81,8 @@ else:
             image_search_flag = True
         if image_search_flag:
             # 画像読み込みとNumPy変換
-            image = Image.open(image_path).convert("RGB")
-            image_np = np.array(image)
+            # image = Image.open(image_path).convert("RGB")
+            # image_np = np.array(image)
             # processed = preprocess_image(image_np)
     
             # OCR実行   r"完.?[ABC][-–—]?(1[0-5]|[1-9])"
