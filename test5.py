@@ -181,10 +181,14 @@ else:
             image_with_circle_b = image_np.copy()
             if target_center:
                 # cv2.circle(image_with_circle_b, target_center, 50, (255, 0, 0), thickness=8)
-                axes = (120, 60)  # 横長：横70、縦40
+                axes = (120, 60)  # 横長：横55、縦25
                 angle = 0         # 回転なし
                 cv2.ellipse(image_with_circle_b, target_center, axes, angle, 0, 360, (255, 0, 0), thickness=8)
                 # st.image(image_with_circle_b, caption=f"{target_text} を検出しました", use_container_width=True)
+
+                # 画像サイズに合わせて矩形を描画
+                h, w = image_with_circle_b.shape[:2]
+                cv2.rectangle(image_with_circle_b, (0, 0), (w - 1, h - 1), (255, 0, 255), 8)
                 
                 images = [image_with_circle_a, image_with_circle_b]
                 max_width = max(img.shape[1] for img in images)
