@@ -52,7 +52,7 @@ else:
         if first_char == "完" and after_hyphen_int <= 9:
             image_path = "TanaMap20250815_1.png"
             image_search_flag = True
-        elif ((first_char == "完" and 10 <= after_hyphen_int <= 15) 
+        elif (first_char == "完" and 10 <= after_hyphen_int <= 15): 
             image_path = "TanaMap20250815_2.png"
             image_search_flag = True
         elif ((first_char == "E" and 31 <= after_hyphen_int <= 37) 
