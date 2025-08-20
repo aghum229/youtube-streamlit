@@ -132,6 +132,9 @@ else:
             image_with_circle_a = image_sub_np.copy()
             if target_center:
                 cv2.circle(image_with_circle_a, target_center, 60, (255, 0, 0), thickness=8)
+                # 画像サイズに合わせて矩形を描画
+                h, w = image_with_circle_a.shape[:2]
+                cv2.rectangle(image_with_circle_b, (0, 0), (w - 1, h - 1), (0, 0, 0), 20)
                 # st.image(image_with_circle_a, caption=f"{sub_text} を検出しました", use_container_width=True)
                 st.success(f"座標: {target_center}")
                 image_sub_flag = True
