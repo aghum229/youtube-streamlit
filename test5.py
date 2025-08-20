@@ -132,7 +132,7 @@ else:
             image_with_circle_a = image_sub_np.copy()
             if target_center:
                 cv2.circle(image_with_circle_a, target_center, 60, (255, 0, 0), thickness=8)
-                st.image(image_with_circle_a, caption=f"{sub_text} を検出しました", use_container_width=True)
+                # st.image(image_with_circle_a, caption=f"{sub_text} を検出しました", use_container_width=True)
                 st.success(f"座標: {target_center}")
                 image_sub_flag = True
             else:
@@ -185,8 +185,17 @@ else:
                 angle = 0         # 回転なし
                 cv2.ellipse(image_with_circle_b, target_center, axes, angle, 0, 360, (255, 0, 0), thickness=8)
                 # st.image(image_with_circle_b, caption=f"{target_text} を検出しました", use_container_width=True)
-                combined = np.vstack((image_with_circle_a, image_with_circle_b))
-                st.image(combined, caption=f"{target_text} を検出しました", use_container_width=True)
+                
+                images = [image_with_circle_a, image_with_circle_b]
+                max_width = max(img.shape[1] for img in images)
+                total_height = sum(img.shape[0] for img in images)
+                canvas = np.ones((total_height, max_width, 3), dtype=np.uint8) * 255
+                y_offset = 0
+                for img in images:
+                    h, w = img.shape[:2]
+                    canvas[y_offset:y_offset+h, 0:w] = img
+                    y_offset += h
+                st.image(canvas, caption=f"画像を結合しました", use_container_width=True)
                 st.success(f"座標: {target_center}")
                 image_flag = True
             else:
