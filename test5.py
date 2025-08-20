@@ -32,6 +32,7 @@ else:
     # 📂 同じフォルダ内の画像ファイル一覧を取得（PNG/JPG）
     image_files = sorted(glob.glob("TanaMap*.png") + glob.glob("TanaMap*.jpg") + glob.glob("TanaMap*.jpeg"))
     image_flag = False
+    image_sub_flag = False
     image_search_flag = False
     if not image_files:
         st.warning("画像ファイルが見つかりませんでした。")
@@ -50,26 +51,31 @@ else:
         st.write(f"{after_hyphen_int}")
         
         if first_char == "完" and after_hyphen_int <= 9:
+            sub_text = "①"
             image_path = "TanaMap20250820-1.png"
             image_search_flag = True
         elif (first_char == "完" and 10 <= after_hyphen_int <= 15): 
+            sub_text = "②"
             image_path = "TanaMap20250820-2.png"
             image_search_flag = True
         elif ((first_char == "E" and 31 <= after_hyphen_int <= 37) 
             or (first_char == "G" and after_hyphen_int <= 18) 
             or (first_char == "H" and after_hyphen_int <= 18) 
             or (first_char == "R" and after_hyphen_int <= 19)):
+            sub_text = "③"
             image_path = "TanaMap20250820-3.png"
             image_search_flag = True
         elif ((first_char == "A" and after_hyphen_int <= 16) 
             or (first_char == "D" and after_hyphen_int <= 16) 
             or (first_char == "E" and 51 <= after_hyphen_int <= 57) 
             or (first_char == "F" and after_hyphen_int <= 16)):
+            sub_text = "④"
             image_path = "TanaMap20250820-4.png"
             image_search_flag = True
         elif ((first_char == "E" and 38 <= after_hyphen_int <= 50) 
             or (first_char == "G" and 20 <= after_hyphen_int <= 33) 
             or (first_char == "H" and 31 <= after_hyphen_int <= 37)):
+            sub_text = "⑤"
             image_path = "TanaMap20250820-5.png"
             image_search_flag = True
         elif ((first_char == "A" and 19 <= after_hyphen_int <= 30) 
@@ -77,6 +83,7 @@ else:
             or (first_char == "F" and 20 <= after_hyphen_int <= 32) 
             or (first_char == "H" and 26 <= after_hyphen_int <= 30) 
             or (first_char == "S" and after_hyphen <= 12)):
+            sub_text = "⑥"
             image_path = "TanaMap20250820-6.png"
             image_search_flag = True
         if image_search_flag:
@@ -86,13 +93,42 @@ else:
             # processed = preprocess_image(image_np)
     
             # OCR実行   r"完.?[ABC][-–—]?(1[0-5]|[1-9])"
-            
+
+            image_sub = Image.open("TanaMap20250820.png").convert("RGB")
+            image_sub_np = np.array(image_sub)
             if os.path.exists(image_path):
                 image = Image.open(image_path).convert("RGB")
                 image_np = np.array(image)
             else:
                 st.error(f"画像ファイルが見つかりません: {image_path}")
                 st.stop()
+
+            results_sub = reader.readtext(image_sub_np)
+            target_center = None
+            target_pattern = re.compile(fr"{sub_text}")
+            # st.write(target_pattern)
+            for bbox, text, prob in results_sub:
+                cleaned = text.replace(" ", "")
+                st.write(cleaned)
+                if target_pattern.search(cleaned):
+                    (tl, tr, br, bl) = bbox
+                    center_x = int((tl[0] + br[0]) / 2)
+                    center_y = int((tl[1] + br[1]) / 2)
+                    target_center = (center_x, center_y)
+                    break
+            # 赤い円（○）を描画
+            image_with_circle = image_sub_np.copy()
+            if target_center:
+                cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
+                st.image(image_with_circle, caption=f"{sub_text} を検出しました", use_container_width=True)
+                st.success(f"座標: {target_center}")
+                image_sub_flag = True
+            else:
+                None
+                # st.image(image_with_circle, caption=f"{sub_text} は検出されませんでした", use_container_width=True)
+                # st.warning(f"{sub_text} はこの画像には見つかりませんでした。")
+            if image_sub_flag == False:
+                st.warning(f"{targsub_textet_text} はこの画像には見つかりませんでした。")
             
             results = reader.readtext(image_np)
             target_center = None
