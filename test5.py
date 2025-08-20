@@ -106,6 +106,7 @@ else:
             results_sub = reader.readtext(image_sub_np)
             target_center = None
             target_pattern = re.compile(fr"{sub_text}")
+            target_pattern_b = re.compile(fr"{sub_text}_")
             # st.write(target_pattern)
             for bbox, text, prob in results_sub:
                 cleaned = text.replace(" ", "")
@@ -116,6 +117,17 @@ else:
                     center_y = int((tl[1] + br[1]) / 2)
                     target_center = (center_x, center_y)
                     break
+                else:
+                    if target_pattern_b.search(cleaned):
+                        (tl, tr, br, bl) = bbox
+                        center_x = int((tl[0] + br[0]) / 2)
+                        center_y = int((tl[1] + br[1]) / 2)
+                        if second_char == "B" or second_char == "D":
+                            center_x += 10
+                        else:
+                            center_x -= 10
+                        target_center = (center_x, center_y)
+                        break
             # 赤い円（○）を描画
             image_with_circle = image_sub_np.copy()
             if target_center:
