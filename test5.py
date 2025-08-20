@@ -59,25 +59,25 @@ else:
             or (first_char == "G" and after_hyphen_int <= 18) 
             or (first_char == "H" and after_hyphen_int <= 18) 
             or (first_char == "R" and after_hyphen_int <= 19)):
-            image_path = "TanaMap20250820_3.png"
+            image_path = "TanaMap20250820-3.png"
             image_search_flag = True
         elif ((first_char == "A" and after_hyphen_int <= 16) 
             or (first_char == "D" and after_hyphen_int <= 16) 
             or (first_char == "E" and 51 <= after_hyphen_int <= 57) 
             or (first_char == "F" and after_hyphen_int <= 16)):
-            image_path = "TanaMap20250820_4.png"
+            image_path = "TanaMap20250820-4.png"
             image_search_flag = True
         elif ((first_char == "E" and 38 <= after_hyphen_int <= 50) 
             or (first_char == "G" and 20 <= after_hyphen_int <= 33) 
             or (first_char == "H" and 31 <= after_hyphen_int <= 37)):
-            image_path = "TanaMap20250820_5.png"
+            image_path = "TanaMap20250820-5.png"
             image_search_flag = True
         elif ((first_char == "A" and 19 <= after_hyphen_int <= 30) 
             or (first_char == "D" and 18 <= after_hyphen_int <= 28) 
             or (first_char == "F" and 20 <= after_hyphen_int <= 32) 
             or (first_char == "H" and 26 <= after_hyphen_int <= 30) 
             or (first_char == "S" and after_hyphen <= 12)):
-            image_path = "TanaMap20250820_6.png"
+            image_path = "TanaMap20250820-6.png"
             image_search_flag = True
         if image_search_flag:
             # 画像読み込みとNumPy変換
