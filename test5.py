@@ -110,7 +110,7 @@ else:
             # st.write(target_pattern)
             for bbox, text, prob in results_sub:
                 cleaned = text.replace(" ", "")
-                st.write(cleaned)
+                # st.write(cleaned)
                 if target_pattern.search(cleaned):
                     (tl, tr, br, bl) = bbox
                     center_x = int((tl[0] + br[0]) / 2)
@@ -129,15 +129,15 @@ else:
                         target_center = (center_x, center_y)
                         break
             # 赤い円（○）を描画
-            image_with_circle = image_sub_np.copy()
+            image_with_circle_a = image_sub_np.copy()
             if target_center:
-                cv2.circle(image_with_circle, target_center, 60, (255, 0, 0), thickness=8)
-                st.image(image_with_circle, caption=f"{sub_text} を検出しました", use_container_width=True)
+                cv2.circle(image_with_circle_a, target_center, 60, (255, 0, 0), thickness=8)
+                st.image(image_with_circle_a, caption=f"{sub_text} を検出しました", use_container_width=True)
                 st.success(f"座標: {target_center}")
                 image_sub_flag = True
             else:
                 None
-                # st.image(image_with_circle, caption=f"{sub_text} は検出されませんでした", use_container_width=True)
+                # st.image(image_with_circle_a, caption=f"{sub_text} は検出されませんでした", use_container_width=True)
                 # st.warning(f"{sub_text} はこの画像には見つかりませんでした。")
             if image_sub_flag == False:
                 st.warning(f"{sub_text} はこの画像には見つかりませんでした。")
@@ -150,7 +150,7 @@ else:
                 # st.write(target_pattern)
                 for bbox, text, prob in results:
                     cleaned = text.replace(" ", "")
-                    st.write(cleaned)
+                    # st.write(cleaned)
                     if target_pattern.search(cleaned):
                         (tl, tr, br, bl) = bbox
                         center_x = int((tl[0] + br[0]) / 2)
@@ -178,13 +178,15 @@ else:
                         break
     
             # 赤い円（○）を描画
-            image_with_circle = image_np.copy()
+            image_with_circle_b = image_np.copy()
             if target_center:
-                # cv2.circle(image_with_circle, target_center, 50, (255, 0, 0), thickness=8)
+                # cv2.circle(image_with_circle_b, target_center, 50, (255, 0, 0), thickness=8)
                 axes = (120, 60)  # 横長：横70、縦40
                 angle = 0         # 回転なし
-                cv2.ellipse(image_with_circle, target_center, axes, angle, 0, 360, (255, 0, 0), thickness=8)
-                st.image(image_with_circle, caption=f"{target_text} を検出しました", use_container_width=True)
+                cv2.ellipse(image_with_circle_b, target_center, axes, angle, 0, 360, (255, 0, 0), thickness=8)
+                # st.image(image_with_circle_b, caption=f"{target_text} を検出しました", use_container_width=True)
+                combined = np.vstack((image_with_circle_a, image_with_circle_b))
+                st.image(combined, caption=f"{target_text} を検出しました", use_container_width=True)
                 st.success(f"座標: {target_center}")
                 image_flag = True
             else:
