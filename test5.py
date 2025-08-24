@@ -15,13 +15,6 @@ import glob
 import os
 import re
 
-
-def preprocess_image(image_np):
-    gray = cv2.cvtColor(image_np, cv2.COLOR_RGB2GRAY)
-    blurred = cv2.GaussianBlur(gray, (3, 3), 0)
-    _, thresh = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    return thresh
-    
 def pad_to_center(img, target_width, pad_color=(255, 255, 255)):
     h, w = img.shape[:2]
     pad_left = (target_width - w) // 2
