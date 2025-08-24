@@ -219,7 +219,7 @@ else:
                 canvas[h1:h1 + h2, x2_offset:x2_offset + w2] = image_with_circle_b
                 # img3 を下に貼り付け（中央揃え）
                 x3_offset = max((canvas_width - w3) // 2, 0)
-                canvas[h1 + h2:h1 + h2 + h3, x3_offset:x3_offset + w3].image_with_circle_c)
+                canvas[h1 + h2:h1 + h2 + h3, x3_offset:x3_offset + w3] = image_with_circle_c)
                 
                 st.image(canvas, caption=f"画像を結合しました", use_container_width=True)
                 st.success(f"座標: {target_center}")
