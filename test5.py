@@ -52,31 +52,31 @@ else:
         
         if first_char == "完" and after_hyphen_int <= 9:
             sub_text = "P-1"
-            image_path = "TanaMap20250820-1.png"
+            image_path = "TanaMap20250820-P1.png"
             image_search_flag = True
-        elif (first_char == "完" and 10 <= after_hyphen_int <= 15): 
+        elif (first_char == "完" and 10 <= after_hyphen_int <= 20): 
             sub_text = "P-2"
-            image_path = "TanaMap20250820-2.png"
+            image_path = "TanaMap20250820-P2.png"
             image_search_flag = True
         elif ((first_char == "E" and 31 <= after_hyphen_int <= 37) 
             or (first_char == "G" and after_hyphen_int <= 18) 
             or (first_char == "H" and after_hyphen_int <= 18) 
             or (first_char == "R" and after_hyphen_int <= 19)):
             sub_text = "P-3"
-            image_path = "TanaMap20250820-3.png"
+            image_path = "TanaMap20250820-P3.png"
             image_search_flag = True
         elif ((first_char == "A" and after_hyphen_int <= 16) 
             or (first_char == "D" and after_hyphen_int <= 16) 
             or (first_char == "E" and 51 <= after_hyphen_int <= 57) 
             or (first_char == "F" and after_hyphen_int <= 16)):
             sub_text = "P-4"
-            image_path = "TanaMap20250820-4.png"
+            image_path = "TanaMap20250820-P4.png"
             image_search_flag = True
         elif ((first_char == "E" and 38 <= after_hyphen_int <= 50) 
             or (first_char == "G" and 20 <= after_hyphen_int <= 33) 
             or (first_char == "H" and 31 <= after_hyphen_int <= 37)):
             sub_text = "P-5"
-            image_path = "TanaMap20250820-5.png"
+            image_path = "TanaMap20250820-P5.png"
             image_search_flag = True
         elif ((first_char == "A" and 19 <= after_hyphen_int <= 30) 
             or (first_char == "D" and 18 <= after_hyphen_int <= 28) 
@@ -84,16 +84,12 @@ else:
             or (first_char == "H" and 26 <= after_hyphen_int <= 30) 
             or (first_char == "S" and after_hyphen <= 12)):
             sub_text = "P-6"
-            image_path = "TanaMap20250820-6.png"
+            image_path = "TanaMap20250820-P6.png"
             image_search_flag = True
         if image_search_flag:
-            # 画像読み込みとNumPy変換
-            # image = Image.open(image_path).convert("RGB")
-            # image_np = np.array(image)
-            # processed = preprocess_image(image_np)
-    
+            _= '''
             # OCR実行   r"完.?[ABC][-–—]?(1[0-5]|[1-9])"
-
+            
             image_sub = Image.open("TanaMap20250820-0.png").convert("RGB")
             image_sub_np = np.array(image_sub)
             if os.path.exists(image_path):
@@ -144,7 +140,9 @@ else:
                 # st.warning(f"{sub_text} はこの画像には見つかりませんでした。")
             if image_sub_flag == False:
                 st.warning(f"{sub_text} はこの画像には見つかりませんでした。")
-            
+            '''
+
+            image_with_circle_a = image_path.copy()
             results = reader.readtext(image_np)
             target_center = None
             if first_char == "完":
