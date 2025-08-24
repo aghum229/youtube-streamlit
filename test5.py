@@ -160,7 +160,7 @@ else:
             cv2.rectangle(image_with_circle_a, (0, 0), (w - 1, h - 1), (0, 0, 0), 30)
             image_with_circle_b = np.ones((200, 200, 3), dtype=np.uint8) * 255
             # 下向き矢印を描画
-            cv2.arrowedLine(image_with_circle_b, (100, 20), (100, 180), (0, 0, 0), thickness=60, tipLength=0.3)
+            cv2.arrowedLine(image_with_circle_b, (100, 20), (100, 180), (255, 0, 0), thickness=40, tipLength=0.3)
             
             results = reader.readtext(image_np)
             target_center = None
