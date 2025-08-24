@@ -161,7 +161,7 @@ else:
             image_with_circle_b_rgb = np.ones((200, 200, 3), dtype=np.uint8) * 255
             image_with_circle_b = cv2.cvtColor(image_with_circle_b, cv2.COLOR_BGR2RGB)
             # 下向き矢印を描画
-            cv2.arrowedLine(image_with_circle_b, (100, 20), (100, 180), (255, 0, 0), thickness=40, tipLength=0.3)
+            cv2.arrowedLine(image_with_circle_b, (100, 20), (100, 100), (255, 0, 0), thickness=40, tipLength=0.3)
             
             results = reader.readtext(image_np)
             target_center = None
