@@ -240,13 +240,18 @@ else:
                 img1_padded = pad_to_center(img1, max_width)
                 img2_padded = pad_to_center(img2, max_width)
                 img3_padded = pad_to_center(img3, max_width)
-                
+
+                img1_rgb = cv2.cvtColor(img1_padded, cv2.COLOR_BGR2RGB)
+                img2_rgb = cv2.cvtColor(img2_padded, cv2.COLOR_BGR2RGB)
+                img3_rgb = cv2.cvtColor(img3_padded, cv2.COLOR_BGR2RGB)
+                combined = np.vstack([img1_rgb, img2_rgb, img3_rgb])
+
                 # 縦に結合
-                combined = np.vstack([img1_padded, img2_padded, img3_padded])
-                
+                # combined = np.vstack([img1_padded, img2_padded, img3_padded])
                 # RGB に変換して表示
-                combined_rgb = cv2.cvtColor(combined, cv2.COLOR_BGR2RGB)
-                st.image(combined_rgb, caption=f"画像を結合しました", use_container_width=True)
+                # combined_rgb = cv2.cvtColor(combined, cv2.COLOR_BGR2RGB)
+                # st.image(combined_rgb, caption=f"画像を結合しました", use_container_width=True)
+                st.image(combined, caption=f"画像を結合しました", use_container_width=True)
                 # st.image(canvas, caption=f"画像を結合しました", use_container_width=True)
                 st.success(f"座標: {target_center}")
                 image_flag = True
