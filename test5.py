@@ -190,22 +190,22 @@ else:
                         break
     
             # 赤い円（○）を描画
-            image_with_circle_C = image_np.copy()
+            image_with_circle_c = image_np.copy()
             if target_center:
-                # cv2.circle(image_with_circle_C, target_center, 50, (255, 0, 0), thickness=8)
+                # cv2.circle(image_with_circle_c, target_center, 50, (255, 0, 0), thickness=8)
                 axes = (65, 35)  # 横長：横55、縦25
                 angle = 0         # 回転なし
-                cv2.ellipse(image_with_circle_C, target_center, axes, angle, 0, 360, (255, 0, 0), thickness=8)
-                # st.image(image_with_circle_C, caption=f"{target_text} を検出しました", use_container_width=True)
+                cv2.ellipse(image_with_circle_c, target_center, axes, angle, 0, 360, (255, 0, 0), thickness=8)
+                # st.image(image_with_circle_c, caption=f"{target_text} を検出しました", use_container_width=True)
 
                 # 画像サイズに合わせて矩形を描画
-                h, w = image_with_circle_C.shape[:2]
-                cv2.rectangle(image_with_circle_C, (0, 0), (w - 1, h - 1), (255, 0, 255), 20)
+                h, w = image_with_circle_c.shape[:2]
+                cv2.rectangle(image_with_circle_c, (0, 0), (w - 1, h - 1), (255, 0, 255), 20)
                 
                 # サイズ取得
                 h1, w1 = image_with_circle_a.shape[:2]
                 h2, w2 = image_with_circle_b.shape[:2]
-                h3, w3 = image_with_circle_C.shape[:2]
+                h3, w3 = image_with_circle_c.shape[:2]
                 # キャンバスサイズ（幅は最大、縦は合計）
                 canvas_width = max(w1, w2, w3)
                 canvas_height = h1 + h2 + h3
