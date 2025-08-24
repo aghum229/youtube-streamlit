@@ -158,7 +158,8 @@ else:
             image_with_circle_a = image_sub_np.copy()
             h, w = image_with_circle_a.shape[:2]
             cv2.rectangle(image_with_circle_a, (0, 0), (w - 1, h - 1), (0, 0, 0), 30)
-            image_with_circle_b = np.ones((200, 200, 3), dtype=np.uint8) * 255
+            image_with_circle_b_rgb = np.ones((200, 200, 3), dtype=np.uint8) * 255
+            image_with_circle_b = cv2.cvtColor(image_with_circle_b, cv2.COLOR_BGR2RGB)
             # 下向き矢印を描画
             cv2.arrowedLine(image_with_circle_b, (100, 20), (100, 180), (255, 0, 0), thickness=40, tipLength=0.3)
             
@@ -251,7 +252,7 @@ else:
                 # RGB に変換して表示
                 # combined_rgb = cv2.cvtColor(combined, cv2.COLOR_BGR2RGB)
                 # st.image(combined_rgb, caption=f"画像を結合しました", use_container_width=True)
-                st.image(combined, caption=f"画像を結合しました", use_container_width=True)
+                st.image(combined, channels="RGB", caption=f"画像を結合しました", use_container_width=True)
                 # st.image(canvas, caption=f"画像を結合しました", use_container_width=True)
                 st.success(f"座標: {target_center}")
                 image_flag = True
