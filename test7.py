@@ -603,6 +603,11 @@ else:
             st.rerun()
     else:
         if st.session_state.manual_input_flag == 9:
+            st.session_state.manual_input_check = False
+            st.session_state.manual_input_flag = 0
+            st.session_state.qr_code_tana = False
+            st.session_state.tanaban_select_temp = ""
+            st.rerun()
             if not st.session_state.manual_input_check_select:
                 left, center, right = st.columns(3)
                 with left:
