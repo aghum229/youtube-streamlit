@@ -21,6 +21,14 @@ def preprocess_image(image_np):
     blurred = cv2.GaussianBlur(gray, (3, 3), 0)
     _, thresh = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     return thresh
+    
+def pad_to_center(img, target_width, pad_color=(255, 255, 255)):
+    h, w = img.shape[:2]
+    pad_left = (target_width - w) // 2
+    pad_right = target_width - w - pad_left
+    return cv2.copyMakeBorder(img, 0, 0, pad_left, pad_right, cv2.BORDER_CONSTANT, value=pad_color)
+
+# 画像読み込み（BGR）
 
 st.title("複数画像から指定文字を検出して赤い円（○）を描画")
 
@@ -201,7 +209,7 @@ else:
                 # 画像サイズに合わせて矩形を描画
                 h, w = image_with_circle_c.shape[:2]
                 cv2.rectangle(image_with_circle_c, (0, 0), (w - 1, h - 1), (255, 0, 255), 20)
-                
+                _= '''
                 # サイズ取得
                 h1, w1 = image_with_circle_a.shape[:2]
                 h2, w2 = image_with_circle_b.shape[:2]
@@ -220,8 +228,26 @@ else:
                 # img3 を下に貼り付け（中央揃え）
                 x3_offset = max((canvas_width - w3) // 2, 0)
                 canvas[h2:h1 + h2 + h3, x3_offset:x3_offset + w3] = image_with_circle_c
+                '''
+                img1 = image_with_circle_a
+                img2 = image_with_circle_b
+                img3 = image_with_circle_c
                 
-                st.image(canvas, caption=f"画像を結合しました", use_container_width=True)
+                # 最大横幅を取得
+                max_width = max(img1.shape[1], img2.shape[1], img3.shape[1])
+                
+                # 中央揃えでパディング
+                img1_padded = pad_to_center(img1, max_width)
+                img2_padded = pad_to_center(img2, max_width)
+                img3_padded = pad_to_center(img3, max_width)
+                
+                # 縦に結合
+                combined = np.vstack([img1_padded, img2_padded, img3_padded])
+                
+                # RGB に変換して表示
+                combined_rgb = cv2.cvtColor(combined, cv2.COLOR_BGR2RGB)
+                st.image(combined_rgb, caption=f"画像を結合しました", use_container_width=True)
+                # st.image(canvas, caption=f"画像を結合しました", use_container_width=True)
                 st.success(f"座標: {target_center}")
                 image_flag = True
             else:
