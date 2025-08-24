@@ -148,6 +148,8 @@ else:
             '''
 
             image_with_circle_a = image_sub_np.copy()
+            h, w = image_with_circle_a.shape[:2]
+            cv2.rectangle(image_with_circle_a, (0, 0), (w - 1, h - 1), (0, 0, 0), 30)
             results = reader.readtext(image_np)
             target_center = None
             if first_char == "完":
