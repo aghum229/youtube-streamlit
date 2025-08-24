@@ -190,24 +190,25 @@ else:
                         break
     
             # 赤い円（○）を描画
-            image_with_circle_b = image_np.copy()
+            image_with_circle_C = image_np.copy()
             if target_center:
-                # cv2.circle(image_with_circle_b, target_center, 50, (255, 0, 0), thickness=8)
+                # cv2.circle(image_with_circle_C, target_center, 50, (255, 0, 0), thickness=8)
                 axes = (65, 35)  # 横長：横55、縦25
                 angle = 0         # 回転なし
-                cv2.ellipse(image_with_circle_b, target_center, axes, angle, 0, 360, (255, 0, 0), thickness=8)
-                # st.image(image_with_circle_b, caption=f"{target_text} を検出しました", use_container_width=True)
+                cv2.ellipse(image_with_circle_C, target_center, axes, angle, 0, 360, (255, 0, 0), thickness=8)
+                # st.image(image_with_circle_C, caption=f"{target_text} を検出しました", use_container_width=True)
 
                 # 画像サイズに合わせて矩形を描画
-                h, w = image_with_circle_b.shape[:2]
-                cv2.rectangle(image_with_circle_b, (0, 0), (w - 1, h - 1), (255, 0, 255), 20)
+                h, w = image_with_circle_C.shape[:2]
+                cv2.rectangle(image_with_circle_C, (0, 0), (w - 1, h - 1), (255, 0, 255), 20)
                 
                 # サイズ取得
                 h1, w1 = image_with_circle_a.shape[:2]
                 h2, w2 = image_with_circle_b.shape[:2]
+                h3, w3 = image_with_circle_C.shape[:2]
                 # キャンバスサイズ（幅は最大、縦は合計）
-                canvas_width = max(w1, w2)
-                canvas_height = h1 + h2
+                canvas_width = max(w1, w2, w3)
+                canvas_height = h1 + h2 + h3
                 # 白背景キャンバス作成
                 canvas = np.ones((canvas_height, canvas_width, 3), dtype=np.uint8) * 255
                 # img1 を上に貼り付け（中央揃え）
@@ -216,6 +217,9 @@ else:
                 # img2 を下に貼り付け（中央揃え）
                 x2_offset = (canvas_width - w2) // 2
                 canvas[h1:h1 + h2, x2_offset:x2_offset + w2] = image_with_circle_b
+                # img3 を下に貼り付け（中央揃え）
+                x3_offset = (canvas_width - w3) // 2
+                canvas[h1:h1 + h2 + h3, x3_offset:x3_offset + w3] = image_with_circle_c
                 
                 st.image(canvas, caption=f"画像を結合しました", use_container_width=True)
                 st.success(f"座標: {target_center}")
