@@ -485,7 +485,9 @@ def button_make(button_text, flag):
         </style>
     """, unsafe_allow_html=True)
     st.button(button_text, key=button_text, on_click=set_flag, args=(flag,))
-    
+
+
+
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
     try:
@@ -535,6 +537,8 @@ if "manual_input_flag" not in st.session_state:
     st.session_state.manual_input_flag = 0
 if "manual_input_check_flag" not in st.session_state:
     st.session_state.manual_input_check_flag = 0
+if "manual_input_hinban" not in st.session_state:
+    st.session_state.manual_input_hinban = ""
 # if "tanaban" not in st.session_state:
 #     st.session_state.tanaban = ""
 if "tanaban_select" not in st.session_state:
@@ -579,6 +583,7 @@ if not st.session_state.user_code_entered:
         st.rerun()  # 再描画して次のステップへ
 else:
     if not st.session_state.manual_input_check:
+        st.title("入力方法選択画面")
         left, center, right = st.columns(3)
         with left:
             button_qr = st.button("QRコード")
@@ -608,6 +613,7 @@ else:
             st.session_state.qr_code_tana = False
             st.session_state.tanaban_select_temp = ""
             st.rerun()
+            st.title("参照方法選択画面")
             if not st.session_state.manual_input_check_select:
                 left, center, right = st.columns(3)
                 with left:
@@ -625,7 +631,7 @@ else:
                     elif button_manual_Hinban:
                         st.session_state.manual_input_check_flag = 1
                     else:
-                        st.session_state.manual_input_check_flag = 9
+                        st.session_state.manual_input_check_flag = 2
                     st.session_state.manual_input_check_select = True
                     st.rerun()
             else:
@@ -699,7 +705,13 @@ else:
                                 st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
                             st.rerun() 
                 elif st.session_state.manual_input_check_flag == 1:
-                    None
+                    styled_input_text()
+                    manual_input_hinban = st.text_input("品番を入力し、Enterを押してください。",
+                                                value="",
+                                                key="manual_input_hinban")
+                    if manual_input_hinban <> "":
+                        st.session_state.manual_input_hinban = manual_input_hinban
+                        st.session_state.show_camera = False
                 else:
                     if not st.session_state.qr_code_tana:
                         if st.button("入力方法を再選択"):
