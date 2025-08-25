@@ -1165,7 +1165,7 @@ else:
                                         # st.write(f"Index: '{listNumber}'") 
                                         zkOrder = st.session_state.production_order
                                         zkHistory_value = f"{tanaban_select},{zkOrder},{hinban},{process_order_name},{quantity},{datetime_str},{owner_value}"
-                                        zkHistory  = zkHistory_value + "\n" + str(zkHistory)   # zk履歴
+                                        # zkHistory  = zkHistory_value + "\n" + str(zkHistory)   # zk履歴
                                         if add_del_flag == 0: # 追加の場合
                                             zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 1)   # zk移行票No
                                             zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
@@ -1174,6 +1174,7 @@ else:
                                             zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 0)   # zk追加日時
                                             zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner_value, 0)   # zk追加者
                                             zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", -1)   # zkマップ座標
+                                            zkHistory_value = f"{zkHistory_value},add"
                                         elif add_del_flag == 1: # 削除の場合
                                             zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 3)   # zk移行票No
                                             zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 2)   # zk品番
@@ -1182,10 +1183,12 @@ else:
                                             zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 2)   # zk追加日時
                                             zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner_value, 2)   # zk追加者
                                             zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 2)   # zkマップ座標
-                                            zkDelDa = datetime_str   # zk直近削除日時
-                                            zkDelTana = tanaban_select   # zk直近削除棚番
-                                            zkDelIko = zkOrder   # zk直近削除移行票No
-                                            zkDelSya = owner_value   # zk直近削除者
+                                            zkHistory_value = f"{zkHistory_value},del"
+                                            # zkDelDa = datetime_str   # zk直近削除日時
+                                            # zkDelTana = tanaban_select   # zk直近削除棚番
+                                            # zkDelIko = zkOrder   # zk直近削除移行票No
+                                            # zkDelSya = owner_value   # zk直近削除者
+                                        zkHistory  = zkHistory_value + "\n" + str(zkHistory)   # zk履歴
                                         
                                     # zkHin = record["zkHinban__c"].splitlines()   # zk品番
                                     # zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
