@@ -880,6 +880,9 @@ else:
                         if st.button("OK"):
                             st.session_state[button_key] = True
                             st.rerun()
+                        elif st.button("NG"):
+                            st.session_state[button_key] = False
+                            st.rerun()
                     button_key = "check_ok"
                     # st.session_state[button_key] = False
                     if st.session_state.production_order != "" and button_key not in st.session_state:
