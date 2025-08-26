@@ -872,7 +872,13 @@ else:
                     # st.write(f"###「 {st.session_state.production_order} 」")
                     # st.write(f"##### でよろしいですか？")
                     # check_button_ok = st.button("ＯＫ", key="check_ok")
-                    
+
+                    @st.dialog("通知")
+                    def approve_button(message, button_key):
+                        st.write(message)
+                        if st.button("OK"):
+                            st.session_state[button_key] = True
+                            st.rerun()
                     button_key = "check_ok"
                     # st.session_state[button_key] = False
                     if button_key not in st.session_state:
