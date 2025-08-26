@@ -8,14 +8,13 @@ import configparser
 from flask import Flask, request
 import time
 
-def dialog_test():
-    # @st.experimental_dialog("承認確認")
-    @st.dialog("承認確認")
-    def approve_button3():
-        st.write("本当に良い？")
-        if st.button("OKですって"):
-            st.session_state["ok_button3"] = True
-            st.rerun()
+# @st.experimental_dialog("承認確認")
+@st.dialog("承認確認")
+def approve_button3():
+    st.write("本当に良い？")
+    if st.button("OKですって"):
+        st.session_state["ok_button3"] = True
+        st.rerun()
 if "ok_button3" not in st.session_state:
     if st.button("承認"):
         dialog_test()
