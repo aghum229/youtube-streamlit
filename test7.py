@@ -880,17 +880,17 @@ else:
                         if st.button("OK"):
                             st.session_state[button_key] = True
                             st.rerun()
-                    # button_key = "check_ok"
+                    button_key = "check_ok"
                     # st.session_state[button_key] = False
-                    if st.session_state.production_order != "" and "check_ok" not in st.session_state:
+                    if st.session_state.production_order != "" and button_key not in st.session_state:
                         # if st.button("確認"):
                         message_text = f"""
                         #### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}
-                        ###### 移行票番号(製造オーダー)は、
+                        #### 移行票番号(製造オーダー)は、
                         ## 「 {st.session_state.production_order} 」
-                        ###### でよろしいですか？
+                        #### でよろしいですか？
                         """
-                        approve_button(message_text, "check_ok")
+                        approve_button(message_text, button_key)
                     # if st.session_state.get(button_key, False):
                     #     st.success("承認されました3")
                     
@@ -904,7 +904,7 @@ else:
                     # check_okng = st.radio(f"移行票番号(製造オーダー)は、「{st.session_state.production_order}」　でよろしいですか？", ["はい", "いいえ"], index=1)
                     # if check_okng == "はい":
                     # if check_button_ok:
-                    if st.session_state.get("check_ok", False):
+                    if st.session_state.get(button_key, False):
                         st.session_state.show_camera = False
                         st.session_state.production_order_flag = True
                         st.session_state[button_key] = False
