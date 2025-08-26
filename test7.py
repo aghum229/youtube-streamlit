@@ -486,12 +486,6 @@ def button_make(button_text, flag):
     """, unsafe_allow_html=True)
     st.button(button_text, key=button_text, on_click=set_flag, args=(flag,))
 
-@st.dialog("通知")
-def approve_button(message, button_key):
-    st.write(message)
-    if st.button("OK"):
-        st.session_state[button_key] = True
-        st.rerun()
 
 
 # Autenticar no Salesforce
@@ -866,10 +860,10 @@ else:
                         #     height=0,
                         # )
         
-                    st.write(f"#### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}")
+                    # st.write(f"#### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}")
                     # st.write(f"移行票番号 : {st.session_state.production_order}") 
-                    st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
-                    st.write(f"""
+                    # st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
+                    # st.write(f"""
                         ###### 移行票番号(製造オーダー)は、
                         ## 「 {st.session_state.production_order} 」
                         ###### でよろしいですか？
@@ -878,10 +872,11 @@ else:
                     # st.write(f"###「 {st.session_state.production_order} 」")
                     # st.write(f"##### でよろしいですか？")
                     # check_button_ok = st.button("ＯＫ", key="check_ok")
+                    
                     button_key = "check_ok"
-                    st.session_state[button_key] = False
+                    # st.session_state[button_key] = False
                     if button_key not in st.session_state:
-                        if st.button("承認"):
+                        # if st.button("確認"):
                             message_text = f"""
                                 #### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}
                                 ###### 移行票番号(製造オーダー)は、
@@ -889,8 +884,9 @@ else:
                                 ###### でよろしいですか？
                                 """
                             approve_button(message_text, button_key)
-                    if st.session_state.get(button_key, False):
-                        st.success("承認されました3")
+                    # if st.session_state.get(button_key, False):
+                    #     st.success("承認されました3")
+                    
                     # left, right = st.columns(2)
                     # with left:
                     #     check_button_ok = st.button("ＯＫ", key="check_ok")
@@ -904,6 +900,7 @@ else:
                     if st.session_state.get(button_key, False):
                         st.session_state.show_camera = False
                         st.session_state.production_order_flag = True
+                        st.session_state[button_key] = False
                         st.rerun()
                     else:
                         if st.session_state.manual_input_flag == 0:
