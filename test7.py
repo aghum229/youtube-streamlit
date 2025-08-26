@@ -904,7 +904,7 @@ else:
                     # check_okng = st.radio(f"移行票番号(製造オーダー)は、「{st.session_state.production_order}」　でよろしいですか？", ["はい", "いいえ"], index=1)
                     # if check_okng == "はい":
                     # if check_button_ok:
-                    if st.session_state.get(button_key, False):
+                    if st.session_state.get("check_ok", False):
                         st.session_state.show_camera = False
                         st.session_state.production_order_flag = True
                         st.session_state[button_key] = False
