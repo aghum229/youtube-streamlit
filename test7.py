@@ -486,7 +486,19 @@ def button_make(button_text, flag):
     """, unsafe_allow_html=True)
     st.button(button_text, key=button_text, on_click=set_flag, args=(flag,))
 
-
+@st.dialog("通知")
+def approve_button(message, button_key):
+    st.write("本当に良い？")
+    if st.button("OK"):
+        st.session_state[button_key] = True
+        st.rerun()
+button_key = "test"
+st.session_state[button_key] = False
+if button_key not in st.session_state:
+    if st.button("承認"):
+        approve_button(button_key)
+if st.session_state.get(button_key, False):
+    st.success("承認されました3")
 
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
@@ -872,15 +884,30 @@ else:
                     # st.write(f"###「 {st.session_state.production_order} 」")
                     # st.write(f"##### でよろしいですか？")
                     # check_button_ok = st.button("ＯＫ", key="check_ok")
-                    left, right = st.columns(2)
-                    with left:
-                        check_button_ok = st.button("ＯＫ", key="check_ok")
-                    with right:
-                        check_button_ng = st.button("ＮＧ", key="check_ng")
+                    button_key = "check_ok"
+                    st.session_state[button_key] = False
+                    if button_key not in st.session_state:
+                        if st.button("承認"):
+                            message_text = f"""
+                                #### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}
+                                ###### 移行票番号(製造オーダー)は、
+                                ## 「 {st.session_state.production_order} 」
+                                ###### でよろしいですか？
+                                """
+                            approve_button(message_text, button_key)
+                    if st.session_state.get(button_key, False):
+                        st.success("承認されました3")
+                    # left, right = st.columns(2)
+                    # with left:
+                    #     check_button_ok = st.button("ＯＫ", key="check_ok")
+                    # with right:
+                    #     check_button_ng = st.button("ＮＧ", key="check_ng")
+                    
                     # st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。") 
                     # check_okng = st.radio(f"移行票番号(製造オーダー)は、「{st.session_state.production_order}」　でよろしいですか？", ["はい", "いいえ"], index=1)
                     # if check_okng == "はい":
-                    if check_button_ok:
+                    # if check_button_ok:
+                    if st.session_state.get(button_key, False):
                         st.session_state.show_camera = False
                         st.session_state.production_order_flag = True
                         st.rerun()
