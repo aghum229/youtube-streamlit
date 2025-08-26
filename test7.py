@@ -877,13 +877,13 @@ else:
                     # st.session_state[button_key] = False
                     if button_key not in st.session_state:
                         # if st.button("確認"):
-                            message_text = f"""
-                                #### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}
-                                ###### 移行票番号(製造オーダー)は、
-                                ## 「 {st.session_state.production_order} 」
-                                ###### でよろしいですか？
-                                """
-                            approve_button(message_text, button_key)
+                        message_text = f"""
+                            #### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}
+                            ###### 移行票番号(製造オーダー)は、
+                            ## 「 {st.session_state.production_order} 」
+                            ###### でよろしいですか？
+                            """
+                        approve_button(message_text, button_key)
                     # if st.session_state.get(button_key, False):
                     #     st.success("承認されました3")
                     
