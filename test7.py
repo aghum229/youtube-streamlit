@@ -1237,16 +1237,16 @@ else:
                                 #     atualizar_tanaban_del(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkDelDa, zkDelTana, zkDelIko, zkDelSya, zkOrder)
                                 update_tanaban(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkOrder)
                                 st.write("次の処理に進むには、「取消」ボタンを押してください。")
-                                if zkScroll_flag == 1:
-                                    components.html("""
-                                        <script>
-                                          window.scrollTo({
-                                            top: 3000,  // スクロールする高さ（px）
-                                            behavior: 'smooth'
-                                          });
-                                        </script>
-                                        """, height=0)
-                                    zkScroll_flag = 0
+                                # if zkScroll_flag == 1:
+                                #     components.html("""
+                                #         <script>
+                                #           window.scrollTo({
+                                #             top: 3000,  // スクロールする高さ（px）
+                                #             behavior: 'smooth'
+                                #           });
+                                #         </script>
+                                #         """, height=0)
+                                #     zkScroll_flag = 0
         
                                 # reset_form()
                                 # JavaScriptでフォーカスを当てる
