@@ -488,17 +488,11 @@ def button_make(button_text, flag):
 
 @st.dialog("通知")
 def approve_button(message, button_key):
-    st.write("本当に良い？")
+    st.write(message)
     if st.button("OK"):
         st.session_state[button_key] = True
         st.rerun()
-button_key = "test"
-st.session_state[button_key] = False
-if button_key not in st.session_state:
-    if st.button("承認"):
-        approve_button(button_key)
-if st.session_state.get(button_key, False):
-    st.success("承認されました3")
+
 
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
