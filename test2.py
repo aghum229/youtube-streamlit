@@ -17,8 +17,7 @@ def approve_button3():
         st.rerun()
 if "ok_button3" not in st.session_state:
     if st.button("承認"):
-        dialog_test()
-        # approve_button3()
+        approve_button3()
 if st.session_state.get("ok_button3", False):
     st.success("承認されました3")
 st.stop
