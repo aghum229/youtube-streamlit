@@ -8,7 +8,8 @@ import configparser
 from flask import Flask, request
 import time
 
-@st.experimental_dialog("承認確認")
+# @st.experimental_dialog("承認確認")
+@st.dialog("承認確認")
 def approve_button3():
     st.write("本当に良い？")
     if st.button("OKですって"):
