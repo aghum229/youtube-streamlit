@@ -879,9 +879,9 @@ else:
                         if st.button("OK"):
                             st.session_state[button_key] = True
                             st.rerun()
-                    button_key = "check_ok"
+                    # button_key = "check_ok"
                     # st.session_state[button_key] = False
-                    if button_key not in st.session_state:
+                    if "check_ok" not in st.session_state:
                         # if st.button("確認"):
                         message_text = f"""
                         #### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}
@@ -889,7 +889,7 @@ else:
                         ## 「 {st.session_state.production_order} 」
                         ###### でよろしいですか？
                         """
-                        approve_button(message_text, button_key)
+                        approve_button(message_text, "check_ok")
                     # if st.session_state.get(button_key, False):
                     #     st.success("承認されました3")
                     
