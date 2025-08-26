@@ -864,10 +864,11 @@ else:
                     # st.write(f"移行票番号 : {st.session_state.production_order}") 
                     # st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
                     # st.write(f"""
-                        ###### 移行票番号(製造オーダー)は、
-                        ## 「 {st.session_state.production_order} 」
-                        ###### でよろしいですか？
-                        """)
+                    #     ###### 移行票番号(製造オーダー)は、
+                    #     ## 「 {st.session_state.production_order} 」
+                    #     ###### でよろしいですか？
+                    #     """)
+                    
                     # st.write(f"##### 移行票番号(製造オーダー)は、 ")
                     # st.write(f"###「 {st.session_state.production_order} 」")
                     # st.write(f"##### でよろしいですか？")
