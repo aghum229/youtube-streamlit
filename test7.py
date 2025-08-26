@@ -882,7 +882,7 @@ else:
                             st.rerun()
                     # button_key = "check_ok"
                     # st.session_state[button_key] = False
-                    if "check_ok" not in st.session_state:
+                    if st.session_state.production_order /= "" and "check_ok" not in st.session_state:
                         # if st.button("確認"):
                         message_text = f"""
                         #### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}
