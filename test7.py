@@ -1286,7 +1286,7 @@ else:
                                             st.rerun()
                                     dialog_button_2()
                                     if not st.session_state.get("dialog_closed", False):
-                                        if st.button("右上の「×」は使用禁止です。", key="dialog_ok_close"):
+                                        if st.button("右上の「×」は使用禁止です。"):
                                             dialog_button_2()
                                             # if zkScroll_flag == 1:
                                 #     components.html("""
