@@ -925,7 +925,8 @@ else:
                         st.session_state.production_order_flag = False
                         st.session_state.qr_code = None
                         st.session_state.production_order = None
-                        del st.session_state[button_key]
+                        if button_key in st.session_state:
+                            del st.session_state[button_key]
                         # st.rerun()
                 else:
                     if st.button("移行票番号を再入力"):
