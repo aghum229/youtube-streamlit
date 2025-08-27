@@ -879,9 +879,9 @@ else:
                         st.write(message)
                         left, right = st.columns(2)
                         with left:
-                            st.button("OK")
+                            st.button("OK", key="dialog_check_ok")
                         with right:
-                            st.button("NG")
+                            st.button("NG", key="dialog_check_ng")
                         if st.button("OK"):
                             st.session_state[button_key] = True
                             st.rerun()
