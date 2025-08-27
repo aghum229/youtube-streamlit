@@ -486,7 +486,19 @@ def button_make(button_text, flag):
     """, unsafe_allow_html=True)
     st.button(button_text, key=button_text, on_click=set_flag, args=(flag,))
 
-
+def approve_button(message, button_key):
+    st.write(message)
+    left, right = st.columns(2)
+    with left:
+        dialog_check_ok_flag = st.button("OK", key="dialog_check_ok")
+    with right:
+        dialog_check_ng_flag = st.button("NG", key="dialog_check_ng")
+    if dialog_check_ok_flag:
+        st.session_state[button_key] = True
+        st.rerun()
+    elif dialog_check_ng_flag:
+        st.session_state[button_key] = False
+        st.rerun()
 
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
@@ -874,20 +886,8 @@ else:
                     # st.write(f"##### でよろしいですか？")
                     # check_button_ok = st.button("ＯＫ", key="check_ok")
 
-                    @st.dialog("通知")
-                    def approve_button(message, button_key):
-                        st.write(message)
-                        left, right = st.columns(2)
-                        with left:
-                            dialog_check_ok_flag = st.button("OK", key="dialog_check_ok")
-                        with right:
-                            dialog_check_ng_flag = st.button("NG", key="dialog_check_ng")
-                        if dialog_check_ok_flag:
-                            st.session_state[button_key] = True
-                            st.rerun()
-                        elif dialog_check_ng_flag:
-                            st.session_state[button_key] = False
-                            st.rerun()
+                    @st.dialog("棚番と移行票番号確認")
+                    def dialog_button():
                     button_key = "check_ok"
                     # st.session_state[button_key] = False
                     if st.session_state.production_order != "" and button_key not in st.session_state:
@@ -899,7 +899,9 @@ else:
                         ## 「 {st.session_state.production_order} 」
                         #### でよろしいですか？
                         """
-                        result_flag = approve_button(message_text, button_key)
+                        @st.dialog("棚番と移行票番号確認")
+                        def dialog_button():
+                            result_flag = approve_button(message_text, button_key)
                     # if st.session_state.get(button_key, False):
                     #     st.success("承認されました3")
                     
