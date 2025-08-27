@@ -1284,7 +1284,7 @@ else:
                                             st.session_state["dialog_closed"] = True
                                             st.rerun()
                                     dialog_button_2()
-                                    if not st.session_state.get("dialog_closed", True):
+                                    if not st.session_state.get("dialog_closed", False):
                                         st.session_state["dialog_closed"] = False
                                         st.session_state.qr_code_tana = False
                                         st.session_state.tanaban_select_temp = ""
