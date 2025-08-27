@@ -879,18 +879,19 @@ else:
                         st.write(message)
                         left, right = st.columns(2)
                         with left:
-                            st.button("OK", key="dialog_check_ok")
+                            dialog_check_ok_flag = st.button("OK", key="dialog_check_ok")
                         with right:
-                            st.button("NG", key="dialog_check_ng")
-                        if st.button("OK"):
+                            dialog_check_ng_flag = st.button("NG", key="dialog_check_ng")
+                        if dialog_check_ok_flag:
                             st.session_state[button_key] = True
                             st.rerun()
-                        elif st.button("NG"):
+                        elif dialog_check_ng_flag:
                             st.session_state[button_key] = False
                             st.rerun()
                     button_key = "check_ok"
-                    # st.session_state[button_key] = False
-                    if st.session_state.production_order != "" and button_key not in st.session_state:
+                    st.session_state[button_key] = False
+                    # if st.session_state.production_order != "" and button_key not in st.session_state:
+                    if st.session_state.production_order != "" and st.session_state[button_key] == False:
                         # if st.button("確認"):
                         message_text = f"""
                         #### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}
