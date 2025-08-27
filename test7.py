@@ -1285,20 +1285,7 @@ else:
                                             st.session_state["dialog_closed"] = True
                                             st.rerun()
                                     dialog_button_2()
-                                    if dialog_ok_flag == False:
-                                        # st.session_state["dialog_closed"] = False
-                                        st.session_state.qr_code_tana = False
-                                        st.session_state.tanaban_select_temp = ""
-                                        if st.session_state.manual_input_flag == 0:
-                                            st.session_state.show_camera = True  # 必要に応じて棚番再選択
-                                        st.session_state.qr_code = ""
-                                        st.session_state.production_order = ""
-                                        st.session_state.production_order_flag = False
-                                        st.session_state[button_key] = False
-                                        del st.session_state[button_key]
-                                        zkScroll_flag = 0
-                                        st.session_state["dialog_closed"] = True
-                                        st.rerun()
+
                                             # if zkScroll_flag == 1:
                                 #     components.html("""
                                 #         <script>
