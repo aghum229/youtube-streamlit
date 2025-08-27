@@ -885,9 +885,7 @@ else:
                     # st.write(f"###「 {st.session_state.production_order} 」")
                     # st.write(f"##### でよろしいですか？")
                     # check_button_ok = st.button("ＯＫ", key="check_ok")
-
-                    @st.dialog("棚番と移行票番号確認")
-                    def dialog_button():
+                    
                     button_key = "check_ok"
                     # st.session_state[button_key] = False
                     if st.session_state.production_order != "" and button_key not in st.session_state:
@@ -901,6 +899,8 @@ else:
                         """
                         @st.dialog("棚番と移行票番号確認")
                         def dialog_button():
+                            global message_text
+                            global button_key
                             result_flag = approve_button(message_text, button_key)
                     # if st.session_state.get(button_key, False):
                     #     st.success("承認されました3")
