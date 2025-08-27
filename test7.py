@@ -1266,7 +1266,7 @@ else:
                                 # st.session_state[button_key] = False
                                 if zkScroll_flag == 1 and button_key not in st.session_state:
                                     @st.dialog("処理結果通知")
-                                    def dialog_button():
+                                    def dialog_button_2():
                                         st.write(result_text)
                                         dialog_ok_flag = st.button("OK", key="dialog_ok")
                                         if dialog_ok_flag:
@@ -1281,6 +1281,7 @@ else:
                                             zkScroll_flag = 0
                                             # st.session_state[button_key] = True
                                             st.rerun()
+                                    dialog_button_2()
                                             # if zkScroll_flag == 1:
                                 #     components.html("""
                                 #         <script>
