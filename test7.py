@@ -860,7 +860,7 @@ else:
                         #     height=0,
                         # )
         
-                    # st.write(f"#### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}")
+                    st.write(f"#### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}")
                     # st.write(f"移行票番号 : {st.session_state.production_order}") 
                     # st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
                     # st.write(f"""
@@ -892,14 +892,14 @@ else:
                     # st.session_state[button_key] = False
                     if st.session_state.production_order != "" and button_key not in st.session_state:
                     # if st.session_state.production_order != "" and st.session_state[button_key] == False:
-                        # if st.button("確認"):
+                        # if st.button("棚番と移行票番号確認"):
                         message_text = f"""
                         #### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}
                         #### 移行票番号(製造オーダー)は、
                         ## 「 {st.session_state.production_order} 」
                         #### でよろしいですか？
                         """
-                        approve_button(message_text, button_key)
+                        result_flag = approve_button(message_text, button_key)
                     # if st.session_state.get(button_key, False):
                     #     st.success("承認されました3")
                     
@@ -917,6 +917,7 @@ else:
                         st.session_state.show_camera = False
                         st.session_state.production_order_flag = True
                         st.session_state[button_key] = False
+                        del st.session_state[button_key]
                         st.rerun()
                     else:
                         if st.session_state.manual_input_flag == 0:
@@ -924,6 +925,7 @@ else:
                         st.session_state.production_order_flag = False
                         st.session_state.qr_code = None
                         st.session_state.production_order = None
+                        del st.session_state[button_key]
                         # st.rerun()
                 else:
                     if st.button("移行票番号を再入力"):
