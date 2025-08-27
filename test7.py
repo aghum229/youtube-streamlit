@@ -250,6 +250,7 @@ def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
 def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkOrder):
     global add_del_flag  # 0:追加　1:削除
     global zkScroll_flag  # 初期値0
+    global result_text
     try:
         # sf.snps_um__Process__c.update(item_id, {"zkHinban__c": zkHin})
         # _= '''
@@ -267,9 +268,11 @@ def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTu
         # st.success(f"##### snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkOrder}' を追加しました。")
         zkScroll_flag = 1
         if add_del_flag == 0: # 追加の場合
-            st.success(f"棚番 '{zkTana}' に、移行票No '{zkOrder}' を追加しました。")
+            # st.success(f"棚番 '{zkTana}' に、移行票No '{zkOrder}' を追加しました。")
+            result_text = f"棚番 '{zkTana}' に、移行票No '{zkOrder}' を追加しました。"
         else:
-            st.success(f"棚番 '{zkTana}' から、移行票No '{zkOrder}' を削除しました。")
+            # st.success(f"棚番 '{zkTana}' から、移行票No '{zkOrder}' を削除しました。")
+            result_text = f"棚番 '{zkTana}' から、移行票No '{zkOrder}' を削除しました。"
     except Exception as e:
         st.error(f"更新エラー: {e}")
         reset_form()
@@ -1258,8 +1261,27 @@ else:
                                 # else: # 削除の場合
                                 #     atualizar_tanaban_del(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkDelDa, zkDelTana, zkDelIko, zkDelSya, zkOrder)
                                 update_tanaban(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkOrder)
-                                st.write("次の処理に進むには、「取消」ボタンを押してください。")
-                                # if zkScroll_flag == 1:
+                                # st.write("次の処理に進むには、「取消」ボタンを押してください。")
+                                button_key = "check_ok_2"
+                                # st.session_state[button_key] = False
+                                if zkScroll_flag == 1 and button_key not in st.session_state:
+                                    @st.dialog("処理結果通知")
+                                    def dialog_button():
+                                        st.write(result_text)
+                                        dialog_ok_flag = st.button("OK", key="dialog_ok")
+                                        if dialog_ok_flag:
+                                            st.session_state.qr_code_tana = False
+                                            # st.session_state.tanaban = ""
+                                            st.session_state.tanaban_select_temp = ""
+                                            if st.session_state.manual_input_flag == 0:
+                                                st.session_state.show_camera = True  # 必要に応じて棚番再選択
+                                            st.session_state.qr_code = ""
+                                            st.session_state.production_order = ""
+                                            st.session_state.production_order_flag = False
+                                            zkScroll_flag = 0
+                                            # st.session_state[button_key] = True
+                                            st.rerun()
+                                            # if zkScroll_flag == 1:
                                 #     components.html("""
                                 #         <script>
                                 #           window.scrollTo({
