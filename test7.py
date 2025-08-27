@@ -877,6 +877,11 @@ else:
                     @st.dialog("通知")
                     def approve_button(message, button_key):
                         st.write(message)
+                        left, right = st.columns(2)
+                        with left:
+                            st.button("OK")
+                        with right:
+                            st.button("NG")
                         if st.button("OK"):
                             st.session_state[button_key] = True
                             st.rerun()
@@ -918,7 +923,7 @@ else:
                         st.session_state.production_order_flag = False
                         st.session_state.qr_code = None
                         st.session_state.production_order = None
-                        st.rerun()
+                        # st.rerun()
                 else:
                     if st.button("移行票番号を再入力"):
                         st.session_state.data = None
