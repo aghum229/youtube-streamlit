@@ -1267,7 +1267,8 @@ else:
                                 if zkScroll_flag == 1 and button_key not in st.session_state:
                                     @st.dialog("処理結果通知")
                                     def dialog_button_2():
-                                        st.session_state["dialog_closed"] = True
+                                        global dialog_ok_flag
+                                        # st.session_state["dialog_closed"] = True
                                         st.write(result_text)
                                         dialog_ok_flag = st.button("OK", key="dialog_ok")
                                         if dialog_ok_flag:
@@ -1284,8 +1285,8 @@ else:
                                             st.session_state["dialog_closed"] = True
                                             st.rerun()
                                     dialog_button_2()
-                                    if not st.session_state.get("dialog_closed", False):
-                                        st.session_state["dialog_closed"] = False
+                                    if dialog_ok_flag == False:
+                                        # st.session_state["dialog_closed"] = False
                                         st.session_state.qr_code_tana = False
                                         st.session_state.tanaban_select_temp = ""
                                         if st.session_state.manual_input_flag == 0:
