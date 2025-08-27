@@ -1279,9 +1279,12 @@ else:
                                             st.session_state.production_order = ""
                                             st.session_state.production_order_flag = False
                                             zkScroll_flag = 0
+                                            st.session_state["dialog_closed"] = True
                                             # st.session_state[button_key] = True
                                             st.rerun()
                                     dialog_button_2()
+                                    if not st.session_state.get("dialog_closed", False):
+                                        dialog_button_2()
                                             # if zkScroll_flag == 1:
                                 #     components.html("""
                                 #         <script>
