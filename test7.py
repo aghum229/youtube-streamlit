@@ -902,6 +902,7 @@ else:
                             global message_text
                             global button_key
                             result_flag = approve_button(message_text, button_key)
+                        dialog_button()
                     # if st.session_state.get(button_key, False):
                     #     st.success("承認されました3")
                     
