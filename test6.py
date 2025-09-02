@@ -765,7 +765,8 @@ else:
                             records = data_catch_hinmoku(st.session_state.sf, st.session_state["manual_input_hinban"])
                             if records:
                                 hinban_list = ["---"] + sorted([r["snps_um__ItemName__c"] for r in records])  # zk履歴 AITC_ID18__c, snps_um__ItemName__c, AITC_PrintItemName__c
-                                hinban_select = st.selectbox(
+                                # hinban_select = st.selectbox(
+                                hinban_select = st.radio(
                                     "品番を選んでください", hinban_list, key="hinban_select"
                                 )
                                 st.session_state.hinban_select_value = hinban_select
