@@ -314,15 +314,15 @@ def data_catch_hinmoku(sf, item_name):
         result = sf.query(query)
         records = result.get("records", [])
         if records:
-            return records[]
+            return records
         else:
-            st.warning(f"品目名称 '{item_name}' に関連する snps_um__Process__c が見つかりませんでした。")
-            return None
+            st.warning(f"品目名称 '{item_name}' に関連する snps_um__Item__c が見つかりませんでした。")
+            # return None
             # reset_form()
             st.stop()
     except Exception as e:
         st.error(f"品目名称検索エラー: {e}")
-        return None
+        # return None
         # reset_form()
         st.stop()
 
