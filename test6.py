@@ -750,7 +750,7 @@ else:
                                                     value="",
                                                     key="manual_input_hinban")
                         if manual_input_hinban:
-                            st.session_state.manual_input_hinban = manual_input_hinban
+                            # st.session_state.manual_input_hinban = manual_input_hinban
                             st.session_state.manual_input_hinban_entered = True
                             st.session_state.show_camera = False
                     else:
