@@ -760,7 +760,7 @@ else:
                         records = data_catch_hinmoku(st.session_state.sf, st.session_state["manual_input_hinban"])
                         if records:
                             if not st.session_state.hinban_select_flag:
-                                hinban_list = ["---"] + [r["snps_um__ItemName__c"] for r in records]  # zk履歴 AITC_ID18__c, snps_um__ItemName__c, AITC_PrintItemName__c
+                                hinban_list = ["---"] + sorted([r["snps_um__ItemName__c"] for r in records])  # zk履歴 AITC_ID18__c, snps_um__ItemName__c, AITC_PrintItemName__c
                                 # st.write(f"選択前棚番号: {tanaban_select}")
                                 hinban_select = st.selectbox(
                                     "品番を選んでください", hinban_list, key="hinban_select"
@@ -810,7 +810,7 @@ else:
                                 datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                                 '''
                             else:
-                                None
+                                st.write(st.session_state.shinban_select)
                 else:
                     if not st.session_state.qr_code_tana:
                         if st.button("入力方法を再選択"):
