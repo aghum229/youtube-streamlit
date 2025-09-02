@@ -763,11 +763,10 @@ else:
                             #     st.session_state.hinban_select = "---"
                             if not st.session_state.hinban_select_flag:
                                 hinban_list = ["---"] + sorted([r["snps_um__ItemName__c"] for r in records])  # zk履歴 AITC_ID18__c, snps_um__ItemName__c, AITC_PrintItemName__c
-                                # st.write(f"選択前棚番号: {tanaban_select}")
                                 hinban_select = st.selectbox(
                                     "品番を選んでください", hinban_list, key="hinban_select"
                                 )                      
-                                if hinban_select != "" and hinban_select != "---":
+                                if st.session_state.hinban_select != "" and st.session_state.hinban_select != "---":
                                     st.session_state.hinban_select_flag = True
                                     st.rerun()  # 再描画して次のステップへ
                                 _= '''
@@ -804,8 +803,8 @@ else:
                             # else:
                             #    st.write(st.session_state.hinban_select)
                             #    st.stop()
-                            if st.session_state.get("hinban_select_flag", True):
-                                st.write(f"選択された品番：{hinban_select}")
+                            if st.session_state.get("hinban_select_flag", False):
+                                st.write(f"選択された品番：{st.session_state.hinban_select}")
                                 st.stop()
                         else:
                             st.write("対象品番がありません。")
