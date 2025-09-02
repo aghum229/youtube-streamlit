@@ -768,7 +768,6 @@ else:
                                     "品番を選んでください", hinban_list, key="hinban_select"
                                 )                      
                                 if hinban_select != "" and hinban_select != "---":
-                                    st.write(hinban_select)
                                     st.session_state.hinban_select_flag = True
                                     st.rerun()  # 再描画して次のステップへ
                                 _= '''
@@ -802,8 +801,11 @@ else:
                                             listNumber = 1
                                 datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                                 '''
-                            else:
-                                st.write(st.session_state.hinban_select)
+                            # else:
+                            #    st.write(st.session_state.hinban_select)
+                            #    st.stop()
+                            if st.session_state.get("hinban_select_flag", False):
+                                st.write(f"選択された品番：{hinban_select}")
                                 st.stop()
                 else:
                     if not st.session_state.qr_code_tana:
