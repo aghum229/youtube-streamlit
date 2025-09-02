@@ -304,6 +304,28 @@ def data_catch(sf, item_id):
         # reset_form()
         st.stop()
 
+def data_catch_hinmoku(sf, item_name):
+    query = f"""
+        SELECT AITC_ID18__c, snps_um__ItemName__c, AITC_PrintItemName__c
+        FROM snps_um__Item__c
+        WHERE snps_um__ItemName__c LIKE '%{item_name}%'
+    """
+    try:
+        result = sf.query(query)
+        records = result.get("records", [])
+        if records:
+            return records[0]
+        else:
+            st.warning(f"品目名称 '{item_name}' に関連する snps_um__Process__c が見つかりませんでした。")
+            return None
+            # reset_form()
+            st.stop()
+    except Exception as e:
+        st.error(f"品目名称検索エラー: {e}")
+        return None
+        # reset_form()
+        st.stop()
+
 def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     """
     指定されたlistNoの値を更新する関数。
