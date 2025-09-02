@@ -645,11 +645,11 @@ else:
             st.rerun()
     else:
         if st.session_state.manual_input_flag == 9:
-            st.session_state.manual_input_check = False
-            st.session_state.manual_input_flag = 0
-            st.session_state.qr_code_tana = False
-            st.session_state.tanaban_select_temp = ""
-            st.rerun()
+            # st.session_state.manual_input_check = False
+            # st.session_state.manual_input_flag = 0
+            # st.session_state.qr_code_tana = False
+            # st.session_state.tanaban_select_temp = ""
+            # st.rerun()
             st.title("参照方法選択画面")
             if not st.session_state.manual_input_check_select:
                 left, center, right = st.columns(3)
@@ -749,6 +749,55 @@ else:
                     if manual_input_hinban:
                         st.session_state.manual_input_hinban = manual_input_hinban
                         st.session_state.show_camera = False
+                    
+                    record = data_catch_hinmoku(st.session_state.sf, manual_input_hinban)
+                    if record:
+                        hinban_list = record["snps_um__ItemName__c"].tolist()  # zk履歴 AITC_ID18__c, snps_um__ItemName__c, AITC_PrintItemName__c
+                        # st.write(f"選択前棚番号: {tanaban_select}")
+                        hinban_select = st.selectbox(
+                            "品番を選んでください", hinban_list, key="hinban_select"
+                        )                      
+                        if hinban_select != "":
+                            # st.session_state.tanaban = tanaban_select
+                            st.session_state.tanaban_select_temp = tanaban_select
+                            st.session_state.show_camera = False
+                            st.session_state.qr_code_tana = True
+                            # st.write(st.session_state.qr_code_tana)
+                            st.session_state.qr_code = ""
+                            st.session_state.production_order = ""
+                            st.session_state.production_order_flag = False
+                            st.rerun()  # 再描画して次のステップへ
+                        _= '''
+                        # zkTana = record["zkTanaban__c"].split(",")   # zk棚番
+                        # listCount = len(zkTana)
+                        zkHistory = record["zkHistory__c"]  # zk履歴
+                        zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
+                        listCount = len(zkTana_list)
+                        if listCount > 2:
+                            for index, item in enumerate(zkTana_list):
+                                # st.write(f"for文で検索した棚番: '{item}'") 
+                                # st.write(f"検索させる棚番: '{tanaban_select}'")  
+                                if item == tanaban_select:
+                                    listNumber = index
+                                    listAdd = 0
+                                    break  # 条件を満たしたらループを終了
+                                else:
+                                    listAdd = 1
+                        else:
+                            if listCount == 1:
+                                if zkTana_list != tanaban_select:
+                                    listAdd = 1
+                                else:
+                                    listNumber = 0
+                            else:
+                                if zkTana_list[0] != tanaban_select and zkTana_list[1] != tanaban_select:
+                                    listAdd = 1
+                                elif zkTana_list[0] == tanaban_select:
+                                    listNumber = 0
+                                else:
+                                    listNumber = 1
+                        datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
+                        '''
                 else:
                     if not st.session_state.qr_code_tana:
                         if st.button("入力方法を再選択"):
