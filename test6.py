@@ -810,6 +810,7 @@ else:
                                 st.write(f"選択された品番：{st.session_state.hinban_select_value}")
                                 st.stop()
                         else:
+                            st.write(f"選択された品番：{st.session_state.hinban_select_value}")
                             st.write("対象品番がありません。")
                             st.stop()
                 else:
