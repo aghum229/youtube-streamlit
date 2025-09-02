@@ -250,6 +250,7 @@ def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
 def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkOrder):
     global add_del_flag  # 0:追加　1:削除
     global zkScroll_flag  # 初期値0
+    global result_text
     try:
         # sf.snps_um__Process__c.update(item_id, {"zkHinban__c": zkHin})
         # _= '''
@@ -267,9 +268,11 @@ def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTu
         # st.success(f"##### snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkOrder}' を追加しました。")
         zkScroll_flag = 1
         if add_del_flag == 0: # 追加の場合
-            st.success(f"棚番 '{zkTana}' に、移行票No '{zkOrder}' を追加しました。")
+            # st.success(f"棚番 '{zkTana}' に、移行票No '{zkOrder}' を追加しました。")
+            result_text = f"棚番 '{zkTana}' に、移行票No '{zkOrder}' を追加しました。"
         else:
-            st.success(f"棚番 '{zkTana}' から、移行票No '{zkOrder}' を削除しました。")
+            # st.success(f"棚番 '{zkTana}' から、移行票No '{zkOrder}' を削除しました。")
+            result_text = f"棚番 '{zkTana}' から、移行票No '{zkOrder}' を削除しました。"
     except Exception as e:
         st.error(f"更新エラー: {e}")
         reset_form()
@@ -297,6 +300,28 @@ def data_catch(sf, item_id):
             st.stop()
     except Exception as e:
         st.error(f"ID(18桁)検索エラー: {e}")
+        return None
+        # reset_form()
+        st.stop()
+
+def data_catch_hinmoku(sf, item_name):
+    query = f"""
+        SELECT AITC_ID18__c, snps_um__ItemName__c, AITC_PrintItemName__c
+        FROM snps_um__Item__c
+        WHERE snps_um__ItemName__c LIKE '%{item_name}%'
+    """
+    try:
+        result = sf.query(query)
+        records = result.get("records", [])
+        if records:
+            return records[0]
+        else:
+            st.warning(f"品目名称 '{item_name}' に関連する snps_um__Process__c が見つかりませんでした。")
+            return None
+            # reset_form()
+            st.stop()
+    except Exception as e:
+        st.error(f"品目名称検索エラー: {e}")
         return None
         # reset_form()
         st.stop()
@@ -455,6 +480,9 @@ def styled_input_text():
         unsafe_allow_html=True
     )
 
+def tool_tips(text):
+    st.markdown(f"<p style='font-size:12px;'>{text}</p>", unsafe_allow_html=True)
+
 def set_flag(flag):
     global add_del_flag
     global button_flag
@@ -482,7 +510,21 @@ def button_make(button_text, flag):
         </style>
     """, unsafe_allow_html=True)
     st.button(button_text, key=button_text, on_click=set_flag, args=(flag,))
-    
+
+def approve_button(message, button_key):
+    st.write(message)
+    left, right = st.columns(2)
+    with left:
+        dialog_check_ok_flag = st.button("OK", key="dialog_check_ok")
+    with right:
+        dialog_check_ng_flag = st.button("NG", key="dialog_check_ng")
+    if dialog_check_ok_flag:
+        st.session_state[button_key] = True
+        st.rerun()
+    elif dialog_check_ng_flag:
+        st.session_state[button_key] = False
+        st.rerun()
+
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
     try:
@@ -526,8 +568,14 @@ if "manual_input" not in st.session_state:
     st.session_state.manual_input = ""
 if "manual_input_check" not in st.session_state:
     st.session_state.manual_input_check = False
+if "manual_input_check_select" not in st.session_state:
+    st.session_state.manual_input_check_select = False
 if "manual_input_flag" not in st.session_state:
     st.session_state.manual_input_flag = 0
+if "manual_input_check_flag" not in st.session_state:
+    st.session_state.manual_input_check_flag = 0
+if "manual_input_hinban" not in st.session_state:
+    st.session_state.manual_input_hinban = ""
 # if "tanaban" not in st.session_state:
 #     st.session_state.tanaban = ""
 if "tanaban_select" not in st.session_state:
@@ -572,16 +620,19 @@ if not st.session_state.user_code_entered:
         st.rerun()  # 再描画して次のステップへ
 else:
     if not st.session_state.manual_input_check:
+        st.title("入力方法選択画面")
         left, center, right = st.columns(3)
         with left:
             button_qr = st.button("QRコード")
-            st.write("棚番と移行票番号をQRコードで入力")
+            tool_tips("(棚番と移行票番号をQRコードで入力)")
+            # st.markdown('<p style="font-size:12px;">(棚番と移行票番号をQRコードで入力)</p>', unsafe_allow_html=True)
+            # st.write("###### (棚番と移行票番号をQRコードで入力)")
         with center:
             button_manual = st.button("手動入力")
-            st.write("棚番と移行票番号を手動で入力")
+            tool_tips("(棚番と移行票番号を手動で入力)")
         with right:
             button_reference = st.button("参照")
-            st.write("品番や移行票番号から棚番を検索")
+            tool_tips("(品番や移行票番号から棚番を検索)")
         if button_qr or button_manual or button_reference: 
             if button_qr:
                 st.session_state.manual_input_flag = 0
@@ -594,13 +645,142 @@ else:
             st.rerun()
     else:
         if st.session_state.manual_input_flag == 9:
-            st.write("現在、参照機能は使用できません。")
-            if st.button("入力方法を再選択"):
-                st.session_state.manual_input_check = False
-                st.session_state.manual_input_flag = 0
-                st.session_state.qr_code_tana = False
-                st.session_state.tanaban_select_temp = ""
-                st.rerun()
+            st.session_state.manual_input_check = False
+            st.session_state.manual_input_flag = 0
+            st.session_state.qr_code_tana = False
+            st.session_state.tanaban_select_temp = ""
+            st.rerun()
+            st.title("参照方法選択画面")
+            if not st.session_state.manual_input_check_select:
+                left, center, right = st.columns(3)
+                with left:
+                    button_qr_Ikohyo = st.button("移行票番号(QRコード)")
+                    st.write("移行票番号をQRコードで検索")
+                with center:
+                    button_manual_Hinban = st.button("品番(手動入力)")
+                    st.write("品番を手動で入力し検索(曖昧検索可)")
+                with right:
+                    button_manual_Tanaban = st.button("棚番(手動入力)")
+                    st.write("棚番を手動で選択し検索")
+                if button_qr_Ikohyo or button_manual_Hinban or button_manual_Tanaban: 
+                    if button_qr_Ikohyo:
+                        st.session_state.manual_input_check_flag = 0
+                    elif button_manual_Hinban:
+                        st.session_state.manual_input_check_flag = 1
+                    else:
+                        st.session_state.manual_input_check_flag = 2
+                    st.session_state.manual_input_check_select = True
+                    st.rerun()
+            else:
+                if st.session_state.manual_input_check_flag == 0:
+                    if not st.session_state.production_order_flag:
+                        if st.session_state.manual_input_flag == 0:
+                            qr_code_kari = ""
+                            if st.button("移行票(製造オーダー)を再選択", key="camera_rerun"):
+                                st.session_state.show_camera = True
+                                st.session_state.qr_code = ""
+                                st.session_state.production_order = None
+                                st.session_state.production_order_flag = False
+                                st.rerun()
+                            if qr_code_kari == "":
+                                st.session_state.show_camera = True
+                                st.write("移行票(製造オーダー)のQRコードをスキャンしてください:")
+                                qr_code_kari = qrcode_scanner(key="qrcode_scanner_fixed")
+                                if qr_code_kari is not None and qr_code_kari.strip() != "":
+                                    st.session_state.qr_code = qr_code_kari.strip()
+                                
+                                if "qr_code" in st.session_state and st.session_state.qr_code != "":
+                                    st.session_state.production_order = f"{st.session_state.qr_code}"
+                                    st.session_state.show_camera = False
+                                    
+                        else:                   
+                            styled_input_text()
+                            manual_input = st.text_input("移行票番号を入力し、Enterを押してください。 (1～6桁、例: 12345):",
+                                                        value="",
+                                                        max_chars=6,
+                                                        key="manual_input")
+                            if manual_input and manual_input.isdigit():
+                                st.session_state.production_order = f"PO-{manual_input.zfill(6)}"
+                                # st.session_state.manual_input_value = manual_input
+                                st.session_state.show_camera = False
+                            
+           
+                        st.write(f"#### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}")
+                        # st.write(f"移行票番号 : {st.session_state.production_order}") 
+                        st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
+                        st.write(f"""
+                            ###### 移行票番号(製造オーダー)は、
+                            ## 「 {st.session_state.production_order} 」
+                            ###### でよろしいですか？
+                            """)
+                        left, right = st.columns(2)
+                        with left:
+                            check_button_ok = st.button("ＯＫ", key="check_ok")
+                        with right:
+                            check_button_ng = st.button("ＮＧ", key="check_ng")
+                        if check_button_ok:
+                            st.session_state.show_camera = False
+                            st.session_state.production_order_flag = True
+                            st.rerun()
+                        else:
+                            if st.session_state.manual_input_flag == 0:
+                                st.session_state.show_camera = True
+                            st.session_state.production_order_flag = False
+                            st.session_state.qr_code = None
+                            st.session_state.production_order = None
+                            # st.rerun()
+                    else:
+                        if st.button("移行票番号を再入力"):
+                            st.session_state.data = None
+                            st.session_state.material = None
+                            st.session_state.material_weight = None
+                            st.session_state.cumulative_cost = 0.0
+                            st.session_state.production_order_flag = False
+                            st.session_state.qr_code = ""
+                            st.session_state.production_order = ""
+                            if st.session_state.manual_input_flag == 0:
+                                st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
+                            st.rerun() 
+                elif st.session_state.manual_input_check_flag == 1:
+                    styled_input_text()
+                    manual_input_hinban = st.text_input("品番を入力し、Enterを押してください。",
+                                                value="",
+                                                key="manual_input_hinban")
+                    if manual_input_hinban:
+                        st.session_state.manual_input_hinban = manual_input_hinban
+                        st.session_state.show_camera = False
+                else:
+                    if not st.session_state.qr_code_tana:
+                        if st.button("入力方法を再選択"):
+                            st.session_state.manual_input_check = False
+                            st.session_state.manual_input_flag = 0
+                            st.session_state.qr_code_tana = False
+                            st.session_state.tanaban_select_temp = ""
+                            st.rerun()
+                        tanaban_select = ""
+                        if st.session_state.manual_input_flag == 0:
+                            st.write("棚番のQRコードをスキャンしてください:")
+                            qr_code_tana = qrcode_scanner(key='qrcode_scanner_tana')  
+                        
+                            if qr_code_tana:  
+                                # st.write(qr_code_tana) 
+                                tanaban_select = qr_code_tana.strip()
+                        else:
+                            zkTanalistSplit = zkTanalist.split(",")
+                            tanaban_select = st.selectbox(
+                                "棚番号を選んでください", zkTanalistSplit, key="tanaban_select"
+                            )
+                        
+                        if tanaban_select != "" and tanaban_select != "完A-0": # 完A-0は存在しない置き場(変更前提の初期値としてのみ利用)
+                            st.session_state.tanaban_select_temp = tanaban_select
+                            st.session_state.show_camera = False
+                            st.session_state.qr_code_tana = True
+                            st.session_state.qr_code = ""
+                            st.session_state.production_order = ""
+                            st.session_state.production_order_flag = False
+                            st.rerun()  # 再描画して次のステップへ
+                    else:
+                        None
         else:  # st.session_state.manual_input_flag が 0 or 1 の場合
             # st.write(st.session_state.qr_code_tana)
             # st.session_state.manual_input_flag = 1
@@ -717,29 +897,55 @@ else:
                         #     height=0,
                         # )
         
-                    st.write(f"#### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}")
+                    st.write(f"#### 現在選択されている棚番 :   {st.session_state.tanaban_select_temp}")
                     # st.write(f"移行票番号 : {st.session_state.production_order}") 
-                    st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
-                    st.write(f"""
-                        ###### 移行票番号(製造オーダー)は、
-                        ## 「 {st.session_state.production_order} 」
-                        ###### でよろしいですか？
-                        """)
+                    # st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
+                    # st.write(f"""
+                    #     ###### 移行票番号(製造オーダー)は、
+                    #     ## 「 {st.session_state.production_order} 」
+                    #     ###### でよろしいですか？
+                    #     """)
+                    
                     # st.write(f"##### 移行票番号(製造オーダー)は、 ")
                     # st.write(f"###「 {st.session_state.production_order} 」")
                     # st.write(f"##### でよろしいですか？")
                     # check_button_ok = st.button("ＯＫ", key="check_ok")
-                    left, right = st.columns(2)
-                    with left:
-                        check_button_ok = st.button("ＯＫ", key="check_ok")
-                    with right:
-                        check_button_ng = st.button("ＮＧ", key="check_ng")
+                    
+                    button_key = "check_ok"
+                    # st.session_state[button_key] = False
+                    if st.session_state.production_order != "" and button_key not in st.session_state:
+                    # if st.session_state.production_order != "" and st.session_state[button_key] == False:
+                        # if st.button("棚番と移行票番号確認"):
+                        message_text = f"""
+                        #### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}
+                        #### 移行票番号(製造オーダー)は、
+                        ## 「 {st.session_state.production_order} 」
+                        #### でよろしいですか？
+                        """
+                        @st.dialog("棚番と移行票番号確認")
+                        def dialog_button():
+                            global message_text
+                            global button_key
+                            result_flag = approve_button(message_text, button_key)
+                        dialog_button()
+                    # if st.session_state.get(button_key, False):
+                    #     st.success("承認されました3")
+                    
+                    # left, right = st.columns(2)
+                    # with left:
+                    #     check_button_ok = st.button("ＯＫ", key="check_ok")
+                    # with right:
+                    #     check_button_ng = st.button("ＮＧ", key="check_ng")
+                    
                     # st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。") 
                     # check_okng = st.radio(f"移行票番号(製造オーダー)は、「{st.session_state.production_order}」　でよろしいですか？", ["はい", "いいえ"], index=1)
                     # if check_okng == "はい":
-                    if check_button_ok:
+                    # if check_button_ok:
+                    if st.session_state.get(button_key, False):
                         st.session_state.show_camera = False
                         st.session_state.production_order_flag = True
+                        st.session_state[button_key] = False
+                        del st.session_state[button_key]
                         st.rerun()
                     else:
                         if st.session_state.manual_input_flag == 0:
@@ -747,6 +953,8 @@ else:
                         st.session_state.production_order_flag = False
                         st.session_state.qr_code = None
                         st.session_state.production_order = None
+                        if button_key in st.session_state:
+                            del st.session_state[button_key]
                         # st.rerun()
                 else:
                     if st.button("移行票番号を再入力"):
@@ -1022,7 +1230,7 @@ else:
                                         # st.write(f"Index: '{listNumber}'") 
                                         zkOrder = st.session_state.production_order
                                         zkHistory_value = f"{tanaban_select},{zkOrder},{hinban},{process_order_name},{quantity},{datetime_str},{owner_value}"
-                                        zkHistory  = zkHistory_value + "\n" + str(zkHistory)   # zk履歴
+                                        # zkHistory  = zkHistory_value + "\n" + str(zkHistory)   # zk履歴
                                         if add_del_flag == 0: # 追加の場合
                                             zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 1)   # zk移行票No
                                             zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
@@ -1031,6 +1239,7 @@ else:
                                             zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 0)   # zk追加日時
                                             zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner_value, 0)   # zk追加者
                                             zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", -1)   # zkマップ座標
+                                            zkHistory_value = f"{zkHistory_value},add"
                                         elif add_del_flag == 1: # 削除の場合
                                             zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 3)   # zk移行票No
                                             zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 2)   # zk品番
@@ -1039,10 +1248,12 @@ else:
                                             zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 2)   # zk追加日時
                                             zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner_value, 2)   # zk追加者
                                             zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 2)   # zkマップ座標
-                                            zkDelDa = datetime_str   # zk直近削除日時
-                                            zkDelTana = tanaban_select   # zk直近削除棚番
-                                            zkDelIko = zkOrder   # zk直近削除移行票No
-                                            zkDelSya = owner_value   # zk直近削除者
+                                            zkHistory_value = f"{zkHistory_value},del"
+                                            # zkDelDa = datetime_str   # zk直近削除日時
+                                            # zkDelTana = tanaban_select   # zk直近削除棚番
+                                            # zkDelIko = zkOrder   # zk直近削除移行票No
+                                            # zkDelSya = owner_value   # zk直近削除者
+                                        zkHistory  = zkHistory_value + "\n" + str(zkHistory)   # zk履歴
                                         
                                     # zkHin = record["zkHinban__c"].splitlines()   # zk品番
                                     # zkKan = record["zkKanryoKoutei__c"].splitlines()   # zk完了工程
@@ -1072,17 +1283,41 @@ else:
                                 # else: # 削除の場合
                                 #     atualizar_tanaban_del(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkDelDa, zkDelTana, zkDelIko, zkDelSya, zkOrder)
                                 update_tanaban(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkOrder)
-                                st.write("次の処理に進むには、「取消」ボタンを押してください。")
-                                if zkScroll_flag == 1:
-                                    components.html("""
-                                        <script>
-                                          window.scrollTo({
-                                            top: 3000,  // スクロールする高さ（px）
-                                            behavior: 'smooth'
-                                          });
-                                        </script>
-                                        """, height=0)
-                                    zkScroll_flag = 0
+                                # st.write("次の処理に進むには、「取消」ボタンを押してください。")
+                                button_key = "check_ok_2"
+                                # st.session_state[button_key] = False
+                                if zkScroll_flag == 1 and button_key not in st.session_state:
+                                    @st.dialog("処理結果通知")
+                                    def dialog_button_2():
+                                        global dialog_ok_flag
+                                        # st.session_state["dialog_closed"] = True
+                                        st.write(result_text)
+                                        dialog_ok_flag = st.button("OK", key="dialog_ok")
+                                        if dialog_ok_flag:
+                                            st.session_state.qr_code_tana = False
+                                            st.session_state.tanaban_select_temp = ""
+                                            if st.session_state.manual_input_flag == 0:
+                                                st.session_state.show_camera = True  # 必要に応じて棚番再選択
+                                            st.session_state.qr_code = ""
+                                            st.session_state.production_order = ""
+                                            st.session_state.production_order_flag = False
+                                            st.session_state[button_key] = False
+                                            del st.session_state[button_key]
+                                            zkScroll_flag = 0
+                                            st.session_state["dialog_closed"] = True
+                                            st.rerun()
+                                    dialog_button_2()
+
+                                            # if zkScroll_flag == 1:
+                                #     components.html("""
+                                #         <script>
+                                #           window.scrollTo({
+                                #             top: 3000,  // スクロールする高さ（px）
+                                #             behavior: 'smooth'
+                                #           });
+                                #         </script>
+                                #         """, height=0)
+                                #     zkScroll_flag = 0
         
                                 # reset_form()
                                 # JavaScriptでフォーカスを当てる
