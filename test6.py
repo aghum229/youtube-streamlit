@@ -759,6 +759,8 @@ else:
                     else:
                         records = data_catch_hinmoku(st.session_state.sf, st.session_state["manual_input_hinban"])
                         if records:
+                            if "hinban_select" not in st.session_state:
+                                st.session_state.hinban_select = "---"
                             if not st.session_state.hinban_select_flag:
                                 hinban_list = ["---"] + sorted([r["snps_um__ItemName__c"] for r in records])  # zk履歴 AITC_ID18__c, snps_um__ItemName__c, AITC_PrintItemName__c
                                 # st.write(f"選択前棚番号: {tanaban_select}")
