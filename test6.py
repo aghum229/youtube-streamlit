@@ -759,11 +759,11 @@ else:
                             st.session_state.show_camera = False
                             st.rerun() 
                     else:
-                        records = data_catch_hinmoku(st.session_state.sf, st.session_state["manual_input_hinban"])
-                        if records:
-                            # if "hinban_select" not in st.session_state:
-                            #     st.session_state.hinban_select = "---"
-                            if not st.session_state.hinban_select_flag:
+                        # if "hinban_select" not in st.session_state:
+                        #     st.session_state.hinban_select = "---"
+                        if not st.session_state.hinban_select_flag:
+                            records = data_catch_hinmoku(st.session_state.sf, st.session_state["manual_input_hinban"])
+                            if records:
                                 hinban_list = ["---"] + sorted([r["snps_um__ItemName__c"] for r in records])  # zk履歴 AITC_ID18__c, snps_um__ItemName__c, AITC_PrintItemName__c
                                 hinban_select = st.selectbox(
                                     "品番を選んでください", hinban_list, key="hinban_select"
