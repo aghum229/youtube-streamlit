@@ -750,11 +750,11 @@ else:
                 elif st.session_state.manual_input_check_flag == 1:
                     if not st.session_state.manual_input_hinban_entered:
                         styled_input_text()
-                        manual_input_hinban = st.text_input("品番を入力し、Enterを押してください。",
+                        manual_input_hinban_kari = st.text_input("品番を入力し、Enterを押してください。",
                                                     value="",
-                                                    key="manual_input_hinban")
+                                                    key="manual_input_hinban_00")
                         if manual_input_hinban:
-                            # st.session_state.manual_input_hinban = manual_input_hinban
+                            st.session_state.manual_input_hinban = manual_input_hinban_kari
                             st.session_state.manual_input_hinban_entered = True
                             st.session_state.show_camera = False
                             st.rerun() 
