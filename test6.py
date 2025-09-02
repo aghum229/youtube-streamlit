@@ -314,7 +314,7 @@ def data_catch_hinmoku(sf, item_name):
         result = sf.query(query)
         records = result.get("records", [])
         if records:
-            return records[0]
+            return records[]
         else:
             st.warning(f"品目名称 '{item_name}' に関連する snps_um__Process__c が見つかりませんでした。")
             return None
@@ -750,9 +750,9 @@ else:
                         st.session_state.manual_input_hinban = manual_input_hinban
                         st.session_state.show_camera = False
                     
-                    record = data_catch_hinmoku(st.session_state.sf, manual_input_hinban)
-                    if record:
-                        hinban_list = record["snps_um__ItemName__c"].tolist()  # zk履歴 AITC_ID18__c, snps_um__ItemName__c, AITC_PrintItemName__c
+                    records = data_catch_hinmoku(st.session_state.sf, manual_input_hinban)
+                    if records:
+                        hinban_list = records["snps_um__ItemName__c"].tolist()  # zk履歴 AITC_ID18__c, snps_um__ItemName__c, AITC_PrintItemName__c
                         # st.write(f"選択前棚番号: {tanaban_select}")
                         hinban_select = st.selectbox(
                             "品番を選んでください", hinban_list, key="hinban_select"
