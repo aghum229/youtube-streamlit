@@ -768,15 +768,6 @@ else:
                                 if hinban_select != "" and hinban_select != "---":
                                     st.write(hinban_select)
                                     st.session_state.hinban_select_flag = True
-                                    # st.session_state.manual_input_hinban_entered = False
-                                    # st.session_state.tanaban = tanaban_select
-                                    # st.session_state.tanaban_select_temp = tanaban_select
-                                    # st.session_state.show_camera = False
-                                    # st.session_state.qr_code_tana = True
-                                    # st.write(st.session_state.qr_code_tana)
-                                    # st.session_state.qr_code = ""
-                                    # st.session_state.production_order = ""
-                                    # st.session_state.production_order_flag = False
                                     st.rerun()  # 再描画して次のステップへ
                                 _= '''
                                 # zkTana = record["zkTanaban__c"].split(",")   # zk棚番
@@ -811,6 +802,7 @@ else:
                                 '''
                             else:
                                 st.write(st.session_state.hinban_select)
+                                st.stop()
                 else:
                     if not st.session_state.qr_code_tana:
                         if st.button("入力方法を再選択"):
