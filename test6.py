@@ -753,6 +753,7 @@ else:
                             # st.session_state.manual_input_hinban = manual_input_hinban
                             st.session_state.manual_input_hinban_entered = True
                             st.session_state.show_camera = False
+                            st.rerun() 
                     else:
                         records = data_catch_hinmoku(st.session_state.sf, manual_input_hinban)
                         if records:
