@@ -810,7 +810,7 @@ else:
                                 datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                                 '''
                             else:
-                                st.write(st.session_state.shinban_select)
+                                st.write(st.session_state.hinban_select)
                 else:
                     if not st.session_state.qr_code_tana:
                         if st.button("入力方法を再選択"):
