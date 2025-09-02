@@ -755,7 +755,7 @@ else:
                             st.session_state.show_camera = False
                             st.rerun() 
                     else:
-                        records = data_catch_hinmoku(st.session_state.sf, manual_input_hinban)
+                        records = data_catch_hinmoku(st.session_state.sf, st.session_state["manual_input_hinban"])
                         if records:
                             hinban_list = [r["snps_um__ItemName__c"] for r in records]  # zk履歴 AITC_ID18__c, snps_um__ItemName__c, AITC_PrintItemName__c
                             # st.write(f"選択前棚番号: {tanaban_select}")
