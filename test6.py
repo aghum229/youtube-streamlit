@@ -753,7 +753,7 @@ else:
                         manual_input_hinban_kari = st.text_input("品番を入力し、Enterを押してください。",
                                                     value="",
                                                     key="manual_input_hinban_00")
-                        if manual_input_hinban:
+                        if manual_input_hinban_kari:
                             st.session_state.manual_input_hinban = manual_input_hinban_kari
                             st.session_state.manual_input_hinban_entered = True
                             st.session_state.show_camera = False
