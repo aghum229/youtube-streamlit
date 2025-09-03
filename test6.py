@@ -857,7 +857,7 @@ else:
                                         use_container_width=True,
                                         key="editable_table"
                                     )
-                                    selected_tanaban = st.selectbox("棚番を選択してください", df["棚番"])
+                                    selected_tanaban = st.selectbox("棚番を選択してください", st.session_state.df_search_result["棚番"])
                                     st.write("選択された棚番： {selected_tanaban}")
                                     st.stop()
                                 else:
