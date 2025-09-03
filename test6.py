@@ -592,11 +592,14 @@ if "hinban_select_value" not in st.session_state:
     st.session_state.hinban_select_value = ""
 if "hinban_select_flag" not in st.session_state:
     st.session_state.hinban_select_flag = False
+if "df_search_result" not in st.session_state:
+    st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
 
 if "user_code_entered" not in st.session_state:
     st.session_state.user_code_entered = False
     st.session_state.user_code = ""
 
+item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※変更禁止
 zkTanalist = """
     完A-0,完A-1,完A-2,完A-3,完A-4,完A-5,完A-6,完A-7,完A-8,完A-9,完A-10,完A-11,完A-12,完A-13,完A-14,完A-15,完A-16,完A-17,完A-18,完A-19,完A-20,
     完B-1,完B-2,完B-3,完B-4,完B-5,完B-6,完B-7,完B-8,完B-9,完B-10,完B-11,完B-12,完B-13,完B-14,完B-15,完B-16,完B-17,完B-18,完B-19,完B-20,
@@ -765,9 +768,8 @@ else:
                             records = data_catch_hinmoku(st.session_state.sf, st.session_state["manual_input_hinban"])
                             if records:
                                 hinban_list = ["---"] + sorted([r["snps_um__ItemName__c"] for r in records])  # zk履歴 AITC_ID18__c, snps_um__ItemName__c, AITC_PrintItemName__c
-                                # hinban_select = st.selectbox(
-                                hinban_select = st.radio(
-                                    "品番を選んでください", hinban_list, key="hinban_select"
+                                hinban_select = st.selectbox(
+                                    "品番を選んでください　(クリックするとリストが開きます)", hinban_list, key="hinban_select"
                                 )
                                 st.session_state.hinban_select_value = hinban_select
                                 if st.session_state.hinban_select_value != "" and st.session_state.hinban_select_value != "---":
@@ -807,13 +809,79 @@ else:
                             # else:
                             #    st.write(st.session_state.hinban_select)
                             #    st.stop()
-                            if st.session_state.get("hinban_select_flag", False):
-                                st.write(f"選択された品番：{st.session_state.hinban_select_value}")
-                                st.stop()
+                            # if st.session_state.get("hinban_select_flag", False):
+                            #     st.write(f"選択された品番：{st.session_state.hinban_select_value}")
+                            #     st.stop()
                         else:
-                            st.write(f"選択された品番：{st.session_state.hinban_select_value}")
-                            st.write("対象品番がありません。")
-                            st.stop()
+                            st.session_state.hinban_select_flag = False
+                            # st.write(f"選択された品番：{st.session_state.hinban_select_value}")
+                            # st.stop()
+                            listCount = 0
+                            listCountEtc = 0
+                            listAdd = 0  # リストに追加する場合は 1 
+                            listNumber = 0
+                            zkTana = ""
+                            zkIko = ""
+                            zkHin = ""
+                            zkKan = ""
+                            zkSu = ""
+                            zkTuiDa = ""
+                            zkTuiSya = ""
+                            zkMap = ""
+                            zkDelDa = ""
+                            zkDelTana = ""
+                            zkDelIko = ""
+                            zkDelSya = ""
+                            zkShoBu = ""
+                            zkShoU = ""
+                            zkOrder = ""
+                            zkHistory = ""
+                            record = data_catch(st.session_state.sf, item_id)
+                            if record:
+                                # zkHistory = record["zkHistory__c"]  # zk履歴
+                                zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
+                                zkIko_list = record["zkIkohyoNo__c"].splitlines() 
+                                zkHin_list = record["zkHinban__c"].splitlines() 
+                                zkKan_list = record["zkKanryoKoutei__c"].splitlines() 
+                                zkSu_list = record["zkSuryo__c"].splitlines() 
+                                # listCount = len(zkTana_list)
+                                listCount = len(zkHin_list)
+                                zkHin_Search = st.session_state.hinban_select_value
+                                if listCount > 2:
+                                    for index, item in enumerate(zkHin_list):
+                                        # st.write(f"for文で検索した棚番: '{item}'") 
+                                        # st.write(f"検索させる棚番: '{tanaban_select}'")
+                                        zkIko = zkIko_list[index].split(",")
+                                        zkHin = item.split(",")
+                                        zkKan = zkKan_list[index].split(",")
+                                        zkSu = zkSu_list[index].split(",")
+                                        if zkHin_Search in zkHin:
+                                            # st.write(f"{strA} はリストに含まれています")
+                                            for index_2, item_2 in enumerate(zkHin):
+                                                if item_2 == zkHin_Search:
+                                                    st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[index], zkIko[index_2, zkHin[index_2], zkKan[index_2], zkSu[index_2]
+                                                else:
+                                                    None
+                                        else:
+                                            # st.write(f"{strA} はリストに含まれていません")    
+                                    
+                                    st.write(st.session_state.df_search_result)
+                                    st.dataframe(st.session_state.df_search_result)
+                                    st.stop()
+                                else:
+                                    if listCount == 1:
+                                        if zkTana_list != tanaban_select:
+                                            listAdd = 1
+                                        else:
+                                            listNumber = 0
+                                    else:
+                                        if zkTana_list[0] != tanaban_select and zkTana_list[1] != tanaban_select:
+                                            listAdd = 1
+                                        elif zkTana_list[0] == tanaban_select:
+                                            listNumber = 0
+                                        else:
+                                            listNumber = 1
+                                datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                 else:
                     if not st.session_state.qr_code_tana:
                         if st.button("入力方法を再選択"):
@@ -1176,7 +1244,7 @@ else:
                                 st.session_state.production_order = ""
                                 st.session_state.production_order_flag = False
                                 st.rerun()
-                            item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※変更禁止
+                            # item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※変更禁止
                             
                             # 棚番設定用マスタ(棚番を変更する場合には、下記に追加または削除してからatualizar_tanaban_addkari()を実行の事。尚、棚番は改行区切りである。)
                             #atualizar_tanaban_addkari(st.session_state.sf, item_id)
