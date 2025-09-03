@@ -862,13 +862,7 @@ else:
                                                     st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[index], zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2]]
                                                     st.write("zkHin_list:", zkHin_list)
                                                     st.write("df_search_result:", st.session_state.df_search_result)
-                                                else:
-                                                    None
-                                        else:
-                                            # st.write(f"{strA} はリストに含まれていません") 
-                                            None
-                                    if st.session_state.df_search_result:
-                                        st.write(st.session_state.df_search_result)
+                                    st.write(st.session_state.df_search_result)
                                     # st.dataframe(st.session_state.df_search_result)
                                     st.stop()
                                 else:
