@@ -860,6 +860,8 @@ else:
                                             for index_2, item_2 in enumerate(zkHin):
                                                 if item_2 == zkHin_Search:
                                                     st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[index], zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2]]
+                                                    st.write("zkHin_list:", zkHin_list)
+                                                    st.write("df_search_result:", st.session_state.df_search_result)
                                                 else:
                                                     None
                                         else:
