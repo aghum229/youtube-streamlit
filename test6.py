@@ -247,7 +247,7 @@ def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiD
         # reset_form()
         st.stop()
         
-def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkOrder):
+def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkMap, zkHistory, zkOrder):
     global add_del_flag  # 0:追加　1:削除
     global zkScroll_flag  # 初期値0
     global result_text
@@ -259,8 +259,6 @@ def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTu
             "zkHinban__c": zkHin,
             "zkKanryoKoutei__c": zkKan,
             "zkSuryo__c": zkSu,
-            "zkTuikaDatetime__c": zkTuiDa,
-            "zkTuikaSya__c": zkTuiSya,
             "zkMap__c": zkMap,
             "zkHistory__c": zkHistory
         })
@@ -332,7 +330,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     "-"の場合はupdate_valueで上書き、それ以外はカンマ区切りで追加。
 
     Parameters:
-    - zkKari: dict or list形式のデータ(注記.zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMapの順で処理の事)
+    - zkKari: dict or list形式のデータ(注記.zkIko, zkHin, zkKan, zkSu, zkMapの順で処理の事)
     - dbItem: データベースの項目名(注記.表示ラベルではない)
     - listNo: 対象のインデックスまたはキー
     - update_value: 追加する値
@@ -817,24 +815,11 @@ else:
                             # st.write(f"選択された品番：{st.session_state.hinban_select_value}")
                             # st.stop()
                             listCount = 0
-                            listCountEtc = 0
-                            listAdd = 0  # リストに追加する場合は 1 
-                            listNumber = 0
                             zkTana = ""
                             zkIko = ""
                             zkHin = ""
                             zkKan = ""
                             zkSu = ""
-                            zkTuiDa = ""
-                            zkTuiSya = ""
-                            zkMap = ""
-                            zkDelDa = ""
-                            zkDelTana = ""
-                            zkDelIko = ""
-                            zkDelSya = ""
-                            zkShoBu = ""
-                            zkShoU = ""
-                            zkOrder = ""
                             zkHistory = ""
                             record = data_catch(st.session_state.sf, item_id)
                             if record:
@@ -1257,15 +1242,15 @@ else:
                             zkHin = ""
                             zkKan = ""
                             zkSu = ""
-                            zkTuiDa = ""
-                            zkTuiSya = ""
+                            # zkTuiDa = ""
+                            # zkTuiSya = ""
                             zkMap = ""
-                            zkDelDa = ""
-                            zkDelTana = ""
-                            zkDelIko = ""
-                            zkDelSya = ""
-                            zkShoBu = ""
-                            zkShoU = ""
+                            # zkDelDa = ""
+                            # zkDelTana = ""
+                            # zkDelIko = ""
+                            # zkDelSya = ""
+                            # zkShoBu = ""
+                            # zkShoU = ""
                             zkOrder = ""
                             zkHistory = ""
                             record = data_catch(st.session_state.sf, item_id)
@@ -1347,8 +1332,8 @@ else:
                                         zkHin = zkIko
                                         zkKan = zkIko
                                         zkSu = zkIko
-                                        zkTuiDa = zkIko
-                                        zkTuiSya = zkIko
+                                        # zkTuiDa = zkIko
+                                        # zkTuiSya = zkIko
                                         zkMap = zkIko
                                         zkHistory = zkIko
                                         # zkDelDa = zkDelDa
@@ -1366,8 +1351,8 @@ else:
                                             zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
                                             zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
                                             zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
-                                            zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 0)   # zk追加日時
-                                            zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner_value, 0)   # zk追加者
+                                            # zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 0)   # zk追加日時
+                                            # zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner_value, 0)   # zk追加者
                                             zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", -1)   # zkマップ座標
                                             zkHistory_value = f"{zkHistory_value},add"
                                         elif add_del_flag == 1: # 削除の場合
@@ -1375,8 +1360,8 @@ else:
                                             zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 2)   # zk品番
                                             zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 2)   # zk完了工程
                                             zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 2)   # zk数量
-                                            zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 2)   # zk追加日時
-                                            zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner_value, 2)   # zk追加者
+                                            # zkTuiDa = list_update_zkKari(zkTuiDa, "zkTuikaDatetime__c", listNumber, datetime_str, 2)   # zk追加日時
+                                            # zkTuiSya = list_update_zkKari(zkTuiSya, "zkTuikaSya__c", listNumber, owner_value, 2)   # zk追加者
                                             zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 2)   # zkマップ座標
                                             zkHistory_value = f"{zkHistory_value},del"
                                             # zkDelDa = datetime_str   # zk直近削除日時
@@ -1412,7 +1397,8 @@ else:
                                 #     atualizar_tanaban_add(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkOrder)
                                 # else: # 削除の場合
                                 #     atualizar_tanaban_del(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkDelDa, zkDelTana, zkDelIko, zkDelSya, zkOrder)
-                                update_tanaban(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkOrder)
+                                # update_tanaban(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkOrder)
+                                update_tanaban(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkMap, zkHistory, zkOrder)
                                 # st.write("次の処理に進むには、「取消」ボタンを押してください。")
                                 button_key = "check_ok_2"
                                 # st.session_state[button_key] = False
