@@ -592,6 +592,8 @@ if "hinban_select_flag" not in st.session_state:
     st.session_state.hinban_select_flag = False
 if "df_search_result" not in st.session_state:
     st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+if "selected_row" not in st.session_state:
+    st.session_state.selected_row = None
 
 if "user_code_entered" not in st.session_state:
     st.session_state.user_code_entered = False
@@ -847,8 +849,16 @@ else:
                                                     st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[index], zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2]]
                                                     # st.write("zkHin_list:", zkHin_list)
                                                     # st.write("df_search_result:", st.session_state.df_search_result)
-                                    st.write(st.session_state.df_search_result)
+                                    # st.write(st.session_state.df_search_result)
                                     # st.dataframe(st.session_state.df_search_result)
+                                    edited_df = st.data_editor(
+                                        st.session_state.df_search_result,
+                                        num_rows="dynamic",
+                                        use_container_width=True,
+                                        key="editable_table"
+                                    )
+                                    selected_tanaban = st.selectbox("棚番を選択してください", df["棚番"])
+                                    st.write("選択された棚番： {selected_tanaban}")
                                     st.stop()
                                 else:
                                     if listCount == 1:
