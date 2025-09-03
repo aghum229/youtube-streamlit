@@ -865,9 +865,9 @@ else:
                                         else:
                                             # st.write(f"{strA} はリストに含まれていません") 
                                             None
-                                    
-                                    st.write(st.session_state.df_search_result)
-                                    st.dataframe(st.session_state.df_search_result)
+                                    if st.session_state.df_search_result:
+                                        st.write(st.session_state.df_search_result)
+                                    # st.dataframe(st.session_state.df_search_result)
                                     st.stop()
                                 else:
                                     if listCount == 1:
