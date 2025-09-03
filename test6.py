@@ -863,7 +863,8 @@ else:
                                                 else:
                                                     None
                                         else:
-                                            # st.write(f"{strA} はリストに含まれていません")    
+                                            # st.write(f"{strA} はリストに含まれていません") 
+                                            None
                                     
                                     st.write(st.session_state.df_search_result)
                                     st.dataframe(st.session_state.df_search_result)
