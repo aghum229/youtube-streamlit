@@ -659,8 +659,8 @@ else:
             # st.session_state.qr_code_tana = False
             # st.session_state.tanaban_select_temp = ""
             # st.rerun()
-            st.title("参照方法選択画面")
             if not st.session_state.manual_input_check_select:
+                st.title("参照方法選択画面")
                 left, center, right = st.columns(3)
                 with left:
                     button_qr_Ikohyo = st.button("移行票番号(QRコード)")
@@ -681,9 +681,13 @@ else:
                     st.session_state.manual_input_check_select = True
                     st.rerun()
             else:
+                if st.button("参照方法を再選択"):
+                    st.session_state.manual_input_check_select = False
+                    st.rerun()
                 if st.session_state.manual_input_check_flag == 0:
                     if not st.session_state.production_order_flag:
                         if st.session_state.manual_input_flag == 0:
+                            st.title("移行票番号をQRコードで検索")
                             qr_code_kari = ""
                             if st.button("移行票(製造オーダー)を再選択", key="camera_rerun"):
                                 st.session_state.show_camera = True
@@ -703,6 +707,7 @@ else:
                                     st.session_state.show_camera = False
                                     
                         else:                   
+                            st.title("移行票番号を手動入力で検索")
                             styled_input_text()
                             manual_input = st.text_input("移行票番号を入力し、Enterを押してください。 (1～6桁、例: 12345):",
                                                         value="",
@@ -751,7 +756,7 @@ else:
                                 st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
                             st.rerun() 
                 elif st.session_state.manual_input_check_flag == 1:
-                    st.title("品番入力で参照")
+                    st.title("品番入力で検索")
                     if not st.session_state.manual_input_hinban_entered:
                         styled_input_text()
                         manual_input_hinban_kari = st.text_input("品番を入力し、Enterを押してください。",
@@ -777,42 +782,7 @@ else:
                                     st.session_state.hinban_select_flag = True
                                     st.rerun()  # 再描画して次のステップへ
                                 _= '''
-                                # zkTana = record["zkTanaban__c"].split(",")   # zk棚番
-                                # listCount = len(zkTana)
-                                zkHistory = record["zkHistory__c"]  # zk履歴
-                                zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
-                                listCount = len(zkTana_list)
-                                if listCount > 2:
-                                    for index, item in enumerate(zkTana_list):
-                                        # st.write(f"for文で検索した棚番: '{item}'") 
-                                        # st.write(f"検索させる棚番: '{tanaban_select}'")  
-                                        if item == tanaban_select:
-                                            listNumber = index
-                                            listAdd = 0
-                                            break  # 条件を満たしたらループを終了
-                                        else:
-                                            listAdd = 1
-                                else:
-                                    if listCount == 1:
-                                        if zkTana_list != tanaban_select:
-                                            listAdd = 1
-                                        else:
-                                            listNumber = 0
-                                    else:
-                                        if zkTana_list[0] != tanaban_select and zkTana_list[1] != tanaban_select:
-                                            listAdd = 1
-                                        elif zkTana_list[0] == tanaban_select:
-                                            listNumber = 0
-                                        else:
-                                            listNumber = 1
-                                datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                                 '''
-                            # else:
-                            #    st.write(st.session_state.hinban_select)
-                            #    st.stop()
-                            # if st.session_state.get("hinban_select_flag", False):
-                            #     st.write(f"選択された品番：{st.session_state.hinban_select_value}")
-                            #     st.stop()
                         else:
                             # st.write(f"選択された品番：{st.session_state.hinban_select_value}")
                             # st.stop()
@@ -841,6 +811,9 @@ else:
                                     st.rerun()
                                 if st.button("品番を再入力"):
                                     st.session_state.manual_input_hinban_entered = False
+                                    st.session_state.hinban_select_flag = False
+                                    st.rerun()
+                                if st.button("品番を再選択"):
                                     st.session_state.hinban_select_flag = False
                                     st.rerun()
                                 # zkHistory = record["zkHistory__c"]  # zk履歴
@@ -878,22 +851,11 @@ else:
                                     selected_tanaban = st.selectbox("棚番を選択してください", st.session_state.df_search_result["棚番"])
                                     st.write("選択された棚番： {selected_tanaban}")
                                     st.stop()
-                                else:
-                                    if listCount == 1:
-                                        if zkTana_list != tanaban_select:
-                                            listAdd = 1
-                                        else:
-                                            listNumber = 0
-                                    else:
-                                        if zkTana_list[0] != tanaban_select and zkTana_list[1] != tanaban_select:
-                                            listAdd = 1
-                                        elif zkTana_list[0] == tanaban_select:
-                                            listNumber = 0
-                                        else:
-                                            listNumber = 1
-                                datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
+                                # else:
+                                # datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                 else:
                     if not st.session_state.qr_code_tana:
+                        st.title("棚番を手動で選択し検索")
                         if st.button("入力方法を再選択"):
                             st.session_state.manual_input_check = False
                             st.session_state.manual_input_flag = 0
