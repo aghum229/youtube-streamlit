@@ -751,6 +751,7 @@ else:
                                 st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
                             st.rerun() 
                 elif st.session_state.manual_input_check_flag == 1:
+                    st.title("品番入力で参照")
                     if not st.session_state.manual_input_hinban_entered:
                         styled_input_text()
                         manual_input_hinban_kari = st.text_input("品番を入力し、Enterを押してください。",
