@@ -653,12 +653,21 @@ else:
             st.session_state.manual_input_check_select = False
             st.rerun()
     else:
+        if st.button("入力方法を再選択"):
+            st.session_state.manual_input_check = False
+            st.session_state.manual_input_flag = 0
+            st.session_state.qr_code_tana = False
+            st.session_state.tanaban_select_temp = ""
+            st.rerun()
         if st.session_state.manual_input_flag == 9:
             # st.session_state.manual_input_check = False
             # st.session_state.manual_input_flag = 0
             # st.session_state.qr_code_tana = False
             # st.session_state.tanaban_select_temp = ""
             # st.rerun()
+            if st.button("参照方法を再選択"):
+                st.session_state.manual_input_check_select = False
+                st.rerun()
             if not st.session_state.manual_input_check_select:
                 st.title("参照方法選択画面")
                 left, center, right = st.columns(3)
@@ -681,9 +690,6 @@ else:
                     st.session_state.manual_input_check_select = True
                     st.rerun()
             else:
-                if st.button("参照方法を再選択"):
-                    st.session_state.manual_input_check_select = False
-                    st.rerun()
                 if st.session_state.manual_input_check_flag == 0:
                     if not st.session_state.production_order_flag:
                         if st.session_state.manual_input_flag == 0:
@@ -795,20 +801,6 @@ else:
                             zkHistory = ""
                             record = data_catch(st.session_state.sf, item_id)
                             if record:
-                                if st.button("入力方法を再選択"):
-                                    st.session_state.manual_input_check = False
-                                    st.session_state.manual_input_flag = 0
-                                    st.session_state.qr_code_tana = False
-                                    st.session_state.tanaban_select_temp = ""
-                                    st.session_state.manual_input_check_select = False
-                                    st.session_state.manual_input_hinban_entered = False
-                                    st.session_state.hinban_select_flag = False
-                                    st.rerun()
-                                if st.button("参照方法を再選択"):
-                                    st.session_state.manual_input_check_select = False
-                                    st.session_state.manual_input_hinban_entered = False
-                                    st.session_state.hinban_select_flag = False
-                                    st.rerun()
                                 if st.button("品番を再入力"):
                                     st.session_state.manual_input_hinban_entered = False
                                     st.session_state.hinban_select_flag = False
