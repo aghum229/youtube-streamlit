@@ -88,7 +88,7 @@ else:
             or (first_char == "D" and 18 <= after_hyphen_int <= 28) 
             or (first_char == "F" and 20 <= after_hyphen_int <= 32) 
             or (first_char == "H" and 26 <= after_hyphen_int <= 30) 
-            or (first_char == "S" and after_hyphen <= 12)):
+            or (first_char == "S" and after_hyphen_int <= 12)):
             sub_text = "P-6"
             image_path_sub = "TanaMap20250820-P6.png"
             image_path = "TanaMap20250820-6.png"
