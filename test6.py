@@ -813,7 +813,6 @@ else:
                             #     st.write(f"選択された品番：{st.session_state.hinban_select_value}")
                             #     st.stop()
                         else:
-                            st.session_state.hinban_select_flag = False
                             # st.write(f"選択された品番：{st.session_state.hinban_select_value}")
                             # st.stop()
                             listCount = 0
@@ -825,6 +824,24 @@ else:
                             zkHistory = ""
                             record = data_catch(st.session_state.sf, item_id)
                             if record:
+                                if st.button("入力方法を再選択"):
+                                    st.session_state.manual_input_check = False
+                                    st.session_state.manual_input_flag = 0
+                                    st.session_state.qr_code_tana = False
+                                    st.session_state.tanaban_select_temp = ""
+                                    st.session_state.manual_input_check_select = False
+                                    st.session_state.manual_input_hinban_entered = False
+                                    st.session_state.hinban_select_flag = False
+                                    st.rerun()
+                                if st.button("参照方法を再選択"):
+                                    st.session_state.manual_input_check_select = False
+                                    st.session_state.manual_input_hinban_entered = False
+                                    st.session_state.hinban_select_flag = False
+                                    st.rerun()
+                                if st.button("品番を再入力"):
+                                    st.session_state.manual_input_hinban_entered = False
+                                    st.session_state.hinban_select_flag = False
+                                    st.rerun()
                                 # zkHistory = record["zkHistory__c"]  # zk履歴
                                 zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
                                 zkIko_list = record["zkIkohyoNo__c"].splitlines() 
