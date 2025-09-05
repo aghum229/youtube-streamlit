@@ -782,6 +782,8 @@ else:
                         #     st.session_state.hinban_select = "---"
                         if st.button("品番を再入力"):
                             st.session_state.manual_input_hinban_entered = False
+                            st.session_state.hinban_select_flag = False
+                            st.session_state.tanaban_select_flag  = False
                             st.rerun()
                         if not st.session_state.hinban_select_flag:
                             records = data_catch_hinmoku(st.session_state.sf, st.session_state["manual_input_hinban"])
@@ -801,6 +803,7 @@ else:
                             # st.stop()
                             if st.button("品番を再選択"):
                                 st.session_state.hinban_select_flag = False
+                                st.session_state.tanaban_select_flag  = False
                                 st.rerun()
                             if not st.session_state.tanaban_select_flag:
                                 st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
