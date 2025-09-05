@@ -878,7 +878,7 @@ else:
                                 selected_tanaban = st.selectbox("棚番を選択してください", tanban_list)
                                 # selected_tanaban = st.selectbox("棚番を選択してください　(クリックするとリストが開きます)", st.session_state.df_search_result["棚番"])
                                 st.session_state.tanaban_select_value = selected_tanaban
-                                if st.session_state.tanaban_select_value != "---":
+                                if st.session_state.tanaban_select_value != "" and st.session_state.tanaban_select_value != "---":
                                     st.session_state.tanaban_select_flag = True
                                     st.rerun()  # 再描画して次のステップへ
                             else:
@@ -926,7 +926,7 @@ else:
                                     "棚番号を選んでください", zkTanalistSplit, key="tanaban_select_info"
                                 )
                             st.session_state.tanaban_select_temp_info = tanaban_select_info
-                            if st.session_state.tanaban_select_temp_info != "---":
+                            if st.session_state.tanaban_select_temp_info != "" and st.session_state.tanaban_select_temp_info != "---":
                                 st.session_state.show_camera = False
                                 st.session_state.qr_code_tana_info = True
                                 # st.session_state.qr_code = ""
