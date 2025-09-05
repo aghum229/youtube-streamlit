@@ -584,6 +584,8 @@ if "tanaban_select" not in st.session_state:
     st.session_state.tanaban_select = ""
 if "tanaban_select_temp" not in st.session_state:
     st.session_state.tanaban_select_temp = ""
+if "tanaban_select_temp_info" not in st.session_state:
+    st.session_state.tanaban_select_temp_info = ""
 if "tanaban_select_value" not in st.session_state:
     st.session_state.tanaban_select_value = ""
 if "tanaban_select_flag" not in st.session_state:
@@ -592,6 +594,8 @@ if "qr_code" not in st.session_state:
     st.session_state.qr_code = None
 if "qr_code_tana" not in st.session_state:
     st.session_state.qr_code_tana = False
+if "qr_code_tana_info" not in st.session_state:
+    st.session_state.qr_code_tana_info = False
 if "hinban_select_value" not in st.session_state:
     st.session_state.hinban_select_value = ""
 if "hinban_select_flag" not in st.session_state:
@@ -668,8 +672,8 @@ else:
             st.session_state.hinban_select_flag = False
             st.session_state.tanaban_select_flag  = False
             st.session_state.tanaban_select_input = False
-            st.session_state.qr_code_tana = False
-            st.session_state.tanaban_select_temp = ""
+            st.session_state.qr_code_tana_info = False
+            st.session_state.tanaban_select_temp_info = ""
             st.rerun()
         if st.session_state.manual_input_flag == 9:
             if not st.session_state.manual_input_check_select:
@@ -701,8 +705,8 @@ else:
                     st.session_state.hinban_select_flag = False
                     st.session_state.tanaban_select_flag  = False
                     st.session_state.tanaban_select_input = False
-                    st.session_state.qr_code_tana = False
-                    st.session_state.tanaban_select_temp = ""
+                    st.session_state.qr_code_tana_info = False
+                    st.session_state.tanaban_select_temp_info = ""
                     st.rerun()
                 if st.session_state.manual_input_check_flag == 0:
                     st.title("移行票番号で検索")
@@ -871,8 +875,6 @@ else:
                                 if st.session_state.tanaban_select_value != "---":
                                     st.session_state.tanaban_select_flag = True
                                     st.rerun()  # 再描画して次のステップへ
-                                # else:
-                                # datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                             else:
                                 if st.button("棚番を再選択"):
                                     st.session_state.tanaban_select_flag  = False
@@ -901,36 +903,36 @@ else:
                     else:
                         if st.button("棚番入力方法を再選択"):
                             st.session_state.tanaban_select_input = False
-                            st.session_state.qr_code_tana = False
-                            st.session_state.tanaban_select_temp = ""
+                            st.session_state.qr_code_tana_info = False
+                            st.session_state.tanaban_select_temp_info = ""
                             st.rerun()
                         if not st.session_state.qr_code_tana:
                             tanaban_select_info = ""
                             if st.session_state.manual_input_flag == 0:
                                 st.write("棚番のQRコードをスキャンしてください:")
-                                qr_code_tana = qrcode_scanner(key='qrcode_scanner_tana')  
-                                if qr_code_tana:  
-                                    # st.write(qr_code_tana) 
-                                    tanaban_select_info = qr_code_tana.strip()
+                                qr_code_tana_info = qrcode_scanner(key='qrcode_scanner_tana')  
+                                if qr_code_tana_info:  
+                                    # st.write(qr_code_tana_info) 
+                                    tanaban_select_info = qr_code_tana_info.strip()
                             else:
                                 zkTanalistSplit = zkTanalist.split(",")
                                 tanaban_select_info = st.selectbox(
                                     "棚番号を選んでください", zkTanalistSplit, key="tanaban_select_info"
                                 )
                             if tanaban_select_info != "" and tanaban_select_info != "---":
-                                st.session_state.tanaban_select_temp = tanaban_select_info
+                                st.session_state.tanaban_select_temp_info = tanaban_select_info
                                 st.session_state.show_camera = False
-                                st.session_state.qr_code_tana = True
+                                st.session_state.qr_code_tana_info = True
                                 # st.session_state.qr_code = ""
                                 # st.session_state.production_order = ""
                                 # st.session_state.production_order_flag = False
                                 st.rerun()  # 再描画して次のステップへ
                         else:
                             if st.button("棚番を再選択(参照)"):
-                                st.session_state.qr_code_tana = False
-                                st.session_state.tanaban_select_temp = ""
+                                st.session_state.qr_code_tana_info = False
+                                st.session_state.tanaban_select_temp_info = ""
                                 st.rerun()
-                            st.write(f"選択された棚番： {st.session_state.tanaban_select_temp}")
+                            st.write(f"選択された棚番： {st.session_state.tanaban_select_temp_info}")
                             st.stop()
         else:  # st.session_state.manual_input_flag が 0 or 1 の場合
             # st.write(st.session_state.qr_code_tana)
