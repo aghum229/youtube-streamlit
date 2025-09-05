@@ -572,6 +572,8 @@ if "manual_input_flag" not in st.session_state:
     st.session_state.manual_input_flag = 0
 if "manual_input_check_flag" not in st.session_state:
     st.session_state.manual_input_check_flag = 0
+if "manual_input_info_flag" not in st.session_state:
+    st.session_state.manual_input_info_flag = 0
 if "manual_input_hinban" not in st.session_state:
     st.session_state.manual_input_hinban = ""
 if "manual_input_hinban_entered" not in st.session_state:
@@ -668,6 +670,7 @@ else:
             st.session_state.manual_input_flag = 0
             st.session_state.manual_input_check_select = False
             st.session_state.manual_input_check_flag = 0
+            st.session_state.manual_input_info_flag = 0
             st.session_state.manual_input_hinban_entered = False
             st.session_state.hinban_select_flag = False
             st.session_state.tanaban_select_flag  = False
@@ -701,6 +704,7 @@ else:
                 if st.button("参照方法を再選択"):
                     st.session_state.manual_input_check_select = False
                     st.session_state.manual_input_check_flag = 0
+                    st.session_state.manual_input_info_flag = 0
                     st.session_state.manual_input_hinban_entered = False
                     st.session_state.hinban_select_flag = False
                     st.session_state.tanaban_select_flag  = False
@@ -893,9 +897,9 @@ else:
                             tool_tips("(棚番を手動選択で検索)")
                         if button_qr_tana or button_manual_tana: 
                             if button_qr_tana:
-                                st.session_state.manual_input_flag = 0
+                                st.session_state.manual_input_info_flag = 0
                             else:
-                                st.session_state.manual_input_flag = 1
+                                st.session_state.manual_input_info_flag = 1
                             # st.session_state.manual_input_check = True
                             # st.session_state.manual_input_check_select = False
                             st.session_state.tanaban_select_input = True
@@ -908,7 +912,7 @@ else:
                             st.rerun()
                         if not st.session_state.qr_code_tana:
                             tanaban_select_info = ""
-                            if st.session_state.manual_input_flag == 0:
+                            if st.session_state.manual_input_info_flag == 0:
                                 st.write("棚番のQRコードをスキャンしてください:")
                                 qr_code_tana_info = qrcode_scanner(key='qrcode_scanner_tana')  
                                 if qr_code_tana_info:  
