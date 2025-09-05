@@ -843,8 +843,8 @@ else:
                                         #     use_container_width=True,
                                         #     key="editable_table"
                                         # )
-                                        tanban_list = ["---"] + sorted(st.session_state.df_search_result.iloc[:, 0].dropna().unique())
-                                        # tanban_list = ["---"] + sorted([r["棚番"] for r in st.session_state.df_search_result])
+                                        # tanban_list = ["---"] + sorted(st.session_state.df_search_result.iloc[:, 0].dropna().unique())
+                                        tanban_list = ["---"] + st.session_state.df_search_result.iloc[:, 0].dropna().tolist()
                                         selected_tanaban = st.selectbox("棚番を選択してください", tanban_list)
                                         # selected_tanaban = st.selectbox("棚番を選択してください", st.session_state.df_search_result["棚番"])
                                         st.session_state.tanaban_select_value = selected_tanaban
@@ -854,6 +854,9 @@ else:
                                     # else:
                                     # datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                                 else:
+                                    if st.button("棚番を再選択"):
+                                        st.session_state.tanaban_select_flag  = False
+                                        st.rerun()
                                     st.write(f"選択された棚番： {st.session_state.tanaban_select_value}")
                                     st.stop()
                 else:
