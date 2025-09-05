@@ -786,9 +786,9 @@ else:
                         if not st.session_state.hinban_select_flag:
                             records = data_catch_hinmoku(st.session_state.sf, st.session_state["manual_input_hinban"])
                             if records:
-                                hinban_list = ["---"] + sorted([r["snps_um__ItemName__c"] for r in records])  # zk履歴 AITC_ID18__c, snps_um__ItemName__c, AITC_PrintItemName__c
+                                hinban_list = ["---"] + sorted([r["snps_um__ItemName__c"] for r in records])  # ID: AITC_ID18__c, 品番: snps_um__ItemName__c, 品名: AITC_PrintItemName__c
                                 hinban_select = st.selectbox(
-                                    "品番を選んでください　(クリックするとリストが開きます)", hinban_list, key="hinban_select"
+                                    "品番を選択してください　(クリックするとリストが開きます)", hinban_list, key="hinban_select"
                                 )
                                 st.session_state.hinban_select_value = hinban_select
                                 if st.session_state.hinban_select_value != "" and st.session_state.hinban_select_value != "---":
@@ -799,19 +799,19 @@ else:
                         else:
                             # st.write(f"選択された品番：{st.session_state.hinban_select_value}")
                             # st.stop()
-                            listCount = 0
-                            zkTana = ""
-                            zkIko = ""
-                            zkHin = ""
-                            zkKan = ""
-                            zkSu = ""
-                            zkHistory = ""
-                            record = data_catch(st.session_state.sf, item_id)
-                            if record:
-                                if st.button("品番を再選択"):
-                                    st.session_state.hinban_select_flag = False
-                                    st.rerun()
-                                if not st.session_state.tanaban_select_flag:
+                            if st.button("品番を再選択"):
+                                st.session_state.hinban_select_flag = False
+                                st.rerun()
+                            if not st.session_state.tanaban_select_flag:
+                                listCount = 0
+                                zkTana = ""
+                                zkIko = ""
+                                zkHin = ""
+                                zkKan = ""
+                                zkSu = ""
+                                zkHistory = ""
+                                record = data_catch(st.session_state.sf, item_id)
+                                if record:
                                     # zkHistory = record["zkHistory__c"]  # zk履歴
                                     zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
                                     zkIko_list = record["zkIkohyoNo__c"].splitlines() 
@@ -821,7 +821,7 @@ else:
                                     # listCount = len(zkTana_list)
                                     listCount = len(zkHin_list)
                                     zkHin_Search = st.session_state.hinban_select_value
-                                    if listCount > 2:
+                                    if listCount > 1:
                                         for index, item in enumerate(zkHin_list):
                                             # st.write(f"for文で検索した棚番: '{item}'") 
                                             # st.write(f"検索させる棚番: '{tanaban_select}'")
@@ -843,22 +843,27 @@ else:
                                         #     use_container_width=True,
                                         #     key="editable_table"
                                         # )
-                                    # tanban_list = ["---"] + sorted(st.session_state.df_search_result.iloc[:, 0].dropna().unique())
-                                    tanban_list = ["---"] + st.session_state.df_search_result.iloc[:, 0].dropna().tolist()
-                                    selected_tanaban = st.selectbox("棚番を選択してください", tanban_list)
-                                    # selected_tanaban = st.selectbox("棚番を選択してください", st.session_state.df_search_result["棚番"])
-                                    st.session_state.tanaban_select_value = selected_tanaban
-                                    if st.session_state.tanaban_select_value != "---":
-                                        st.session_state.tanaban_select_flag = True
-                                        st.rerun()  # 再描画して次のステップへ
-                                    # else:
-                                    # datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
+                                    else:
+                                        st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[0], zkIko[0], zkHin[0], zkKan[0], zkSu[0]]
                                 else:
-                                    if st.button("棚番を再選択"):
-                                        st.session_state.tanaban_select_flag  = False
-                                        st.rerun()
-                                    st.write(f"選択された棚番： {st.session_state.tanaban_select_value}")
+                                    st.write("'item_id'　が存在しません。至急、システム担当者に連絡してください！")
                                     st.stop()
+                                # tanban_list = ["---"] + sorted(st.session_state.df_search_result.iloc[:, 0].dropna().unique())
+                                tanban_list = ["---"] + st.session_state.df_search_result.iloc[:, 0].dropna().tolist()
+                                selected_tanaban = st.selectbox("棚番を選択してください", tanban_list)
+                                # selected_tanaban = st.selectbox("棚番を選択してください　(クリックするとリストが開きます)", st.session_state.df_search_result["棚番"])
+                                st.session_state.tanaban_select_value = selected_tanaban
+                                if st.session_state.tanaban_select_value != "---":
+                                    st.session_state.tanaban_select_flag = True
+                                    st.rerun()  # 再描画して次のステップへ
+                                # else:
+                                # datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
+                            else:
+                                if st.button("棚番を再選択"):
+                                    st.session_state.tanaban_select_flag  = False
+                                    st.rerun()
+                                st.write(f"選択された棚番： {st.session_state.tanaban_select_value}")
+                                st.stop()
                 else:
                     if not st.session_state.qr_code_tana:
                         st.title("棚番を手動で選択し検索")
