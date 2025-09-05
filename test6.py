@@ -840,7 +840,7 @@ else:
                                     #     key="editable_table"
                                     # )
                                     selected_tanaban = st.selectbox("棚番を選択してください", st.session_state.df_search_result["棚番"])
-                                    st.write("選択された棚番： {st.session_state.df_search_result["棚番"]}")
+                                    st.write(f"選択された棚番： {selected_tanaban}")
                                     st.stop()
                                 # else:
                                 # datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
