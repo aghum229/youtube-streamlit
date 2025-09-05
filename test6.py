@@ -582,6 +582,10 @@ if "tanaban_select" not in st.session_state:
     st.session_state.tanaban_select = ""
 if "tanaban_select_temp" not in st.session_state:
     st.session_state.tanaban_select_temp = ""
+if "tanaban_select_value" not in st.session_state:
+    st.session_state.tanaban_select_value = ""
+if "tanaban_select_flag" not in st.session_state:
+    st.session_state.tanaban_select_flag = False
 if "qr_code" not in st.session_state:
     st.session_state.qr_code = None
 if "qr_code_tana" not in st.session_state:
@@ -807,42 +811,50 @@ else:
                                 if st.button("品番を再選択"):
                                     st.session_state.hinban_select_flag = False
                                     st.rerun()
-                                # zkHistory = record["zkHistory__c"]  # zk履歴
-                                zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
-                                zkIko_list = record["zkIkohyoNo__c"].splitlines() 
-                                zkHin_list = record["zkHinban__c"].splitlines() 
-                                zkKan_list = record["zkKanryoKoutei__c"].splitlines() 
-                                zkSu_list = record["zkSuryo__c"].splitlines() 
-                                # listCount = len(zkTana_list)
-                                listCount = len(zkHin_list)
-                                zkHin_Search = st.session_state.hinban_select_value
-                                if listCount > 2:
-                                    for index, item in enumerate(zkHin_list):
-                                        # st.write(f"for文で検索した棚番: '{item}'") 
-                                        # st.write(f"検索させる棚番: '{tanaban_select}'")
-                                        zkIko = zkIko_list[index].split(",")
-                                        zkHin = item.split(",")
-                                        zkKan = zkKan_list[index].split(",")
-                                        zkSu = zkSu_list[index].split(",")
-                                        if zkHin_Search in zkHin:
-                                            for index_2, item_2 in enumerate(zkHin):
-                                                if item_2 == zkHin_Search:
-                                                    st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[index], zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2]]
-                                                    # st.write("zkHin_list:", zkHin_list)
-                                                    # st.write("df_search_result:", st.session_state.df_search_result)
-                                    # st.write(st.session_state.df_search_result)
-                                    st.dataframe(st.session_state.df_search_result)
-                                    # edited_df = st.data_editor(
-                                    #     st.session_state.df_search_result,
-                                    #    num_rows="dynamic",
-                                    #     use_container_width=True,
-                                    #     key="editable_table"
-                                    # )
-                                    selected_tanaban = st.selectbox("棚番を選択してください", ["---"] + st.session_state.df_search_result["棚番"])
-                                    st.write(f"選択された棚番： {selected_tanaban}")
+                                if not st.session_state.tanaban_select_flag:
+                                    # zkHistory = record["zkHistory__c"]  # zk履歴
+                                    zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
+                                    zkIko_list = record["zkIkohyoNo__c"].splitlines() 
+                                    zkHin_list = record["zkHinban__c"].splitlines() 
+                                    zkKan_list = record["zkKanryoKoutei__c"].splitlines() 
+                                    zkSu_list = record["zkSuryo__c"].splitlines() 
+                                    # listCount = len(zkTana_list)
+                                    listCount = len(zkHin_list)
+                                    zkHin_Search = st.session_state.hinban_select_value
+                                    if listCount > 2:
+                                        for index, item in enumerate(zkHin_list):
+                                            # st.write(f"for文で検索した棚番: '{item}'") 
+                                            # st.write(f"検索させる棚番: '{tanaban_select}'")
+                                            zkIko = zkIko_list[index].split(",")
+                                            zkHin = item.split(",")
+                                            zkKan = zkKan_list[index].split(",")
+                                            zkSu = zkSu_list[index].split(",")
+                                            if zkHin_Search in zkHin:
+                                                for index_2, item_2 in enumerate(zkHin):
+                                                    if item_2 == zkHin_Search:
+                                                        st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[index], zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2]]
+                                                        # st.write("zkHin_list:", zkHin_list)
+                                                        # st.write("df_search_result:", st.session_state.df_search_result)
+                                        # st.write(st.session_state.df_search_result)
+                                        st.dataframe(st.session_state.df_search_result)
+                                        # edited_df = st.data_editor(
+                                        #     st.session_state.df_search_result,
+                                        #    num_rows="dynamic",
+                                        #     use_container_width=True,
+                                        #     key="editable_table"
+                                        # )
+                                        tanban_list = ["---"] + sorted([r["棚番"] for r in st.session_state.df_search_result])
+                                        selected_tanaban = st.selectbox("棚番を選択してください", tanban_list)
+                                        # selected_tanaban = st.selectbox("棚番を選択してください", st.session_state.df_search_result["棚番"])
+                                        st.session_state.tanaban_select_value = selected_tanaban
+                                        if st.session_state.tanaban_select_value != "" and st.session_state.tanaban_select_value != "---":
+                                            st.session_state.tanaban_select_flag = True
+                                            st.rerun()  # 再描画して次のステップへ
+                                    # else:
+                                    # datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
+                                else:
+                                    st.write(f"選択された棚番： {st.session_state.tanaban_select_value}")
                                     st.stop()
-                                # else:
-                                # datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                 else:
                     if not st.session_state.qr_code_tana:
                         st.title("棚番を手動で選択し検索")
