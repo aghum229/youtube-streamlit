@@ -870,23 +870,24 @@ else:
                                 st.stop()
                 else:
                     if not st.session_state.qr_code_tana:
-                        st.title("棚番で検索")
-                        left, right = st.columns(2)
-                        with left:
-                            button_qr_tana = st.button("QRコード(棚番)")
-                            tool_tips("(棚番をQRコードで検索)")
-                        with right:
-                            button_manual_tana = st.button("手動入力(棚番)")
-                            tool_tips("(棚番を手動選択で検索)")
-                        if button_qr_tana or button_manual_tana: 
-                            if button_qr_tana:
-                                st.session_state.manual_input_flag = 0
-                            else:
-                                st.session_state.manual_input_flag = 1
-                            st.session_state.manual_input_check = True
-                            st.session_state.manual_input_check_select = False
-                            st.rerun()
+                    st.title("棚番で検索")
+                    left, right = st.columns(2)
+                    with left:
+                        button_qr_tana = st.button("QRコード(棚番)")
+                        tool_tips("(棚番をQRコードで検索)")
+                    with right:
+                        button_manual_tana = st.button("手動入力(棚番)")
+                        tool_tips("(棚番を手動選択で検索)")
+                    if button_qr_tana or button_manual_tana: 
+                        if button_qr_tana:
+                            st.session_state.manual_input_flag = 0
                         else:
+                            st.session_state.manual_input_flag = 1
+                        st.session_state.manual_input_check = True
+                        st.session_state.manual_input_check_select = False
+                        st.rerun()
+                    else:
+                        if not st.session_state.qr_code_tana:
                             tanaban_select = ""
                             if st.session_state.manual_input_flag == 0:
                                 st.write("棚番のQRコードをスキャンしてください:")
@@ -899,7 +900,6 @@ else:
                                 tanaban_select = st.selectbox(
                                     "棚番号を選んでください", zkTanalistSplit, key="tanaban_select"
                                 )
-                            
                             if tanaban_select != "" and tanaban_select != "---":
                                 st.session_state.tanaban_select_temp = tanaban_select
                                 st.session_state.show_camera = False
@@ -908,14 +908,14 @@ else:
                                 st.session_state.production_order = ""
                                 st.session_state.production_order_flag = False
                                 st.rerun()  # 再描画して次のステップへ
-                    else:
-                        if st.button("棚番入力方法を再選択"):
-                            st.session_state.qr_code_tana = False
-                            st.session_state.tanaban_select_temp = ""
-                            st.session_state.qr_code = ""
-                            st.rerun()
-                        st.write(f"選択された棚番： {st.session_state.tanaban_select_temp}")
-                        st.stop()
+                        else:
+                            if st.button("棚番入力方法を再選択"):
+                                st.session_state.qr_code_tana = False
+                                st.session_state.tanaban_select_temp = ""
+                                st.session_state.qr_code = ""
+                                st.rerun()
+                            st.write(f"選択された棚番： {st.session_state.tanaban_select_temp}")
+                            st.stop()
         else:  # st.session_state.manual_input_flag が 0 or 1 の場合
             # st.write(st.session_state.qr_code_tana)
             # st.session_state.manual_input_flag = 1
