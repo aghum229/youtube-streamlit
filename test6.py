@@ -885,28 +885,29 @@ else:
                                 st.session_state.manual_input_flag = 0
                             else:
                                 st.session_state.manual_input_flag = 1
-                            st.session_state.manual_input_check = True
-                            st.session_state.manual_input_check_select = False
+                            # st.session_state.manual_input_check = True
+                            # st.session_state.manual_input_check_select = False
+                            st.session_state.tanaban_select_input = True
                             st.rerun()
                     else:
                         if st.button("棚番入力方法を再選択"):
                             st.session_state.tanaban_select_input = False
                             st.rerun()
                         if not st.session_state.qr_code_tana:
-                            tanaban_select = ""
+                            tanaban_select_info = ""
                             if st.session_state.manual_input_flag == 0:
                                 st.write("棚番のQRコードをスキャンしてください:")
                                 qr_code_tana = qrcode_scanner(key='qrcode_scanner_tana')  
                                 if qr_code_tana:  
                                     # st.write(qr_code_tana) 
-                                    tanaban_select = qr_code_tana.strip()
+                                    tanaban_select_info = qr_code_tana.strip()
                             else:
                                 zkTanalistSplit = zkTanalist.split(",")
-                                tanaban_select = st.selectbox(
-                                    "棚番号を選んでください", zkTanalistSplit, key="tanaban_select"
+                                tanaban_select_info = st.selectbox(
+                                    "棚番号を選んでください", zkTanalistSplit, key="tanaban_select_info"
                                 )
-                            if tanaban_select != "" and tanaban_select != "---":
-                                st.session_state.tanaban_select_temp = tanaban_select
+                            if tanaban_select_info != "" and tanaban_select_info != "---":
+                                st.session_state.tanaban_select_temp = tanaban_select_info
                                 st.session_state.show_camera = False
                                 st.session_state.qr_code_tana = True
                                 st.session_state.qr_code = ""
