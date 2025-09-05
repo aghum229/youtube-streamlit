@@ -873,10 +873,10 @@ else:
                         st.title("棚番で検索")
                         left, right = st.columns(2)
                         with left:
-                            button_qr_tana = st.button("QRコード")
+                            button_qr_tana = st.button("QRコード(棚番)")
                             tool_tips("(棚番をQRコードで検索)")
                         with right:
-                            button_manual_tana = st.button("手動入力")
+                            button_manual_tana = st.button("手動入力(棚番)")
                             tool_tips("(棚番を手動選択で検索)")
                         if button_qr_tana or button_manual_tana: 
                             if button_qr_tana:
@@ -908,7 +908,7 @@ else:
                             st.session_state.production_order_flag = False
                             st.rerun()  # 再描画して次のステップへ
                     else:
-                        if st.button("入力方法を再選択"):
+                        if st.button("棚番入力方法を再選択"):
                             st.session_state.qr_code_tana = False
                             st.session_state.tanaban_select_temp = ""
                             st.session_state.qr_code = ""
