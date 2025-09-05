@@ -803,6 +803,7 @@ else:
                                 st.session_state.hinban_select_flag = False
                                 st.rerun()
                             if not st.session_state.tanaban_select_flag:
+                                st.session_state.df_search_result = []
                                 listCount = 0
                                 zkTana = ""
                                 zkIko = ""
