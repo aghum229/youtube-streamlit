@@ -843,17 +843,14 @@ else:
                                         #     use_container_width=True,
                                         #     key="editable_table"
                                         # )
-                                        # tanban_list = ["---"] + sorted(st.session_state.df_search_result.iloc[:, 0].dropna().unique())
-                                        tanban_list = ["---"] + st.session_state.df_search_result.iloc[:, 0].dropna().tolist()
-                                        selected_tanaban = st.selectbox("棚番を選択してください", tanban_list)
-                                        # selected_tanaban = st.selectbox("棚番を選択してください", st.session_state.df_search_result["棚番"])
-                                        # st.session_state.tanaban_select_value = selected_tanaban
-                                        # if st.session_state.tanaban_select_value != "" and st.session_state.tanaban_select_value != "---":
-                                        # st.session_state.tanaban_select_value = selected_tanaban
-                                        if selected_tanaban != "" and selected_tanaban != "---":
-                                            st.session_state.tanaban_select_value = selected_tanaban
-                                            st.session_state.tanaban_select_flag = True
-                                            st.rerun()  # 再描画して次のステップへ
+                                    # tanban_list = ["---"] + sorted(st.session_state.df_search_result.iloc[:, 0].dropna().unique())
+                                    tanban_list = ["---"] + st.session_state.df_search_result.iloc[:, 0].dropna().tolist()
+                                    selected_tanaban = st.selectbox("棚番を選択してください", tanban_list)
+                                    # selected_tanaban = st.selectbox("棚番を選択してください", st.session_state.df_search_result["棚番"])
+                                    st.session_state.tanaban_select_value = selected_tanaban
+                                    if st.session_state.tanaban_select_value != "---":
+                                        st.session_state.tanaban_select_flag = True
+                                        st.rerun()  # 再描画して次のステップへ
                                     # else:
                                     # datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                                 else:
