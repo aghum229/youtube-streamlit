@@ -690,16 +690,17 @@ else:
                 with center:
                     button_manual_Tanaban = st.button("棚番で検索")
                     tool_tips("(棚番をQRコード入力または手動選択で検索)")
-                with right:
-                    button_qr_Ikohyo = st.button("移行票番号で検索")
-                    tool_tips("(移行票番号をQRコードまたは手動入力で検索)")
-                if button_manual_Hinban or button_manual_Tanaban or button_qr_Ikohyo : 
+                # with right:
+                #     button_qr_Ikohyo = st.button("移行票番号で検索")
+                #     tool_tips("(移行票番号をQRコードまたは手動入力で検索)")
+                # if button_manual_Hinban or button_manual_Tanaban or button_qr_Ikohyo : 
+                if button_manual_Hinban or button_manual_Tanaban: 
                     if button_manual_Hinban:
                         st.session_state.manual_input_check_flag = 0
                     elif button_manual_Tanaban:
                         st.session_state.manual_input_check_flag = 1
-                    else:
-                        st.session_state.manual_input_check_flag = 2
+                    # else:
+                    #     st.session_state.manual_input_check_flag = 2
                     st.session_state.manual_input_check_select = True
                     st.rerun()
             else:
@@ -868,6 +869,7 @@ else:
                                 st.rerun()
                             st.write(f"選択された棚番： {st.session_state.tanaban_select_temp_info}")
                             st.stop()
+                _= '''
                 else:
                     st.title("移行票番号で検索")
                     st.stop()
@@ -940,6 +942,7 @@ else:
                             if st.session_state.manual_input_flag == 0:
                                 st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
                             st.rerun() 
+                '''
         else:  # st.session_state.manual_input_flag が 0 or 1 の場合
             # st.write(st.session_state.qr_code_tana)
             # st.session_state.manual_input_flag = 1
