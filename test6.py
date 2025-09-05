@@ -832,13 +832,13 @@ else:
                                                     # st.write("zkHin_list:", zkHin_list)
                                                     # st.write("df_search_result:", st.session_state.df_search_result)
                                     # st.write(st.session_state.df_search_result)
-                                    # st.dataframe(st.session_state.df_search_result)
-                                    edited_df = st.data_editor(
-                                        st.session_state.df_search_result,
-                                        num_rows="dynamic",
-                                        use_container_width=True,
-                                        key="editable_table"
-                                    )
+                                    st.dataframe(st.session_state.df_search_result)
+                                    # edited_df = st.data_editor(
+                                    #     st.session_state.df_search_result,
+                                    #    num_rows="dynamic",
+                                    #     use_container_width=True,
+                                    #     key="editable_table"
+                                    # )
                                     selected_tanaban = st.selectbox("棚番を選択してください", st.session_state.df_search_result["棚番"])
                                     st.write("選択された棚番： {selected_tanaban}")
                                     st.stop()
