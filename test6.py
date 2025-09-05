@@ -584,6 +584,8 @@ if "tanaban_select_input" not in st.session_state:
     st.session_state.tanaban_select_input = False
 if "tanaban_select" not in st.session_state:
     st.session_state.tanaban_select = ""
+if "tanaban_select_info" not in st.session_state:
+    st.session_state.tanaban_select_info = ""
 if "tanaban_select_temp" not in st.session_state:
     st.session_state.tanaban_select_temp = ""
 if "tanaban_select_temp_info" not in st.session_state:
@@ -914,7 +916,7 @@ else:
                             tanaban_select_info = ""
                             if st.session_state.manual_input_info_flag == 0:
                                 st.write("棚番のQRコードをスキャンしてください:")
-                                qr_code_tana_info = qrcode_scanner(key='qrcode_scanner_tana')  
+                                qr_code_tana_info = qrcode_scanner(key='qrcode_scanner_tana_info')  
                                 if qr_code_tana_info:  
                                     # st.write(qr_code_tana_info) 
                                     tanaban_select_info = qr_code_tana_info.strip()
@@ -923,7 +925,7 @@ else:
                                 tanaban_select_info = st.selectbox(
                                     "棚番号を選んでください", zkTanalistSplit, key="tanaban_select_info"
                                 )
-                            if tanaban_select_info != "" and tanaban_select_info != "---":
+                            if tanaban_select_info != "---":
                                 st.session_state.tanaban_select_temp_info = tanaban_select_info
                                 st.session_state.show_camera = False
                                 st.session_state.qr_code_tana_info = True
