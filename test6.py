@@ -803,7 +803,7 @@ else:
                                 st.session_state.hinban_select_flag = False
                                 st.rerun()
                             if not st.session_state.tanaban_select_flag:
-                                st.session_state.df_search_result = []
+                                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
                                 listCount = 0
                                 zkTana = ""
                                 zkIko = ""
