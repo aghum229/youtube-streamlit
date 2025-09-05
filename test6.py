@@ -605,7 +605,7 @@ if "user_code_entered" not in st.session_state:
 
 item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※変更禁止
 zkTanalist = """
-    完A-0,完A-1,完A-2,完A-3,完A-4,完A-5,完A-6,完A-7,完A-8,完A-9,完A-10,完A-11,完A-12,完A-13,完A-14,完A-15,完A-16,完A-17,完A-18,完A-19,完A-20,
+    ---,完A-1,完A-2,完A-3,完A-4,完A-5,完A-6,完A-7,完A-8,完A-9,完A-10,完A-11,完A-12,完A-13,完A-14,完A-15,完A-16,完A-17,完A-18,完A-19,完A-20,
     完B-1,完B-2,完B-3,完B-4,完B-5,完B-6,完B-7,完B-8,完B-9,完B-10,完B-11,完B-12,完B-13,完B-14,完B-15,完B-16,完B-17,完B-18,完B-19,完B-20,
     完C-1,完C-2,完C-3,完C-4,完C-5,完C-6,完C-7,完C-8,完C-9,完C-10,完C-11,完C-12,完C-13,完C-14,完C-15,完C-16,完C-17,完C-18,完C-19,完C-20,
     完D-1,完D-2,完D-3,完D-4,完D-5,完D-6,完D-7,完D-8,完D-9,完D-10,完D-11,完D-12,完D-13,完D-14,完D-15,完D-16,完D-17,完D-18,完D-19,完D-20,
@@ -673,14 +673,14 @@ else:
                 st.title("参照方法選択画面")
                 left, center, right = st.columns(3)
                 with left:
-                    button_qr_Ikohyo = st.button("移行票番号(QRコード)")
-                    st.write("移行票番号をQRコードで検索")
+                    button_qr_Ikohyo = st.button("移行票番号で検索")
+                    tool_tips("(移行票番号をQRコードまたは手動入力で検索)")
                 with center:
-                    button_manual_Hinban = st.button("品番(手動入力)")
-                    st.write("品番を手動で入力し検索(曖昧検索可)")
+                    button_manual_Hinban = st.button("品番(手動入力)で検索")
+                    tool_tips("(品番を手動で入力し検索(曖昧検索可))")
                 with right:
-                    button_manual_Tanaban = st.button("棚番(手動入力)")
-                    st.write("棚番を手動で選択し検索")
+                    button_manual_Tanaban = st.button("棚番で検索")
+                    tool_tips("(棚番をQRコード入力または手動選択で検索)")
                 if button_qr_Ikohyo or button_manual_Hinban or button_manual_Tanaban: 
                     if button_qr_Ikohyo:
                         st.session_state.manual_input_check_flag = 0
@@ -695,9 +695,9 @@ else:
                     st.session_state.manual_input_check_select = False
                     st.rerun()
                 if st.session_state.manual_input_check_flag == 0:
+                    st.title("移行票番号で検索")
                     if not st.session_state.production_order_flag:
                         if st.session_state.manual_input_flag == 0:
-                            st.title("移行票番号をQRコードで検索")
                             qr_code_kari = ""
                             if st.button("移行票(製造オーダー)を再選択", key="camera_rerun"):
                                 st.session_state.show_camera = True
@@ -766,7 +766,7 @@ else:
                                 st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
                             st.rerun() 
                 elif st.session_state.manual_input_check_flag == 1:
-                    st.title("品番入力で検索")
+                    st.title("品番(手動入力)で検索")
                     if not st.session_state.manual_input_hinban_entered:
                         styled_input_text()
                         manual_input_hinban_kari = st.text_input("品番を入力し、Enterを押してください。",
@@ -870,18 +870,26 @@ else:
                                 st.stop()
                 else:
                     if not st.session_state.qr_code_tana:
-                        st.title("棚番を手動で選択し検索")
-                        if st.button("入力方法を再選択"):
-                            st.session_state.manual_input_check = False
-                            st.session_state.manual_input_flag = 0
-                            st.session_state.qr_code_tana = False
-                            st.session_state.tanaban_select_temp = ""
+                        st.title("棚番で検索")
+                        left, right = st.columns(2)
+                        with left:
+                            button_qr_tana = st.button("QRコード")
+                            tool_tips("(棚番をQRコードで検索)")
+                        with right:
+                            button_manual_tana = st.button("手動入力")
+                            tool_tips("(棚番を手動選択で検索)")
+                        if button_qr_tana or button_manual_tana: 
+                            if button_qr_tana:
+                                st.session_state.manual_input_flag = 0
+                            else:
+                                st.session_state.manual_input_flag = 1
+                            st.session_state.manual_input_check = True
+                            st.session_state.manual_input_check_select = False
                             st.rerun()
                         tanaban_select = ""
                         if st.session_state.manual_input_flag == 0:
                             st.write("棚番のQRコードをスキャンしてください:")
                             qr_code_tana = qrcode_scanner(key='qrcode_scanner_tana')  
-                        
                             if qr_code_tana:  
                                 # st.write(qr_code_tana) 
                                 tanaban_select = qr_code_tana.strip()
@@ -891,7 +899,7 @@ else:
                                 "棚番号を選んでください", zkTanalistSplit, key="tanaban_select"
                             )
                         
-                        if tanaban_select != "" and tanaban_select != "完A-0": # 完A-0は存在しない置き場(変更前提の初期値としてのみ利用)
+                        if tanaban_select != "" and tanaban_select != "---":
                             st.session_state.tanaban_select_temp = tanaban_select
                             st.session_state.show_camera = False
                             st.session_state.qr_code_tana = True
@@ -900,7 +908,13 @@ else:
                             st.session_state.production_order_flag = False
                             st.rerun()  # 再描画して次のステップへ
                     else:
-                        None
+                        if st.button("入力方法を再選択"):
+                            st.session_state.qr_code_tana = False
+                            st.session_state.tanaban_select_temp = ""
+                            st.session_state.qr_code = ""
+                            st.rerun()
+                        st.write(f"選択された棚番： {st.session_state.tanaban_select_temp}")
+                        st.stop()
         else:  # st.session_state.manual_input_flag が 0 or 1 の場合
             # st.write(st.session_state.qr_code_tana)
             # st.session_state.manual_input_flag = 1
@@ -929,7 +943,7 @@ else:
                     # st.session_state.tanaban_select = st.selectbox("棚番号を選んでください", options, key="tanaban_select")
                     # st.write(f"選択された棚番号: {st.session_state.tanaban_select}")
                 
-                if tanaban_select != "" and tanaban_select != "完A-0": # 完A-0は存在しない置き場(変更前提の初期値としてのみ利用)
+                if tanaban_select != "" and tanaban_select != "---":
                     # st.session_state.tanaban = tanaban_select
                     st.session_state.tanaban_select_temp = tanaban_select
                     st.session_state.show_camera = False
