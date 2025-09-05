@@ -910,7 +910,7 @@ else:
                             st.session_state.qr_code_tana_info = False
                             st.session_state.tanaban_select_temp_info = ""
                             st.rerun()
-                        if not st.session_state.qr_code_tana:
+                        if not st.session_state.qr_code_tana_info:
                             tanaban_select_info = ""
                             if st.session_state.manual_input_info_flag == 0:
                                 st.write("棚番のQRコードをスキャンしてください:")
