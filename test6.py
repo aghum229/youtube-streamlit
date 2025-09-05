@@ -843,7 +843,15 @@ else:
                                         #     use_container_width=True,
                                         #     key="editable_table"
                                         # )
-                                        tanban_list = ["---"] + sorted([r["棚番"] for r in st.session_state.df_search_result])
+                                        try:
+                                            tanban_list = ["---"] + sorted([
+                                                r["棚番"] for r in st.session_state.df_search_result
+                                                if isinstance(r, dict) and "棚番" in r
+                                            ])
+                                        except Exception as e:
+                                            st.error(f"棚番リストの生成中にエラーが発生しました: {e}")
+                                            tanban_list = ["---"]
+                                        # tanban_list = ["---"] + sorted([r["棚番"] for r in st.session_state.df_search_result])
                                         selected_tanaban = st.selectbox("棚番を選択してください", tanban_list)
                                         # selected_tanaban = st.selectbox("棚番を選択してください", st.session_state.df_search_result["棚番"])
                                         st.session_state.tanaban_select_value = selected_tanaban
