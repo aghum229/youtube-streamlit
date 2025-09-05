@@ -869,7 +869,6 @@ else:
                                 st.write(f"選択された棚番： {st.session_state.tanaban_select_value}")
                                 st.stop()
                 else:
-                    if not st.session_state.qr_code_tana:
                     st.title("棚番で検索")
                     left, right = st.columns(2)
                     with left:
