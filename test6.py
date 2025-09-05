@@ -925,8 +925,8 @@ else:
                                 tanaban_select_info = st.selectbox(
                                     "棚番号を選んでください", zkTanalistSplit, key="tanaban_select_info"
                                 )
-                            if tanaban_select_info != "---":
-                                st.session_state.tanaban_select_temp_info = tanaban_select_info
+                            st.session_state.tanaban_select_temp_info = tanaban_select_info
+                            if st.session_state.tanaban_select_temp_info != "---":
                                 st.session_state.show_camera = False
                                 st.session_state.qr_code_tana_info = True
                                 # st.session_state.qr_code = ""
