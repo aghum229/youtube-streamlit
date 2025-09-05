@@ -825,7 +825,6 @@ else:
                                         zkKan = zkKan_list[index].split(",")
                                         zkSu = zkSu_list[index].split(",")
                                         if zkHin_Search in zkHin:
-                                            # st.write(f"{strA} はリストに含まれています")
                                             for index_2, item_2 in enumerate(zkHin):
                                                 if item_2 == zkHin_Search:
                                                     st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[index], zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2]]
@@ -839,7 +838,7 @@ else:
                                     #     use_container_width=True,
                                     #     key="editable_table"
                                     # )
-                                    selected_tanaban = st.selectbox("棚番を選択してください", st.session_state.df_search_result["棚番"])
+                                    selected_tanaban = st.selectbox("棚番を選択してください", ["---"] + st.session_state.df_search_result["棚番"])
                                     st.write(f"選択された棚番： {selected_tanaban}")
                                     st.stop()
                                 # else:
