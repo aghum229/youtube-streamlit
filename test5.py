@@ -67,7 +67,7 @@ else:
             or (first_char == "R" and after_hyphen_int <= 19)):
             sub_text = "P-3"
             image_path_sub = "TanaMap20250820-P3.png"
-            image_path = "TanaMap20250820-3a.png"
+            image_path = "TanaMap20250820-3.png"
             image_search_flag = True
         elif ((first_char == "A" and after_hyphen_int <= 16) 
             or (first_char == "D" and after_hyphen_int <= 16) 
@@ -190,13 +190,19 @@ else:
                         center_y = int((tl[1] + br[1]) / 2)
                         target_center = (center_x, center_y)
                         break
+                    elif text.strip() == "R-g" and target_text.strip() == "R-9":
+                        (tl, tr, br, bl) = bbox
+                        center_x = int((tl[0] + br[0]) / 2)
+                        center_y = int((tl[1] + br[1]) / 2)
+                        target_center = (center_x, center_y)
+                        break
     
             # 赤い円（○）を描画
             image_with_circle_c = image_np.copy()
             if target_center:
                 # cv2.circle(image_with_circle_c, target_center, 50, (255, 0, 0), thickness=8)
                 if first_char == "E":
-                    axes = (100, 50) 
+                    axes = (80, 40) 
                 else:
                     axes = (65, 35)  # 横長：横65、縦35
                 angle = 0         # 回転なし
