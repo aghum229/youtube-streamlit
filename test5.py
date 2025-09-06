@@ -99,12 +99,12 @@ else:
             image_path_sub = "TanaMap20250820-P7.png"
             image_path = "TanaMap20250820-6.png"
             image_search_flag = True
-        elif (first_char == "除内" and 1 <= after_hyphen_int <= 50): 
+        elif (first_char == "除" and second_char == "内" and 1 <= after_hyphen_int <= 50): 
             sub_text = "P-8"
             image_path_sub = "TanaMap20250820-P8.png"
             # image_path = "TanaMap20250820-2.png"
             image_search_flag = True
-        elif (first_char == "除外" and 1 <= after_hyphen_int <= 50): 
+        elif (first_char == "除" and second_char == "外" and 1 <= after_hyphen_int <= 50): 
             sub_text = "P-9"
             image_path_sub = "TanaMap20250820-P9.png"
             # image_path = "TanaMap20250820-2.png"
