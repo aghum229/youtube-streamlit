@@ -56,32 +56,37 @@ else:
             image_path_sub = "TanaMap20250820-P1.png"
             image_path = "TanaMap20250820-1.png"
             image_search_flag = True
-        elif (first_char == "完" and 10 <= after_hyphen_int <= 20): 
+        elif (first_char == "完" and 10 <= after_hyphen_int <= 15): 
             sub_text = "P-2"
             image_path_sub = "TanaMap20250820-P2.png"
             image_path = "TanaMap20250820-2.png"
+            image_search_flag = True
+        elif (first_char == "完" and 16 <= after_hyphen_int <= 40): 
+            sub_text = "P-3"
+            image_path_sub = "TanaMap20250820-P3.png"
+            # image_path = "TanaMap20250820-2.png"
             image_search_flag = True
         elif ((first_char == "E" and 31 <= after_hyphen_int <= 37) 
             or (first_char == "G" and after_hyphen_int <= 18) 
             or (first_char == "H" and after_hyphen_int <= 18) 
             or (first_char == "R" and after_hyphen_int <= 19)):
-            sub_text = "P-3"
-            image_path_sub = "TanaMap20250820-P3.png"
+            sub_text = "P-4"
+            image_path_sub = "TanaMap20250820-P4.png"
             image_path = "TanaMap20250820-3.png"
             image_search_flag = True
         elif ((first_char == "A" and after_hyphen_int <= 16) 
             or (first_char == "D" and after_hyphen_int <= 16) 
             or (first_char == "E" and 51 <= after_hyphen_int <= 57) 
             or (first_char == "F" and after_hyphen_int <= 18)):
-            sub_text = "P-4"
-            image_path_sub = "TanaMap20250820-P4.png"
+            sub_text = "P-5"
+            image_path_sub = "TanaMap20250820-P5.png"
             image_path = "TanaMap20250820-4.png"
             image_search_flag = True
         elif ((first_char == "E" and 38 <= after_hyphen_int <= 50) 
             or (first_char == "G" and 20 <= after_hyphen_int <= 33) 
             or (first_char == "H" and 31 <= after_hyphen_int <= 37)):
-            sub_text = "P-5"
-            image_path_sub = "TanaMap20250820-P5.png"
+            sub_text = "P-6"
+            image_path_sub = "TanaMap20250820-P6.png"
             image_path = "TanaMap20250820-5.png"
             image_search_flag = True
         elif ((first_char == "A" and 19 <= after_hyphen_int <= 30) 
@@ -90,9 +95,19 @@ else:
             or (first_char == "F" and 20 <= after_hyphen_int <= 32) 
             or (first_char == "H" and 26 <= after_hyphen_int <= 30) 
             or (first_char == "S" and after_hyphen_int <= 12)):
-            sub_text = "P-6"
-            image_path_sub = "TanaMap20250820-P6.png"
+            sub_text = "P-7"
+            image_path_sub = "TanaMap20250820-P7.png"
             image_path = "TanaMap20250820-6.png"
+            image_search_flag = True
+        elif (first_char == "除内" and 1 <= after_hyphen_int <= 50): 
+            sub_text = "P-8"
+            image_path_sub = "TanaMap20250820-P8.png"
+            # image_path = "TanaMap20250820-2.png"
+            image_search_flag = True
+        elif (first_char == "除外" and 1 <= after_hyphen_int <= 50): 
+            sub_text = "P-9"
+            image_path_sub = "TanaMap20250820-P9.png"
+            # image_path = "TanaMap20250820-2.png"
             image_search_flag = True
         if image_search_flag:
             # OCR実行   r"完.?[ABC][-–—]?(1[0-5]|[1-9])"
@@ -155,104 +170,115 @@ else:
             image_sub2 = Image.open(image_path_sub2).convert("RGB")
             image_sub2_np = np.array(image_sub2)
             image_with_circle_b = image_sub2_np.copy()
-            
-            results = reader.readtext(image_np)
-            target_center = None
-            if first_char == "完":
-                target_pattern = re.compile(fr"完{second_char}-{after_hyphen_int}")
-                target_pattern_b = re.compile(fr"{second_char}-{after_hyphen_int}")
-                # st.write(target_pattern)
-                for bbox, text, prob in results:
-                    cleaned = text.replace(" ", "")
-                    # st.write(cleaned)
-                    if target_pattern.search(cleaned):
-                        (tl, tr, br, bl) = bbox
-                        center_x = int((tl[0] + br[0]) / 2)
-                        center_y = int((tl[1] + br[1]) / 2)
-                        target_center = (center_x, center_y)
-                        break
-                    else:
-                        if target_pattern_b.search(cleaned):
+
+            if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+                results = reader.readtext(image_np)
+                target_center = None
+                if first_char == "完":
+                    target_pattern = re.compile(fr"完{second_char}-{after_hyphen_int}")
+                    target_pattern_b = re.compile(fr"{second_char}-{after_hyphen_int}")
+                    # st.write(target_pattern)
+                    for bbox, text, prob in results:
+                        cleaned = text.replace(" ", "")
+                        # st.write(cleaned)
+                        if target_pattern.search(cleaned):
                             (tl, tr, br, bl) = bbox
                             center_x = int((tl[0] + br[0]) / 2)
                             center_y = int((tl[1] + br[1]) / 2)
-                            if second_char == "B" or second_char == "D":
-                                center_x += 10
-                            else:
-                                center_x -= 10
                             target_center = (center_x, center_y)
                             break
-            else:
-                for bbox, text, prob in results:
-                    # st.write(text)
-                    if text.strip() == target_text.strip():
-                        (tl, tr, br, bl) = bbox
-                        center_x = int((tl[0] + br[0]) / 2)
-                        center_y = int((tl[1] + br[1]) / 2)
-                        target_center = (center_x, center_y)
-                        break
-                    elif ((text.strip() == "R-g" and target_text.strip() == "R-9")
-                        or (text.strip() == "6-5" and target_text.strip() == "G-5") 
-                        or (text.strip() == "6-6" and target_text.strip() == "G-6") 
-                        or (text.strip() == "6-17" and target_text.strip() == "G-17")):
-                        (tl, tr, br, bl) = bbox
-                        center_x = int((tl[0] + br[0]) / 2)
-                        center_y = int((tl[1] + br[1]) / 2)
-                        target_center = (center_x, center_y)
-                        break
+                        else:
+                            if target_pattern_b.search(cleaned):
+                                (tl, tr, br, bl) = bbox
+                                center_x = int((tl[0] + br[0]) / 2)
+                                center_y = int((tl[1] + br[1]) / 2)
+                                if second_char == "B" or second_char == "D":
+                                    center_x += 10
+                                else:
+                                    center_x -= 10
+                                target_center = (center_x, center_y)
+                                break
+                else:
+                    for bbox, text, prob in results:
+                        # st.write(text)
+                        if text.strip() == target_text.strip():
+                            (tl, tr, br, bl) = bbox
+                            center_x = int((tl[0] + br[0]) / 2)
+                            center_y = int((tl[1] + br[1]) / 2)
+                            target_center = (center_x, center_y)
+                            break
+                        elif ((text.strip() == "R-g" and target_text.strip() == "R-9")
+                            or (text.strip() == "6-5" and target_text.strip() == "G-5") 
+                            or (text.strip() == "6-6" and target_text.strip() == "G-6") 
+                            or (text.strip() == "6-17" and target_text.strip() == "G-17")):
+                            (tl, tr, br, bl) = bbox
+                            center_x = int((tl[0] + br[0]) / 2)
+                            center_y = int((tl[1] + br[1]) / 2)
+                            target_center = (center_x, center_y)
+                            break
             
             # 赤い円（○）を描画
-            image_with_circle_c = image_np.copy()
+            if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+                image_with_circle_c = image_np.copy()
             if target_center:
-                # cv2.circle(image_with_circle_c, target_center, 50, (255, 0, 0), thickness=8)
-                if first_char == "E":
-                    axes = (90, 50) 
-                else:
-                    axes = (65, 35)  # 横長：横65、縦35
-                angle = 0         # 回転なし
-                cv2.ellipse(image_with_circle_c, target_center, axes, angle, 0, 360, (255, 0, 0), thickness=8)
-                # st.image(image_with_circle_c, caption=f"{target_text} を検出しました", use_container_width=True)
-
-                # 画像サイズに合わせて矩形を描画
-                h, w = image_with_circle_c.shape[:2]
-                cv2.rectangle(image_with_circle_c, (0, 0), (w - 1, h - 1), (0, 0, 255), 20)
-                # cv2.rectangle(image_with_circle_c, (0, 0), (w - 1, h - 1), (255, 0, 255), 20)
-                _= '''
-                # サイズ取得
-                h1, w1 = image_with_circle_a.shape[:2]
-                h2, w2 = image_with_circle_b.shape[:2]
-                h3, w3 = image_with_circle_c.shape[:2]
-                # キャンバスサイズ（幅は最大、縦は合計）
-                canvas_width = max(w1, w2, w3)
-                canvas_height = h1 + h2 + h3
-                # 白背景キャンバス作成
-                canvas = np.ones((canvas_height, canvas_width, 3), dtype=np.uint8) * 255
-                # img1 を上に貼り付け（中央揃え）
-                x1_offset = (canvas_width - w1) // 2
-                canvas[0:h1, x1_offset:x1_offset + w1] = image_with_circle_a
-                # img2 を下に貼り付け（中央揃え）
-                x2_offset = (canvas_width - w2) // 2
-                canvas[h1:h1 + h2, x2_offset:x2_offset + w2] = image_with_circle_b
-                # img3 を下に貼り付け（中央揃え）
-                x3_offset = max((canvas_width - w3) // 2, 0)
-                canvas[h2:h1 + h2 + h3, x3_offset:x3_offset + w3] = image_with_circle_c
-                '''
+                if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+                    # cv2.circle(image_with_circle_c, target_center, 50, (255, 0, 0), thickness=8)
+                    if first_char == "E":
+                        axes = (90, 50) 
+                    else:
+                        axes = (65, 35)  # 横長：横65、縦35
+                    angle = 0         # 回転なし
+                    cv2.ellipse(image_with_circle_c, target_center, axes, angle, 0, 360, (255, 0, 0), thickness=8)
+                    # st.image(image_with_circle_c, caption=f"{target_text} を検出しました", use_container_width=True)
+    
+                    # 画像サイズに合わせて矩形を描画
+                    h, w = image_with_circle_c.shape[:2]
+                    cv2.rectangle(image_with_circle_c, (0, 0), (w - 1, h - 1), (0, 0, 255), 20)
+                    # cv2.rectangle(image_with_circle_c, (0, 0), (w - 1, h - 1), (255, 0, 255), 20)
+                    _= '''
+                    # サイズ取得
+                    h1, w1 = image_with_circle_a.shape[:2]
+                    h2, w2 = image_with_circle_b.shape[:2]
+                    h3, w3 = image_with_circle_c.shape[:2]
+                    # キャンバスサイズ（幅は最大、縦は合計）
+                    canvas_width = max(w1, w2, w3)
+                    canvas_height = h1 + h2 + h3
+                    # 白背景キャンバス作成
+                    canvas = np.ones((canvas_height, canvas_width, 3), dtype=np.uint8) * 255
+                    # img1 を上に貼り付け（中央揃え）
+                    x1_offset = (canvas_width - w1) // 2
+                    canvas[0:h1, x1_offset:x1_offset + w1] = image_with_circle_a
+                    # img2 を下に貼り付け（中央揃え）
+                    x2_offset = (canvas_width - w2) // 2
+                    canvas[h1:h1 + h2, x2_offset:x2_offset + w2] = image_with_circle_b
+                    # img3 を下に貼り付け（中央揃え）
+                    x3_offset = max((canvas_width - w3) // 2, 0)
+                    canvas[h2:h1 + h2 + h3, x3_offset:x3_offset + w3] = image_with_circle_c
+                    '''
                 img1 = image_with_circle_a
                 img2 = image_with_circle_b
-                img3 = image_with_circle_c
+                if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+                    img3 = image_with_circle_c
                 
                 # 最大横幅を取得
-                max_width = max(img1.shape[1], img2.shape[1], img3.shape[1])
-                
+                if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+                    max_width = max(img1.shape[1], img2.shape[1], img3.shape[1])
+                else:
+                    max_width = max(img1.shape[1], img2.shape[1])
                 # 中央揃えでパディング
                 img1_padded = pad_to_center(img1, max_width)
                 img2_padded = pad_to_center(img2, max_width)
-                img3_padded = pad_to_center(img3, max_width)
+                if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+                    img3_padded = pad_to_center(img3, max_width)
                 
                 # 縦に結合
-                combined = np.vstack([img1_padded, img2_padded, img3_padded])
-                st.image(combined, channels="RGB", caption=f"画像を結合しました", use_container_width=True)
-                st.success(f"座標: {target_center}")
+                if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+                    combined = np.vstack([img1_padded, img2_padded, img3_padded])
+                    st.image(combined, channels="RGB", use_container_width=True)
+                else:
+                    st.image(img1_padded, channels="RGB", use_container_width=True)
+                # st.image(combined, channels="RGB", caption=f"画像を結合しました", use_container_width=True)
+                # st.success(f"座標: {target_center}")
                 image_flag = True
             else:
                 None
