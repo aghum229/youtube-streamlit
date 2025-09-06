@@ -184,26 +184,23 @@ else:
                             break
             else:
                 for bbox, text, prob in results:
-                    st.write(text)
+                    # st.write(text)
                     if text.strip() == target_text.strip():
                         (tl, tr, br, bl) = bbox
                         center_x = int((tl[0] + br[0]) / 2)
                         center_y = int((tl[1] + br[1]) / 2)
                         target_center = (center_x, center_y)
                         break
-                    elif text.strip() == "R-g" and target_text.strip() == "R-9":
+                    elif (text.strip() == "R-g" and target_text.strip() == "R-9")
+                        or (text.strip() == "6-5" and target_text.strip() == "G-5") 
+                        or (text.strip() == "6-6" and target_text.strip() == "G-6") 
+                        or (text.strip() == "6-17" and target_text.strip() == "G-17"):
                         (tl, tr, br, bl) = bbox
                         center_x = int((tl[0] + br[0]) / 2)
                         center_y = int((tl[1] + br[1]) / 2)
                         target_center = (center_x, center_y)
                         break
-                    elif (text.strip() == "6-5" and target_text.strip() == "G-5") or (text.strip() == "6-6" and target_text.strip() == "G-6") or (text.strip() == "6-17" and target_text.strip() == "G-17"):
-                        (tl, tr, br, bl) = bbox
-                        center_x = int((tl[0] + br[0]) / 2)
-                        center_y = int((tl[1] + br[1]) / 2)
-                        target_center = (center_x, center_y)
-                        break
-    
+            
             # 赤い円（○）を描画
             image_with_circle_c = image_np.copy()
             if target_center:
