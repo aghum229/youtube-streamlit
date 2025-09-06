@@ -549,13 +549,10 @@ def image_viewer(target_text):
         second_char = target_text[1]
         after_hyphen = target_text.split("-")[1]
         after_hyphen_int = int(after_hyphen)
-        st.write(f"ハイフン以降の数値: {after_hyphen_int}（型: {type(after_hyphen_int)}）")
-        # match = re.search(r"-(.+)", target_text)
-        # after_hyphen = match.group(1) if match else ""
-        # after_hyphen_int = int(after_hyphen)
-        st.write(first_char)
-        st.write(second_char)
-        st.write(f"{after_hyphen_int}")
+        # st.write(f"ハイフン以降の数値: {after_hyphen_int}（型: {type(after_hyphen_int)}）")
+        # st.write(first_char)
+        # st.write(second_char)
+        # st.write(f"{after_hyphen_int}")
         image_path_sub2 = "TanaMap20250820-0.png"
         if first_char == "完" and after_hyphen_int <= 9:
             sub_text = "P-1"
@@ -743,26 +740,6 @@ def image_viewer(target_text):
                     h, w = image_with_circle_c.shape[:2]
                     cv2.rectangle(image_with_circle_c, (0, 0), (w - 1, h - 1), (0, 0, 255), 20)
                     # cv2.rectangle(image_with_circle_c, (0, 0), (w - 1, h - 1), (255, 0, 255), 20)
-                    _= '''
-                    # サイズ取得
-                    h1, w1 = image_with_circle_a.shape[:2]
-                    h2, w2 = image_with_circle_b.shape[:2]
-                    h3, w3 = image_with_circle_c.shape[:2]
-                    # キャンバスサイズ（幅は最大、縦は合計）
-                    canvas_width = max(w1, w2, w3)
-                    canvas_height = h1 + h2 + h3
-                    # 白背景キャンバス作成
-                    canvas = np.ones((canvas_height, canvas_width, 3), dtype=np.uint8) * 255
-                    # img1 を上に貼り付け（中央揃え）
-                    x1_offset = (canvas_width - w1) // 2
-                    canvas[0:h1, x1_offset:x1_offset + w1] = image_with_circle_a
-                    # img2 を下に貼り付け（中央揃え）
-                    x2_offset = (canvas_width - w2) // 2
-                    canvas[h1:h1 + h2, x2_offset:x2_offset + w2] = image_with_circle_b
-                    # img3 を下に貼り付け（中央揃え）
-                    x3_offset = max((canvas_width - w3) // 2, 0)
-                    canvas[h2:h1 + h2 + h3, x3_offset:x3_offset + w3] = image_with_circle_c
-                    '''
                 img1 = image_with_circle_a
                 img2 = image_with_circle_b
                 if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
