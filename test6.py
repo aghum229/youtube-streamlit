@@ -536,7 +536,7 @@ def pad_to_center(img, target_width, pad_color=(255, 255, 255)):
     pad_right = target_width - w - pad_left
     return cv2.copyMakeBorder(img, 0, 0, pad_left, pad_right, cv2.BORDER_CONSTANT, value=pad_color)
 
-def image_viewer(tanaban):
+def image_viewer(target_text):
     image_files = sorted(glob.glob("TanaMap*.png") + glob.glob("TanaMap*.jpg") + glob.glob("TanaMap*.jpeg"))
     image_flag = False
     image_sub_flag = False
@@ -794,7 +794,7 @@ def image_viewer(tanaban):
                 # st.warning(f"{target_text} はこの画像には見つかりませんでした。")
         if image_flag == False:
             st.warning(f"{target_text} はこの画像には見つかりませんでした。")
-    st.stop()
+    # st.stop()
 
     
 # Autenticar no Salesforce
@@ -1090,6 +1090,7 @@ else:
                                     st.session_state.tanaban_select_flag  = False
                                     st.rerun()
                                 st.write(f"選択された棚番： {st.session_state.tanaban_select_value}")
+                                image_viewer(st.session_state.tanaban_select_value)
                                 st.stop()
                 elif st.session_state.manual_input_check_flag == 1:
                     st.title("棚番で検索")
