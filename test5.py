@@ -183,6 +183,7 @@ else:
                             break
             else:
                 for bbox, text, prob in results:
+                    st.write(text)
                     if text.strip() == target_text.strip():
                         (tl, tr, br, bl) = bbox
                         center_x = int((tl[0] + br[0]) / 2)
@@ -194,7 +195,10 @@ else:
             image_with_circle_c = image_np.copy()
             if target_center:
                 # cv2.circle(image_with_circle_c, target_center, 50, (255, 0, 0), thickness=8)
-                axes = (65, 35)  # 横長：横55、縦25
+                if first_char == "E":
+                    axes = (100, 50) 
+                else:
+                    axes = (65, 35)  # 横長：横65、縦35
                 angle = 0         # 回転なし
                 cv2.ellipse(image_with_circle_c, target_center, axes, angle, 0, 360, (255, 0, 0), thickness=8)
                 # st.image(image_with_circle_c, caption=f"{target_text} を検出しました", use_container_width=True)
