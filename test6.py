@@ -529,6 +529,12 @@ def approve_button(message, button_key):
     elif dialog_check_ng_flag:
         st.session_state[button_key] = False
         st.rerun()
+        
+def pad_to_center(img, target_width, pad_color=(255, 255, 255)):
+    h, w = img.shape[:2]
+    pad_left = (target_width - w) // 2
+    pad_right = target_width - w - pad_left
+    return cv2.copyMakeBorder(img, 0, 0, pad_left, pad_right, cv2.BORDER_CONSTANT, value=pad_color)
 
 # Autenticar no Salesforce
 if "sf" not in st.session_state:
