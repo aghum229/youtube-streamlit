@@ -217,7 +217,8 @@ else:
                             center_y = int((tl[1] + br[1]) / 2)
                             target_center = (center_x, center_y)
                             break
-            
+            else:
+                target_center = (1, 1)
             # 赤い円（○）を描画
             if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
                 image_with_circle_c = image_np.copy()
