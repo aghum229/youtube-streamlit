@@ -67,7 +67,7 @@ else:
             or (first_char == "R" and after_hyphen_int <= 19)):
             sub_text = "P-3"
             image_path_sub = "TanaMap20250820-P3.png"
-            image_path = "TanaMap20250820-3.png"
+            image_path = "TanaMap20250820-3a.png"
             image_search_flag = True
         elif ((first_char == "A" and after_hyphen_int <= 16) 
             or (first_char == "D" and after_hyphen_int <= 16) 
