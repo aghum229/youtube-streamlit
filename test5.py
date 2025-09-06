@@ -218,7 +218,8 @@ else:
 
                 # 画像サイズに合わせて矩形を描画
                 h, w = image_with_circle_c.shape[:2]
-                cv2.rectangle(image_with_circle_c, (0, 0), (w - 1, h - 1), (255, 0, 255), 20)
+                cv2.rectangle(image_with_circle_c, (0, 0), (w - 1, h - 1), (0, 0, 255), 20)
+                # cv2.rectangle(image_with_circle_c, (0, 0), (w - 1, h - 1), (255, 0, 255), 20)
                 _= '''
                 # サイズ取得
                 h1, w1 = image_with_circle_a.shape[:2]
