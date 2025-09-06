@@ -72,7 +72,7 @@ else:
         elif ((first_char == "A" and after_hyphen_int <= 16) 
             or (first_char == "D" and after_hyphen_int <= 16) 
             or (first_char == "E" and 51 <= after_hyphen_int <= 57) 
-            or (first_char == "F" and after_hyphen_int <= 16)):
+            or (first_char == "F" and after_hyphen_int <= 18)):
             sub_text = "P-4"
             image_path_sub = "TanaMap20250820-P4.png"
             image_path = "TanaMap20250820-4.png"
@@ -86,6 +86,7 @@ else:
             image_search_flag = True
         elif ((first_char == "A" and 19 <= after_hyphen_int <= 30) 
             or (first_char == "D" and 18 <= after_hyphen_int <= 28) 
+            or (first_char == "E" and 58 <= after_hyphen_int <= 64) 
             or (first_char == "F" and 20 <= after_hyphen_int <= 32) 
             or (first_char == "H" and 26 <= after_hyphen_int <= 30) 
             or (first_char == "S" and after_hyphen_int <= 12)):
@@ -208,7 +209,7 @@ else:
             if target_center:
                 # cv2.circle(image_with_circle_c, target_center, 50, (255, 0, 0), thickness=8)
                 if first_char == "E":
-                    axes = (85, 45) 
+                    axes = (90, 50) 
                 else:
                     axes = (65, 35)  # 横長：横65、縦35
                 angle = 0         # 回転なし
