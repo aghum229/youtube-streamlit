@@ -196,13 +196,19 @@ else:
                         center_y = int((tl[1] + br[1]) / 2)
                         target_center = (center_x, center_y)
                         break
+                    elif (text.strip() == "6-5" and target_text.strip() == "G-5") or (text.strip() == "6-6" and target_text.strip() == "G-6") or (text.strip() == "6-17" and target_text.strip() == "G-17"):
+                        (tl, tr, br, bl) = bbox
+                        center_x = int((tl[0] + br[0]) / 2)
+                        center_y = int((tl[1] + br[1]) / 2)
+                        target_center = (center_x, center_y)
+                        break
     
             # 赤い円（○）を描画
             image_with_circle_c = image_np.copy()
             if target_center:
                 # cv2.circle(image_with_circle_c, target_center, 50, (255, 0, 0), thickness=8)
                 if first_char == "E":
-                    axes = (80, 40) 
+                    axes = (85, 45) 
                 else:
                     axes = (65, 35)  # 横長：横65、縦35
                 angle = 0         # 回転なし
