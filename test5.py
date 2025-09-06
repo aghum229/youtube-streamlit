@@ -114,12 +114,13 @@ else:
             
             image_sub = Image.open(image_path_sub).convert("RGB")
             image_sub_np = np.array(image_sub)
-            if os.path.exists(image_path):
-                image = Image.open(image_path).convert("RGB")
-                image_np = np.array(image)
-            else:
-                st.error(f"画像ファイルが見つかりません: {image_path}")
-                st.stop()
+            if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+                if os.path.exists(image_path):
+                    image = Image.open(image_path).convert("RGB")
+                    image_np = np.array(image)
+                else:
+                    st.error(f"画像ファイルが見つかりません: {image_path}")
+                    st.stop()
             _= '''
             results_sub = reader.readtext(image_sub_np)
             target_center = None
