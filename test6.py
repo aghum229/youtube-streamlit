@@ -1127,6 +1127,7 @@ else:
                                 st.session_state.qr_code_tana_info = False
                                 st.session_state.tanaban_select_temp_info = ""
                                 st.rerun()
+                            st.write(f"選択された棚番： {st.session_state.tanaban_select_temp_info}　にある品番一覧")
                             st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
                             listCount = 0
                             listCount2 = 0
@@ -1175,7 +1176,7 @@ else:
                                 st.write("'item_id'　が存在しません。至急、システム担当者に連絡してください！")
                                 st.stop()
                             
-                            st.write(f"選択された棚番： {st.session_state.tanaban_select_temp_info}")
+                            # st.write(f"選択された棚番： {st.session_state.tanaban_select_temp_info}")
                             image_viewer(st.session_state.tanaban_select_temp_info)
                             st.stop()
                 _= '''
