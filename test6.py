@@ -204,58 +204,8 @@ def atualizar_tanaban_addkari(sf, item_id):  # 棚番書き込み専用
         st.error(f"更新エラー: {e}")
         # reset_form()
     st.stop()
-        
-def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkOrder):
-    global zkScroll_flag  # 初期値0
-    try:
-        # sf.snps_um__Process__c.update(item_id, {"zkHinban__c": zkHin})
-        # _= '''
-        sf.snps_um__Process__c.update(item_id, {
-            "zkIkohyoNo__c": zkIko,
-            "zkHinban__c": zkHin,
-            "zkKanryoKoutei__c": zkKan,
-            "zkSuryo__c": zkSu,
-            "zkTuikaDatetime__c": zkTuiDa,
-            "zkTuikaSya__c": zkTuiSya,
-            "zkMap__c": zkMap,
-            "zkHistory__c": zkHistory
-        })
-        # '''
-        # st.success(f"##### snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkOrder}' を追加しました。")
-        zkScroll_flag = 1
-        st.success(f"棚番 '{zkTana}' に、移行票No '{zkOrder}' を追加しました。")
-    except Exception as e:
-        st.error(f"更新エラー: {e}")
-        reset_form()
-        st.stop()
-
-# def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkDelDa, zkDelTana, zkDelIko, zkDelSya, zkOrder):
-def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkHistory, zkOrder):
-    global zkScroll_flag  # 初期値0
-    try:
-        sf.snps_um__Process__c.update(item_id, {
-            "zkIkohyoNo__c": zkIko,
-            "zkHinban__c": zkHin,
-            "zkKanryoKoutei__c": zkKan,
-            "zkSuryo__c": zkSu,
-            "zkTuikaDatetime__c": zkTuiDa,
-            "zkTuikaSya__c": zkTuiSya,
-            "zkMap__c": zkMap,
-            "zkHistory__c": zkHistory
-            # "zkDeleteDatetime__c": zkDelDa,
-            # "zkDeleteTanaban__c": zkDelTana,
-            # "zkDeleteIkohyoNo__c": zkDelIko,
-            # "zkDeleteSya__c": zkDelSya
-        })
-        # st.success(f"##### snps_um__Process__c の棚番 '{zkTana}' から移行票No '{zkOrder}' を削除しました。")
-        zkScroll_flag = 1
-        st.success(f"棚番 '{zkTana}' から、移行票No '{zkOrder}' を削除しました。")
-    except Exception as e:
-        st.error(f"更新エラー: {e}")
-        # reset_form()
-        st.stop()
-        
-def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkMap, zkHistory, zkOrder):
+               
+def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkHistory, zkOrder):
     global add_del_flag  # 0:追加　1:削除
     global zkScroll_flag  # 初期値0
     global result_text
@@ -267,7 +217,6 @@ def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkMap, zkHist
             "zkHinban__c": zkHin,
             "zkKanryoKoutei__c": zkKan,
             "zkSuryo__c": zkSu,
-            "zkMap__c": zkMap,
             "zkHistory__c": zkHistory
         })
         # '''
@@ -287,10 +236,9 @@ def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkMap, zkHist
 # WHERE Name LIKE '%{item_name}%' AND snps_um__ProcessOrderNo__c = 999
 def data_catch(sf, item_id):
     query = f"""
-        SELECT AITC_ID18__c, Name, zkShortcutButton__c, zkShortcutUser__c,
-            zkTanaban__c, zkMapNo__c, zkIkohyoNo__c ,zkHinban__c, zkKanryoKoutei__c,
-            zkSuryo__c, zkTuikaDatetime__c, zkTuikaSya__c, zkMap__c, zkHistory__c,
-            zkDeleteDatetime__c, zkDeleteTanaban__c, zkDeleteIkohyoNo__c, zkDeleteSya__c
+        SELECT AITC_ID18__c, Name,
+            zkTanaban__c, zkIkohyoNo__c ,zkHinban__c, zkKanryoKoutei__c,
+            zkSuryo__c, zkHistory__c
         FROM snps_um__Process__c
         WHERE AITC_ID18__c = '{item_id}'
     """
@@ -1474,7 +1422,7 @@ else:
                             zkHin = ""
                             zkKan = ""
                             zkSu = ""
-                            zkMap = ""
+                            # zkMap = ""
                             zkOrder = ""
                             zkHistory = ""
                             record = data_catch(st.session_state.sf, item_id)
@@ -1527,7 +1475,7 @@ else:
                                         zkHin = zkIko
                                         zkKan = zkIko
                                         zkSu = zkIko
-                                        zkMap = zkIko
+                                        # zkMap = zkIko
                                         zkHistory = zkIko
                                     else:
                                         zkOrder = st.session_state.production_order
@@ -1537,14 +1485,14 @@ else:
                                             zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
                                             zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
                                             zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
-                                            zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", -1)   # zkマップ座標
+                                            # zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", -1)   # zkマップ座標
                                             zkHistory_value = f"{zkHistory_value},add"
                                         elif add_del_flag == 1: # 削除の場合
                                             zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 3)   # zk移行票No
                                             zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 2)   # zk品番
                                             zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 2)   # zk完了工程
                                             zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 2)   # zk数量
-                                            zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 2)   # zkマップ座標
+                                            # zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 2)   # zkマップ座標
                                             zkHistory_value = f"{zkHistory_value},del"
                                         zkHistory  = zkHistory_value + "\n" + str(zkHistory)   # zk履歴
                                         
@@ -1565,7 +1513,7 @@ else:
                                 st.stop()  # 以降の処理を止める
                             zkScroll_flag = 0
                             if item_id:
-                                update_tanaban(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkMap, zkHistory, zkOrder)
+                                update_tanaban(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkHistory, zkOrder)
                                 button_key = "check_ok_2"
                                 if zkScroll_flag == 1 and button_key not in st.session_state:
                                     @st.dialog("処理結果通知")
