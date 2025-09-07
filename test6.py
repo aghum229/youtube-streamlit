@@ -1037,7 +1037,7 @@ else:
                                             # st.write(f"for文で検索した棚番: '{item}'") 
                                             # st.write(f"検索させる棚番: '{tanaban_select}'")
                                             zkIko = zkIko_list[index].split(",")
-                                            zkHin = item.split(",")
+                                            zkHin = zkHin_list[index].split(",")
                                             zkKan = zkKan_list[index].split(",")
                                             zkSu = zkSu_list[index].split(",")
                                             if zkHin_Search in zkHin:
@@ -1150,7 +1150,7 @@ else:
                                 if listCount > 1:
                                     for index, item in enumerate(zkTana_list):
                                         zkIko = zkIko_list[index].split(",")
-                                        zkHin = item.split(",")
+                                        zkHin = zkHin_list[index].split(",")
                                         zkKan = zkKan_list[index].split(",")
                                         zkSu = zkSu_list[index].split(",")
                                         listCount2 = len(zkIko)
