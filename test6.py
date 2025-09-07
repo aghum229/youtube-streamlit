@@ -331,32 +331,7 @@ def data_catch_hinmoku(sf, item_name):
         # return None
         # reset_form()
         st.stop()
-
-def data_catch_tanaben(sf, item_id, tanaban):
-    query = f"""
-        SELECT AITC_ID18__c, Name, zkShortcutButton__c, zkShortcutUser__c,
-            zkTanaban__c, zkMapNo__c, zkIkohyoNo__c ,zkHinban__c, zkKanryoKoutei__c,
-            zkSuryo__c, zkTuikaDatetime__c, zkTuikaSya__c, zkMap__c, zkHistory__c,
-            zkDeleteDatetime__c, zkDeleteTanaban__c, zkDeleteIkohyoNo__c, zkDeleteSya__c
-        FROM snps_um__Process__c
-        WHERE AITC_ID18__c = '{item_id}' and zkTanaban__c = '{tanaban}'
-    """
-    try:
-        result = sf.query(query)
-        records = result.get("records", [])
-        if records:
-            return records[0]
-        else:
-            st.warning(f"ID(18桁) '{item_id}' に一致する snps_um__Process__c が見つかりませんでした。")
-            # return None
-            # reset_form()
-            st.stop()
-    except Exception as e:
-        st.error(f"ID(18桁)検索エラー: {e}")
-        # return None
-        # reset_form()
-        st.stop()
-        
+       
 def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     """
     指定されたlistNoの値を更新する関数。
@@ -1054,11 +1029,11 @@ else:
                                     zkHin_list = record["zkHinban__c"].splitlines() 
                                     zkKan_list = record["zkKanryoKoutei__c"].splitlines() 
                                     zkSu_list = record["zkSuryo__c"].splitlines() 
-                                    # listCount = len(zkTana_list)
-                                    listCount = len(zkHin_list)
+                                    listCount = len(zkTana_list)
+                                    # listCount = len(zkHin_list)
                                     zkHin_Search = st.session_state.hinban_select_value
                                     if listCount > 1:
-                                        for index, item in enumerate(zkHin_list):
+                                        for index, item in enumerate(zkTana_list):
                                             # st.write(f"for文で検索した棚番: '{item}'") 
                                             # st.write(f"検索させる棚番: '{tanaban_select}'")
                                             zkIko = zkIko_list[index].split(",")
@@ -1068,7 +1043,7 @@ else:
                                             if zkHin_Search in zkHin:
                                                 for index_2, item_2 in enumerate(zkHin):
                                                     if item_2 == zkHin_Search:
-                                                        st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[index], zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2]]
+                                                        st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2]]
                                                         # st.write("zkHin_list:", zkHin_list)
                                                         # st.write("df_search_result:", st.session_state.df_search_result)
                                         # st.write(st.session_state.df_search_result)
@@ -1080,7 +1055,9 @@ else:
                                         #     key="editable_table"
                                         # )
                                     else:
-                                        st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[0], zkIko[0], zkHin[0], zkKan[0], zkSu[0]]
+                                        st.write("棚番が１データしか存在しません。至急、システム担当者に連絡してください！")
+                                        st.stop()
+                                        # st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[0], zkIko[0], zkHin[0], zkKan[0], zkSu[0]]
                                 else:
                                     st.write("'item_id'　が存在しません。至急、システム担当者に連絡してください！")
                                     st.stop()
@@ -1152,23 +1129,37 @@ else:
                                 st.rerun()
                             st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
                             listCount = 0
-                            zkTana = st.session_state.tanaban_select_temp_info
+                            listCount2 = 0
+                            zkTana = ""
                             zkIko = ""
                             zkHin = ""
                             zkKan = ""
                             zkSu = ""
                             zkHistory = ""
-                            record = data_catch_tanaben(st.session_state.sf, item_id, zkTana)
+                            record = data_catch(st.session_state.sf, item_id)
                             if record:
-                                # zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
-                                zkIko = record["zkIkohyoNo__c"].split(",")
-                                zkHin = record["zkHinban__c"].split(",")
-                                zkKan = record["zkKanryoKoutei__c"].split(",")
-                                zkSu = record["zkSuryo__c"].split(",")
-                                listCount = len(zkIko)
+                                # zkHistory = record["zkHistory__c"]  # zk履歴
+                                zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
+                                zkIko_list = record["zkIkohyoNo__c"].splitlines() 
+                                zkHin_list = record["zkHinban__c"].splitlines() 
+                                zkKan_list = record["zkKanryoKoutei__c"].splitlines() 
+                                zkSu_list = record["zkSuryo__c"].splitlines() 
+                                listCount = len(zkTana_list)
+                                # listCount = len(zkHin_list)
+                                zkTana_Search = st.session_state.tanaban_select_temp_info
                                 if listCount > 1:
-                                    for index, item in enumerate(zkIko):
-                                        st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana, zkIko[index], zkHin[index], zkKan[index], zkSu[index]]
+                                    for index, item in enumerate(zkTana_list):
+                                        zkIko = zkIko_list[index].split(",")
+                                        zkHin = item.split(",")
+                                        zkKan = zkKan_list[index].split(",")
+                                        zkSu = zkSu_list[index].split(",")
+                                        listCount2 = len(zkIko)
+                                        if item == zkTana_Search:
+                                            if listCount2 > 1:
+                                                for index_2, item_2 in enumerate(zkIko):
+                                                    st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2]]
+                                            else:
+                                                st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkIko[0], zkHin[0], zkKan[0], zkSu[0]]
                                     # st.write(st.session_state.df_search_result)
                                     st.dataframe(st.session_state.df_search_result)
                                     # edited_df = st.data_editor(
@@ -1178,7 +1169,8 @@ else:
                                     #     key="editable_table"
                                     # )
                                 else:
-                                    st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana, zkIko[0], zkHin[0], zkKan[0], zkSu[0]]
+                                    st.write("棚番が１データしか存在しません。至急、システム担当者に連絡してください！")
+                                    st.stop()
                             else:
                                 st.write("'item_id'　が存在しません。至急、システム担当者に連絡してください！")
                                 st.stop()
