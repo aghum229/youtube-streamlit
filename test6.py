@@ -1018,6 +1018,8 @@ else:
                                 if st.session_state.tanaban_select_value != "" and st.session_state.tanaban_select_value != "---":
                                     st.session_state.tanaban_select_flag = True
                                     st.rerun()  # 再描画して次のステップへ
+                                else:
+                                    st.write(f"{st.session_state.tanaban_select_value}  ←現在の棚番")
                             else:
                                 if st.button("棚番を再選択"):
                                     st.session_state.tanaban_select_flag  = False
