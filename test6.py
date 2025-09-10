@@ -1026,6 +1026,7 @@ else:
                             else:
                                 if st.button("棚番を再選択"):
                                     st.session_state.tanaban_select_flag  = False
+                                    st.session_state.tanaban_select_value = ""
                                     st.rerun()
                                 st.write(f"選択された棚番： {st.session_state.tanaban_select_value}")
                                 image_viewer(st.session_state.tanaban_select_value)
