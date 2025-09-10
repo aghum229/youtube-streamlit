@@ -1014,7 +1014,7 @@ else:
                                 selected_tanaban = ""
                                 # tanban_list = ["---"] + sorted(st.session_state.df_search_result.iloc[:, 0].dropna().unique())
                                 tanban_list = ["---"] + st.session_state.df_search_result.iloc[:, 0].dropna().tolist()
-                                selected_tanaban = st.selectbox("棚番を選択してください　(クリックするとリストが開きます)", tanban_list, , key="selected_tanaban")
+                                selected_tanaban = st.selectbox("棚番を選択してください　(クリックするとリストが開きます)", tanban_list, key="selected_tanaban")
                                 # selected_tanaban = st.selectbox("棚番を選択してください　(クリックするとリストが開きます)", st.session_state.df_search_result["棚番"])
                                 st.session_state.tanaban_select_value = selected_tanaban
                                 if st.session_state.tanaban_select_value != "" and st.session_state.tanaban_select_value != "---":
