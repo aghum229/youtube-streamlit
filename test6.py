@@ -1009,7 +1009,7 @@ else:
                                 else:
                                     st.write("'item_id'　が存在しません。至急、システム担当者に連絡してください！")
                                     st.stop()
-                                selected_tanaban =　""
+                                selected_tanaban = ""
                                 # tanban_list = ["---"] + sorted(st.session_state.df_search_result.iloc[:, 0].dropna().unique())
                                 tanban_list = ["---"] + st.session_state.df_search_result.iloc[:, 0].dropna().tolist()
                                 selected_tanaban = st.selectbox("棚番を選択してください　(クリックするとリストが開きます)", tanban_list)
