@@ -962,58 +962,58 @@ else:
                                 st.session_state.hinban_select_flag = False
                                 st.session_state.tanaban_select_flag  = False
                                 st.rerun()
-                            if not st.session_state.tanaban_select_flag:
-                                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
-                                listCount = 0
-                                zkTana = ""
-                                zkIko = ""
-                                zkHin = ""
-                                zkKan = ""
-                                zkSu = ""
-                                zkHistory = ""
-                                record = data_catch(st.session_state.sf, item_id)
-                                if record:
-                                    # zkHistory = record["zkHistory__c"]  # zk履歴
-                                    zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
-                                    zkIko_list = record["zkIkohyoNo__c"].splitlines() 
-                                    zkHin_list = record["zkHinban__c"].splitlines() 
-                                    zkKan_list = record["zkKanryoKoutei__c"].splitlines() 
-                                    zkSu_list = record["zkSuryo__c"].splitlines() 
-                                    listCount = len(zkTana_list)
-                                    # listCount = len(zkHin_list)
-                                    zkHin_Search = st.session_state.hinban_select_value
-                                    if listCount > 1:
-                                        for index, item in enumerate(zkTana_list):
-                                            # st.write(f"for文で検索した棚番: '{item}'") 
-                                            # st.write(f"検索させる棚番: '{tanaban_select}'")
-                                            zkIko = zkIko_list[index].split(",")
-                                            zkHin = zkHin_list[index].split(",")
-                                            zkKan = zkKan_list[index].split(",")
-                                            zkSu = zkSu_list[index].split(",")
-                                            if zkHin_Search in zkHin:
-                                                for index_2, item_2 in enumerate(zkHin):
-                                                    if item_2 == zkHin_Search:
-                                                        st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2]]
-                                                        # st.write("zkHin_list:", zkHin_list)
-                                                        # st.write("df_search_result:", st.session_state.df_search_result)
-                                        # st.write(st.session_state.df_search_result)
-                                        st.dataframe(st.session_state.df_search_result)
-                                        # edited_df = st.data_editor(
-                                        #     st.session_state.df_search_result,
-                                        #    num_rows="dynamic",
-                                        #     use_container_width=True,
-                                        #     key="editable_table"
-                                        # )
-                                    else:
-                                        st.write("棚番が１データしか存在しません。至急、システム担当者に連絡してください！")
-                                        st.stop()
-                                        # st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[0], zkIko[0], zkHin[0], zkKan[0], zkSu[0]]
+                            st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                            listCount = 0
+                            zkTana = ""
+                            zkIko = ""
+                            zkHin = ""
+                            zkKan = ""
+                            zkSu = ""
+                            zkHistory = ""
+                            record = data_catch(st.session_state.sf, item_id)
+                            if record:
+                                # zkHistory = record["zkHistory__c"]  # zk履歴
+                                zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
+                                zkIko_list = record["zkIkohyoNo__c"].splitlines() 
+                                zkHin_list = record["zkHinban__c"].splitlines() 
+                                zkKan_list = record["zkKanryoKoutei__c"].splitlines() 
+                                zkSu_list = record["zkSuryo__c"].splitlines() 
+                                listCount = len(zkTana_list)
+                                # listCount = len(zkHin_list)
+                                zkHin_Search = st.session_state.hinban_select_value
+                                if listCount > 1:
+                                    for index, item in enumerate(zkTana_list):
+                                        # st.write(f"for文で検索した棚番: '{item}'") 
+                                        # st.write(f"検索させる棚番: '{tanaban_select}'")
+                                        zkIko = zkIko_list[index].split(",")
+                                        zkHin = zkHin_list[index].split(",")
+                                        zkKan = zkKan_list[index].split(",")
+                                        zkSu = zkSu_list[index].split(",")
+                                        if zkHin_Search in zkHin:
+                                            for index_2, item_2 in enumerate(zkHin):
+                                                if item_2 == zkHin_Search:
+                                                    st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2]]
+                                                    # st.write("zkHin_list:", zkHin_list)
+                                                    # st.write("df_search_result:", st.session_state.df_search_result)
+                                    # st.write(st.session_state.df_search_result)
+                                    st.dataframe(st.session_state.df_search_result)
+                                    # edited_df = st.data_editor(
+                                    #     st.session_state.df_search_result,
+                                    #    num_rows="dynamic",
+                                    #     use_container_width=True,
+                                    #     key="editable_table"
+                                    # )
                                 else:
-                                    st.write("'item_id'　が存在しません。至急、システム担当者に連絡してください！")
+                                    st.write("棚番が１データしか存在しません。至急、システム担当者に連絡してください！")
                                     st.stop()
+                                    # st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[0], zkIko[0], zkHin[0], zkKan[0], zkSu[0]]
+                            else:
+                                st.write("'item_id'　が存在しません。至急、システム担当者に連絡してください！")
+                                st.stop()
+                            # tanban_list = ["---"] + sorted(st.session_state.df_search_result.iloc[:, 0].dropna().unique())
+                            tanban_list = ["---"] + st.session_state.df_search_result.iloc[:, 0].dropna().tolist()
+                            if not st.session_state.tanaban_select_flag:
                                 selected_tanaban = ""
-                                # tanban_list = ["---"] + sorted(st.session_state.df_search_result.iloc[:, 0].dropna().unique())
-                                tanban_list = ["---"] + st.session_state.df_search_result.iloc[:, 0].dropna().tolist()
                                 selected_tanaban = st.selectbox("棚番を選択してください　(クリックするとリストが開きます)", tanban_list, key="selected_tanaban_key")
                                 # selected_tanaban = st.selectbox("棚番を選択してください　(クリックするとリストが開きます)", st.session_state.df_search_result["棚番"])
                                 st.session_state.tanaban_select_value = selected_tanaban
