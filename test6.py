@@ -1029,7 +1029,7 @@ else:
                                     st.session_state.tanaban_select_value = ""
                                     st.rerun()
                                 st.write(f"選択された棚番： {st.session_state.tanaban_select_value}")
-                                image_viewer(st.session_state.tanaban_select_value)
+                                # image_viewer(st.session_state.tanaban_select_value)
                                 st.stop()
                 elif st.session_state.manual_input_check_flag == 1:
                     st.title("棚番で検索")
