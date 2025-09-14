@@ -15,6 +15,12 @@ import re
 import toml
 import streamlit.components.v1 as components
 
+import easyocr
+import numpy as np
+import cv2
+from PIL import Image
+import glob
+
 # 固定コンテナコードの始まり
 from typing import Literal
 from streamlit.components.v1 import html
