@@ -280,7 +280,7 @@ def data_catch_hinmoku(sf, item_name):
         # reset_form()
         st.stop()
        
-def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
+def list_update_zkKari(record ,zkKari, dbItem, listNo, update_value, flag):
     """
     指定されたlistNoの値を更新する関数。
     "-"の場合はupdate_valueで上書き、それ以外はカンマ区切りで追加。
@@ -297,7 +297,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     """
     global zkSplitNo  # 初期値99
     global zkSplitFlag  # 0:マップ座標以外  1;マップ座標
-    zkKari = zkKari[dbItem].splitlines()  # 大項目リスト(改行区切り)
+    zkKari = record[dbItem].splitlines()  # 大項目リスト(改行区切り)
     zkSplit = zkKari[listNo].split(",")  # 小項目リスト(カンマ区切り)
     # st.write(f"zkSplitのリスト数：'{len(zkSplit)}'")
     # st.write(f"追加削除フラグ：'{flag}'")
@@ -1502,17 +1502,17 @@ else:
                                         zkOrder = st.session_state.production_order
                                         zkHistory_value = f"{tanaban_select},{zkOrder},{hinban},{process_order_name},{quantity},{datetime_str},{owner_value}"
                                         if add_del_flag == 0: # 追加の場合
-                                            zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 1)   # zk移行票No
-                                            zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
-                                            zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
-                                            zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
+                                            zkIko = list_update_zkKari(record, zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 1)   # zk移行票No
+                                            zkHin = list_update_zkKari(record, zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
+                                            zkKan = list_update_zkKari(record, zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
+                                            zkSu = list_update_zkKari(record, zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
                                             # zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", -1)   # zkマップ座標
                                             zkHistory_value = f"{zkHistory_value},add"
                                         elif add_del_flag == 1: # 削除の場合
-                                            zkIko = list_update_zkKari(zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 3)   # zk移行票No
-                                            zkHin = list_update_zkKari(zkHin, "zkHinban__c", listNumber, hinban, 2)   # zk品番
-                                            zkKan = list_update_zkKari(zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 2)   # zk完了工程
-                                            zkSu = list_update_zkKari(zkSu, "zkSuryo__c", listNumber, f"{quantity}", 2)   # zk数量
+                                            zkIko = list_update_zkKari(record, zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 3)   # zk移行票No
+                                            zkHin = list_update_zkKari(record, zkHin, "zkHinban__c", listNumber, hinban, 2)   # zk品番
+                                            zkKan = list_update_zkKari(record, zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 2)   # zk完了工程
+                                            zkSu = list_update_zkKari(record, zkSu, "zkSuryo__c", listNumber, f"{quantity}", 2)   # zk数量
                                             # zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", 2)   # zkマップ座標
                                             zkHistory_value = f"{zkHistory_value},del"
                                         zkHistory  = zkHistory_value + "\n" + str(zkHistory)   # zk履歴
