@@ -325,9 +325,9 @@ def atualizar_tanaban_addkari(sf, item_id):  # 棚番書き込み専用
     st.stop()
                
 def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkHistory, zkOrder):
-    global add_del_flag  # 0:追加　1:削除
-    global zkScroll_flag  # 初期値0
-    global result_text
+    # global add_del_flag  # 0:追加　1:削除
+    # global zkScroll_flag  # 初期値0
+    # global result_text
     try:
         # sf.snps_um__Process__c.update(item_id, {"zkHinban__c": zkHin})
         # _= '''
@@ -340,13 +340,13 @@ def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkHistory, zk
         })
         # '''
         # st.success(f"##### snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkOrder}' を追加しました。")
-        zkScroll_flag = 1
-        if add_del_flag == 0: # 追加の場合
+        st.session_state.zkScroll_flag = 1
+        if st.session_state.add_del_flag == 0: # 追加の場合
             # st.success(f"棚番 '{zkTana}' に、移行票No '{zkOrder}' を追加しました。")
-            result_text = f"棚番 '{zkTana}' に、移行票No '{zkOrder}' を追加しました。"
+            st.session_state.result_text = f"棚番 '{zkTana}' に、移行票No '{zkOrder}' を追加しました。"
         else:
             # st.success(f"棚番 '{zkTana}' から、移行票No '{zkOrder}' を削除しました。")
-            result_text = f"棚番 '{zkTana}' から、移行票No '{zkOrder}' を削除しました。"
+            st.session_state.result_text = f"棚番 '{zkTana}' から、移行票No '{zkOrder}' を削除しました。"
     except Exception as e:
         st.error(f"更新エラー: {e}")
         reset_form()
@@ -1050,6 +1050,12 @@ def zaiko_place():
         st.session_state.selected_row = None
     if "button_key" not in st.session_state:
         st.session_state.button_key = ""
+    if "add_del_flag" not in st.session_state: # 0:追加　1:削除
+        st.session_state.add_del_flag = 0
+    if "zkScroll_flag" not in st.session_state: # 初期値0
+        st.session_state.zkScroll_flag = 0
+    if "result_text" not in st.session_state:
+        st.session_state.result_text = ""
     
     if "user_code_entered" not in st.session_state:
         st.session_state.user_code_entered = False
@@ -1626,7 +1632,7 @@ def zaiko_place():
                             process_order_name = "-"
                             quantity = 0.0
                                                     
-                        add_del_flag = 0  # 0:追加 1:削除 9:取消     
+                        st.session_state.add_del_flag = 0  # 0:追加 1:削除 9:取消     
                         left, center, right = st.columns(3)
                         with left:
                             submit_button_add = st.form_submit_button("追加")
@@ -1636,12 +1642,12 @@ def zaiko_place():
                             submit_button_cancel = st.form_submit_button("取消")
                         if submit_button_add or submit_button_del or submit_button_cancel: 
                             if submit_button_add:
-                                add_del_flag = 0
+                                st.session_state.add_del_flag = 0
                             elif submit_button_del:
-                                add_del_flag = 1
+                                st.session_state.add_del_flag = 1
                             elif submit_button_cancel:
-                                add_del_flag = 9
-                            if add_del_flag == 9:
+                                st.session_state.add_del_flag = 9
+                            if st.session_state.add_del_flag == 9:
                                 st.session_state.qr_code_tana = False
                                 st.session_state.tanaban_select_temp = ""
                                 if st.session_state.manual_input_flag == 0:
@@ -1649,6 +1655,7 @@ def zaiko_place():
                                 st.session_state.qr_code = ""
                                 st.session_state.production_order = ""
                                 st.session_state.production_order_flag = False
+                                st.session_state.add_del_flag = 0
                                 st.rerun()
                                 
                             # item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※変更禁止
@@ -1725,14 +1732,14 @@ def zaiko_place():
                                     else:
                                         zkOrder = st.session_state.production_order
                                         zkHistory_value = f"{tanaban_select},{zkOrder},{hinban},{process_order_name},{quantity},{datetime_str},{owner_value}"
-                                        if add_del_flag == 0: # 追加の場合
+                                        if st.session_state.add_del_flag == 0: # 追加の場合
                                             zkIko = list_update_zkKari(record, zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 1)   # zk移行票No
                                             zkHin = list_update_zkKari(record, zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
                                             zkKan = list_update_zkKari(record, zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
                                             zkSu = list_update_zkKari(record, zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
                                             # zkMap = list_update_zkKari(zkMap, "zkMap__c", listNumber, "-", -1)   # zkマップ座標
                                             zkHistory_value = f"{zkHistory_value},add"
-                                        elif add_del_flag == 1: # 削除の場合
+                                        elif st.session_state.add_del_flag == 1: # 削除の場合
                                             zkIko = list_update_zkKari(record, zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 3)   # zk移行票No
                                             zkHin = list_update_zkKari(record, zkHin, "zkHinban__c", listNumber, hinban, 2)   # zk品番
                                             zkKan = list_update_zkKari(record, zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 2)   # zk完了工程
@@ -1756,13 +1763,13 @@ def zaiko_place():
                             if st.session_state.owner is None:
                                 st.write(f"❌08 **作業者コード '{owner}' が未入力です。**")
                                 st.stop()  # 以降の処理を止める
-                            zkScroll_flag = 0
+                            st.session_state.zkScroll_flag = 0
                             if item_id:
                                 update_tanaban(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkHistory, zkOrder)
                                 button_key = "check_ok_2"
-                                if zkScroll_flag == 1 and button_key not in st.session_state:
+                                if st.session_state.zkScroll_flag == 1 and button_key not in st.session_state:
                                     @st.dialog("処理結果通知")
-                                    def dialog_button_2():
+                                    def dialog_button_2(button_key):
                                         global dialog_ok_flag
                                         # st.session_state["dialog_closed"] = True
                                         st.write(result_text)
@@ -1777,10 +1784,10 @@ def zaiko_place():
                                             st.session_state.production_order_flag = False
                                             st.session_state[button_key] = False
                                             del st.session_state[button_key]
-                                            zkScroll_flag = 0
+                                            st.session_state.zkScroll_flag = 0
                                             st.session_state["dialog_closed"] = True
                                             st.rerun()
-                                    dialog_button_2()
+                                    dialog_button_2(button_key)
 
 
 return_main = "⏎ ☆メイン画面☆　へ戻る"
