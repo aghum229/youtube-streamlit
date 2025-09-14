@@ -297,8 +297,7 @@ def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
     """
     global zkSplitNo  # 初期値99
     global zkSplitFlag  # 0:マップ座標以外  1;マップ座標
-    # zkKari = record[dbItem].splitlines()  # 大項目リスト(改行区切り)
-    zkKari = zkKari.splitlines()  # 大項目リスト(改行区切り)
+    zkKari = zkKari[dbItem].splitlines()  # 大項目リスト(改行区切り)
     zkSplit = zkKari[listNo].split(",")  # 小項目リスト(カンマ区切り)
     # st.write(f"zkSplitのリスト数：'{len(zkSplit)}'")
     # st.write(f"追加削除フラグ：'{flag}'")
