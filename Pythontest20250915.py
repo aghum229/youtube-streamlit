@@ -1077,7 +1077,7 @@ def zaiko_place():
         """
     
     if not st.session_state.manual_input_check:
-        left, center, right = st.columns([0.2, 0.6, 0.2])
+        left, center, right = st.columns([0.25, 0.5, 0.25])
         with center:
             st.title("入力方法選択画面")
         left, center, right = st.columns(3)
@@ -1103,7 +1103,7 @@ def zaiko_place():
             st.session_state.manual_input_check_select = False
             st.rerun()
     else:
-        left, center, right = st.columns([0.2, 0.6, 0.2])
+        left, center, right = st.columns([0.25, 0.5, 0.25])
         with center:
             if st.button("入力方法を再選択"):
                 st.session_state.manual_input_check = False
@@ -1120,12 +1120,14 @@ def zaiko_place():
                 st.rerun()
         if st.session_state.manual_input_flag == 9:
             if not st.session_state.manual_input_check_select:
-                st.title("参照選択画面")
-                left, center, right = st.columns(3)
-                with left:
+                left, center, right = st.columns([0.25, 0.5, 0.25])
+                with center:
+                    st.title("参照選択画面")
+                left, center1, center2, right = st.columns(4)
+                with center1:
                     button_manual_Hinban = st.button("品番(手動入力)で検索")
                     tool_tips("(品番を手動で入力し検索(曖昧検索可))")
-                with center:
+                with center2:
                     button_manual_Tanaban = st.button("棚番で検索")
                     tool_tips("(棚番をQRコード入力または手動選択で検索)")
                 # with right:
