@@ -1292,7 +1292,9 @@ def zaiko_place():
                                 st.stop()
                             '''
                 elif st.session_state.manual_input_check_flag == 1:
-                    st.title("棚番で検索")
+                    left, center, right = st.columns([0.25, 0.5, 0.25])
+                    with center:
+                        st.title("棚番で検索")
                     if not st.session_state.tanaban_select_input:
                         left, right = st.columns(2)
                         with left:
@@ -1311,11 +1313,13 @@ def zaiko_place():
                             st.session_state.tanaban_select_input = True
                             st.rerun()
                     else:
-                        if st.button("棚番入力方法を再選択"):
-                            st.session_state.tanaban_select_input = False
-                            st.session_state.qr_code_tana_info = False
-                            st.session_state.tanaban_select_temp_info = ""
-                            st.rerun()
+                        left, center, right = st.columns([0.25, 0.5, 0.25])
+                        with center:
+                            if st.button("棚番入力を再選択"):
+                                st.session_state.tanaban_select_input = False
+                                st.session_state.qr_code_tana_info = False
+                                st.session_state.tanaban_select_temp_info = ""
+                                st.rerun()
                         if not st.session_state.qr_code_tana_info:
                             tanaban_select_info = ""
                             if st.session_state.manual_input_info_flag == 0:
@@ -1338,10 +1342,12 @@ def zaiko_place():
                                 # st.session_state.production_order_flag = False
                                 st.rerun()  # 再描画して次のステップへ
                         else:
-                            if st.button("棚番を再選択(参照)"):
-                                st.session_state.qr_code_tana_info = False
-                                st.session_state.tanaban_select_temp_info = ""
-                                st.rerun()
+                            left, center, right = st.columns([0.25, 0.5, 0.25])
+                            with center:
+                                if st.button("棚番を再選択(参照)"):
+                                    st.session_state.qr_code_tana_info = False
+                                    st.session_state.tanaban_select_temp_info = ""
+                                    st.rerun()
                             st.write(f"選択された棚番： {st.session_state.tanaban_select_temp_info}　にある品番一覧")
                             st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
                             listCount = 0
@@ -1501,25 +1507,29 @@ def zaiko_place():
                     st.session_state.production_order_flag = False
                     st.rerun()  # 再描画して次のステップへ
             else:
-                if st.button("棚番を再選択"):
-                    st.session_state.qr_code_tana = False
-                    st.session_state.tanaban_select_temp = ""
-                    if st.session_state.manual_input_flag == 0:
-                        st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
-                    st.session_state.qr_code = ""
-                    st.session_state.production_order = ""
-                    st.session_state.production_order_flag = False
-                    st.rerun()
+                left, center, right = st.columns([0.25, 0.5, 0.25])
+                with center:
+                    if st.button("棚番を再選択"):
+                        st.session_state.qr_code_tana = False
+                        st.session_state.tanaban_select_temp = ""
+                        if st.session_state.manual_input_flag == 0:
+                            st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
+                        st.session_state.qr_code = ""
+                        st.session_state.production_order = ""
+                        st.session_state.production_order_flag = False
+                        st.rerun()
                 
                 if not st.session_state.production_order_flag:
                     if st.session_state.manual_input_flag == 0:
                         qr_code_kari = ""
-                        if st.button("移行票番号(製造オーダー)を再選択", key="camera_rerun"):
-                            st.session_state.show_camera = True
-                            st.session_state.qr_code = ""
-                            st.session_state.production_order = None
-                            st.session_state.production_order_flag = False
-                            st.rerun()
+                        left, center, right = st.columns([0.25, 0.5, 0.25])
+                        with center:
+                            if st.button("移行票番号(製造オーダー)を再選択", key="camera_rerun"):
+                                st.session_state.show_camera = True
+                                st.session_state.qr_code = ""
+                                st.session_state.production_order = None
+                                st.session_state.production_order_flag = False
+                                st.rerun()
                         if qr_code_kari == "":
                             st.session_state.show_camera = True
                             st.write("移行票番号(製造オーダー)のQRコードをスキャンしてください:")
@@ -1577,17 +1587,19 @@ def zaiko_place():
                             del st.session_state[button_key]
                         # st.rerun()
                 else:
-                    if st.button("移行票番号を再入力"):
-                        st.session_state.data = None
-                        st.session_state.material = None
-                        st.session_state.material_weight = None
-                        st.session_state.cumulative_cost = 0.0
-                        st.session_state.production_order_flag = False
-                        st.session_state.qr_code = ""
-                        st.session_state.production_order = ""
-                        if st.session_state.manual_input_flag == 0:
-                            st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
-                        st.rerun()
+                    left, center, right = st.columns([0.25, 0.5, 0.25])
+                    with center:
+                        if st.button("移行票番号を再入力"):
+                            st.session_state.data = None
+                            st.session_state.material = None
+                            st.session_state.material_weight = None
+                            st.session_state.cumulative_cost = 0.0
+                            st.session_state.production_order_flag = False
+                            st.session_state.qr_code = ""
+                            st.session_state.production_order = ""
+                            if st.session_state.manual_input_flag == 0:
+                                st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
+                            st.rerun()
                     
                     zkSplitNo = 99
                     zkSplitFlag = 0
