@@ -1,1 +1,1126 @@
+import streamlit as st
+import requests
 
+from streamlit_qrcode_scanner import qrcode_scanner
+import pandas as pd
+import os
+import pytz
+from simple_salesforce import Salesforce
+from datetime import datetime as dt
+import re
+# import time
+# import gspread
+# from google.oauth2.service_account import Credentials
+# from gspread_dataframe import set_with_dataframe
+import toml
+import streamlit.components.v1 as components
+
+# 固定コンテナコードの始まり
+from typing import Literal
+from streamlit.components.v1 import html
+
+_= '''
+"""
+st_fixed_container consist of two parts - fixed container and opaque container.
+Fixed container is a container that is fixed to the top or bottom of the screen.
+When transparent is set to True, the container is typical `st.container`, which is transparent by default.
+When transparent is set to False, the container is custom opaque_container, that updates its background color to match the background color of the app.
+Opaque container is a helper class, but can be used to create more custom views. See main for examples.
+"""
+'''
+OPAQUE_CONTAINER_CSS = """
+:root {{
+    --background-color: #ffffff; /* Default background color */
+}}
+div[data-testid="stVerticalBlockBorderWrapper"]:has(div.opaque-container-{id}):not(:has(div.not-opaque-container)) div[data-testid="stVerticalBlock"]:has(div.opaque-container-{id}):not(:has(div.not-opaque-container)) > div[data-testid="stVerticalBlockBorderWrapper"] {{
+    background-color: var(--background-color);
+    width: 100%;
+}}
+div[data-testid="stVerticalBlockBorderWrapper"]:has(div.opaque-container-{id}):not(:has(div.not-opaque-container)) div[data-testid="stVerticalBlock"]:has(div.opaque-container-{id}):not(:has(div.not-opaque-container)) > div[data-testid="element-container"] {{
+    display: none;
+}}
+div[data-testid="stVerticalBlockBorderWrapper"]:has(div.not-opaque-container):not(:has(div[class^='opaque-container-'])) {{
+    display: none;
+}}
+""".strip()
+
+OPAQUE_CONTAINER_JS = """
+const root = parent.document.querySelector('.stApp');
+let lastBackgroundColor = null;
+function updateContainerBackground(currentBackground) {
+    parent.document.documentElement.style.setProperty('--background-color', currentBackground);
+    ;
+}
+function checkForBackgroundColorChange() {
+    const style = window.getComputedStyle(root);
+    const currentBackgroundColor = style.backgroundColor;
+    if (currentBackgroundColor !== lastBackgroundColor) {
+        lastBackgroundColor = currentBackgroundColor; // Update the last known value
+        updateContainerBackground(lastBackgroundColor);
+    }
+}
+const observerCallback = (mutationsList, observer) => {
+    for(let mutation of mutationsList) {
+        if (mutation.type === 'attributes' && (mutation.attributeName === 'class' || mutation.attributeName === 'style')) {
+            checkForBackgroundColorChange();
+        }
+    }
+};
+const main = () => {
+    checkForBackgroundColorChange();
+    const observer = new MutationObserver(observerCallback);
+    observer.observe(root, { attributes: true, childList: false, subtree: false });
+}
+// main();
+document.addEventListener("DOMContentLoaded", main);
+""".strip()
+
+
+def st_opaque_container(
+    *,
+    height: int | None = None,
+    border: bool | None = None,
+    key: str | None = None,
+):
+    global opaque_counter
+
+    opaque_container = st.container()
+    non_opaque_container = st.container()
+    css = OPAQUE_CONTAINER_CSS.format(id=key)
+    with opaque_container:
+        html(f"<script>{OPAQUE_CONTAINER_JS}</script>", scrolling=False, height=0)
+        st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+        st.markdown(
+            f"<div class='opaque-container-{key}'></div>",
+            unsafe_allow_html=True,
+        )
+    with non_opaque_container:
+        st.markdown(
+            f"<div class='not-opaque-container'></div>",
+            unsafe_allow_html=True,
+        )
+
+    return opaque_container.container(height=height, border=border)
+
+
+FIXED_CONTAINER_CSS = """
+div[data-testid="stVerticalBlockBorderWrapper"]:has(div.fixed-container-{id}):not(:has(div.not-fixed-container)){{
+    background-color: transparent;
+    position: {mode};
+    width: inherit;
+    background-color: inherit;
+    {position}: {margin};
+    z-index: 999;
+}}
+div[data-testid="stVerticalBlockBorderWrapper"]:has(div.fixed-container-{id}):not(:has(div.not-fixed-container)) div[data-testid="stVerticalBlock"]:has(div.fixed-container-{id}):not(:has(div.not-fixed-container)) > div[data-testid="element-container"] {{
+    display: none;
+}}
+div[data-testid="stVerticalBlockBorderWrapper"]:has(div.not-fixed-container):not(:has(div[class^='fixed-container-'])) {{
+    display: none;
+}}
+""".strip()
+
+MARGINS = {
+    "top": "2.875rem",
+    "bottom": "0",
+}
+
+
+def st_fixed_container(
+    *,
+    height: int | None = None,
+    border: bool | None = None,
+    mode: Literal["fixed", "sticky"] = "fixed",
+    position: Literal["top", "bottom"] = "top",
+    margin: str | None = None,
+    transparent: bool = False,
+    key: str | None = None,
+):
+    if margin is None:
+        margin = MARGINS[position]
+    global fixed_counter
+    fixed_container = st.container()
+    non_fixed_container = st.container()
+    css = FIXED_CONTAINER_CSS.format(
+        mode=mode,
+        position=position,
+        margin=margin,
+        id=key,
+    )
+    with fixed_container:
+        st.markdown(f"<style>{css}</style>", unsafe_allow_html=True)
+        st.markdown(
+            f"<div class='fixed-container-{key}'></div>",
+            unsafe_allow_html=True,
+        )
+    with non_fixed_container:
+        st.markdown(
+            f"<div class='not-fixed-container'></div>",
+            unsafe_allow_html=True,
+        )
+
+    with fixed_container:
+        if transparent:
+            # return st.container(height=height, border=border)
+            return st.container(border=border)
+
+        return st_opaque_container(height=height, border=border, key=f"opaque_{key}")
+# 固定コンテナコードの終わり
+
+
+
+def carregar_credenciais():
+    if os.path.exists('.streamlit/secrets.toml'):
+        import toml
+        secrets = toml.load('.streamlit/secrets.toml')
+    else:
+        secrets = st.secrets
+    return secrets
+
+secrets = carregar_credenciais()
+jst = pytz.timezone('Asia/Tokyo')
+
+def authenticate_salesforce():
+    auth_url = f"{secrets['DOMAIN']}/services/oauth2/token"
+    auth_data = {
+        'grant_type': 'password',
+        'client_id': secrets['CONSUMER_KEY'],
+        'client_secret': secrets['CONSUMER_SECRET'],
+        'username': secrets['USERNAME'],
+        'password': secrets['PASSWORD']
+    }
+    _= '''
+    auth_url = st.secrets["token_url"]
+    auth_data = {
+        'grant_type': 'password',
+        'client_id': secrets['client_id'],
+        'client_secret': secrets['client_secret'],
+        'username': secrets['username'],
+        'password': secrets['password']
+    }
+    '''
+    try:
+        response = requests.post(auth_url, data=auth_data, timeout=10)
+        response.raise_for_status()
+        token_data = response.json()
+        access_token = token_data['access_token']
+        instance_url = token_data['instance_url']
+        return Salesforce(instance_url=instance_url, session_id=access_token)
+    except requests.exceptions.RequestException as e:
+        st.error(f"認証エラー: {e}")
+        st.stop()
+
+def consultar_salesforce(production_order, sf):
+    query = f"""
+        SELECT Id, Name, snps_um__ProcessName__c, snps_um__ActualQt__c, snps_um__Item__r.Id, 
+               snps_um__Item__r.Name, snps_um__ProcessOrderNo__c, snps_um__ProdOrder__r.Id, 
+               snps_um__ProdOrder__r.Name, snps_um__Status__c, snps_um__WorkPlace__r.Id, 
+               snps_um__WorkPlace__r.Name, snps_um__StockPlace__r.Name, snps_um__Item__c, 
+               snps_um__Process__r.AITC_Acumulated_Price__c, AITC_OrderQt__c, snps_um__EndDateTime__c, 
+               snps_um__Item__r.AITC_PrintItemName__c, snps_um__Process__r.AITC_ID18__c
+        FROM snps_um__WorkOrder__c 
+        WHERE snps_um__ProdOrder__r.Name = '{production_order}'
+    """
+    try:
+        result = sf.query(query)
+        records = result['records']
+        if not records:
+            st.write("❌00 **データの取り出しに失敗しました。**")
+            return pd.DataFrame(), None, None, 0.0
+        df = pd.DataFrame(records)
+        st.session_state.all_data = df.to_dict(orient="records")
+        
+        df_done = df[df['snps_um__Status__c'] == 'Done']
+        if not df_done.empty:
+            last_record = df_done.loc[df_done['snps_um__ProcessOrderNo__c'].idxmax()].to_dict()
+            cumulative_cost = last_record.get("snps_um__Process__r", {}).get("AITC_Acumulated_Price__c", 0.0)
+            if cumulative_cost is None:
+                cumulative_cost = 0.0
+
+            father_id = last_record['snps_um__Item__c']
+            composition_query = f"""
+                SELECT 
+                snps_um__ChildItem__r.Name,
+                snps_um__AddQt__c
+                FROM snps_um__Composition2__c
+                WHERE snps_um__ParentItem2__c = '{father_id}'
+            """
+            composition_result = sf.query(composition_query)
+            composition_records = composition_result['records']
+            if composition_records:
+                material = composition_records[0].get("snps_um__ChildItem__r", {}).get("Name", "N/A")
+                material_weight = composition_records[0].get("snps_um__AddQt__c", 0.0)
+            else:
+                material = "N/A"
+                material_weight = 0.0
+            return pd.DataFrame([last_record]), material, material_weight, cumulative_cost
+        else:
+            st.write("❌01 **データの取り出しに失敗しました。**")
+        return pd.DataFrame(), None, None, 0.0
+    except Exception as e:
+        st.error(f"Salesforceクエリエラー: {e}")
+        return pd.DataFrame(), None, None, 0.0
+
+def clean_quantity(value):
+    if isinstance(value, str):
+        num = re.sub(r'[^\d.]', '', value)
+        return float(num) if num else 0.0
+    return float(value) if value else 0.0
+
+def simplify_dataframe(df):
+    if df.empty:
+        return df
+    relevant_columns = [
+        'snps_um__ProcessName__c',
+        'snps_um__ProcessOrderNo__c',
+        'snps_um__Status__c',
+        'snps_um__WorkPlace__r.Name',
+        'snps_um__ActualQt__c',
+        'AITC_OrderQt__c'
+    ]
+    simplified_df = pd.DataFrame()
+    for col in relevant_columns:
+        if col in df.columns:
+            if col == 'snps_um__WorkPlace__r.Name':
+                simplified_df[col] = df[col].apply(lambda x: x.get('Name', '') if isinstance(x, dict) else '' if x is None else str(x))
+            elif col in ['snps_um__ActualQt__c', 'AITC_OrderQt__c']:
+                simplified_df[col] = df[col].apply(clean_quantity)
+            else:
+                simplified_df[col] = df[col]
+    return simplified_df
+
+def atualizar_tanaban_addkari(sf, item_id, zkTana):  # 棚番書き込み専用
+    try:
+        sf.snps_um__Process__c.update(item_id, {"zkTanaban__c": zkTana})
+        st.success("「zk棚番」に書き込みました！")
+    except Exception as e:
+        st.error(f"更新エラー: {e}")
+        # reset_form()
+        st.stop()
+        
+def atualizar_tanaban_add(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap):
+    try:
+        # sf.snps_um__Process__c.update(item_id, {"zkHinban__c": zkHin})
+        # _= '''
+        sf.snps_um__Process__c.update(item_id, {
+            "zkIkohyoNo__c": zkIko,
+            "zkHinban__c": zkHin,
+            "zkKanryoKoutei__c": zkKan,
+            "zkSuryo__c": zkSu,
+            "zkTuikaDatetime__c": zkTuiDa,
+            "zkTuikaSya__c": zkTuiSya,
+            "zkMap__c": zkMap
+        })
+        # '''
+        st.success("snps_um__Process__c の棚番 '{zkTana}' に移行票No '{zkIko}' を追加しました。")
+    except Exception as e:
+        st.error(f"更新エラー: {e}")
+        reset_form()
+        st.stop()
+
+def atualizar_tanaban_del(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMap, zkDelDa, zkDelIko, zkDelSya):
+    try:
+        sf.snps_um__Process__c.update(item_id, {
+            "zkIkohyoNo__c": zkIko,
+            "zkHinban__c": zkHin,
+            "zkKanryoKoutei__c": zkKan,
+            "zkSuryo__c": zkSu,
+            "zkTuikaDatetime__c": zkTuiDa,
+            "zkTuikaSya__c": zkTuiSya,
+            "zkMap__c": zkMap,
+            "zkDeleteDatetime__c": zkDelDa,
+            "zkDeleteIkohyoNo__c": zkDelIko,
+            "zkDeleteSya__c": zkDelSya
+        })
+        st.success("snps_um__Process__c の棚番 '{zkTana}' から移行票No '{zkIko}' を削除しました。")
+    except Exception as e:
+        st.error(f"更新エラー: {e}")
+        # reset_form()
+        st.stop()
+
+# WHERE Name LIKE '%{item_name}%' AND snps_um__ProcessOrderNo__c = 999
+def encontrar_item_por_nome(sf, item_id):
+    query = f"""
+        SELECT AITC_ID18__c, Name, zkShortcutButton__c, zkShortcutUser__c,
+            zkTanaban__c, zkIkohyoNo__c ,zkHinban__c, zkKanryoKoutei__c,
+            zkSuryo__c, zkTuikaDatetime__c, zkTuikaSya__c, zkMap__c,
+            zkDeleteDatetime__c, zkDeleteIkohyoNo__c, zkDeleteSya__c
+        FROM snps_um__Process__c
+        WHERE AITC_ID18__c = '{item_id}'
+    """
+    try:
+        result = sf.query(query)
+        records = result.get("records", [])
+        if records:
+            return records[0]
+        else:
+            st.warning(f"ID(18桁) '{item_id}' に一致する snps_um__Process__c が見つかりませんでした。")
+            return None
+            # reset_form()
+            st.stop()
+    except Exception as e:
+        st.error(f"ID(18桁)検索エラー: {e}")
+        return None
+        # reset_form()
+        st.stop()
+
+def list_update_zkKari(zkKari, dbItem, listNo, update_value, flag):
+    """
+    指定されたlistNoの値を更新する関数。
+    "-"の場合はupdate_valueで上書き、それ以外はカンマ区切りで追加。
+
+    Parameters:
+    - zkKari: dict or list形式のデータ(注記.zkIko, zkHin, zkKan, zkSu, zkTuiDa, zkTuiSya, zkMapの順で処理の事)
+    - dbItem: データベースの項目名(注記.表示ラベルではない)
+    - listNo: 対象のインデックスまたはキー
+    - update_value: 追加する値
+    - flag: -1(追加 マップ座標の場合), 0(追加 移行票No以外), 1(追加 移行票Noの場合), 2(削除 移行票No以外), 3(削除 移行票Noの場合)
+
+    Returns:
+    - 更新後のzkKari
+    """
+    global zkSplitNo  # 初期値99
+    global zkSplitFlag  # 0:マップ座標以外  1;マップ座標
+    zkKari = record[dbItem].splitlines()  # 大項目リスト(改行区切り)
+    zkSplit = zkKari[listNo].split(",")  # 小項目リスト(カンマ区切り)
+    # st.write(f"zkSplitのリスト数：'{len(zkSplit)}'")
+    # st.write(f"追加削除フラグ：'{flag}'")
+    if flag >= 2:
+        if len(zkSplit) > 1:
+            if flag == 3:
+                for index, item in enumerate(zkSplit):
+                    if item == update_value:
+                        zkSplitNo = index
+                        break  # 条件を満たしたらループを終了
+                if zkSplitNo == 99:
+                    st.write(f"❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
+                    # reset_form()
+                    st.stop()  # 以降の処理を止める
+            if 0 <= zkSplitNo < len(zkSplit):
+                del zkSplit[zkSplitNo]  # 小項目の対象値削除
+            else:
+                # ログ出力やエラーハンドリング
+                # st.write(f"zkSplitNo {zkSplitNo} is out of range for zkSplit of length {len(zkSplit)}")
+                st.write(f"❌03 **有効な範囲ではありませんでした。'{zkSplitNo}'**")
+                # reset_form()
+                st.stop()  # 以降の処理を止める
+        else:
+            if flag == 3:
+                zkSplitNo = 0
+            zkSplit[zkSplitNo] = "-"  # 小項目の対象にデフォルト値反映
+        zkKari[listNo] = ",".join(zkSplit)  # 大項目に反映
+    else:
+        if zkKari[listNo] == "-":  # 大項目がデフォルト値の場合
+            if flag == -1 and zkSplitFlag == 1:  # マップ座標で2つ目以降の追加の場合
+                zkKari[listNo] += "," + update_value
+            else:
+                zkKari[listNo] = update_value
+        else:
+            if flag == 1:
+                for index, item in enumerate(zkSplit):
+                    if item == update_value:
+                        st.write(f"❌04 **すでに登録されている移行票Noです。'{update_value}'**")
+                        # reset_form()
+                        st.stop()  # 以降の処理を止める
+                zkSplitFlag = 1
+            zkKari[listNo] += "," + update_value
+    zkKari = "\n".join(zkKari) if isinstance(zkKari, list) else zkKari
+    return zkKari
+
+def reset_form():
+    st.session_state.production_order = None
+    # st.session_state.data = None
+    # st.session_state.material = None
+    # st.session_state.material_weight = None
+    # st.session_state.cumulative_cost = 0.0
+    st.session_state.manual_input_value = ""
+    st.rerun()
+
+def styled_text(
+    text,
+    bg_color,
+    padding,
+    width,
+    text_color,
+    font_size,
+    border_thickness,
+    border_color="#000000",
+    margin_top="2px",
+    margin_bottom="2px"
+):
+    st.markdown(
+        f"""
+        <div style="
+            background-color:{bg_color};
+            padding:{padding};
+            border-radius:2px;
+            height:30px;
+            width:{width};
+            margin-top:{margin_top};
+            margin-bottom:{margin_bottom};
+            border-bottom:{border_thickness} solid {border_color};
+            display:inline-block;
+        ">
+            <p style="color:{text_color}; font-size:{font_size}; margin:0; line-height:1;">{text}</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+def styled_input_text():
+    st.markdown(
+        """
+        <style>
+        input[type="text"], input[type="password"] {
+            font-size: 26px !important;
+            padding-top: 16px !important;
+            padding-bottom: 16px !important;
+            line-height: 2.5 !important;   /* 高さ調整のキモ */
+            box-sizing: border-box !important;
+        }
+        
+        /* 親コンテナの余白にも調整を加える */
+        div[data-testid="stTextInput"] {
+            padding-top: 2px !important;
+            padding-bottom: 2px !important
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+button_style = """
+<style>
+div.stButton {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
+    # width: auto; /* 必要に応じて変更 */
+}
+div.stButton > button {
+    font-size: 12px !important; /* 文字サイズを指定 */
+    font-weight  : bold ;
+    color        : #000;
+    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
+    background   : #0FF                ;/* 背景色：aqua            */
+    width: 350px; /* ボタンの横幅を固定値に設定 */
+    max-width: 350px; /* 必要に応じて最大幅も設定 */
+    height: 24px;
+}
+</style>
+"""
+
+selectbox_style = """
+    <style>
+    .centered-selectbox {
+        display: flex;
+        justify-content: center;
+        width: 200px !important;
+    }
+    </style>
+"""
+
+_= '''
+selectbox_style = """
+<style>
+div.stSelectbox {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
+}
+div.stSelectbox > selectbox {
+    font-size: 12px !important; /* 文字サイズを指定 */
+    font-weight  : bold ;
+    color        : #000;
+    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
+    background   : #0FF                ;/* 背景色：aqua            */
+    width: 200px; /* ボタンの横幅を固定値に設定 */
+    max-width: 200px; /* 必要に応じて最大幅も設定 */
+    height: 24px;
+}
+</style>
+"""
+'''
+
+
+# 画面の状態を管理する変数（初期状態はメイン画面）
+if 'current_screen' not in st.session_state:
+    st.session_state['current_screen'] = 'main'
+
+# 画面の履歴を管理
+if 'history' not in st.session_state:
+    st.session_state['history'] = ['main']
+
+def set_screen(screen_name):
+    if st.session_state['current_screen'] != screen_name:
+        st.session_state['history'].append(st.session_state['current_screen'])
+        st.session_state['current_screen'] = screen_name
+
+def go_back():
+    if len(st.session_state['history']) > 1:
+        st.session_state['current_screen'] = st.session_state['history'].pop()
+
+def display_line():
+    st.markdown(
+        "<p style='text-align:center;'> \
+        <span style='margin-bottom: 0px;line-height: 0.5'>――――――――――――――――――――――――――――――</span> \
+        </p>"
+        , unsafe_allow_html=True
+    )
+    _= '''
+    st.markdown(
+        "<p style='text-align:center;'> \
+        <span style='margin-bottom: 0px;line-height: 1.0'>------------------------------------------------------------</span> \
+        </p>"
+        , unsafe_allow_html=True
+    )
+    '''
+
+def display_header(color, text):
+    st.markdown(
+        f"<p style='text-align:center;'> \
+        <span style='font-size: 40px;font-weight:bold;color:{color};margin-bottom: 0px;line-height: 0.5'>{text}</span> \
+        </p>"
+        , unsafe_allow_html=True
+    )
+    # display_line()
+
+def display_footer():
+    display_line()
+    _= '''
+    st.markdown(
+        "<p style='text-align:center;'> \
+        <span style='font-size: 14px;'>〇〇〇〇〇株式会社&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> \
+        <span style='font-size: 10px;'>ver.XX.XXX.XXX</span> \
+        </p>"
+        , unsafe_allow_html=True
+    )
+    '''
+    left, right = st.columns([0.4, 0.6])
+    with right:
+        st.markdown(
+            "<p style='text-align:center;'> \
+            <span style='font-size: 10px;'>ver.XX.XXX.XXX</span> \
+            </p>"
+            , unsafe_allow_html=True
+        )
+
+def display_container(color, text):
+    with st_fixed_container(mode="sticky", position="top", transparent=True):
+        st.markdown(
+            f"<p style='text-align:center;'> \
+            <span style='font-size: 40px;font-weight:bold;color:{color};margin-bottom: 0px;line-height: 0.5'>{text}</span> \
+            </p>"
+            , unsafe_allow_html=True
+        )
+
+_= '''
+def display_container(color, text):
+    with st_fixed_container(mode="fixed", position="top", transparent=True):
+        st.markdown(
+            "<p style='text-align:center;'> \
+            <span style='font-size: 40px;font-weight:bold;color:{color};margin-bottom: 0px;line-height: 0.5'>{text}</span> \
+            </p>",
+            unsafe_allow_html=True
+        )
+'''
+
+def button_set(button_name, button_text, screen_name):
+    left, center, right = st.columns([0.25, 0.5, 0.25])
+    with center:
+        if button_name == "btn99999":
+            button_name = st.button(button_text, on_click=go_back)
+        else:
+            button_name = st.button(button_text, on_click=set_screen, args=(screen_name,))
+
+def button_make(button_text, screen_name):
+    st.markdown("""
+        <style>
+        .stButton>button { /* Streamlitのボタン要素に直接スタイルを適用 */
+            background-color: #FF0;
+            color: black;
+            font-size: 10px !important;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+            width: 200px;
+            max-width: 200px;
+            height: 20px;
+            margin: 5px; /* ボタン間の間隔など調整 */
+        }
+        .stButton>button:hover {
+            opacity: 0.8;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    st.button(button_text, key=button_text, on_click=set_screen, args=(screen_name,))
+    # if st.button(button_text, key=button_text): # keyを設定して複数のボタンを区別
+    #     set_screen(screen_name)
+
+def styled_input_text():
+    st.markdown(
+        """
+        <style>
+        input[type="text"], input[type="password"] {
+            font-size: 26px !important;
+            padding-top: 16px !important;
+            padding-bottom: 16px !important;
+            line-height: 2.5 !important;   /* 高さ調整のキモ */
+            box-sizing: border-box !important;
+        }
+        
+        /* 親コンテナの余白にも調整を加える */
+        div[data-testid="stTextInput"] {
+            padding-top: 2px !important;
+            padding-bottom: 2px !important
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+return_main = "⏎ ☆メイン画面☆　へ戻る"
+return_1 = "⏎ 1.製造関連メニュー　へ戻る"
+return_11 = "⏎ 11.製品メニュー　へ戻る"
+return_116 = "⏎ 116.在庫管理メニュー　へ戻る"
+return_1161 = "⏎ 1161.在庫置き場メニュー　へ戻る"
+
+def show_main_screen():
+    _= '''
+    with st_fixed_container(mode="fixed", position="bottom", border=True):
+        st.markdown(
+        "<p style='text-align:left;'> \
+        <span style='font-size: 20px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
+        </p>" \
+        "<p style='text-align:left;'> \
+        <span style='font-size: 20px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
+        </p>"
+        , unsafe_allow_html=True
+        )
+    '''
+    _= '''
+    with st_fixed_container(mode="fixed", position="top", transparent=True):
+        # _, right = st.columns([0.5, 0.5])
+        # with right:
+        #     with st_opaque_container(border=True):
+        # left, right = st.columns([0.4, 0.3, 0.3])
+        # with st_opaque_container(border=True):
+            st.markdown(
+                "<p style='text-align:center;'> \
+                <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
+                </p>"
+                , unsafe_allow_html=True
+            )
+            
+            
+            left, center, right = st.columns([0.3, 0.4, 0.4])
+            with left:
+                st.markdown(
+                "<p style='text-align:right;'> \
+                <span style='font-size: 16px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
+                </p>"
+                , unsafe_allow_html=True
+                )
+            with center:
+                # st.markdown(button_css, unsafe_allow_html=True)
+                btn0 = st.button("⏎ ☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
+            with right:
+                # st.markdown(button_css, unsafe_allow_html=True)
+                btn1 = st.button("⏎ 1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
+            
+    '''
+    # display_mainheader()
+    # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
+    # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
+    # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
+    # left, center, right = st.columns([0.3, 0.4, 0.3])
+    # with left:
+    #     display_container('yellow', '☆メイン画面☆')
+    # display_header("yellow", "☆メイン画面☆")
+    _= '''
+    with st_fixed_container(mode="sticky", position="top", transparent=True):
+        st.markdown(
+            "<p style='text-align:center;'> \
+            <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
+            </p>"
+            , unsafe_allow_html=True
+        )
+    '''
+    
+    left, center, right = st.columns([0.2, 0.6, 0.2])
+    with center:
+        st.image("aitech_logo_D.png", use_container_width=True)
+    with right:
+        st.write('(仮)')
+    
+    # display_container('yellow', '☆メイン画面☆')
+    display_line()
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('button0', '0.ショートカット', 'other0')
+    st.write('  ')
+    st.write('  ')
+    button_set('button1', '1.製造関連', 'other1')
+    button_set('button2', '2.ＩＳＯ関連', 'other2')
+    button_set('button3', '3.労務関連', 'other3')
+    # button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
+    # button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
+    # button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
+    _= '''
+    left, center, right = st.columns([0.25, 0.5, 0.25])
+    with center:
+        st.markdown("""
+        <style>
+        .centered-selectbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        # コンテナで中央配置
+        with st.container():
+            st.markdown('<div class="centered-selectbox">', unsafe_allow_html=True)
+            st.selectbox("選択してください(ショートカットボタン)", ["オプション1", "オプション2", "オプション3"])
+            st.markdown('</div>', unsafe_allow_html=True)
+    '''
+    _= '''
+    button11 = st.button('11.製品', on_click=set_screen, args=('other11',))
+    button12 = st.button('12.金型', on_click=set_screen, args=('other12',))
+    button13 = st.button('13.治工具', on_click=set_screen, args=('other13',))
+    button14 = st.button('14.検具', on_click=set_screen, args=('other14',))
+    button15 = st.button('15.設備', on_click=set_screen, args=('other15',))
+    button16 = st.button('16.備品', on_click=set_screen, args=('other16',))
+    button21 = st.button('21.品質・環境マニュアル', on_click=set_screen, args=('other21',))
+    button22 = st.button('22.規定', on_click=set_screen, args=('other22',))
+    button23 = st.button('23.要領', on_click=set_screen, args=('other23',))
+    button24 = st.button('24.外部文書', on_click=set_screen, args=('other24',))
+    button25 = st.button('25.マネジメントレビュー', on_click=set_screen, args=('other25',))
+    button26 = st.button('26.内部監査', on_click=set_screen, args=('other26',))
+    button27 = st.button('27.外部監査', on_click=set_screen, args=('other27',))
+    button111 = st.button('111.図面', on_click=set_screen, args=('other111',))
+    button112 = st.button('112.検査基準書', on_click=set_screen, args=('other112',))
+    button113 = st.button('113.ＱＣ表', on_click=set_screen, args=('other113',))
+    button114 = st.button('114.作業標準', on_click=set_screen, args=('other114',))
+    button115 = st.button('115.検査表', on_click=set_screen, args=('other115',))
+    button116 = st.button('116.在庫管理', on_click=set_screen, args=('other116',))
+    '''
+    display_footer()
+
+def show_other0_screen():
+    display_container('yellow', '0.ショートカット')
+    # display_header('blue', '0.ショートカット')
+    display_line()
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('btn0', return_main, 'main')
+    display_line()
+    # button_set('button31', '116.在庫管理', 'other31')
+    button_set('btn11611', '11611.在庫置場 参照', 'other11611')
+    button_set('btn11612', '11612.在庫置場 追加', 'other11612')
+    button_set('btn11613', '11613.在庫置場 削除', 'other11612')
+    display_footer()
+
+
+def show_other1_screen():
+    _= '''
+    with st_fixed_container(mode="fixed", position="bottom", border=True):
+        st.markdown(
+        "<p style='text-align:left;'> \
+        <span style='font-size: 20px;font-weight:bold;margin-bottom: 0px;line-height: 0.5'>1.製造関連メニュー</span> \
+        </p>"
+        , unsafe_allow_html=True
+        )
+    with st_fixed_container(mode="fixed", position="bottom", transparent=True):
+        _, right = st.columns([0.5, 0.5])
+        with right:
+            with st_opaque_container(border=True):
+                button_make("⏎☆メイン画面☆　へ戻る",'main')
+                # btn0 = st.button("⏎☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
+                # btn1 = st.button("⏎1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
+    '''
+    _= '''
+    with st_fixed_container(mode="fixed", position="top", transparent=True):
+        st.markdown(
+            "<p style='text-align:center;'> \
+            <span style='font-size: 40px;font-weight:bold;color:aqua;margin-bottom: 0px;line-height: 0.5'>1.製造関連メニュー</span> \
+            </p>"
+            , unsafe_allow_html=True
+        )
+    '''
+    display_container('blue', '1.製造関連メニュー')
+    # display_header('blue', '1.製造関連メニュー')
+    # st.markdown(write_css1, unsafe_allow_html=True)
+    # st.markdown('<p class="big-font">1.製造関連メニュー</p>', unsafe_allow_html=True)
+    display_line()
+    # st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('btn0', return_main, 'main')
+    # btn0 = st.button("⏎ ☆メイン画面☆　へ戻る", on_click=set_screen, args=('main',))
+    display_line()
+    # st.write('---')
+    button_set('btn11', '11.製品', 'other11')
+    button_set('btn12', '12.金型', 'other12')
+    button_set('btn13', '13.治工具', 'other13')
+    button_set('btn14', '14.検具', 'other14')
+    button_set('btn15', '15.設備', 'other15')
+    button_set('btn16', '16.備品', 'other16')
+    # button11 = st.button('11.製品', on_click=set_screen, args=('other11',))
+    # button12 = st.button('12.金型', on_click=set_screen, args=('other12',))
+    # button13 = st.button('13.治工具', on_click=set_screen, args=('other13',))
+    # button14 = st.button('14.検具', on_click=set_screen, args=('other14',))
+    # button15 = st.button('15.設備', on_click=set_screen, args=('other15',))
+    # button16 = st.button('16.備品', on_click=set_screen, args=('other16',))
+    display_footer()
+
+def show_other2_screen():
+    display_container('blue', '2.ＩＳＯメニュー')
+    # display_header('blue', '2.ＩＳＯメニュー')
+    display_line()
+    # st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('btn0', return_main, 'main')
+    display_line()
+    button_set('btn21', '21.品質・環境マニュアル', 'other21')
+    button_set('btn22', '22.規定', 'other22')
+    button_set('btn23', '23.要領', 'other23')
+    button_set('btn24', '24.外部文書', 'other24')
+    button_set('btn25', '25.マネジメントレビュー', 'other25')
+    button_set('btn26', '26.内部監査', 'other26')
+    button_set('btn27', '27.外部監査', 'other27')
+    # button21 = st.button('21.品質・環境マニュアル', on_click=set_screen, args=('other21',))
+    # button22 = st.button('22.規定', on_click=set_screen, args=('other22',))
+    # button23 = st.button('23.要領', on_click=set_screen, args=('other23',))
+    # button24 = st.button('24.外部文書', on_click=set_screen, args=('other24',))
+    # button25 = st.button('25.マネジメントレビュー', on_click=set_screen, args=('other25',))
+    # button26 = st.button('26.内部監査', on_click=set_screen, args=('other26',))
+    # button27 = st.button('27.外部監査', on_click=set_screen, args=('other27',))
+    display_footer()
+
+def show_other3_screen():
+    display_container('blue', '3.労務メニュー')
+    # display_header('blue', '3.労務メニュー')
+    display_line()
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('btn0', return_main, 'main')
+    display_line()
+    button_set('btn31', '31.就業規則', 'other31')
+    button_set('btn32', '32.規定', 'other32')
+    button_set('btn33', '33.外部監査', 'other33')
+    display_footer()
+
+def show_other11_screen():
+    display_container('blue', '11.製品メニュー')
+    # display_header('blue', '11.製品メニュー')
+    display_line()
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('btn0', return_main, 'main')
+    button_set('btn1', return_1, 'other1')
+    display_line()
+    button_set('btn111', '111.図面', 'other111')
+    button_set('btn112', '112.検査基準書', 'other112')
+    button_set('btn113', '113.ＱＣ表', 'other113')
+    button_set('btn114', '114.作業標準', 'other114')
+    button_set('btn115', '115.検査表', 'other115')
+    button_set('btn116', '116.在庫管理', 'other116')
+    display_footer()
+
+def show_other116_screen():
+    display_container('blue', '116.在庫管理メニュー')
+    # display_header('blue', '116.在庫管理メニュー')
+    display_line()
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('btn0', return_main, 'main')
+    button_set('btn1', return_1, 'other1')
+    button_set('btn11', return_11, 'other11')
+    display_line()
+    button_set('btn1161', '1161.在庫置場', 'other1161')
+    button_set('btn1162', '1162.棚卸', 'other1162')
+    display_footer()
+
+def show_other1161_screen():
+    display_container('blue', '1161.在庫置場メニュー')
+    # display_header('blue', '1161.在庫置場メニュー')
+    display_line()
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('btn0', return_main, 'main')
+    button_set('btn1', return_1, 'other1')
+    button_set('btn11', return_11, 'other11')
+    button_set('btn116', return_116, 'other116')
+    display_line()
+    button_set('btn11611', '11611.在庫置場 参照', 'other11611')
+    button_set('btn11612', '11612.在庫置場 追加', 'other11612')
+    button_set('btn11613', '11613.在庫置場 削除', 'other11612')
+    display_footer()
+
+def show_other11611_screen():
+    display_container('blue', '11611.在庫置場 参照メニュー')
+    # display_header('blue', '11611.在庫置場 参照メニュー')
+    _= '''
+    st.markdown(
+        "<p style='text-align:center;'> \
+        <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11611.在庫置場 参照メニュー</span> \
+        </p>",
+        unsafe_allow_html=True
+    )
+    '''
+    display_line()
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('btn0', return_main, 'main')
+    button_set('btn1', return_1, 'other1')
+    button_set('btn11', return_11, 'other11')
+    button_set('btn116', return_116, 'other116')
+    button_set('btn1161', return_1161, 'other1161')
+    display_line()
+    st.write("こ")
+    st.write("こ")
+    st.write("に")
+    st.write("参")
+    st.write("照")
+    st.write("メ")
+    st.write("ニ")
+    st.write("ュ")
+    st.write("ー")
+    st.write("を")
+    st.write("表")
+    st.write("示")
+    st.write("予")
+    st.write("定")
+    # button_set('btn11611', '11611.在庫置場 参照', 'other11611')
+    # button_set('btn11612', '11612.在庫置場 追加', 'other11612')
+    display_footer()
+    
+def show_other11612_screen():
+    display_container('blue', '11612.在庫置場 追加・削除メニュー')
+    # display_header('blue', '11612.在庫置場 追加メニュー')
+    # with st_fixed_container(mode="fixed", position="top", transparent=True):
+    _= '''
+    st.markdown(
+        "<p style='text-align:center;'> \
+        <span style='font-size: 40px;font-weight:bold;color:blue;margin-bottom: 0px;line-height: 0.5'>11612.在庫置場 追加メニュー</span> \
+        </p>",
+        unsafe_allow_html=True
+    )
+    '''
+    display_line()
+    st.markdown(button_style, unsafe_allow_html=True)
+    button_set('btn0', return_main, 'main')
+    button_set('btn1', return_1, 'other1')
+    button_set('btn11', return_11, 'other11')
+    button_set('btn116', return_116, 'other116')
+    button_set('btn1161', return_1161, 'other1161')
+    display_line()
+    # st.markdown(selectbox_style, unsafe_allow_html=True)
+    # okiba = st.selectbox("在庫置場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="E40")
+    left, center, right = st.columns([0.25, 0.5, 0.25])
+    with center:
+        # okiba = st.selectbox("在庫置場を選択", ["E40", "E41", "E42", "E43", "E44", "E45"], placeholder="F56")
+        # seiban = st.text_input("移行票No", placeholder="PP-012345")
+        # hinban = st.text_input("品番 (品名)", placeholder="123-45H67-890 (PPPPP,QQQQQ RRRRR)")
+        # koutei = st.text_input("完了済工程", placeholder="20 GSN")
+        # suryo = st.text_input("数量", placeholder="3000")
+        left, center, right = st.columns([0.3, 0,3, 0.4])
+        with left:
+            button_set('btn116121', '追加', 'other11621')
+        with center:
+            button_set('btn116122', '削除', 'other11622')
+        with right:
+            button_set('btn116123', '取消', 'other11623')
+    # button_set('btn11611', '11611.在庫置場 参照', 'other11611')
+    # button_set('btn11612', '11612.在庫置場 追加', 'other11612')
+    display_footer()
+    
+# 不明な画面の場合の処理
+def unknown_screen():
+    display_container('red', '現在、準備中です。')
+    # display_header('red', '現在、メンテナンス中です。')
+    display_line()
+    # st.write('---')
+    st.markdown(button_style, unsafe_allow_html=True)
+    # btnKari = button_set('btn99999', '前の画面に戻る', 'other99999')
+    if len(st.session_state['history']) > 1:
+        button_set('btn99999', '前の画面に戻る', 'other99999')
+        # if st.button("前の画面に戻る", on_click=go_back, key="back_button"):
+        # if btnKari:
+        #     pass
+    display_footer()
+
+
+
+if "sf" not in st.session_state:
+    try:
+        st.session_state.sf = authenticate_salesforce()
+        # st.success("Salesforceに正常に接続しました！")
+    except Exception as e:
+        st.error(f"認証エラー: {e}")
+        st.stop()
+
+if "user_code_entered" not in st.session_state:
+    st.session_state.user_code_entered = False
+    st.session_state.user_code = ""
+    
+if not st.session_state.user_code_entered:
+    styled_input_text()
+    st.title("作業者コード入力")
+    st.session_state['owner'] = st.text_input("作業者コード(社員番号)を入力してください (3～4桁、例: 999)",
+                                              max_chars=4,
+                                              key="owner_input")
+    
+    if st.session_state['owner']:  # 入力があれば保存して完了フラグを立てる
+        st.session_state.user_code = st.session_state['owner']
+        st.session_state.user_code_entered = True
+        st.rerun()  # 再描画して次のステップへ
+else:
+    # _= '''
+    # 画面の切り替え
+    # メイン画面
+    if st.session_state['current_screen'] == 'main':
+        show_main_screen()
+    # ショートカットボタンメニュー
+    elif st.session_state['current_screen'] == 'other0':
+        show_other0_screen()
+    # 製造関連メニュー
+    elif st.session_state['current_screen'] == 'other1':
+        show_other1_screen()
+    # ISO関連メニュー
+    elif st.session_state['current_screen'] == 'other2':
+        show_other2_screen()
+    # 労務関連メニュー
+    elif st.session_state['current_screen'] == 'other3':
+        show_other3_screen()
+    # 製品メニュー
+    elif st.session_state['current_screen'] == 'other11':
+        show_other11_screen()
+    # 金型メニュー
+    elif st.session_state['current_screen'] == 'other12':
+        # show_other12_screen()
+        unknown_screen()
+    # 治工具メニュー
+    elif st.session_state['current_screen'] == 'other13':
+        # show_other13_screen()
+        unknown_screen()
+    # 検具メニュー
+    elif st.session_state['current_screen'] == 'other14':
+        # show_other14_screen()
+        unknown_screen()
+    # 設備メニュー
+    elif st.session_state['current_screen'] == 'other15':
+        # show_other15_screen()
+        unknown_screen()
+    # 備品メニュー
+    elif st.session_state['current_screen'] == 'other16':
+        # show_other16_screen()
+        unknown_screen()
+    # 在庫管理メニュー
+    elif st.session_state['current_screen'] == 'other116':
+        show_other116_screen()
+    # 在庫置場メニュー
+    elif st.session_state['current_screen'] == 'other1161':
+        show_other1161_screen()
+    # 在庫置場 参照メニュー
+    elif st.session_state['current_screen'] == 'other11611':
+        show_other11611_screen()
+    # 在庫置場 追加削除メニュー
+    elif st.session_state['current_screen'] == 'other11612':
+        show_other11612_screen()
+    else:
+        unknown_screen()
+    # '''
