@@ -1049,7 +1049,7 @@ def zaiko_place():
     if "selected_row" not in st.session_state:
         st.session_state.selected_row = None
     if "button_key" not in st.session_state:
-    st.session_state.button_key = ""
+        st.session_state.button_key = ""
     
     if "user_code_entered" not in st.session_state:
         st.session_state.user_code_entered = False
