@@ -1527,7 +1527,7 @@ def zaiko_place():
                     # if st.session_state.production_order != "" and st.session_state[button_key] == False:
                         # if st.button("棚番と移行票番号確認"):
                         @st.dialog("棚番と移行票番号確認")
-                        def dialog_button():
+                        def dialog_button(button_key):
                             global message_text
                             # global button_key
                             message_text = f"""
@@ -1536,8 +1536,8 @@ def zaiko_place():
                             ## 「 {st.session_state.production_order} 」
                             #### でよろしいですか？
                             """
-                            result_flag = approve_button(message_text, st.session_state.button_key)
-                        dialog_button()
+                            result_flag = approve_button(message_text, button_key)
+                        dialog_button(button_key)
 
                     if st.session_state.get(button_key, False):
                         st.session_state.show_camera = False
