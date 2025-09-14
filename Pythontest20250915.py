@@ -1797,33 +1797,14 @@ def show_main_screen():
     display_container('yellow', '☆在庫置場管理システム☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
-    button_set('button0', '0.ショートカット', 'other0')
-    st.write('  ')
-    st.write('  ')
-    button_set('button1', '1.製造関連', 'other1')
-    button_set('button2', '2.ＩＳＯ関連', 'other2')
-    button_set('button3', '3.労務関連', 'other3')
-    # button1 = st.button("1.製造関連", on_click=set_screen, args=('other1',))
-    # button2 = st.button("2.ＩＳＯ関連", on_click=set_screen, args=('other2',))
-    # button3 = st.button("3.労務関連", on_click=set_screen, args=('other3',))
-    _= '''
-    left, center, right = st.columns([0.25, 0.5, 0.25])
-    with center:
-        st.markdown("""
-        <style>
-        .centered-selectbox {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        </style>
-        """, unsafe_allow_html=True)
-        # コンテナで中央配置
-        with st.container():
-            st.markdown('<div class="centered-selectbox">', unsafe_allow_html=True)
-            st.selectbox("選択してください(ショートカットボタン)", ["オプション1", "オプション2", "オプション3"])
-            st.markdown('</div>', unsafe_allow_html=True)
-    '''
+    zaiko_place()
+    # button_set('button0', '0.ショートカット', 'other0')
+    # button_set('button31', '1161.在庫置場', 'other1161')
+    # st.write('  ')
+    # st.write('  ')
+    # button_set('button1', '1.製造関連', 'other1')
+    # button_set('button2', '2.ＩＳＯ関連', 'other2')
+    # button_set('button3', '3.労務関連', 'other3')
     _= '''
     button11 = st.button('11.製品', on_click=set_screen, args=('other11',))
     button12 = st.button('12.金型', on_click=set_screen, args=('other12',))
