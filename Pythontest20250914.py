@@ -1524,16 +1524,16 @@ def zaiko_place():
                     if st.session_state.production_order != "" and button_key not in st.session_state:
                     # if st.session_state.production_order != "" and st.session_state[button_key] == False:
                         # if st.button("棚番と移行票番号確認"):
-                        message_text = f"""
-                        #### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}
-                        #### 移行票番号(製造オーダー)は、
-                        ## 「 {st.session_state.production_order} 」
-                        #### でよろしいですか？
-                        """
                         @st.dialog("棚番と移行票番号確認")
                         def dialog_button():
                             global message_text
                             global button_key
+                            message_text = f"""
+                            #### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}
+                            #### 移行票番号(製造オーダー)は、
+                            ## 「 {st.session_state.production_order} 」
+                            #### でよろしいですか？
+                            """
                             result_flag = approve_button(message_text, button_key)
                         dialog_button()
 
