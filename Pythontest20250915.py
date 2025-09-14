@@ -622,7 +622,7 @@ def display_footer():
     with center:
         st.markdown(
             "<p style='text-align:center;'> \
-            <span style='font-size: 14px;'>アイテック株式会社;&nbsp;</span> \
+            <span style='font-size: 14px;'>アイテック株式会社&nbsp;</span> \
             <span style='font-size: 10px;'>ver.1.0.0</span> \
             </p>"
             , unsafe_allow_html=True
