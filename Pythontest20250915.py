@@ -585,7 +585,7 @@ def go_back():
 def display_line():
     st.markdown(
         "<p style='text-align:center;'> \
-        <span style='margin-bottom: 0px;line-height: 0.5'>――――――――――――――――――――――――――――――</span> \
+        <span style='margin-bottom: 0px;line-height: 0.5'>――――――――――――――――――――――――――</span> \
         </p>"
         , unsafe_allow_html=True
     )
@@ -622,6 +622,7 @@ def display_footer():
     with right:
         st.markdown(
             "<p style='text-align:center;'> \
+            <span style='font-size: 14px;'>アイテック株式会社&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> \
             <span style='font-size: 10px;'>ver.1.0.0</span> \
             </p>"
             , unsafe_allow_html=True
