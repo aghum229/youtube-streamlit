@@ -1048,6 +1048,8 @@ def zaiko_place():
         st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
     if "selected_row" not in st.session_state:
         st.session_state.selected_row = None
+    if "button_key" not in st.session_state:
+    st.session_state.button_key = ""
     
     if "user_code_entered" not in st.session_state:
         st.session_state.user_code_entered = False
@@ -1527,14 +1529,14 @@ def zaiko_place():
                         @st.dialog("棚番と移行票番号確認")
                         def dialog_button():
                             global message_text
-                            global button_key
+                            # global button_key
                             message_text = f"""
                             #### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}
                             #### 移行票番号(製造オーダー)は、
                             ## 「 {st.session_state.production_order} 」
                             #### でよろしいですか？
                             """
-                            result_flag = approve_button(message_text, button_key)
+                            result_flag = approve_button(message_text, st.session_state.button_key)
                         dialog_button()
 
                     if st.session_state.get(button_key, False):
