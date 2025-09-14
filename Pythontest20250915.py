@@ -618,7 +618,7 @@ def display_footer():
         , unsafe_allow_html=True
     )
     '''
-    left, center, right = st.columns([0.3, 0.4, 0.3])
+    left, center, right = st.columns([0.35, 0.3, 0.35])
     with center:
         st.markdown(
             "<p style='text-align:center;'> \
@@ -628,7 +628,7 @@ def display_footer():
         )
     with right:
         st.markdown(
-            "<p style='text-align:center;'> \
+            "<p style='text-align:left;'> \
             <span style='font-size: 10px;'>ver.1.0.0</span> \
             </p>"
             , unsafe_allow_html=True
@@ -1077,7 +1077,7 @@ def zaiko_place():
         """
     
     if not st.session_state.manual_input_check:
-        left, center, right = st.columns([0.1, 0.8, 0.1])
+        left, center, right = st.columns([0.2, 0.6, 0.2])
         with center:
             st.title("入力方法選択画面")
         left, center, right = st.columns(3)
@@ -1103,7 +1103,7 @@ def zaiko_place():
             st.session_state.manual_input_check_select = False
             st.rerun()
     else:
-        left, center, right = st.columns([0.1, 0.8, 0.1])
+        left, center, right = st.columns([0.2, 0.6, 0.2])
         with center:
             if st.button("入力方法を再選択"):
                 st.session_state.manual_input_check = False
