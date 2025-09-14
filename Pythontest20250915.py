@@ -622,7 +622,7 @@ def display_footer():
     with right:
         st.markdown(
             "<p style='text-align:center;'> \
-            <span style='font-size: 14px;'>アイテック株式会社&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> \
+            <span style='font-size: 14px;'>アイテック株式会社&nbsp;&nbsp;</span> \
             <span style='font-size: 10px;'>ver.1.0.0</span> \
             </p>"
             , unsafe_allow_html=True
@@ -1071,7 +1071,9 @@ def zaiko_place():
         """
     
     if not st.session_state.manual_input_check:
-        st.title("入力方法選択画面")
+        left, center, right = st.columns(3)
+        with center:
+            st.title("入力方法選択画面")
         left, center, right = st.columns(3)
         with left:
             button_qr = st.button("QRコード")
