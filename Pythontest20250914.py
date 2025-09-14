@@ -1772,7 +1772,7 @@ def zaiko_place():
                                     def dialog_button_2(button_key):
                                         global dialog_ok_flag
                                         # st.session_state["dialog_closed"] = True
-                                        st.write(result_text)
+                                        st.write(st.session_state.result_text)
                                         dialog_ok_flag = st.button("OK", key="dialog_ok")
                                         if dialog_ok_flag:
                                             st.session_state.qr_code_tana = False
