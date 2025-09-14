@@ -1909,10 +1909,10 @@ def show_other0_screen():
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('btn0', return_main, 'main')
     display_line()
-    # button_set('button31', '116.在庫管理', 'other31')
-    button_set('btn11611', '11611.在庫置場 追加', 'other11611')
-    button_set('btn11612', '11612.在庫置場 削除', 'other11612')
-    button_set('btn11613', '11613.在庫置場 参照', 'other11613')
+    button_set('button31', '1161.在庫置場', 'other31')
+    # button_set('btn11611', '11611.在庫置場 追加', 'other11611')
+    # button_set('btn11612', '11612.在庫置場 削除', 'other11612')
+    # button_set('btn11613', '11613.在庫置場 参照', 'other11613')
     display_footer()
 
 
