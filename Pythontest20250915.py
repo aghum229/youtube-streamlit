@@ -618,11 +618,17 @@ def display_footer():
         , unsafe_allow_html=True
     )
     '''
-    left, right = st.columns([0.4, 0.6])
+    left, right = st.columns([0.3, 0.4, 0.3])
+    with center:
+        st.markdown(
+            "<p style='text-align:center;'> \
+            <span style='font-size: 14px;'>アイテック株式会社</span> \
+            </p>"
+            , unsafe_allow_html=True
+        )
     with right:
         st.markdown(
             "<p style='text-align:center;'> \
-            <span style='font-size: 14px;'>アイテック株式会社&nbsp;&nbsp;</span> \
             <span style='font-size: 10px;'>ver.1.0.0</span> \
             </p>"
             , unsafe_allow_html=True
@@ -1071,7 +1077,7 @@ def zaiko_place():
         """
     
     if not st.session_state.manual_input_check:
-        left, center, right = st.columns(3)
+        left, right = st.columns([0.1, 0.8, 0.1])
         with center:
             st.title("入力方法選択画面")
         left, center, right = st.columns(3)
@@ -1097,19 +1103,21 @@ def zaiko_place():
             st.session_state.manual_input_check_select = False
             st.rerun()
     else:
-        if st.button("入力方法を再選択"):
-            st.session_state.manual_input_check = False
-            st.session_state.manual_input_flag = 0
-            st.session_state.manual_input_check_select = False
-            st.session_state.manual_input_check_flag = 0
-            st.session_state.manual_input_info_flag = 0
-            st.session_state.manual_input_hinban_entered = False
-            st.session_state.hinban_select_flag = False
-            st.session_state.tanaban_select_flag  = False
-            st.session_state.tanaban_select_input = False
-            st.session_state.qr_code_tana_info = False
-            st.session_state.tanaban_select_temp_info = ""
-            st.rerun()
+        left, right = st.columns([0.1, 0.8, 0.1])
+        with center:
+            if st.button("入力方法を再選択"):
+                st.session_state.manual_input_check = False
+                st.session_state.manual_input_flag = 0
+                st.session_state.manual_input_check_select = False
+                st.session_state.manual_input_check_flag = 0
+                st.session_state.manual_input_info_flag = 0
+                st.session_state.manual_input_hinban_entered = False
+                st.session_state.hinban_select_flag = False
+                st.session_state.tanaban_select_flag  = False
+                st.session_state.tanaban_select_input = False
+                st.session_state.qr_code_tana_info = False
+                st.session_state.tanaban_select_temp_info = ""
+                st.rerun()
         if st.session_state.manual_input_flag == 9:
             if not st.session_state.manual_input_check_select:
                 st.title("参照選択画面")
