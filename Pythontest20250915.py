@@ -1077,7 +1077,7 @@ def zaiko_place():
         """
     
     if not st.session_state.manual_input_check:
-        left, right = st.columns([0.1, 0.8, 0.1])
+        left, center, right = st.columns([0.1, 0.8, 0.1])
         with center:
             st.title("入力方法選択画面")
         left, center, right = st.columns(3)
@@ -1103,7 +1103,7 @@ def zaiko_place():
             st.session_state.manual_input_check_select = False
             st.rerun()
     else:
-        left, right = st.columns([0.1, 0.8, 0.1])
+        left, center, right = st.columns([0.1, 0.8, 0.1])
         with center:
             if st.button("入力方法を再選択"):
                 st.session_state.manual_input_check = False
