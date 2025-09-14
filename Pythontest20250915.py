@@ -636,16 +636,6 @@ def display_container(color, text):
             , unsafe_allow_html=True
         )
 
-_= '''
-def display_container(color, text):
-    with st_fixed_container(mode="fixed", position="top", transparent=True):
-        st.markdown(
-            "<p style='text-align:center;'> \
-            <span style='font-size: 40px;font-weight:bold;color:{color};margin-bottom: 0px;line-height: 0.5'>{text}</span> \
-            </p>",
-            unsafe_allow_html=True
-        )
-'''
 
 def button_set(button_name, button_text, screen_name):
     left, center, right = st.columns([0.25, 0.5, 0.25])
@@ -1797,74 +1787,14 @@ return_116 = "⏎ 116.在庫管理メニュー　へ戻る"
 return_1161 = "⏎ 1161.在庫置き場メニュー　へ戻る"
 
 def show_main_screen():
-    _= '''
-    with st_fixed_container(mode="fixed", position="bottom", border=True):
-        st.markdown(
-        "<p style='text-align:left;'> \
-        <span style='font-size: 20px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
-        </p>" \
-        "<p style='text-align:left;'> \
-        <span style='font-size: 20px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
-        </p>"
-        , unsafe_allow_html=True
-        )
-    '''
-    _= '''
-    with st_fixed_container(mode="fixed", position="top", transparent=True):
-        # _, right = st.columns([0.5, 0.5])
-        # with right:
-        #     with st_opaque_container(border=True):
-        # left, right = st.columns([0.4, 0.3, 0.3])
-        # with st_opaque_container(border=True):
-            st.markdown(
-                "<p style='text-align:center;'> \
-                <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
-                </p>"
-                , unsafe_allow_html=True
-            )
-            
-            
-            left, center, right = st.columns([0.3, 0.4, 0.4])
-            with left:
-                st.markdown(
-                "<p style='text-align:right;'> \
-                <span style='font-size: 16px;font-weight:bold;color:yellow'>☆メイン画面☆</span> \
-                </p>"
-                , unsafe_allow_html=True
-                )
-            with center:
-                # st.markdown(button_css, unsafe_allow_html=True)
-                btn0 = st.button("⏎ ☆メイン画面☆　へ戻る", use_container_width=True, on_click=set_screen, args=('main',))
-            with right:
-                # st.markdown(button_css, unsafe_allow_html=True)
-                btn1 = st.button("⏎ 1.製造関連メニュー　へ戻る", use_container_width=True, on_click=set_screen, args=('other1',))
-            
-    '''
-    # display_mainheader()
-    # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
-    # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
-    # st.write('---  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n ---')
-    # left, center, right = st.columns([0.3, 0.4, 0.3])
-    # with left:
-    #     display_container('yellow', '☆メイン画面☆')
-    # display_header("yellow", "☆メイン画面☆")
-    _= '''
-    with st_fixed_container(mode="sticky", position="top", transparent=True):
-        st.markdown(
-            "<p style='text-align:center;'> \
-            <span style='font-size: 40px;font-weight:bold;color:yellow;margin-bottom: 0px;line-height: 0.5'>☆メイン画面☆</span> \
-            </p>"
-            , unsafe_allow_html=True
-        )
-    '''
-    
-    left, center, right = st.columns([0.2, 0.6, 0.2])
-    with center:
-        st.image("aitech_logo_D.png", use_container_width=True)
-    with right:
-        st.write('(仮)')
+    # left, center, right = st.columns([0.2, 0.6, 0.2])
+    # with center:
+    #     st.image("aitech_logo_D.png", use_container_width=True)
+    # with right:
+    #     st.write('(仮)')
     
     # display_container('yellow', '☆メイン画面☆')
+    display_container('yellow', '☆在庫置場管理システム☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     button_set('button0', '0.ショートカット', 'other0')
