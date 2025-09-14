@@ -958,15 +958,15 @@ def image_viewer(target_text):
             st.warning(f"{target_text} はこの画像には見つかりませんでした。")
     # st.stop()
 
+if "sf" not in st.session_state:
+    try:
+        st.session_state.sf = authenticate_salesforce()
+        # st.success("Salesforceに正常に接続しました！")
+    except Exception as e:
+        st.error(f"認証エラー: {e}")
+        st.stop()
+        
 def zaiko_place():
-    if "sf" not in st.session_state:
-        try:
-            st.session_state.sf = authenticate_salesforce()
-            # st.success("Salesforceに正常に接続しました！")
-        except Exception as e:
-            st.error(f"認証エラー: {e}")
-            st.stop()
-    
     # Inicializar estados necessários
     if "production_order" not in st.session_state:
         st.session_state.production_order = None
@@ -1781,7 +1781,6 @@ def zaiko_place():
                                             st.session_state["dialog_closed"] = True
                                             st.rerun()
                                     dialog_button_2()
-                                    st.stop()
 
 
 return_main = "⏎ ☆メイン画面☆　へ戻る"
