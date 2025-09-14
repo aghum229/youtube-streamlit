@@ -1330,14 +1330,14 @@ def zaiko_place():
                             zkKan = ""
                             zkSu = ""
                             zkHistory = ""
-                            record = data_catch(st.session_state.sf, item_id)
-                            if record:
-                                # zkHistory = record["zkHistory__c"]  # zk履歴
-                                zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
-                                zkIko_list = record["zkIkohyoNo__c"].splitlines() 
-                                zkHin_list = record["zkHinban__c"].splitlines() 
-                                zkKan_list = record["zkKanryoKoutei__c"].splitlines() 
-                                zkSu_list = record["zkSuryo__c"].splitlines() 
+                            record_2 = data_catch(st.session_state.sf, item_id)
+                            if record_2:
+                                # zkHistory = record_2["zkHistory__c"]  # zk履歴
+                                zkTana_list = record_2["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
+                                zkIko_list = record_2["zkIkohyoNo__c"].splitlines() 
+                                zkHin_list = record_2["zkHinban__c"].splitlines() 
+                                zkKan_list = record_2["zkKanryoKoutei__c"].splitlines() 
+                                zkSu_list = record_2["zkSuryo__c"].splitlines() 
                                 listCount = len(zkTana_list)
                                 # listCount = len(zkHin_list)
                                 zkTana_Search = st.session_state.tanaban_select_temp_info
