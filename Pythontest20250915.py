@@ -622,10 +622,12 @@ def display_footer():
     with center:
         st.markdown(
             "<p style='text-align:center;'> \
-            <span style='font-size: 14px;'>アイテック株式会社</span> \
+            <span style='font-size: 14px;'>アイテック株式会社;&nbsp;</span> \
+            <span style='font-size: 10px;'>ver.1.0.0</span> \
             </p>"
             , unsafe_allow_html=True
         )
+    _= '''
     with right:
         st.markdown(
             "<p style='text-align:left;'> \
@@ -633,6 +635,7 @@ def display_footer():
             </p>"
             , unsafe_allow_html=True
         )
+    '''
 
 def display_container(color, text):
     with st_fixed_container(mode="sticky", position="top", transparent=True):
@@ -1079,7 +1082,7 @@ def zaiko_place():
     if not st.session_state.manual_input_check:
         left, center, right = st.columns([0.25, 0.5, 0.25])
         with center:
-            st.title("入力方法選択画面")
+            st.title("入力方法　選択")
         left, center, right = st.columns(3)
         with left:
             button_qr = st.button("QRコード")
@@ -1122,10 +1125,10 @@ def zaiko_place():
             if not st.session_state.manual_input_check_select:
                 left, center, right = st.columns([0.25, 0.5, 0.25])
                 with center:
-                    st.title("参照選択画面")
+                    st.title("参照方法　選択")
                 left, center1, center2, right = st.columns(4)
                 with center1:
-                    button_manual_Hinban = st.button("品番(手動入力)で検索")
+                    button_manual_Hinban = st.button("品番(入力)で検索")
                     tool_tips("(品番を手動で入力し検索(曖昧検索可))")
                 with center2:
                     button_manual_Tanaban = st.button("棚番で検索")
@@ -1144,19 +1147,23 @@ def zaiko_place():
                     st.session_state.manual_input_check_select = True
                     st.rerun()
             else:
-                if st.button("参照方法を再選択"):
-                    st.session_state.manual_input_check_select = False
-                    st.session_state.manual_input_check_flag = 0
-                    st.session_state.manual_input_info_flag = 0
-                    st.session_state.manual_input_hinban_entered = False
-                    st.session_state.hinban_select_flag = False
-                    st.session_state.tanaban_select_flag  = False
-                    st.session_state.tanaban_select_input = False
-                    st.session_state.qr_code_tana_info = False
-                    st.session_state.tanaban_select_temp_info = ""
-                    st.rerun()
+                left, center, right = st.columns([0.25, 0.5, 0.25])
+                with center:
+                    if st.button("参照方法を再選択"):
+                        st.session_state.manual_input_check_select = False
+                        st.session_state.manual_input_check_flag = 0
+                        st.session_state.manual_input_info_flag = 0
+                        st.session_state.manual_input_hinban_entered = False
+                        st.session_state.hinban_select_flag = False
+                        st.session_state.tanaban_select_flag  = False
+                        st.session_state.tanaban_select_input = False
+                        st.session_state.qr_code_tana_info = False
+                        st.session_state.tanaban_select_temp_info = ""
+                        st.rerun()
                 if st.session_state.manual_input_check_flag == 0:
-                    st.title("品番(手動入力)で検索")
+                    left, center, right = st.columns([0.25, 0.5, 0.25])
+                    with center:
+                        st.title("品番(入力)で検索")
                     if not st.session_state.manual_input_hinban_entered:
                         styled_input_text()
                         manual_input_hinban_kari = st.text_input("品番を入力し、Enterを押してください。",
@@ -1170,11 +1177,13 @@ def zaiko_place():
                     else:
                         # if "hinban_select" not in st.session_state:
                         #     st.session_state.hinban_select = "---"
-                        if st.button("品番を再入力"):
-                            st.session_state.manual_input_hinban_entered = False
-                            st.session_state.hinban_select_flag = False
-                            st.session_state.tanaban_select_flag  = False
-                            st.rerun()
+                        left, center, right = st.columns([0.25, 0.5, 0.25])
+                        with center:
+                            if st.button("品番を再入力"):
+                                st.session_state.manual_input_hinban_entered = False
+                                st.session_state.hinban_select_flag = False
+                                st.session_state.tanaban_select_flag  = False
+                                st.rerun()
                         if not st.session_state.hinban_select_flag:
                             records = data_catch_hinmoku(st.session_state.sf, st.session_state["manual_input_hinban"])
                             if records:
@@ -1191,10 +1200,12 @@ def zaiko_place():
                         else:
                             # st.write(f"選択された品番：{st.session_state.hinban_select_value}")
                             # st.stop()
-                            if st.button("品番を再選択"):
-                                st.session_state.hinban_select_flag = False
-                                st.session_state.tanaban_select_flag  = False
-                                st.rerun()
+                            left, center, right = st.columns([0.25, 0.5, 0.25])
+                            with center:
+                                if st.button("品番を再選択"):
+                                    st.session_state.hinban_select_flag = False
+                                    st.session_state.tanaban_select_flag  = False
+                                    st.rerun()
                             st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
                             listCount = 0
                             zkTana = ""
@@ -1250,10 +1261,12 @@ def zaiko_place():
                             # selected_tanaban = st.selectbox("棚番を選択してください　(クリックするとリストが開きます)", st.session_state.df_search_result["棚番"])
                             st.session_state.tanaban_select_value = selected_tanaban
                             if st.session_state.tanaban_select_value != "" and st.session_state.tanaban_select_value != "---":
-                                if st.button("棚番を再選択"):
-                                    st.session_state.tanaban_select_flag  = False
-                                    st.session_state.tanaban_select_value = ""
-                                    st.rerun()
+                                left, center, right = st.columns([0.25, 0.5, 0.25])
+                                with center:
+                                    if st.button("棚番を再選択"):
+                                        st.session_state.tanaban_select_flag  = False
+                                        st.session_state.tanaban_select_value = ""
+                                        st.rerun()
                                 st.write(f"選択された棚番： {st.session_state.tanaban_select_value}")
                                 image_viewer(st.session_state.tanaban_select_value)
                                 st.stop()
