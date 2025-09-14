@@ -1781,6 +1781,7 @@ def zaiko_place():
                                             st.session_state["dialog_closed"] = True
                                             st.rerun()
                                     dialog_button_2()
+                                    st.stop()
 
 
 return_main = "⏎ ☆メイン画面☆　へ戻る"
