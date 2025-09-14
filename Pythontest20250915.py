@@ -1797,6 +1797,7 @@ def show_main_screen():
     display_container('yellow', '☆在庫置場管理システム☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
+    styled_input_text()
     zaiko_place()
     # button_set('button0', '0.ショートカット', 'other0')
     # button_set('button31', '1161.在庫置場', 'other1161')
