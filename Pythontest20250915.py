@@ -1405,6 +1405,7 @@ def zaiko_place():
                     st.title("移行票番号で検索")
                     st.stop()
                     if not st.session_state.production_order_flag:
+                        st.write(f"#### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}")
                         if st.session_state.manual_input_flag == 0:
                             qr_code_kari = ""
                             if st.button("移行票番号(製造オーダー)を再選択", key="camera_rerun"):
@@ -1437,7 +1438,7 @@ def zaiko_place():
                                 st.session_state.show_camera = False
                             
            
-                        st.write(f"#### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}")
+                        # st.write(f"#### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}")
                         # st.write(f"移行票番号 : {st.session_state.production_order}") 
                         st.write(f"下欄に移行票番号が表示されるまで、お待ちください。。。")
                         st.write(f"""
@@ -1520,6 +1521,7 @@ def zaiko_place():
                         st.rerun()
                 
                 if not st.session_state.production_order_flag:
+                    st.write(f"#### 現在選択されている棚番 :   {st.session_state.tanaban_select_temp}")  
                     if st.session_state.manual_input_flag == 0:
                         qr_code_kari = ""
                         left, center, right = st.columns([0.25, 0.5, 0.25])
@@ -1552,7 +1554,7 @@ def zaiko_place():
                             # st.session_state.manual_input_value = manual_input
                             st.session_state.show_camera = False
                         
-                    st.write(f"#### 現在選択されている棚番 :   {st.session_state.tanaban_select_temp}")                   
+                    # st.write(f"#### 現在選択されている棚番 :   {st.session_state.tanaban_select_temp}")                   
                     button_key = "check_ok"
                     # st.session_state[button_key] = False
                     if st.session_state.production_order != "" and button_key not in st.session_state:
