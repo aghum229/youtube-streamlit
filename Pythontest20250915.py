@@ -1051,6 +1051,8 @@ def zaiko_place():
         st.session_state.records = ""
     if "df_search_result" not in st.session_state:
         st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+    if "df" not in st.session_state:
+        st.session_state.df = None
     if "selected_row" not in st.session_state:
         st.session_state.selected_row = None
     if "button_key" not in st.session_state:
@@ -1335,6 +1337,8 @@ def zaiko_place():
                                 st.session_state.tanaban_select_input = False
                                 st.session_state.qr_code_tana_info = False
                                 st.session_state.tanaban_select_temp_info = ""
+                                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                                st.session_state.record_2  = None
                                 st.rerun()
                         if not st.session_state.qr_code_tana_info:
                             tanaban_select_info = ""
@@ -1363,6 +1367,8 @@ def zaiko_place():
                                 if st.button("棚番を再選択(参照)"):
                                     st.session_state.qr_code_tana_info = False
                                     st.session_state.tanaban_select_temp_info = ""
+                                    st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                                    st.session_state.record_2  = None
                                     st.rerun()
                             st.write(f"選択された棚番： {st.session_state.tanaban_select_temp_info}　にある品番一覧")
                             st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
@@ -1608,6 +1614,7 @@ def zaiko_place():
                     left, center, right = st.columns([0.25, 0.5, 0.25])
                     with center:
                         if st.button("移行票番号を再入力"):
+                            st.session_state.df = None
                             st.session_state.data = None
                             st.session_state.material = None
                             st.session_state.material_weight = None
@@ -1702,6 +1709,7 @@ def zaiko_place():
                                 st.session_state.production_order = ""
                                 st.session_state.production_order_flag = False
                                 st.session_state.add_del_flag = 0
+                                st.session_state.df = None
                                 st.rerun()
                                 
                             # item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※変更禁止
@@ -1832,6 +1840,7 @@ def zaiko_place():
                                             del st.session_state[button_key]
                                             st.session_state.zkScroll_flag = 0
                                             st.session_state["dialog_closed"] = True
+                                            st.session_state.df = None
                                             st.rerun()
                                     dialog_button_2(button_key)
 
