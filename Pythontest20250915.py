@@ -1045,6 +1045,10 @@ def zaiko_place():
         st.session_state.hinban_select_value = ""
     if "hinban_select_flag" not in st.session_state:
         st.session_state.hinban_select_flag = False
+    if "record" not in st.session_state:
+        st.session_state.record = ""
+    if "records" not in st.session_state:
+        st.session_state.records = ""
     if "df_search_result" not in st.session_state:
         st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
     if "selected_row" not in st.session_state:
@@ -1121,6 +1125,9 @@ def zaiko_place():
                 st.session_state.tanaban_select_input = False
                 st.session_state.qr_code_tana_info = False
                 st.session_state.tanaban_select_temp_info = ""
+                st.session_state.records  = None
+                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                st.session_state.record  = None
                 st.rerun()
         if st.session_state.manual_input_flag == 9:
             if not st.session_state.manual_input_check_select:
@@ -1160,6 +1167,9 @@ def zaiko_place():
                         st.session_state.tanaban_select_input = False
                         st.session_state.qr_code_tana_info = False
                         st.session_state.tanaban_select_temp_info = ""
+                        st.session_state.records  = None
+                        st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                        st.session_state.record  = None
                         st.rerun()
                 if st.session_state.manual_input_check_flag == 0:
                     left, center, right = st.columns([0.25, 0.5, 0.25])
@@ -1184,6 +1194,9 @@ def zaiko_place():
                                 st.session_state.manual_input_hinban_entered = False
                                 st.session_state.hinban_select_flag = False
                                 st.session_state.tanaban_select_flag  = False
+                                st.session_state.records  = None
+                                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                                st.session_state.record  = None
                                 st.rerun()
                         if not st.session_state.hinban_select_flag:
                             records = data_catch_hinmoku(st.session_state.sf, st.session_state["manual_input_hinban"])
@@ -1206,6 +1219,8 @@ def zaiko_place():
                                 if st.button("品番を再選択"):
                                     st.session_state.hinban_select_flag = False
                                     st.session_state.tanaban_select_flag  = False
+                                    st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                                    st.session_state.record  = None
                                     st.rerun()
                             st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
                             listCount = 0
