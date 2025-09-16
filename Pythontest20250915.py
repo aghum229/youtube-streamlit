@@ -389,7 +389,8 @@ def data_catch_hinmoku(sf, item_name):
         if records:
             return records
         else:
-            st.warning(f"品目名称 '{item_name}' に関連する snps_um__Item__c が見つかりませんでした。")
+            st.warning(f"入力文字 '{item_name}' に関連する 品番 が見つかりませんでした。")
+            ＃　st.warning(f"品目名称 '{item_name}' に関連する snps_um__Item__c が見つかりませんでした。")
             # return None
             # reset_form()
             st.stop()
