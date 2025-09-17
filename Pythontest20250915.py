@@ -1684,13 +1684,37 @@ def zaiko_place():
                             process_order = 0
                             process_order_name = "-"
                             quantity = 0.0
-                                                    
+                            
+                        list_flag = 0 # 移行票番号が無い
+                        record = data_catch(st.session_state.sf, item_id)
+                        if record:
+                            zkTana_list = ""
+                            listCount = 0
+                            listCount2 = 0
+                            zkIko_kari = ""
+                            zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
+                            listCount = len(zkTana_list)
+                            if listCount > 2:
+                                for index, item in enumerate(zkTana_list):
+                                    if item == tanaban_select:
+                                        zkIko_kari = zkTana_list[index].split(",")
+                                        listCount2 = len(zkIko_kari)
+                                        if listCount2 > 1:
+                                            for index, item in enumerate(zkIko_kari):
+                                                if item == st.session_state.production_order:
+                                                    list_flag = 1 # 移行票番号が有る
+                                                    break
+                                        else:
+                                            print("-  のみ")
+                        st.session_state.record = ""
                         st.session_state.add_del_flag = 0  # 0:追加 1:削除 9:取消     
                         left, center, right = st.columns(3)
                         with left:
-                            submit_button_add = st.form_submit_button("追加")
+                            if list_flag == 0: # 移行票番号が無い場合のみ
+                                submit_button_add = st.form_submit_button("追加")
                         with center:
-                            submit_button_del = st.form_submit_button("削除")
+                            if list_flag == 1: # 移行票番号が有る場合のみ
+                                submit_button_del = st.form_submit_button("削除")
                         with right:
                             submit_button_cancel = st.form_submit_button("取消")
                         if submit_button_add or submit_button_del or submit_button_cancel: 
@@ -1723,6 +1747,7 @@ def zaiko_place():
                             listCountEtc = 0
                             listAdd = 0  # リストに追加する場合は 1 
                             listNumber = 0
+                            zkTana_list = ""
                             zkTana = ""
                             zkIko = ""
                             zkHin = ""
@@ -1772,22 +1797,22 @@ def zaiko_place():
                                     if zkIko[listNumber] == "-" and add_del_flag == 1:
                                         st.write(f"❌06 **移行票番号の登録はありませんので、処理を中止します。**")
                                         st.stop()  # 以降の処理を止める
-                                    list_flag = 0 # 移行票番号が無い
-                                    zkIko_kari = zkIko[listNumber].split(",")
-                                    listCount2 = len(zkIko_kari)
-                                    if listCount2 > 1:
-                                        for index, item in enumerate(zkIko_kari):
-                                            if item == st.session_state.production_order:
-                                                list_flag = 1 # 移行票番号が有る
-                                                break
-                                    else:
-                                        print("-  のみ")
-                                    if list_flag == 1 and st.session_state.add_del_flag == 0:
-                                        st.write(f"❌06 **移行票番号は登録済みですので、追加できません。**")
-                                        st.stop()  # 以降の処理を止める
-                                    if list_flag == 0 and st.session_state.add_del_flag == 1:
-                                        st.write(f"❌07 **移行票番号の登録はありませんので、削除できません。**")
-                                        st.stop()  # 以降の処理を止める
+                                    # list_flag = 0 # 移行票番号が無い
+                                    # zkIko_kari = zkIko[listNumber].split(",")
+                                    # listCount2 = len(zkIko_kari)
+                                    # if listCount2 > 1:
+                                    #     for index, item in enumerate(zkIko_kari):
+                                    #         if item == st.session_state.production_order:
+                                    #             list_flag = 1 # 移行票番号が有る
+                                    #             break
+                                    # else:
+                                    #     print("-  のみ")
+                                    # if list_flag == 1 and st.session_state.add_del_flag == 0:
+                                    #     st.write(f"❌06 **移行票番号は登録済みですので、追加できません。　取消ボタンを押して下さい。**")
+                                    #     st.stop()  # 以降の処理を止める
+                                    # if list_flag == 0 and st.session_state.add_del_flag == 1:
+                                    #     st.write(f"❌07 **移行票番号の登録はありませんので、削除できません。　取消ボタンを押して下さい。**")
+                                    #     st.stop()  # 以降の処理を止める
                                     if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐(初期設定時のみ使用)
                                         st.write(f"❌08 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
                                         st.stop()  # 以降の処理を止める
