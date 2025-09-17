@@ -1045,6 +1045,8 @@ def zaiko_place():
         st.session_state.hinban_select_value = ""
     if "hinban_select_flag" not in st.session_state:
         st.session_state.hinban_select_flag = False
+    if "list_flag" not in st.session_state:
+        st.session_state.list_flag = 0
     if "record" not in st.session_state:
         st.session_state.record = ""
     if "records" not in st.session_state:
@@ -1685,7 +1687,7 @@ def zaiko_place():
                             process_order_name = "-"
                             quantity = 0.0
                             
-                        list_flag = 0 # 移行票番号が無い
+                        st.session_state.list_flag = 0 # 移行票番号が無い
                         record = data_catch(st.session_state.sf, item_id)
                         if record:
                             zkTana_list = ""
@@ -1702,7 +1704,7 @@ def zaiko_place():
                                         if listCount2 > 1:
                                             for index, item in enumerate(zkIko_kari):
                                                 if item == st.session_state.production_order:
-                                                    list_flag = 1 # 移行票番号が有る
+                                                    st.session_state.list_flag = 1 # 移行票番号が有る
                                                     break
                                         else:
                                             print("-  のみ")
@@ -1710,20 +1712,33 @@ def zaiko_place():
                         st.session_state.add_del_flag = 0  # 0:追加 1:削除 9:取消     
                         left, center, right = st.columns(3)
                         with left:
-                            if list_flag == 0: # 移行票番号が無い場合のみ
+                            if st.session_state.list_flag == 0: # 移行票番号が無い場合のみ
                                 submit_button_add = st.form_submit_button("追加")
                         with center:
-                            if list_flag == 1: # 移行票番号が有る場合のみ
+                            if st.session_state.list_flag == 1: # 移行票番号が有る場合のみ
                                 submit_button_del = st.form_submit_button("削除")
                         with right:
                             submit_button_cancel = st.form_submit_button("取消")
-                        if submit_button_add or submit_button_del or submit_button_cancel: 
+                        submit_button_flag = 0
+                        if st.session_state.list_flag == 1:
                             if submit_button_add:
                                 st.session_state.add_del_flag = 0
-                            elif submit_button_del:
+                                submit_button_flag = 1
+                        if st.session_state.list_flag == 0:
+                            if submit_button_del:
                                 st.session_state.add_del_flag = 1
-                            elif submit_button_cancel:
-                                st.session_state.add_del_flag = 9
+                                submit_button_flag = 1
+                        if submit_button_cancel:
+                            st.session_state.add_del_flag = 9
+                            submit_button_flag = 1
+                        if submit_button_flag == 1:
+                        # if submit_button_add or submit_button_del or submit_button_cancel: 
+                        #     if submit_button_add:
+                        #         st.session_state.add_del_flag = 0
+                        #     elif submit_button_del:
+                        #         st.session_state.add_del_flag = 1
+                        #     elif submit_button_cancel:
+                        #         st.session_state.add_del_flag = 9
                             if st.session_state.add_del_flag == 9:
                                 st.session_state.qr_code_tana = False
                                 st.session_state.tanaban_select_temp = ""
