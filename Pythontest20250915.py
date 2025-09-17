@@ -1782,10 +1782,10 @@ def zaiko_place():
                                                 break
                                     else:
                                         print("-  のみ")
-                                    if list_flag == 1 and add_del_flag == 0:
+                                    if list_flag == 1 and st.session_state.add_del_flag == 0:
                                         st.write(f"❌06 **移行票番号は登録済みですので、追加できません。**")
                                         st.stop()  # 以降の処理を止める
-                                    if list_flag == 0 and add_del_flag == 1:
+                                    if list_flag == 0 and st.session_state.add_del_flag == 1:
                                         st.write(f"❌07 **移行票番号の登録はありませんので、削除できません。**")
                                         st.stop()  # 以降の処理を止める
                                     if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐(初期設定時のみ使用)
