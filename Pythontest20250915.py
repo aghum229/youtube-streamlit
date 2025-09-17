@@ -620,6 +620,7 @@ def display_footer():
     )
     '''
     left, center, right = st.columns([0.35, 0.3, 0.35])
+    _= '''
     with center:
         st.markdown(
             "<p style='text-align:center;'> \
@@ -628,7 +629,8 @@ def display_footer():
             </p>"
             , unsafe_allow_html=True
         )
-    _= '''
+    '''
+    # _= '''
     with right:
         st.markdown(
             "<p style='text-align:left;'> \
@@ -636,7 +638,7 @@ def display_footer():
             </p>"
             , unsafe_allow_html=True
         )
-    '''
+    # '''
 
 def display_container(color, text):
     with st_fixed_container(mode="sticky", position="top", transparent=True):
@@ -1909,14 +1911,15 @@ return_116 = "⏎ 116.在庫管理メニュー　へ戻る"
 return_1161 = "⏎ 1161.在庫置き場メニュー　へ戻る"
 
 def show_main_screen():
-    # left, center, right = st.columns([0.2, 0.6, 0.2])
-    # with center:
+    left, center, right = st.columns([0.2, 0.6, 0.2])
+    with center:
+        st.image("aitech_logo_E1.png", use_container_width=True)
     #     st.image("aitech_logo_D.png", use_container_width=True)
     # with right:
     #     st.write('(仮)')
     
     # display_container('yellow', '☆メイン画面☆')
-    display_container('yellow', '☆在庫置場管理システム☆')
+    # display_container('yellow', '☆在庫置場管理システム☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
     styled_input_text()
