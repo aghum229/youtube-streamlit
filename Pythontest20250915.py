@@ -1772,8 +1772,25 @@ def zaiko_place():
                                     if zkIko[listNumber] == "-" and add_del_flag == 1:
                                         st.write(f"❌06 **移行票番号の登録はありませんので、処理を中止します。**")
                                         st.stop()  # 以降の処理を止める
+                                    if add_del_flag == 1:
+                                    list_flag = 0 # 移行票番号が無い
+                                    zkIko = zkIko[listNumber].split(",")
+                                    listCount2 = len(zkIko)
+                                    if listCount2 > 1:
+                                        for index, item in enumerate(zkIko):
+                                            if item == st.session_state.production_order:
+                                                list_flag = 1 # 移行票番号が有る
+                                                break
+                                    else:
+                                        print("-  のみ")
+                                    if list_flag == 1 and add_del_flag == 0:
+                                        st.write(f"❌06 **移行票番号は登録済みですので、追加できません。**")
+                                        st.stop()  # 以降の処理を止める
+                                    if list_flag == 0 and add_del_flag == 1:
+                                        st.write(f"❌07 **移行票番号の登録はありませんので、削除できません。**")
+                                        st.stop()  # 以降の処理を止める
                                     if listCountEtc != listCount: # 棚番が追加されない限り、あり得ない分岐(初期設定時のみ使用)
-                                        st.write(f"❌07 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
+                                        st.write(f"❌08 **移行票Noリスト '{zkIko}' の追加は許可されてません。**")
                                         st.stop()  # 以降の処理を止める
                                         zkKari = "-"
                                         separator = "\n"
@@ -1815,7 +1832,7 @@ def zaiko_place():
                                     # zkShoU = record["zkShortcutUser__c"].splitlines()   # zkショートカットユーザー
                                                 
                             if st.session_state.owner is None:
-                                st.write(f"❌08 **作業者コード '{owner}' が未入力です。**")
+                                st.write(f"❌09 **作業者コード '{owner}' が未入力です。**")
                                 st.stop()  # 以降の処理を止める
                             st.session_state.zkScroll_flag = 0
                             if item_id:
