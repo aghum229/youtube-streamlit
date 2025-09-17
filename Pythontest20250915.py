@@ -1687,7 +1687,7 @@ def zaiko_place():
                             process_order_name = "-"
                             quantity = 0.0
                             
-                        st.session_state.list_flag = 0 # 移行票番号が無い
+                        st.session_state.list_flag = 0 # 0:移行票番号が無い  1:有る
                         record = data_catch(st.session_state.sf, item_id)
                         if record:
                             zkTana_list = ""
@@ -1699,7 +1699,8 @@ def zaiko_place():
                             if listCount > 2:
                                 for index, item in enumerate(zkTana_list):
                                     if item == tanaban_select:
-                                        zkIko_kari = zkTana_list[index].split(",")
+                                        zkIko_list = record["zkIkohyoNo__c"].splitlines()
+                                        zkIko_kari = zkIko_list[index].split(",")
                                         listCount2 = len(zkIko_kari)
                                         if listCount2 > 1:
                                             for index, item in enumerate(zkIko_kari):
