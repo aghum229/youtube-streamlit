@@ -1720,11 +1720,11 @@ def zaiko_place():
                         with right:
                             submit_button_cancel = st.form_submit_button("取消")
                         submit_button_flag = 0
-                        if st.session_state.list_flag == 1:
+                        if st.session_state.list_flag == 0:
                             if submit_button_add:
                                 st.session_state.add_del_flag = 0
                                 submit_button_flag = 1
-                        if st.session_state.list_flag == 0:
+                        if st.session_state.list_flag == 1:
                             if submit_button_del:
                                 st.session_state.add_del_flag = 1
                                 submit_button_flag = 1
