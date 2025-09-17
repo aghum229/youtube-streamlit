@@ -1772,12 +1772,11 @@ def zaiko_place():
                                     if zkIko[listNumber] == "-" and add_del_flag == 1:
                                         st.write(f"❌06 **移行票番号の登録はありませんので、処理を中止します。**")
                                         st.stop()  # 以降の処理を止める
-                                    if add_del_flag == 1:
                                     list_flag = 0 # 移行票番号が無い
-                                    zkIko = zkIko[listNumber].split(",")
-                                    listCount2 = len(zkIko)
+                                    zkIko_kari = zkIko[listNumber].split(",")
+                                    listCount2 = len(zkIko_kari)
                                     if listCount2 > 1:
-                                        for index, item in enumerate(zkIko):
+                                        for index, item in enumerate(zkIko_kari):
                                             if item == st.session_state.production_order:
                                                 list_flag = 1 # 移行票番号が有る
                                                 break
