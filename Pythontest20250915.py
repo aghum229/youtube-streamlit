@@ -631,9 +631,9 @@ def display_footer():
         )
     '''
     # _= '''
-    with right:
+    with center:
         st.markdown(
-            "<p style='text-align:left;'> \
+            "<p style='text-align:right;'> \
             <span style='font-size: 10px;'>ver.1.0.0</span> \
             </p>"
             , unsafe_allow_html=True
@@ -1913,7 +1913,7 @@ return_1161 = "⏎ 1161.在庫置き場メニュー　へ戻る"
 def show_main_screen():
     left, center, right = st.columns([0.2, 0.6, 0.2])
     with center:
-        st.image("aitech_logo_E1.png", use_container_width=True)
+        st.image("aitech_logo_E.png", use_container_width=True)
     #     st.image("aitech_logo_D.png", use_container_width=True)
     # with right:
     #     st.write('(仮)')
