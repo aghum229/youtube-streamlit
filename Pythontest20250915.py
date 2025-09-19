@@ -1665,7 +1665,15 @@ def zaiko_place():
                                 default_process_order_name = last_record.get("snps_um__ProcessName__c")
                                 default_id = last_record.get("snps_um__Process__r", {}).get("AITC_ID18__c", "")
                                 default_hinban = last_record.get("snps_um__Item__r", {}).get("Name", "")
-                                default_end_daytime = last_record.get("snps_um__EndDateTime__c").strftime("%Y/%m/%d %H:%M:%S")
+                                # default_end_daytime = last_record.get("snps_um__EndDateTime__c")
+                                # UTCとしてパース
+                                dt_utc = datetime.strptime(last_record.get("snps_um__EndDateTime__c"), "%Y-%m-%dT%H:%M")
+                                dt_utc = dt_utc.replace(tzinfo=pytz.utc
+                                # 日本時間に変換
+                                jst = pytz.timezone("Asia/Tokyo")
+                                dt_jst = dt_utc.astimezone(jst)
+                                # 表示形式を整える
+                                default_end_daytime = dt_jst.strftime("%Y/%m/%d %H:%M")
                             else:
                                 st.session_state.production_order = None
                                 st.session_state.production_order_flag = False
