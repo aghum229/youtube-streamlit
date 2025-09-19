@@ -1665,7 +1665,7 @@ def zaiko_place():
                                 default_process_order_name = last_record.get("snps_um__ProcessName__c")
                                 default_id = last_record.get("snps_um__Process__r", {}).get("AITC_ID18__c", "")
                                 default_hinban = last_record.get("snps_um__Item__r", {}).get("Name", "")
-                                default_end_daytime = last_record.get("snps_um__EndDateTime__c")
+                                default_end_daytime = last_record.get("snps_um__EndDateTime__c").strftime("%Y/%m/%d %H:%M:%S")
                             else:
                                 st.session_state.production_order = None
                                 st.session_state.production_order_flag = False
