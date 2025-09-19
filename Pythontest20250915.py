@@ -1668,7 +1668,7 @@ def zaiko_place():
                                 # default_end_daytime = last_record.get("snps_um__EndDateTime__c")
                                 # UTCとしてパース
                                 dt_utc = datetime.strptime(last_record.get("snps_um__EndDateTime__c"), "%Y-%m-%dT%H:%M")
-                                dt_utc = dt_utc.replace(tzinfo=pytz.utc
+                                dt_utc = dt_utc.replace(tzinfo=pytz.utc)
                                 # 日本時間に変換
                                 jst = pytz.timezone("Asia/Tokyo")
                                 dt_jst = dt_utc.astimezone(jst)
