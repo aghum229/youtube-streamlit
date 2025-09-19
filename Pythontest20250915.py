@@ -1668,8 +1668,11 @@ def zaiko_place():
                                 default_hinban = last_record.get("snps_um__Item__r", {}).get("Name", "")
                                 # default_end_daytime = last_record.get("snps_um__EndDateTime__c")
                                 # _= '''
+                                if last_record.get("snps_um__EndDateTime__c") is not None:
+                                    iso_str = "2000/01/01 11:11:11"
+                                else:
+                                    iso_str = last_record.get("snps_um__EndDateTime__c")
                                 # UTCとしてパース
-                                iso_str = last_record.get("snps_um__EndDateTime__c")
                                 dt_utc = datetime.strptime(iso_str, "%Y-%m-%dT%H:%M:%S.%f%z")
                                 dt_utc = dt_utc.replace(tzinfo=pytz.utc)
                                 # 日本時間に変換
