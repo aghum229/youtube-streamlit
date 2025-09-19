@@ -1669,7 +1669,7 @@ def zaiko_place():
                                 # default_end_daytime = last_record.get("snps_um__EndDateTime__c")
                                 # _= '''
                                 if last_record.get("snps_um__EndDateTime__c") is not None:
-                                    iso_str = "2000/01/01 11:11:11"
+                                    iso_str = "2000-01-01T01:00:00.000+0000"
                                 else:
                                     iso_str = last_record.get("snps_um__EndDateTime__c")
                                 # UTCとしてパース
