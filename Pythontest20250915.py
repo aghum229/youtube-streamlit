@@ -1275,8 +1275,8 @@ def zaiko_place():
                                                     # st.write("df_search_result:", st.session_state.df_search_result)
                                     # st.write(st.session_state.df_search_result)
                                     # st.session_state.df_search_result.sort_values(by=["完了日", "移行票番号", "品番", "棚番"])
-                                    st.session_state.df_search_result.sort_values(by=["品番"])
-                                    st.dataframe(st.session_state.df_search_result)
+                                    df_sorted = st.session_state.df_search_result.sort_values(by=["品番"])
+                                    st.dataframe(df_sorted)
                                     # edited_df = st.data_editor(
                                     #     st.session_state.df_search_result,
                                     #    num_rows="dynamic",
