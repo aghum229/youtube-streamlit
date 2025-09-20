@@ -1062,7 +1062,7 @@ def zaiko_place():
     if "records" not in st.session_state:
         st.session_state.records = ""
     if "df_search_result" not in st.session_state:
-        st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+        st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
     if "df" not in st.session_state:
         st.session_state.df = None
     if "selected_row" not in st.session_state:
@@ -1141,7 +1141,7 @@ def zaiko_place():
                 st.session_state.qr_code_tana_info = False
                 st.session_state.tanaban_select_temp_info = ""
                 st.session_state.records  = None
-                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                 st.session_state.record  = None
                 st.rerun()
         if st.session_state.manual_input_flag == 9:
@@ -1183,7 +1183,7 @@ def zaiko_place():
                         st.session_state.qr_code_tana_info = False
                         st.session_state.tanaban_select_temp_info = ""
                         st.session_state.records  = None
-                        st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                        st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                         st.session_state.record  = None
                         st.rerun()
                 if st.session_state.manual_input_check_flag == 0:
@@ -1210,7 +1210,7 @@ def zaiko_place():
                                 st.session_state.hinban_select_flag = False
                                 st.session_state.tanaban_select_flag  = False
                                 st.session_state.records  = None
-                                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                                 st.session_state.record  = None
                                 st.rerun()
                         if not st.session_state.hinban_select_flag:
@@ -1234,10 +1234,10 @@ def zaiko_place():
                                 if st.button("品番を再選択"):
                                     st.session_state.hinban_select_flag = False
                                     st.session_state.tanaban_select_flag  = False
-                                    st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                                    st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                                     st.session_state.record  = None
                                     st.rerun()
-                            st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                            st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                             listCount = 0
                             zkTana = ""
                             zkIko = ""
@@ -1274,6 +1274,7 @@ def zaiko_place():
                                                     # st.write("zkHin_list:", zkHin_list)
                                                     # st.write("df_search_result:", st.session_state.df_search_result)
                                     # st.write(st.session_state.df_search_result)
+                                    st.session_state.df_search_result.sort_values(by=["完了日", "移行票番号", "品番", "棚番"])
                                     st.dataframe(st.session_state.df_search_result)
                                     # edited_df = st.data_editor(
                                     #     st.session_state.df_search_result,
