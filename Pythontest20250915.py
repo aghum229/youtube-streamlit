@@ -1427,7 +1427,11 @@ def zaiko_place():
                                             else:
                                                 st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkIko[0], zkHin[0], zkKan[0], zkSu[0], zkEndDT[0]]
                                     # st.write(st.session_state.df_search_result)
-                                    st.dataframe(st.session_state.df_search_result)
+                                    # st.session_state.df_search_result.sort_values(by=["完了日", "移行票番号", "品番", "棚番"])
+                                    st.write(df.columns)
+                                    df_sorted = st.session_state.df_search_result.sort_values(by=["品番"]).reset_index(drop=True)
+                                    st.dataframe(df_sorted)
+                                    # st.dataframe(st.session_state.df_search_result)
                                     # edited_df = st.data_editor(
                                     #     st.session_state.df_search_result,
                                     #    num_rows="dynamic",
