@@ -1838,7 +1838,7 @@ def zaiko_place():
                                     else:
                                         zkIko = []
                                     listCountEtc = len(zkIko)
-                                    if zkIko[listNumber] == "-" and add_del_flag == 1:
+                                    if zkIko[listNumber] == "-" and st.session_state.add_del_flag == 1:
                                         st.write(f"❌06 **移行票番号の登録はありませんので、処理を中止します。**")
                                         st.stop()  # 以降の処理を止める
                                     # list_flag = 0 # 移行票番号が無い
@@ -1876,7 +1876,7 @@ def zaiko_place():
                                             zkHin = list_update_zkKari(record, zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
                                             zkKan = list_update_zkKari(record, zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
                                             zkSu = list_update_zkKari(record, zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
-                                            zkEndDT = list_update_zkKari(record, zkEndDT, "zkEndDayTime__c", listNumber, "-", -1)   # zk完了日
+                                            zkEndDT = list_update_zkKari(record, zkEndDT, "zkEndDayTime__c", listNumber, "-", 0)   # zk完了日
                                             zkHistory_value = f"{zkHistory_value},add"
                                         elif st.session_state.add_del_flag == 1: # 削除の場合
                                             zkIko = list_update_zkKari(record, zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 3)   # zk移行票No
