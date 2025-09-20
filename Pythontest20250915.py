@@ -803,12 +803,17 @@ def image_viewer(target_text):
             image_path_sub = "TanaMap20250820-P9.png"
             # image_path = "TanaMap20250820-2.png"
             image_search_flag = True
+        elif (first_char == "バ" and 1 <= after_hyphen_int <= 20): 
+            sub_text = "P-10"
+            image_path_sub = "TanaMap20250820-P10.png"
+            # image_path = "TanaMap20250820-2.png"
+            image_search_flag = True
         if image_search_flag:
             # OCR実行   r"完.?[ABC][-–—]?(1[0-5]|[1-9])"
             
             image_sub = Image.open(image_path_sub).convert("RGB")
             image_sub_np = np.array(image_sub)
-            if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+            if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9" and sub_text != "P-10":
                 if os.path.exists(image_path):
                     image = Image.open(image_path).convert("RGB")
                     image_np = np.array(image)
