@@ -1354,7 +1354,7 @@ def zaiko_place():
                                 st.session_state.tanaban_select_input = False
                                 st.session_state.qr_code_tana_info = False
                                 st.session_state.tanaban_select_temp_info = ""
-                                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                                 st.session_state.record_2  = None
                                 st.rerun()
                         if not st.session_state.qr_code_tana_info:
@@ -1384,11 +1384,11 @@ def zaiko_place():
                                 if st.button("棚番を再選択(参照)"):
                                     st.session_state.qr_code_tana_info = False
                                     st.session_state.tanaban_select_temp_info = ""
-                                    st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                                    st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                                     st.session_state.record_2  = None
                                     st.rerun()
                             st.write(f"選択された棚番： {st.session_state.tanaban_select_temp_info}　にある品番一覧")
-                            st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量"])
+                            st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                             listCount = 0
                             listCount2 = 0
                             zkTana = ""
