@@ -1736,7 +1736,7 @@ def zaiko_place():
                                                     st.session_state.list_flag = 1 # 移行票番号が有る
                                                     break
                                         else:
-                                            if zkIko_list[0] == st.session_state.production_order:
+                                            if zkIko_kari[0] == st.session_state.production_order:
                                                 st.session_state.list_flag = 1 # 移行票番号が有る
                                                 break
                         st.session_state.record = ""
