@@ -1119,11 +1119,22 @@ def zaiko_place():
         if records:
             df = pd.DataFrame(records)
             # csv_path = secrets['CSV_PATH']
-            download_dir = os.path.join(os.path.expanduser("~"), "Downloads")
-            csv_path = os.path.join(download_dir, "zaiko_data.csv")
-            df.to_csv(csv_path, index=False, encoding='utf-8-sig')
+            # download_dir = os.path.join(os.path.expanduser("~"), "Downloads")
+            # csv_path = os.path.join(download_dir, "zaiko_data.csv")
+            # df.to_csv(csv_path, index=False, encoding='utf-8-sig')
             # CSV形式に変換（エンコードを指定すると日本語も安心）
-            csv = df.to_csv(index=True).encode('utf-8-sig')
+            csv_data = df.to_csv(index=True).encode('utf-8-sig')
+            # JavaScriptで自動ダウンロードリンクを生成
+            components.html(f"""
+                <html>
+                <body>
+                    <a id="download" href="data:text/csv;charset=utf-8,{csv_data}" download="zaiko.csv" style="display:none;">Download</a>
+                    <script>
+                        document.getElementById('download').click();
+                    </script>
+                </body>
+                </html>
+            """, height=0)
             # iso_str = datetime.today()
             # UTCとしてパース
             # dt_utc = datetime.strptime(iso_str, "%Y-%m-%dT%H:%M:%S.%f%z")
@@ -1137,7 +1148,7 @@ def zaiko_place():
             # ダウンロードボタンの表示
             st.download_button(
                 label="CSVファイルをダウンロード",
-                data=csv,
+                data=csv_data,
                 file_name=f"data_{date_today}.csv",
                 mime='text/csv'
             )
