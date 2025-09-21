@@ -1921,6 +1921,7 @@ def zaiko_place():
                                             zkSu = list_update_zkKari(record, zkSu, "zkSuryo__c", listNumber, f"{quantity}", 2)   # zk数量
                                             zkEndDT = list_update_zkKari(record, zkEndDT, "zkEndDayTime__c", listNumber, "-", 2)   # zk完了日
                                             zkHistory_value = f"{zkHistory_value},del"
+                                        zkEndDT = str(zkEndDT)
                                         zkHistory  = zkHistory_value + "\n" + str(zkHistory)   # zk履歴
                                         
                                     # zkHin = record["zkHinban__c"].splitlines()   # zk品番
