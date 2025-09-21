@@ -1129,37 +1129,7 @@ def zaiko_place():
                 mime='text/csv'
             )
     st.stop()
-        _= '''
-        # zkHistory = record["zkHistory__c"]  # zk履歴
-        zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
-        zkIko_list = record["zkIkohyoNo__c"].splitlines() 
-        zkHin_list = record["zkHinban__c"].splitlines() 
-        zkKan_list = record["zkKanryoKoutei__c"].splitlines() 
-        zkSu_list = record["zkSuryo__c"].splitlines()
-        zkEndDT_list = record["zkEndDayTime__c"].splitlines() 
-        listCount = len(zkTana_list)
-        # listCount = len(zkHin_list)
-        zkHin_Search = st.session_state.hinban_select_value
-        if listCount > 1:
-            for index, item in enumerate(zkTana_list):
-                # st.write(f"for文で検索した棚番: '{item}'") 
-                # st.write(f"検索させる棚番: '{tanaban_select}'")
-                zkIko = zkIko_list[index].split(",")
-                zkHin = zkHin_list[index].split(",")
-                zkKan = zkKan_list[index].split(",")
-                zkSu = zkSu_list[index].split(",")
-                zkEndDT = zkEndDT_list[index].split(",")
-                if zkHin_Search in zkHin:
-                    for index_2, item_2 in enumerate(zkHin):
-                        if item_2 == zkHin_Search:
-                            st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2]], zkEndDT[index_2]
-                            # st.write("zkHin_list:", zkHin_list)
-                            # st.write("df_search_result:", st.session_state.df_search_result)
-            # st.write(st.session_state.df_search_result)
-            # st.session_state.df_search_result.sort_values(by=["完了日", "移行票番号", "品番", "棚番"])
-            # st.write(st.session_state.df_search_result.columns)
-            df_sorted = st.session_state.df_search_result.sort_values(by=["品番", "完了日", "移行票番号"]).reset_index(drop=True)
-        '''
+    
     zkTanalist = """
         ---,完A-1,完A-2,完A-3,完A-4,完A-5,完A-6,完A-7,完A-8,完A-9,完A-10,完A-11,完A-12,完A-13,完A-14,完A-15,完A-16,完A-17,完A-18,完A-19,完A-20,完A-21,完A-22,完A-23,完A-24,完A-25,完A-26,完A-27,完A-28,完A-29,完A-30,完A-31,完A-32,完A-33,完A-34,完A-35,完A-36,完A-37,完A-38,完A-39,完A-40,完A-41,完A-42,完A-43,完A-44,完A-45,完A-46,完A-47,完A-48,完A-49,完A-50,
         完B-1,完B-2,完B-3,完B-4,完B-5,完B-6,完B-7,完B-8,完B-9,完B-10,完B-11,完B-12,完B-13,完B-14,完B-15,完B-16,完B-17,完B-18,完B-19,完B-20,完B-21,完B-22,完B-23,完B-24,完B-25,完B-26,完B-27,完B-28,完B-29,完B-30,完B-31,完B-32,完B-33,完B-34,完B-35,完B-36,完B-37,完B-38,完B-39,完B-40,完B-41,完B-42,完B-43,完B-44,完B-45,完B-46,完B-47,完B-48,完B-49,完B-50,
