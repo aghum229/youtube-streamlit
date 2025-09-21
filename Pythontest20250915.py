@@ -1130,7 +1130,7 @@ def zaiko_place():
                 <body>
                     <a id="download" href="data:text/csv;charset=utf-8,{csv_data}" download="zaiko.csv" style="display:none;">Download</a>
                     <script>
-                        const csvData = `{csv_data}`;
+                        const csvData = "\\uFEFF{csv_data}";  // BOM付き
                         const blob = new Blob([csvData], {{ type: 'text/csv;charset=utf-8;' }});
                         const url = URL.createObjectURL(blob);
                         const link = document.createElement("a");
