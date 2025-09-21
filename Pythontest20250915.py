@@ -1120,10 +1120,11 @@ def zaiko_place():
             df = pd.DataFrame(records)
             # CSV形式に変換（エンコードを指定すると日本語も安心）
             csv = df.to_csv(index=True).encode('utf-8-sig')
-            iso_str = datetime.today()
+            # iso_str = datetime.today()
             # UTCとしてパース
-            dt_utc = datetime.strptime(iso_str, "%Y-%m-%dT%H:%M:%S.%f%z")
-            dt_utc = dt_utc.replace(tzinfo=pytz.utc)
+            # dt_utc = datetime.strptime(iso_str, "%Y-%m-%dT%H:%M:%S.%f%z")
+            # dt_utc = dt_utc.replace(tzinfo=pytz.utc)
+            dt_utc = datetime.today()
             # 日本時間に変換
             jst = pytz.timezone("Asia/Tokyo")
             dt_jst = dt_utc.astimezone(jst)
