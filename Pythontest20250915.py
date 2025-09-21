@@ -403,7 +403,31 @@ def data_catch_hinmoku(sf, item_name):
         # return None
         # reset_form()
         st.stop()
-       
+
+def data_catch_for_csv(sf, item_id):
+    query = f"""
+        SELECT AITC_ID18__c, Name,
+            zkTanaban__c, zkIkohyoNo__c ,zkHinban__c, zkKanryoKoutei__c,
+            zkSuryo__c, zkEndDayTime__c, zkHistory__c
+        FROM snps_um__Process__c
+        WHERE AITC_ID18__c = '{item_id}'
+    """
+    try:
+        result = sf.query(query)
+        records = result.get("records", [])
+        if records:
+            return records[]
+        else:
+            st.warning(f"ID(18桁) '{item_id}' に一致する snps_um__Process__c が見つかりませんでした。")
+            return None
+            # reset_form()
+            st.stop()
+    except Exception as e:
+        st.error(f"ID(18桁)検索エラー: {e}")
+        return None
+        # reset_form()
+        st.stop()
+        
 def list_update_zkKari(record, zkKari, dbItem, listNo, update_value, flag):
     """
     指定されたlistNoの値を更新する関数。
@@ -984,14 +1008,7 @@ def image_viewer(target_text):
             st.warning(f"{target_text} はこの画像には見つかりませんでした。")
     # st.stop()
 
-if "sf" not in st.session_state:
-    try:
-        st.session_state.sf = authenticate_salesforce()
-        # st.success("Salesforceに正常に接続しました！")
-    except Exception as e:
-        st.error(f"認証エラー: {e}")
-        st.stop()
-        
+       
 def zaiko_place():
     # Inicializar estados necessários
     if "production_order" not in st.session_state:
@@ -1096,6 +1113,53 @@ def zaiko_place():
         st.session_state.user_code = ""
     
     item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※変更禁止
+
+    if st.session_state['owner'] == "9999":
+        records = data_catch_for_csv(st.session_state.sf, item_id)
+        if records:
+            df = pd.DataFrame(records)
+            # CSV形式に変換（エンコードを指定すると日本語も安心）
+            csv = df.to_csv(index=True).encode('utf-8-sig')
+            date_today = datetime.date.today().strftime("%Y/%m/%d %H:%M:%S")
+            # ダウンロードボタンの表示
+            st.download_button(
+                label="CSVファイルをダウンロード",
+                data=csv,
+                file_name=f"data_{date_today}.csv",
+                mime='text/csv'
+            )
+    st.stop()
+        _= '''
+        # zkHistory = record["zkHistory__c"]  # zk履歴
+        zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
+        zkIko_list = record["zkIkohyoNo__c"].splitlines() 
+        zkHin_list = record["zkHinban__c"].splitlines() 
+        zkKan_list = record["zkKanryoKoutei__c"].splitlines() 
+        zkSu_list = record["zkSuryo__c"].splitlines()
+        zkEndDT_list = record["zkEndDayTime__c"].splitlines() 
+        listCount = len(zkTana_list)
+        # listCount = len(zkHin_list)
+        zkHin_Search = st.session_state.hinban_select_value
+        if listCount > 1:
+            for index, item in enumerate(zkTana_list):
+                # st.write(f"for文で検索した棚番: '{item}'") 
+                # st.write(f"検索させる棚番: '{tanaban_select}'")
+                zkIko = zkIko_list[index].split(",")
+                zkHin = zkHin_list[index].split(",")
+                zkKan = zkKan_list[index].split(",")
+                zkSu = zkSu_list[index].split(",")
+                zkEndDT = zkEndDT_list[index].split(",")
+                if zkHin_Search in zkHin:
+                    for index_2, item_2 in enumerate(zkHin):
+                        if item_2 == zkHin_Search:
+                            st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2]], zkEndDT[index_2]
+                            # st.write("zkHin_list:", zkHin_list)
+                            # st.write("df_search_result:", st.session_state.df_search_result)
+            # st.write(st.session_state.df_search_result)
+            # st.session_state.df_search_result.sort_values(by=["完了日", "移行票番号", "品番", "棚番"])
+            # st.write(st.session_state.df_search_result.columns)
+            df_sorted = st.session_state.df_search_result.sort_values(by=["品番", "完了日", "移行票番号"]).reset_index(drop=True)
+        '''
     zkTanalist = """
         ---,完A-1,完A-2,完A-3,完A-4,完A-5,完A-6,完A-7,完A-8,完A-9,完A-10,完A-11,完A-12,完A-13,完A-14,完A-15,完A-16,完A-17,完A-18,完A-19,完A-20,完A-21,完A-22,完A-23,完A-24,完A-25,完A-26,完A-27,完A-28,完A-29,完A-30,完A-31,完A-32,完A-33,完A-34,完A-35,完A-36,完A-37,完A-38,完A-39,完A-40,完A-41,完A-42,完A-43,完A-44,完A-45,完A-46,完A-47,完A-48,完A-49,完A-50,
         完B-1,完B-2,完B-3,完B-4,完B-5,完B-6,完B-7,完B-8,完B-9,完B-10,完B-11,完B-12,完B-13,完B-14,完B-15,完B-16,完B-17,完B-18,完B-19,完B-20,完B-21,完B-22,完B-23,完B-24,完B-25,完B-26,完B-27,完B-28,完B-29,完B-30,完B-31,完B-32,完B-33,完B-34,完B-35,完B-36,完B-37,完B-38,完B-39,完B-40,完B-41,完B-42,完B-43,完B-44,完B-45,完B-46,完B-47,完B-48,完B-49,完B-50,
