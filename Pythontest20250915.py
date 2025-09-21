@@ -416,7 +416,7 @@ def data_catch_for_csv(sf, item_id):
         result = sf.query(query)
         records = result.get("records", [])
         if records:
-            return records[]
+            return records
         else:
             st.warning(f"ID(18桁) '{item_id}' に一致する snps_um__Process__c が見つかりませんでした。")
             return None
@@ -1114,7 +1114,7 @@ def zaiko_place():
     
     item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※変更禁止
 
-    if st.session_state['owner'] == "9999":
+    if st.session_state['owner'] == "9997":
         records = data_catch_for_csv(st.session_state.sf, item_id)
         if records:
             df = pd.DataFrame(records)
