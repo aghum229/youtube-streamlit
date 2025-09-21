@@ -413,7 +413,7 @@ def data_catch_for_csv(sf, item_id):
         WHERE AITC_ID18__c = '{item_id}'
     """
     try:
-        result = sf.query(query)
+        result = sf.query_all(query)
         records = result.get("records", [])
         if records:
             return records
