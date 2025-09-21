@@ -733,6 +733,7 @@ def image_viewer(target_text):
     image_flag = False
     image_sub_flag = False
     image_search_flag = False
+    image_exclusion_flag = False
     if not image_files:
         st.warning("画像ファイルが見つかりませんでした。")
     else:
@@ -820,6 +821,7 @@ def image_viewer(target_text):
             image_sub = Image.open(image_path_sub).convert("RGB")
             image_sub_np = np.array(image_sub)
             if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9" and sub_text != "P-10" and sub_text != "P-11":
+                image_exclusion_flag = True
                 if os.path.exists(image_path):
                     image = Image.open(image_path).convert("RGB")
                     image_np = np.array(image)
@@ -877,7 +879,8 @@ def image_viewer(target_text):
             image_sub2_np = np.array(image_sub2)
             image_with_circle_b = image_sub2_np.copy()
 
-            if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9" and sub_text != "P-10" and sub_text != "P-11":
+            # if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9" and sub_text != "P-10" and sub_text != "P-11":
+            if image_exclusion_flag:
                 results = reader.readtext(image_np)
                 target_center = None
                 if first_char == "完":
@@ -925,10 +928,12 @@ def image_viewer(target_text):
             else:
                 target_center = (1, 1)
             # 赤い円（○）を描画
-            if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+            # if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9" and sub_text != "P-10" and sub_text != "P-11":
+            if image_exclusion_flag:
                 image_with_circle_c = image_np.copy()
             if target_center:
-                if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+                # if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9" and sub_text != "P-10" and sub_text != "P-11":
+                if image_exclusion_flag:
                     # cv2.circle(image_with_circle_c, target_center, 50, (255, 0, 0), thickness=8)
                     if first_char == "E":
                         axes = (90, 50) 
@@ -944,22 +949,26 @@ def image_viewer(target_text):
                     # cv2.rectangle(image_with_circle_c, (0, 0), (w - 1, h - 1), (255, 0, 255), 20)
                 img1 = image_with_circle_a
                 img2 = image_with_circle_b
-                if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+                # if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9" and sub_text != "P-10" and sub_text != "P-11":
+                if image_exclusion_flag:
                     img3 = image_with_circle_c
                 
                 # 最大横幅を取得
-                if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+                # if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9" and sub_text != "P-10" and sub_text != "P-11":
+                if image_exclusion_flag:
                     max_width = max(img1.shape[1], img2.shape[1], img3.shape[1])
                 else:
                     max_width = max(img1.shape[1], img2.shape[1])
                 # 中央揃えでパディング
                 img1_padded = pad_to_center(img1, max_width)
                 img2_padded = pad_to_center(img2, max_width)
-                if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+                # if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9" and sub_text != "P-10" and sub_text != "P-11":
+                if image_exclusion_flag:
                     img3_padded = pad_to_center(img3, max_width)
                 
                 # 縦に結合
-                if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+                # if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9" and sub_text != "P-10" and sub_text != "P-11":
+                if image_exclusion_flag:
                     combined = np.vstack([img1_padded, img2_padded, img3_padded])
                     st.image(combined, channels="RGB", use_container_width=True)
                 else:
