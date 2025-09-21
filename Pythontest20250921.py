@@ -415,13 +415,13 @@ def list_update_zkKari(record, zkKari, dbItem, listNo, update_value, flag):
     - dbItem: データベースの項目名(注記.表示ラベルではない)
     - listNo: 対象のインデックスまたはキー
     - update_value: 追加する値
-    - flag: -1(追加 マップ座標の場合), 0(追加 移行票No以外), 1(追加 移行票Noの場合), 2(削除 移行票No以外), 3(削除 移行票Noの場合)
+    - flag: -1(追加 完了日の場合), 0(追加 移行票No以外), 1(追加 移行票Noの場合), 2(削除 移行票No以外), 3(削除 移行票Noの場合)
 
     Returns:
     - 更新後のzkKari
     """
     global zkSplitNo  # 初期値99
-    global zkSplitFlag  # 0:マップ座標以外  1;マップ座標
+    global zkSplitFlag  # 0:完了日以外  1;完了日
     zkKari = record[dbItem].splitlines()  # 大項目リスト(改行区切り)
     zkSplit = zkKari[listNo].split(",")  # 小項目リスト(カンマ区切り)
     # st.write(f"zkSplitのリスト数：'{len(zkSplit)}'")
@@ -452,7 +452,7 @@ def list_update_zkKari(record, zkKari, dbItem, listNo, update_value, flag):
         zkKari[listNo] = ",".join(zkSplit)  # 大項目に反映
     else:
         if zkKari[listNo] == "-":  # 大項目がデフォルト値の場合
-            if flag == -1 and zkSplitFlag == 1:  # マップ座標で2つ目以降の追加の場合
+            if flag == -1 and zkSplitFlag == 1:  # 完了日で2つ目以降の追加の場合
                 zkKari[listNo] += "," + update_value
             else:
                 zkKari[listNo] = update_value
@@ -1912,7 +1912,7 @@ def zaiko_place():
                                             zkHin = list_update_zkKari(record, zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
                                             zkKan = list_update_zkKari(record, zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
                                             zkSu = list_update_zkKari(record, zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
-                                            zkEndDT = list_update_zkKari(record, zkEndDT, "zkEndDayTime__c", listNumber, "-", 0)   # zk完了日
+                                            zkEndDT = list_update_zkKari(record, zkEndDT, "zkEndDayTime__c", listNumber, "-", -1)   # zk完了日
                                             zkHistory_value = f"{zkHistory_value},add"
                                         elif st.session_state.add_del_flag == 1: # 削除の場合
                                             zkIko = list_update_zkKari(record, zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 3)   # zk移行票No
