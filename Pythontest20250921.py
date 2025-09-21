@@ -420,8 +420,8 @@ def list_update_zkKari(record, zkKari, dbItem, listNo, update_value, flag):
     Returns:
     - 更新後のzkKari
     """
-    global zkSplitNo  # 初期値99
-    global zkSplitFlag  # 0:完了日以外  1;完了日
+    # global zkSplitNo  # 初期値99
+    # global zkSplitFlag  # 0:完了日以外  1;完了日
     zkKari = record[dbItem].splitlines()  # 大項目リスト(改行区切り)
     zkSplit = zkKari[listNo].split(",")  # 小項目リスト(カンマ区切り)
     # st.write(f"zkSplitのリスト数：'{len(zkSplit)}'")
@@ -431,28 +431,28 @@ def list_update_zkKari(record, zkKari, dbItem, listNo, update_value, flag):
             if flag == 3:
                 for index, item in enumerate(zkSplit):
                     if item == update_value:
-                        zkSplitNo = index
+                        st.session_state.zkSplitNo = index
                         break  # 条件を満たしたらループを終了
-                if zkSplitNo == 99:
+                if st.session_state.zkSplitNo == 99:
                     st.write(f"❌02 **対象の移行票Noはありませんでした。'{update_value}'**")
                     # reset_form()
                     st.stop()  # 以降の処理を止める
-            if 0 <= zkSplitNo < len(zkSplit):
-                del zkSplit[zkSplitNo]  # 小項目の対象値削除
+            if 0 <= st.session_state.zkSplitNo < len(zkSplit):
+                del zkSplit[st.session_state.zkSplitNo]  # 小項目の対象値削除
             else:
                 # ログ出力やエラーハンドリング
                 # st.write(f"zkSplitNo {zkSplitNo} is out of range for zkSplit of length {len(zkSplit)}")
-                st.write(f"❌03 **有効な範囲ではありませんでした。'{zkSplitNo}'**")
+                st.write(f"❌03 **登録数の有効な範囲ではありませんでした。'{st.session_state.zkSplitNo}'**")
                 # reset_form()
                 st.stop()  # 以降の処理を止める
         else:
             if flag == 3:
-                zkSplitNo = 0
-            zkSplit[zkSplitNo] = "-"  # 小項目の対象にデフォルト値反映
+                st.session_state.zkSplitNo = 0
+            zkSplit[st.session_state.zkSplitNo] = "-"  # 小項目の対象にデフォルト値反映
         zkKari[listNo] = ",".join(zkSplit)  # 大項目に反映
     else:
         if zkKari[listNo] == "-":  # 大項目がデフォルト値の場合
-            if flag == -1 and zkSplitFlag == 1:  # 完了日で2つ目以降の追加の場合
+            if flag == -1 and st.session_state.zkSplitFlag == 1:  # 完了日で2つ目以降の追加の場合
                 zkKari[listNo] += "," + update_value
             else:
                 zkKari[listNo] = update_value
@@ -463,7 +463,7 @@ def list_update_zkKari(record, zkKari, dbItem, listNo, update_value, flag):
                         st.write(f"❌04 **すでに登録されている移行票Noです。'{update_value}'**")
                         # reset_form()
                         st.stop()  # 以降の処理を止める
-                zkSplitFlag = 1
+                st.session_state.zkSplitFlag = 1
             zkKari[listNo] += "," + update_value
     zkKari = "\n".join(zkKari) if isinstance(zkKari, list) else zkKari
     return zkKari
@@ -1087,6 +1087,10 @@ def zaiko_place():
         st.session_state.button_key = ""
     if "add_del_flag" not in st.session_state: # 0:追加　1:削除
         st.session_state.add_del_flag = 0
+    if "zkSplitNo" not in st.session_state: # 初期値99
+        st.session_state.zkSplitNo = 99
+    if "zkSplitFlag" not in st.session_state: # 0:完了日以外  1;完了日
+        st.session_state.zkSplitFlag = 0
     if "zkScroll_flag" not in st.session_state: # 初期値0
         st.session_state.zkScroll_flag = 0
     if "result_text" not in st.session_state:
@@ -1674,8 +1678,8 @@ def zaiko_place():
                                 st.session_state.show_camera = True  # 必要に応じてカメラ表示を再開
                             st.rerun()
                     
-                    zkSplitNo = 99
-                    zkSplitFlag = 0
+                    st.session_state.zkSplitNo = 99
+                    st.session_state.zkSplitFlag = 0
                     with st.form(key="registro_form", clear_on_submit=True):
                         default_quantity = 0.0
                         default_process_order = 0
