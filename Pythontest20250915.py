@@ -1120,7 +1120,7 @@ def zaiko_place():
             df = pd.DataFrame(records)
             # CSV形式に変換（エンコードを指定すると日本語も安心）
             csv = df.to_csv(index=True).encode('utf-8-sig')
-            date_today = datetime.date.today().strftime("%Y/%m/%d %H:%M:%S")
+            date_today = datetime.today().strftime("%Y/%m/%d %H:%M:%S")
             # ダウンロードボタンの表示
             st.download_button(
                 label="CSVファイルをダウンロード",
