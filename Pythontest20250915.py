@@ -1120,7 +1120,15 @@ def zaiko_place():
             df = pd.DataFrame(records)
             # CSV形式に変換（エンコードを指定すると日本語も安心）
             csv = df.to_csv(index=True).encode('utf-8-sig')
-            date_today = datetime.today().strftime("%Y/%m/%d %H:%M:%S")
+            iso_str = datetime.today()
+            # UTCとしてパース
+            dt_utc = datetime.strptime(iso_str, "%Y-%m-%dT%H:%M:%S.%f%z")
+            dt_utc = dt_utc.replace(tzinfo=pytz.utc)
+            # 日本時間に変換
+            jst = pytz.timezone("Asia/Tokyo")
+            dt_jst = dt_utc.astimezone(jst)
+            # 表示形式を整える
+            date_today = dt_jst.strftime("%Y/%m/%d %H:%M:%S")
             # ダウンロードボタンの表示
             st.download_button(
                 label="CSVファイルをダウンロード",
@@ -1128,7 +1136,7 @@ def zaiko_place():
                 file_name=f"data_{date_today}.csv",
                 mime='text/csv'
             )
-    st.stop()
+        st.stop()
     
     zkTanalist = """
         ---,完A-1,完A-2,完A-3,完A-4,完A-5,完A-6,完A-7,完A-8,完A-9,完A-10,完A-11,完A-12,完A-13,完A-14,完A-15,完A-16,完A-17,完A-18,完A-19,完A-20,完A-21,完A-22,完A-23,完A-24,完A-25,完A-26,完A-27,完A-28,完A-29,完A-30,完A-31,完A-32,完A-33,完A-34,完A-35,完A-36,完A-37,完A-38,完A-39,完A-40,完A-41,完A-42,完A-43,完A-44,完A-45,完A-46,完A-47,完A-48,完A-49,完A-50,
