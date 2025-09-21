@@ -877,7 +877,7 @@ def image_viewer(target_text):
             image_sub2_np = np.array(image_sub2)
             image_with_circle_b = image_sub2_np.copy()
 
-            if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9":
+            if sub_text != "P-3" and sub_text != "P-8" and sub_text != "P-9" and sub_text != "P-10" and sub_text != "P-11":
                 results = reader.readtext(image_np)
                 target_center = None
                 if first_char == "完":
