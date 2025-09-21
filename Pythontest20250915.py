@@ -1118,7 +1118,9 @@ def zaiko_place():
         records = data_catch_for_csv(st.session_state.sf, item_id)
         if records:
             df = pd.DataFrame(records)
-            csv_path = secrets['CSV_PATH']
+            # csv_path = secrets['CSV_PATH']
+            download_dir = os.path.join(os.path.expanduser("~"), "Downloads")
+            csv_path = os.path.join(download_dir, "zaiko_data.csv")
             df.to_csv(csv_path, index=False, encoding='utf-8-sig')
             # CSV形式に変換（エンコードを指定すると日本語も安心）
             csv = df.to_csv(index=True).encode('utf-8-sig')
