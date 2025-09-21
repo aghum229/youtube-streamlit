@@ -1123,7 +1123,7 @@ def zaiko_place():
             # csv_path = os.path.join(download_dir, "zaiko_data.csv")
             # df.to_csv(csv_path, index=False, encoding='utf-8-sig')
             # CSV形式に変換（エンコードを指定すると日本語も安心）
-            csv_data = df.to_csv(index=True).encode('utf-8-sig')
+            csv_data = df.to_csv(index=False).encode('utf-8-sig')
             # JavaScriptで自動ダウンロードリンクを生成
             components.html(f"""
                 <html>
