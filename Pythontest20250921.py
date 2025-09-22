@@ -1168,7 +1168,8 @@ def zaiko_place():
             before_path = Path(fr'{folder}\Downloads\{file_name}')
             cp_folder = fr'G:\共有ドライブ\共通\Program配布\ZAIKO_TANA_BACKUP'
             after_path = Path(fr'{cp_folder}\{file_name}')
-            shutil.copy(before_path, after_path)
+            st.write(before_path + " , " + after_path)
+            # shutil.copy(before_path, after_path)
             sleep(2)
             # ダウンロードボタンの表示
             st.download_button(
