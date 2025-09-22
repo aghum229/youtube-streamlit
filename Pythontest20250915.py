@@ -1168,7 +1168,7 @@ def zaiko_place():
             # ダウンロードボタンの表示
             st.download_button(
                 label="CSVファイルをダウンロード",
-                data=csv_data,
+                data=b64_csv,
                 file_name=f"data_{date_today}.csv",
                 mime='text/csv'
             )
