@@ -1142,7 +1142,7 @@ def zaiko_place():
             dt_jst = dt_utc.astimezone(jst)
             # 表示形式を整える
             date_today = dt_jst.strftime("%Y/%m/%d %H:%M:%S")
-            file_name=f"data_{date_today}.csv"
+            file_name=f"zaiko_tana_data_{date_today}.csv"
             # BOM付きCSVをバイナリで生成
             csv_bytes = df.to_csv(index=False, encoding="shift_jis").encode("shift_jis")
             # csv_bytes = df.to_csv(index=False, encoding="utf-8-sig").encode("utf-8")
