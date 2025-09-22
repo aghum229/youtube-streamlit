@@ -1124,25 +1124,14 @@ def zaiko_place():
         records = data_catch_for_csv(st.session_state.sf, item_id)
         if records:
             df = pd.DataFrame(records)
-            # csv_path = secrets['CSV_PATH']
-            # download_dir = os.path.join(os.path.expanduser("~"), "Downloads")
-            # csv_path = os.path.join(download_dir, "zaiko_data.csv")
-            # df.to_csv(csv_path, index=False, encoding='utf-8-sig')
-            # csv_data = df.to_csv("zaiko.csv", index=False, encoding="shift_jis")
-            # CSV形式に変換（エンコードを指定すると日本語も安心）
-            # csv_data = df.to_csv(index=False).encode('utf-8-sig')
-            
-            # iso_str = datetime.today()
             # UTCとしてパース
-            # dt_utc = datetime.strptime(iso_str, "%Y-%m-%dT%H:%M:%S.%f%z")
-            # dt_utc = dt_utc.replace(tzinfo=pytz.utc)
             dt_utc = datetime.today()
             # 日本時間に変換
             jst = pytz.timezone("Asia/Tokyo")
             dt_jst = dt_utc.astimezone(jst)
             # 表示形式を整える
             date_today = dt_jst.strftime("%Y/%m/%d %H:%M:%S")
-            file_name=f"zaiko_tana_data_{date_today}.csv"
+            file_name=f"zaiko_tana_backup_{date_today}.csv"
             # BOM付きCSVをバイナリで生成
             csv_bytes = df.to_csv(index=False, encoding="shift_jis").encode("shift_jis")
             # csv_bytes = df.to_csv(index=False, encoding="utf-8-sig").encode("utf-8")
