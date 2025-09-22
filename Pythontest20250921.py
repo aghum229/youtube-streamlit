@@ -21,6 +21,7 @@ import numpy as np
 import cv2
 from PIL import Image
 import glob
+import base64
 
 # 固定コンテナコードの始まり
 from typing import Literal
