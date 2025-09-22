@@ -1125,15 +1125,16 @@ def zaiko_place():
             # df.to_csv(csv_path, index=False, encoding='utf-8-sig')
             # CSV形式に変換（エンコードを指定すると日本語も安心）
             # csv_data = df.to_csv(index=False).encode('utf-8-sig')
-            # JavaScriptで自動ダウンロードリンクを生成  document.getElementById('download').click();
+            # BOM付きCSVをバイナリで生成
             csv_bytes = df.to_csv(index=False, encoding="utf-8-sig").encode("utf-8")
-            b64 = base64.b64encode(csv_bytes).decode()
+            b64_csv = base64.b64encode(csv_bytes).decode()
             
+            # JavaScriptでBase64をBlobに変換してダウンロード
             components.html(f"""
                 <html>
                 <body>
                     <script>
-                        const b64Data = "{b64}";
+                        const b64Data = "{b64_csv}";
                         const byteCharacters = atob(b64Data);
                         const byteNumbers = new Array(byteCharacters.length);
                         for (let i = 0; i < byteCharacters.length; i++) {{
