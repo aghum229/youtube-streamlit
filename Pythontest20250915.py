@@ -1123,23 +1123,23 @@ def zaiko_place():
             # csv_path = os.path.join(download_dir, "zaiko_data.csv")
             # df.to_csv(csv_path, index=False, encoding='utf-8-sig')
             # CSV形式に変換（エンコードを指定すると日本語も安心）
-            csv_data = df.to_csv(index=False).encode('utf-8-sig')
+            # csv_data = df.to_csv(index=False).encode('utf-8-sig')
             # JavaScriptで自動ダウンロードリンクを生成  document.getElementById('download').click();
+            csv_bytes = df.to_csv(index=False, encoding="utf-8-sig").encode("utf-8")
+            b64 = base64.b64encode(csv_bytes).decode()
+            
             components.html(f"""
                 <html>
                 <body>
                     <script>
-                        // BOMをバイナリで定義
-                        const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
-            
-                        // CSVデータをUTF-8でエンコード
-                        const encoder = new TextEncoder();
-                        const csvEncoded = encoder.encode(`{csv_data}`);
-            
-                        // BOM + CSVデータを結合
-                        const blob = new Blob([bom, csvEncoded], {{ type: 'text/csv;charset=utf-8;' }});
-            
-                        // ダウンロードリンク生成
+                        const b64Data = "{b64}";
+                        const byteCharacters = atob(b64Data);
+                        const byteNumbers = new Array(byteCharacters.length);
+                        for (let i = 0; i < byteCharacters.length; i++) {{
+                            byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        }}
+                        const byteArray = new Uint8Array(byteNumbers);
+                        const blob = new Blob([byteArray], {{ type: 'text/csv;charset=utf-8;' }});
                         const url = URL.createObjectURL(blob);
                         const link = document.createElement("a");
                         link.setAttribute("href", url);
