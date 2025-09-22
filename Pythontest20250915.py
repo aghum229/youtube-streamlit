@@ -1129,9 +1129,17 @@ def zaiko_place():
                 <html>
                 <body>
                     <script>
-                        const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);  // BOMをバイナリで定義
-                        const csvText = `{csv_data}`;
-                        const blob = new Blob([bom, csvText], {{ type: 'text/csv;charset=utf-8;' }});
+                        // BOMをバイナリで定義
+                        const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+            
+                        // CSVデータをUTF-8でエンコード
+                        const encoder = new TextEncoder();
+                        const csvEncoded = encoder.encode(`{csv_data}`);
+            
+                        // BOM + CSVデータを結合
+                        const blob = new Blob([bom, csvEncoded], {{ type: 'text/csv;charset=utf-8;' }});
+            
+                        // ダウンロードリンク生成
                         const url = URL.createObjectURL(blob);
                         const link = document.createElement("a");
                         link.setAttribute("href", url);
