@@ -985,14 +985,7 @@ def image_viewer(target_text):
             st.warning(f"{target_text} はこの画像には見つかりませんでした。")
     # st.stop()
 
-if "sf" not in st.session_state:
-    try:
-        st.session_state.sf = authenticate_salesforce()
-        # st.success("Salesforceに正常に接続しました！")
-    except Exception as e:
-        st.error(f"認証エラー: {e}")
-        st.stop()
-        
+       
 def zaiko_place():
     # Inicializar estados necessários
     if "production_order" not in st.session_state:
@@ -1101,6 +1094,65 @@ def zaiko_place():
         st.session_state.user_code = ""
     
     item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※変更禁止
+
+    if st.session_state['owner'] == "9997":
+        records = data_catch_for_csv(st.session_state.sf, item_id)
+        if records:
+            df = pd.DataFrame(records)
+            # csv_path = secrets['CSV_PATH']
+            # download_dir = os.path.join(os.path.expanduser("~"), "Downloads")
+            # csv_path = os.path.join(download_dir, "zaiko_data.csv")
+            # df.to_csv(csv_path, index=False, encoding='utf-8-sig')
+            # csv_data = df.to_csv("zaiko.csv", index=False, encoding="shift_jis")
+            # CSV形式に変換（エンコードを指定すると日本語も安心）
+            # csv_data = df.to_csv(index=False).encode('utf-8-sig')
+            # BOM付きCSVをバイナリで生成
+            csv_bytes = df.to_csv(index=False, encoding="shift_jis").encode("shift_jis")
+            # csv_bytes = df.to_csv(index=False, encoding="utf-8-sig").encode("utf-8")
+            b64_csv = base64.b64encode(csv_bytes).decode()
+            
+            # JavaScriptでBase64をBlobに変換してダウンロード
+            components.html(f"""
+                <html>
+                <body>
+                    <script>
+                        const b64Data = "{b64_csv}";
+                        const byteCharacters = atob(b64Data);
+                        const byteNumbers = new Array(byteCharacters.length);
+                        for (let i = 0; i < byteCharacters.length; i++) {{
+                            byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        }}
+                        const byteArray = new Uint8Array(byteNumbers);
+                        const blob = new Blob([byteArray], {{ type: 'text/csv;charset=shift_jis;' }});
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement("a");
+                        link.setAttribute("href", url);
+                        link.setAttribute("download", "zaiko.csv");
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    </script>
+                </body>
+                </html>
+            """, height=0)
+            # iso_str = datetime.today()
+            # UTCとしてパース
+            # dt_utc = datetime.strptime(iso_str, "%Y-%m-%dT%H:%M:%S.%f%z")
+            # dt_utc = dt_utc.replace(tzinfo=pytz.utc)
+            dt_utc = datetime.today()
+            # 日本時間に変換
+            jst = pytz.timezone("Asia/Tokyo")
+            dt_jst = dt_utc.astimezone(jst)
+            # 表示形式を整える
+            date_today = dt_jst.strftime("%Y/%m/%d %H:%M:%S")
+            # ダウンロードボタンの表示
+            st.download_button(
+                label="CSVファイルをダウンロード",
+                data=b64_csv,
+                file_name=f"data_{date_today}.csv",
+                mime='text/csv'
+            )
+        st.stop()
     
     # 棚番設定用マスタ(棚番を変更する場合には、下記に追加または削除してからatualizar_tanaban_addkari()を実行の事。尚、棚番は改行区切りである。)
     # atualizar_tanaban_addkari(st.session_state.sf, item_id)
