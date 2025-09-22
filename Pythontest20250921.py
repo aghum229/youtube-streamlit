@@ -23,6 +23,7 @@ from PIL import Image
 import glob
 import base64
 import shutil
+from pathlib import Path
 
 # 固定コンテナコードの始まり
 from typing import Literal
