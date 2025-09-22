@@ -22,8 +22,6 @@ import cv2
 from PIL import Image
 import glob
 import base64
-import shutil
-from pathlib import Path
 
 # 固定コンテナコードの始まり
 from typing import Literal
@@ -1163,14 +1161,6 @@ def zaiko_place():
                 </body>
                 </html>
             """, height=0)
-            # folder = os.getenv("HOMEDRIVE") + os.getenv("HOMEPATH")
-            folder = os.path.expanduser("~")
-            before_path = Path(fr'{folder}\Downloads\{file_name}')
-            cp_folder = fr'G:\共有ドライブ\共通\Program配布\ZAIKO_TANA_BACKUP'
-            after_path = Path(fr'{cp_folder}\{file_name}')
-            st.write(fr'{before_path} , {after_path}')
-            # shutil.copy(before_path, after_path)
-            sleep(2)
             # ダウンロードボタンの表示
             st.download_button(
                 label="CSVファイルをダウンロード",
