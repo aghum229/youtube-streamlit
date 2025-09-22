@@ -405,7 +405,31 @@ def data_catch_hinmoku(sf, item_name):
         # return None
         # reset_form()
         st.stop()
-       
+
+def data_catch_for_csv(sf, item_id):
+    query = f"""
+        SELECT AITC_ID18__c, Name,
+            zkTanaban__c, zkIkohyoNo__c ,zkHinban__c, zkKanryoKoutei__c,
+            zkSuryo__c, zkEndDayTime__c, zkHistory__c
+        FROM snps_um__Process__c
+        WHERE AITC_ID18__c = '{item_id}'
+    """
+    try:
+        result = sf.query_all(query)
+        records = result.get("records", [])
+        if records:
+            return records
+        else:
+            st.warning(f"ID(18桁) '{item_id}' に一致する snps_um__Process__c が見つかりませんでした。")
+            return None
+            # reset_form()
+            st.stop()
+    except Exception as e:
+        st.error(f"ID(18桁)検索エラー: {e}")
+        return None
+        # reset_form()
+        st.stop()
+        
 def list_update_zkKari(record, zkKari, dbItem, listNo, update_value, flag):
     """
     指定されたlistNoの値を更新する関数。
