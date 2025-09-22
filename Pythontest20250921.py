@@ -1131,6 +1131,18 @@ def zaiko_place():
             # csv_data = df.to_csv("zaiko.csv", index=False, encoding="shift_jis")
             # CSV形式に変換（エンコードを指定すると日本語も安心）
             # csv_data = df.to_csv(index=False).encode('utf-8-sig')
+            
+            # iso_str = datetime.today()
+            # UTCとしてパース
+            # dt_utc = datetime.strptime(iso_str, "%Y-%m-%dT%H:%M:%S.%f%z")
+            # dt_utc = dt_utc.replace(tzinfo=pytz.utc)
+            dt_utc = datetime.today()
+            # 日本時間に変換
+            jst = pytz.timezone("Asia/Tokyo")
+            dt_jst = dt_utc.astimezone(jst)
+            # 表示形式を整える
+            date_today = dt_jst.strftime("%Y/%m/%d %H:%M:%S")
+            file_name=f"data_{date_today}.csv"
             # BOM付きCSVをバイナリで生成
             csv_bytes = df.to_csv(index=False, encoding="shift_jis").encode("shift_jis")
             # csv_bytes = df.to_csv(index=False, encoding="utf-8-sig").encode("utf-8")
@@ -1152,7 +1164,7 @@ def zaiko_place():
                         const url = URL.createObjectURL(blob);
                         const link = document.createElement("a");
                         link.setAttribute("href", url);
-                        link.setAttribute("download", "zaiko.csv");
+                        link.setAttribute("download", "{file_name}");
                         document.body.appendChild(link);
                         link.click();
                         document.body.removeChild(link);
@@ -1160,16 +1172,6 @@ def zaiko_place():
                 </body>
                 </html>
             """, height=0)
-            # iso_str = datetime.today()
-            # UTCとしてパース
-            # dt_utc = datetime.strptime(iso_str, "%Y-%m-%dT%H:%M:%S.%f%z")
-            # dt_utc = dt_utc.replace(tzinfo=pytz.utc)
-            dt_utc = datetime.today()
-            # 日本時間に変換
-            jst = pytz.timezone("Asia/Tokyo")
-            dt_jst = dt_utc.astimezone(jst)
-            # 表示形式を整える
-            date_today = dt_jst.strftime("%Y/%m/%d %H:%M:%S")
             # ダウンロードボタンの表示
             st.download_button(
                 label="CSVファイルをダウンロード",
