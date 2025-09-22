@@ -1123,22 +1123,12 @@ def zaiko_place():
             # download_dir = os.path.join(os.path.expanduser("~"), "Downloads")
             # csv_path = os.path.join(download_dir, "zaiko_data.csv")
             # df.to_csv(csv_path, index=False, encoding='utf-8-sig')
-            csv_data = df.to_csv("zaiko.csv", index=False, encoding="shift_jis")
+            # csv_data = df.to_csv("zaiko.csv", index=False, encoding="shift_jis")
             # CSV形式に変換（エンコードを指定すると日本語も安心）
             # csv_data = df.to_csv(index=False).encode('utf-8-sig')
-            components.html(f"""
-                <html>
-                <body>
-                    <a id="download" href="data:text/csv;charset=shift_jis,{csv_data}" download="zaiko.csv" style="display:none;">Download</a>
-                    <script>
-                        document.getElementById('download').click();
-                    </script>
-                </body>
-                </html>
-            """, height=0)
-            st.stop() 
             # BOM付きCSVをバイナリで生成
-            csv_bytes = df.to_csv(index=False, encoding="utf-8-sig").encode("utf-8")
+            csv_bytes = df.to_csv(index=False, encoding="shift_jis").encode("shift_jis")
+            # csv_bytes = df.to_csv(index=False, encoding="utf-8-sig").encode("utf-8")
             b64_csv = base64.b64encode(csv_bytes).decode()
             
             # JavaScriptでBase64をBlobに変換してダウンロード
@@ -1153,7 +1143,7 @@ def zaiko_place():
                             byteNumbers[i] = byteCharacters.charCodeAt(i);
                         }}
                         const byteArray = new Uint8Array(byteNumbers);
-                        const blob = new Blob([byteArray], {{ type: 'text/csv;charset=utf-8;' }});
+                        const blob = new Blob([byteArray], {{ type: 'text/csv;charset=shift_jis;' }});
                         const url = URL.createObjectURL(blob);
                         const link = document.createElement("a");
                         link.setAttribute("href", url);
