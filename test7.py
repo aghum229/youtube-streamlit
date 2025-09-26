@@ -1704,7 +1704,7 @@ def zaiko_place():
                         st.rerun()
                 
                 if not st.session_state.production_order_flag:
-                    st.write(f"##### 現在選択されている棚番 :   {st.session_state.tanaban_select_temp}")  
+                    st.write(f"#### 現在選択されている棚番 :   {st.session_state.tanaban_select_temp}")  
                     # st.write(f"#### 現在選択されている棚番 :   {st.session_state.tanaban_select_temp}")  
                     if st.session_state.manual_input_flag == 0:
                         qr_code_kari = ""
@@ -1728,7 +1728,7 @@ def zaiko_place():
                                 st.session_state.show_camera = False
                                 
                     else:                   
-                        styled_input_text()
+                        # styled_input_text()
                         manual_input = st.text_input("移行票番号を入力し、Enterを押してください。 (1～6桁、例: 12345):",
                                                     value="",
                                                     max_chars=6,
