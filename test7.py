@@ -1704,7 +1704,8 @@ def zaiko_place():
                         st.rerun()
                 
                 if not st.session_state.production_order_flag:
-                    st.write(f"#### 現在選択されている棚番 :   {st.session_state.tanaban_select_temp}")  
+                    st.write(f"現在選択されている棚番 :   {st.session_state.tanaban_select_temp}")  
+                    # st.write(f"#### 現在選択されている棚番 :   {st.session_state.tanaban_select_temp}")  
                     if st.session_state.manual_input_flag == 0:
                         qr_code_kari = ""
                         left, center, right = st.columns([0.25, 0.5, 0.25])
