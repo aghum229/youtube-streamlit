@@ -15,7 +15,7 @@ import re
 # from gspread_dataframe import set_with_dataframe
 import toml
 import streamlit.components.v1 as components
-from st_aggrid import AgGrid, GridOptionsBuilder
+# from st_aggrid import AgGrid, GridOptionsBuilder
 
 import easyocr
 import numpy as np
