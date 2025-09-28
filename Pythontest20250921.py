@@ -15,6 +15,8 @@ import re
 # from gspread_dataframe import set_with_dataframe
 import toml
 import streamlit.components.v1 as components
+# from st_aggrid import AgGrid, GridOptionsBuilder
+import unicodedata
 
 import easyocr
 import numpy as np
@@ -294,6 +296,8 @@ def atualizar_tanaban_addkari(sf, item_id):  # 棚番書き込み専用
     #     完B-1\n完B-2\n完B-3\n完B-4\n完B-5\n完B-6\n完B-7\n完B-8\n完B-9\n完B-10\n完B-11\n完B-12\n完B-13\n完B-14\n完B-15\n完B-16\n完B-17\n完B-18\n完B-19\n完B-20\n完B-21\n完B-22\n完B-23\n完B-24\n完B-25\n完B-26\n完B-27\n完B-28\n完B-29\n完B-30\n完B-31\n完B-32\n完B-33\n完B-34\n完B-35\n完B-36\n完B-37\n完B-38\n完B-39\n完B-40\n完B-41\n完B-42\n完B-43\n完B-44\n完B-45\n完B-46\n完B-47\n完B-48\n完B-49\n完B-50\n
     #     完C-1\n完C-2\n完C-3\n完C-4\n完C-5\n完C-6\n完C-7\n完C-8\n完C-9\n完C-10\n完C-11\n完C-12\n完C-13\n完C-14\n完C-15\n完C-16\n完C-17\n完C-18\n完C-19\n完C-20\n完C-21\n完C-22\n完C-23\n完C-24\n完C-25\n完C-26\n完C-27\n完C-28\n完C-29\n完C-30\n完C-31\n完C-32\n完C-33\n完C-34\n完C-35\n完C-36\n完C-37\n完C-38\n完C-39\n完C-40\n完C-41\n完C-42\n完C-43\n完C-44\n完C-45\n完C-46\n完C-47\n完C-48\n完C-49\n完C-50\n
     #     完D-1\n完D-2\n完D-3\n完D-4\n完D-5\n完D-6\n完D-7\n完D-8\n完D-9\n完D-10\n完D-11\n完D-12\n完D-13\n完D-14\n完D-15\n完D-16\n完D-17\n完D-18\n完D-19\n完D-20\n完D-21\n完D-22\n完D-23\n完D-24\n完D-25\n完D-26\n完D-27\n完D-28\n完D-29\n完D-30\n完D-31\n完D-32\n完D-33\n完D-34\n完D-35\n完D-36\n完D-37\n完D-38\n完D-39\n完D-40\n完D-41\n完D-42\n完D-43\n完D-44\n完D-45\n完D-46\n完D-47\n完D-48\n完D-49\n完D-50\n
+    #     完E-1\n完E-2\n完E-3\n完E-4\n完E-5\n完E-6\n完E-7\n完E-8\n完E-9\n完E-10\n完E-11\n完E-12\n完E-13\n完E-14\n完E-15\n完E-16\n完E-17\n完E-18\n完E-19\n完E-20\n
+    #     完F-1\n完F-2\n完F-3\n完F-4\n完F-5\n完F-6\n完F-7\n完F-8\n完F-9\n完F-10\n完F-11\n完F-12\n完F-13\n完F-14\n完F-15\n完F-16\n完F-17\n完F-18\n完F-19\n完F-20\n
     #     除内-1\n除内-2\n除内-3\n除内-4\n除内-5\n除内-6\n除内-7\n除内-8\n除内-9\n除内-10\n除内-11\n除内-12\n除内-13\n除内-14\n除内-15\n除内-16\n除内-17\n除内-18\n除内-19\n除内-20\n除内-21\n除内-22\n除内-23\n除内-24\n除内-25\n除内-26\n除内-27\n除内-28\n除内-29\n除内-30\n除内-31\n除内-32\n除内-33\n除内-34\n除内-35\n除内-36\n除内-37\n除内-38\n除内-39\n除内-40\n除内-41\n除内-42\n除内-43\n除内-44\n除内-45\n除内-46\n除内-47\n除内-48\n除内-49\n除内-50\n
     #     除外-1\n除外-2\n除外-3\n除外-4\n除外-5\n除外-6\n除外-7\n除外-8\n除外-9\n除外-10\n除外-11\n除外-12\n除外-13\n除外-14\n除外-15\n除外-16\n除外-17\n除外-18\n除外-19\n除外-20\n除外-21\n除外-22\n除外-23\n除外-24\n除外-25\n除外-26\n除外-27\n除外-28\n除外-29\n除外-30\n除外-31\n除外-32\n除外-33\n除外-34\n除外-35\n除外-36\n除外-37\n除外-38\n除外-39\n除外-40\n除外-41\n除外-42\n除外-43\n除外-44\n除外-45\n除外-46\n除外-47\n除外-48\n除外-49\n除外-50\n
     #     バ-1\nバ-2\nバ-3\nバ-4\nバ-5\nバ-6\nバ-7\nバ-8\nバ-9\nバ-10\nバ-11\nバ-12\nバ-13\nバ-14\nバ-15\nバ-16\nバ-17\nバ-18\nバ-19\nバ-20\n
@@ -307,8 +311,8 @@ def atualizar_tanaban_addkari(sf, item_id):  # 棚番書き込み専用
     #     R-1\nR-2\nR-3\nR-4\nR-5\nR-6\nR-7\nR-8\nR-9\nR-10\nR-11\nR-12\nR-13\nR-14\nR-15\nR-16\nR-17\nR-18\nR-19\nR-20\n
     #     S-1\nS-2\nS-3\nS-4\nS-5\nS-6\nS-7\nS-8\nS-9\nS-10\nS-11\nS-12\nS-13\nS-14\nS-15\nS-16\nS-17\nS-18\nS-19\nS-20
     # """
-    zkTana = "完A-1\n完A-2\n完A-3\n完A-4\n完A-5\n完A-6\n完A-7\n完A-8\n完A-9\n完A-10\n完A-11\n完A-12\n完A-13\n完A-14\n完A-15\n完A-16\n完A-17\n完A-18\n完A-19\n完A-20\n完A-21\n完A-22\n完A-23\n完A-24\n完A-25\n完A-26\n完A-27\n完A-28\n完A-29\n完A-30\n完A-31\n完A-32\n完A-33\n完A-34\n完A-35\n完A-36\n完A-37\n完A-38\n完A-39\n完A-40\n完A-41\n完A-42\n完A-43\n完A-44\n完A-45\n完A-46\n完A-47\n完A-48\n完A-49\n完A-50\n完B-1\n完B-2\n完B-3\n完B-4\n完B-5\n完B-6\n完B-7\n完B-8\n完B-9\n完B-10\n完B-11\n完B-12\n完B-13\n完B-14\n完B-15\n完B-16\n完B-17\n完B-18\n完B-19\n完B-20\n完B-21\n完B-22\n完B-23\n完B-24\n完B-25\n完B-26\n完B-27\n完B-28\n完B-29\n完B-30\n完B-31\n完B-32\n完B-33\n完B-34\n完B-35\n完B-36\n完B-37\n完B-38\n完B-39\n完B-40\n完B-41\n完B-42\n完B-43\n完B-44\n完B-45\n完B-46\n完B-47\n完B-48\n完B-49\n完B-50\n完C-1\n完C-2\n完C-3\n完C-4\n完C-5\n完C-6\n完C-7\n完C-8\n完C-9\n完C-10\n完C-11\n完C-12\n完C-13\n完C-14\n完C-15\n完C-16\n完C-17\n完C-18\n完C-19\n完C-20\n完C-21\n完C-22\n完C-23\n完C-24\n完C-25\n完C-26\n完C-27\n完C-28\n完C-29\n完C-30\n完C-31\n完C-32\n完C-33\n完C-34\n完C-35\n完C-36\n完C-37\n完C-38\n完C-39\n完C-40\n完C-41\n完C-42\n完C-43\n完C-44\n完C-45\n完C-46\n完C-47\n完C-48\n完C-49\n完C-50\n完D-1\n完D-2\n完D-3\n完D-4\n完D-5\n完D-6\n完D-7\n完D-8\n完D-9\n完D-10\n完D-11\n完D-12\n完D-13\n完D-14\n完D-15\n完D-16\n完D-17\n完D-18\n完D-19\n完D-20\n完D-21\n完D-22\n完D-23\n完D-24\n完D-25\n完D-26\n完D-27\n完D-28\n完D-29\n完D-30\n完D-31\n完D-32\n完D-33\n完D-34\n完D-35\n完D-36\n完D-37\n完D-38\n完D-39\n完D-40\n完D-41\n完D-42\n完D-43\n完D-44\n完D-45\n完D-46\n完D-47\n完D-48\n完D-49\n完D-50\n除内-1\n除内-2\n除内-3\n除内-4\n除内-5\n除内-6\n除内-7\n除内-8\n除内-9\n除内-10\n除内-11\n除内-12\n除内-13\n除内-14\n除内-15\n除内-16\n除内-17\n除内-18\n除内-19\n除内-20\n除内-21\n除内-22\n除内-23\n除内-24\n除内-25\n除内-26\n除内-27\n除内-28\n除内-29\n除内-30\n除内-31\n除内-32\n除内-33\n除内-34\n除内-35\n除内-36\n除内-37\n除内-38\n除内-39\n除内-40\n除内-41\n除内-42\n除内-43\n除内-44\n除内-45\n除内-46\n除内-47\n除内-48\n除内-49\n除内-50\n除外-1\n除外-2\n除外-3\n除外-4\n除外-5\n除外-6\n除外-7\n除外-8\n除外-9\n除外-10\n除外-11\n除外-12\n除外-13\n除外-14\n除外-15\n除外-16\n除外-17\n除外-18\n除外-19\n除外-20\n除外-21\n除外-22\n除外-23\n除外-24\n除外-25\n除外-26\n除外-27\n除外-28\n除外-29\n除外-30\n除外-31\n除外-32\n除外-33\n除外-34\n除外-35\n除外-36\n除外-37\n除外-38\n除外-39\n除外-40\n除外-41\n除外-42\n除外-43\n除外-44\n除外-45\n除外-46\n除外-47\n除外-48\n除外-49\n除外-50\nバ-1\nバ-2\nバ-3\nバ-4\nバ-5\nバ-6\nバ-7\nバ-8\nバ-9\nバ-10\nバ-11\nバ-12\nバ-13\nバ-14\nバ-15\nバ-16\nバ-17\nバ-18\nバ-19\nバ-20\nシ-1\nシ-2\nシ-3\nシ-4\nシ-5\nシ-6\nシ-7\nシ-8\nシ-9\nシ-10\nシ-11\nシ-12\nシ-13\nシ-14\nシ-15\nシ-16\nシ-17\nシ-18\nシ-19\nシ-20\nA-1\nA-2\nA-3\nA-4\nA-5\nA-6\nA-7\nA-8\nA-9\nA-10\nA-11\nA-12\nA-13\nA-14\nA-15\nA-16\nA-17\nA-18\nA-19\nA-20\nA-21\nA-22\nA-23\nA-24\nA-25\nA-26\nA-27\nA-28\nA-29\nA-30\nD-1\nD-2\nD-3\nD-4\nD-5\nD-6\nD-7\nD-8\nD-9\nD-10\nD-11\nD-12\nD-13\nD-14\nD-15\nD-16\nD-17\nD-18\nD-19\nD-20\nD-21\nD-22\nD-23\nD-24\nD-25\nD-26\nD-27\nD-28\nD-29\nD-30\nE-31\nE-32\nE-33\nE-34\nE-35\nE-36\nE-37\nE-38\nE-39\nE-40\nE-41\nE-42\nE-43\nE-44\nE-45\nE-46\nE-47\nE-48\nE-49\nE-50\nE-51\nE-52\nE-53\nE-54\nE-55\nE-56\nE-57\nE-58\nE-59\nE-60\nE-61\nE-62\nE-63\nE-64\nE-65\nE-66\nE-67\nE-68\nE-69\nE-70\nF-1\nF-2\nF-3\nF-4\nF-5\nF-6\nF-7\nF-8\nF-9\nF-10\nF-11\nF-12\nF-13\nF-14\nF-15\nF-16\nF-17\nF-18\nF-19\nF-20\nF-21\nF-22\nF-23\nF-24\nF-25\nF-26\nF-27\nF-28\nF-29\nF-30\nF-31\nF-32\nF-33\nF-34\nF-35\nF-36\nF-37\nF-38\nF-39\nF-40\nG-1\nG-2\nG-3\nG-4\nG-5\nG-6\nG-7\nG-8\nG-9\nG-10\nG-11\nG-12\nG-13\nG-14\nG-15\nG-16\nG-17\nG-18\nG-19\nG-20\nG-21\nG-22\nG-23\nG-24\nG-25\nG-26\nG-27\nG-28\nG-29\nG-30\nG-31\nG-32\nG-33\nG-34\nG-35\nG-36\nG-37\nG-38\nG-39\nG-40\nH-1\nH-2\nH-3\nH-4\nH-5\nH-6\nH-7\nH-8\nH-9\nH-10\nH-11\nH-12\nH-13\nH-14\nH-15\nH-16\nH-17\nH-18\nH-19\nH-20\nH-21\nH-22\nH-23\nH-24\nH-25\nH-26\nH-27\nH-28\nH-29\nH-30\nH-31\nH-32\nH-33\nH-34\nH-35\nH-36\nH-37\nH-38\nH-39\nH-40\nR-1\nR-2\nR-3\nR-4\nR-5\nR-6\nR-7\nR-8\nR-9\nR-10\nR-11\nR-12\nR-13\nR-14\nR-15\nR-16\nR-17\nR-18\nR-19\nR-20\nS-1\nS-2\nS-3\nS-4\nS-5\nS-6\nS-7\nS-8\nS-9\nS-10\nS-11\nS-12\nS-13\nS-14\nS-15\nS-16\nS-17\nS-18\nS-19\nS-20"
-    zkKari = "-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-"
+    zkTana = "完A-1\n完A-2\n完A-3\n完A-4\n完A-5\n完A-6\n完A-7\n完A-8\n完A-9\n完A-10\n完A-11\n完A-12\n完A-13\n完A-14\n完A-15\n完A-16\n完A-17\n完A-18\n完A-19\n完A-20\n完A-21\n完A-22\n完A-23\n完A-24\n完A-25\n完A-26\n完A-27\n完A-28\n完A-29\n完A-30\n完A-31\n完A-32\n完A-33\n完A-34\n完A-35\n完A-36\n完A-37\n完A-38\n完A-39\n完A-40\n完A-41\n完A-42\n完A-43\n完A-44\n完A-45\n完A-46\n完A-47\n完A-48\n完A-49\n完A-50\n完B-1\n完B-2\n完B-3\n完B-4\n完B-5\n完B-6\n完B-7\n完B-8\n完B-9\n完B-10\n完B-11\n完B-12\n完B-13\n完B-14\n完B-15\n完B-16\n完B-17\n完B-18\n完B-19\n完B-20\n完B-21\n完B-22\n完B-23\n完B-24\n完B-25\n完B-26\n完B-27\n完B-28\n完B-29\n完B-30\n完B-31\n完B-32\n完B-33\n完B-34\n完B-35\n完B-36\n完B-37\n完B-38\n完B-39\n完B-40\n完B-41\n完B-42\n完B-43\n完B-44\n完B-45\n完B-46\n完B-47\n完B-48\n完B-49\n完B-50\n完C-1\n完C-2\n完C-3\n完C-4\n完C-5\n完C-6\n完C-7\n完C-8\n完C-9\n完C-10\n完C-11\n完C-12\n完C-13\n完C-14\n完C-15\n完C-16\n完C-17\n完C-18\n完C-19\n完C-20\n完C-21\n完C-22\n完C-23\n完C-24\n完C-25\n完C-26\n完C-27\n完C-28\n完C-29\n完C-30\n完C-31\n完C-32\n完C-33\n完C-34\n完C-35\n完C-36\n完C-37\n完C-38\n完C-39\n完C-40\n完C-41\n完C-42\n完C-43\n完C-44\n完C-45\n完C-46\n完C-47\n完C-48\n完C-49\n完C-50\n完D-1\n完D-2\n完D-3\n完D-4\n完D-5\n完D-6\n完D-7\n完D-8\n完D-9\n完D-10\n完D-11\n完D-12\n完D-13\n完D-14\n完D-15\n完D-16\n完D-17\n完D-18\n完D-19\n完D-20\n完D-21\n完D-22\n完D-23\n完D-24\n完D-25\n完D-26\n完D-27\n完D-28\n完D-29\n完D-30\n完D-31\n完D-32\n完D-33\n完D-34\n完D-35\n完D-36\n完D-37\n完D-38\n完D-39\n完D-40\n完D-41\n完D-42\n完D-43\n完D-44\n完D-45\n完D-46\n完D-47\n完D-48\n完D-49\n完D-50\n完E-1\n完E-2\n完E-3\n完E-4\n完E-5\n完E-6\n完E-7\n完E-8\n完E-9\n完E-10\n完E-11\n完E-12\n完E-13\n完E-14\n完E-15\n完E-16\n完E-17\n完E-18\n完E-19\n完E-20\n完F-1\n完F-2\n完F-3\n完F-4\n完F-5\n完F-6\n完F-7\n完F-8\n完F-9\n完F-10\n完F-11\n完F-12\n完F-13\n完F-14\n完F-15\n完F-16\n完F-17\n完F-18\n完F-19\n完F-20\n除内-1\n除内-2\n除内-3\n除内-4\n除内-5\n除内-6\n除内-7\n除内-8\n除内-9\n除内-10\n除内-11\n除内-12\n除内-13\n除内-14\n除内-15\n除内-16\n除内-17\n除内-18\n除内-19\n除内-20\n除内-21\n除内-22\n除内-23\n除内-24\n除内-25\n除内-26\n除内-27\n除内-28\n除内-29\n除内-30\n除内-31\n除内-32\n除内-33\n除内-34\n除内-35\n除内-36\n除内-37\n除内-38\n除内-39\n除内-40\n除内-41\n除内-42\n除内-43\n除内-44\n除内-45\n除内-46\n除内-47\n除内-48\n除内-49\n除内-50\n除外-1\n除外-2\n除外-3\n除外-4\n除外-5\n除外-6\n除外-7\n除外-8\n除外-9\n除外-10\n除外-11\n除外-12\n除外-13\n除外-14\n除外-15\n除外-16\n除外-17\n除外-18\n除外-19\n除外-20\n除外-21\n除外-22\n除外-23\n除外-24\n除外-25\n除外-26\n除外-27\n除外-28\n除外-29\n除外-30\n除外-31\n除外-32\n除外-33\n除外-34\n除外-35\n除外-36\n除外-37\n除外-38\n除外-39\n除外-40\n除外-41\n除外-42\n除外-43\n除外-44\n除外-45\n除外-46\n除外-47\n除外-48\n除外-49\n除外-50\nバ-1\nバ-2\nバ-3\nバ-4\nバ-5\nバ-6\nバ-7\nバ-8\nバ-9\nバ-10\nバ-11\nバ-12\nバ-13\nバ-14\nバ-15\nバ-16\nバ-17\nバ-18\nバ-19\nバ-20\nシ-1\nシ-2\nシ-3\nシ-4\nシ-5\nシ-6\nシ-7\nシ-8\nシ-9\nシ-10\nシ-11\nシ-12\nシ-13\nシ-14\nシ-15\nシ-16\nシ-17\nシ-18\nシ-19\nシ-20\nA-1\nA-2\nA-3\nA-4\nA-5\nA-6\nA-7\nA-8\nA-9\nA-10\nA-11\nA-12\nA-13\nA-14\nA-15\nA-16\nA-17\nA-18\nA-19\nA-20\nA-21\nA-22\nA-23\nA-24\nA-25\nA-26\nA-27\nA-28\nA-29\nA-30\nD-1\nD-2\nD-3\nD-4\nD-5\nD-6\nD-7\nD-8\nD-9\nD-10\nD-11\nD-12\nD-13\nD-14\nD-15\nD-16\nD-17\nD-18\nD-19\nD-20\nD-21\nD-22\nD-23\nD-24\nD-25\nD-26\nD-27\nD-28\nD-29\nD-30\nE-31\nE-32\nE-33\nE-34\nE-35\nE-36\nE-37\nE-38\nE-39\nE-40\nE-41\nE-42\nE-43\nE-44\nE-45\nE-46\nE-47\nE-48\nE-49\nE-50\nE-51\nE-52\nE-53\nE-54\nE-55\nE-56\nE-57\nE-58\nE-59\nE-60\nE-61\nE-62\nE-63\nE-64\nE-65\nE-66\nE-67\nE-68\nE-69\nE-70\nF-1\nF-2\nF-3\nF-4\nF-5\nF-6\nF-7\nF-8\nF-9\nF-10\nF-11\nF-12\nF-13\nF-14\nF-15\nF-16\nF-17\nF-18\nF-19\nF-20\nF-21\nF-22\nF-23\nF-24\nF-25\nF-26\nF-27\nF-28\nF-29\nF-30\nF-31\nF-32\nF-33\nF-34\nF-35\nF-36\nF-37\nF-38\nF-39\nF-40\nG-1\nG-2\nG-3\nG-4\nG-5\nG-6\nG-7\nG-8\nG-9\nG-10\nG-11\nG-12\nG-13\nG-14\nG-15\nG-16\nG-17\nG-18\nG-19\nG-20\nG-21\nG-22\nG-23\nG-24\nG-25\nG-26\nG-27\nG-28\nG-29\nG-30\nG-31\nG-32\nG-33\nG-34\nG-35\nG-36\nG-37\nG-38\nG-39\nG-40\nH-1\nH-2\nH-3\nH-4\nH-5\nH-6\nH-7\nH-8\nH-9\nH-10\nH-11\nH-12\nH-13\nH-14\nH-15\nH-16\nH-17\nH-18\nH-19\nH-20\nH-21\nH-22\nH-23\nH-24\nH-25\nH-26\nH-27\nH-28\nH-29\nH-30\nH-31\nH-32\nH-33\nH-34\nH-35\nH-36\nH-37\nH-38\nH-39\nH-40\nR-1\nR-2\nR-3\nR-4\nR-5\nR-6\nR-7\nR-8\nR-9\nR-10\nR-11\nR-12\nR-13\nR-14\nR-15\nR-16\nR-17\nR-18\nR-19\nR-20\nS-1\nS-2\nS-3\nS-4\nS-5\nS-6\nS-7\nS-8\nS-9\nS-10\nS-11\nS-12\nS-13\nS-14\nS-15\nS-16\nS-17\nS-18\nS-19\nS-20"
+    zkKari = "-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-\n-"
     # zkTana = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n41\n42\n43\n44\n45\n46\n47\n48\n49\n50\n51\n52\n53\n54\n55\n56\n57\n58\n59\n60\n81\n82\n83\n84\n85\n86\n87\n88\n89\n90\n91\n92\n93\n94\n95\n96\n97\n98\n99\n100\n121\n122\n123\n124\n125\n126\n127\n128\n129\n130\n131\n132\n133\n134\n135\n136\n137\n138\n139\n140\n161\n162\n163\n164\n165\n166\n167\n168\n169\n170\n171\n172\n173\n174\n175\n176\n177\n178\n179\n180\n181\n182\n183\n184\n185\n186\n187\n188\n189\n190\n201\n202\n203\n204\n205\n206\n207\n208\n209\n210\n211\n212\n213\n214\n215\n216\n217\n218\n219\n220\n221\n222\n223\n224\n225\n226\n227\n228\n229\n230\n241\n242\n243\n244\n245\n246\n247\n248\n249\n250\n251\n252\n253\n254\n255\n256\n257\n258\n259\n260\n261\n262\n263\n264\n265\n266\n267\n268\n269\n270\n271\n272\n273\n274\n275\n276\n277\n278\n279\n280\n301\n302\n303\n304\n305\n306\n307\n308\n309\n310\n311\n312\n313\n314\n315\n316\n317\n318\n319\n320\n321\n322\n323\n324\n325\n326\n327\n328\n329\n330\n331\n332\n333\n334\n335\n336\n337\n338\n339\n340\n361\n362\n363\n364\n365\n366\n367\n368\n369\n370\n371\n372\n373\n374\n375\n376\n377\n378\n379\n380\n381\n382\n383\n384\n385\n386\n387\n388\n389\n390\n391\n392\n393\n394\n395\n396\n397\n398\n399\n400\n421\n422\n423\n424\n425\n426\n427\n428\n429\n430\n431\n432\n433\n434\n435\n436\n437\n438\n439\n440\n441\n442\n443\n444\n445\n446\n447\n448\n449\n450\n451\n452\n453\n454\n455\n456\n457\n458\n459\n460\n481\n482\n483\n484\n485\n486\n487\n488\n489\n490\n491\n492\n493\n494\n495\n496\n497\n498\n499\n500\n521\n522\n523\n524\n525\n526\n527\n528\n529\n530\n531\n532\n533\n534\n535\n536\n537\n538\n539\n540"
     try:
         sf.snps_um__Process__c.update(item_id, {
@@ -318,6 +322,7 @@ def atualizar_tanaban_addkari(sf, item_id):  # 棚番書き込み専用
             "zkKanryoKoutei__c": zkKari,
             "zkSuryo__c": zkKari,
             "zkEndDayTime__c": zkKari,
+            "zkMochidashi__c": zkKari,
             "zkHistory__c": "-"
         })
         # sf.snps_um__Process__c.update(item_id, {"zkTanaban__c": zkTana})
@@ -329,7 +334,7 @@ def atualizar_tanaban_addkari(sf, item_id):  # 棚番書き込み専用
         # reset_form()
     st.stop()
                
-def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkEndDT, zkHistory, zkOrder):
+def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkEndDT, zkMo, zkHistory, zkOrder):
     # global add_del_flag  # 0:追加　1:削除
     # global zkScroll_flag  # 初期値0
     # global result_text
@@ -342,6 +347,7 @@ def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkEndDT, zkHi
             "zkKanryoKoutei__c": zkKan,
             "zkSuryo__c": zkSu,
             "zkEndDayTime__c": zkEndDT,
+            "zkMochidashi__c": zkMo,
             "zkHistory__c": zkHistory
         })
         # '''
@@ -357,13 +363,33 @@ def update_tanaban(sf, item_id, zkTana, zkIko, zkHin, zkKan, zkSu, zkEndDT, zkHi
         st.error(f"更新エラー: {e}")
         reset_form()
         st.stop()
-
+               
+def update_Mochidashi(sf, item_id, zkTana, zkMo, zkHistory, zkOrder, zkMo_flag):
+    # zkMo_flag  # 0:持出OFF　1:持出ON
+    try:
+        # sf.snps_um__Process__c.update(item_id, {"zkMochidashi__c": zkMo})
+        # _= '''
+        sf.snps_um__Process__c.update(item_id, {
+            "zkMochidashi__c": zkMo,
+            "zkHistory__c": zkHistory
+        })
+        # '''
+        st.session_state.zkScroll_flag = 1
+        if zkMo_flag == 0: # 持出解除の場合
+            st.session_state.result_text = f"棚番 '{zkTana}' の、移行票No '{zkOrder}' の持出を解除しました。"
+        else:
+            st.session_state.result_text = f"棚番 '{zkTana}' の、移行票No '{zkOrder}' の持出を設定しました。"
+    except Exception as e:
+        st.error(f"更新エラー: {e}")
+        reset_form()
+        st.stop()
+        
 # WHERE Name LIKE '%{item_name}%' AND snps_um__ProcessOrderNo__c = 999
 def data_catch(sf, item_id):
     query = f"""
         SELECT AITC_ID18__c, Name,
             zkTanaban__c, zkIkohyoNo__c ,zkHinban__c, zkKanryoKoutei__c,
-            zkSuryo__c, zkEndDayTime__c, zkHistory__c
+            zkSuryo__c, zkEndDayTime__c, zkMochidashi__c, zkHistory__c
         FROM snps_um__Process__c
         WHERE AITC_ID18__c = '{item_id}'
     """
@@ -410,7 +436,7 @@ def data_catch_for_csv(sf, item_id):
     query = f"""
         SELECT AITC_ID18__c, Name,
             zkTanaban__c, zkIkohyoNo__c ,zkHinban__c, zkKanryoKoutei__c,
-            zkSuryo__c, zkEndDayTime__c, zkHistory__c
+            zkSuryo__c, zkEndDayTime__c, zkMochidashi__c, zkHistory__c
         FROM snps_um__Process__c
         WHERE AITC_ID18__c = '{item_id}'
     """
@@ -436,11 +462,11 @@ def list_update_zkKari(record, zkKari, dbItem, listNo, update_value, flag):
     "-"の場合はupdate_valueで上書き、それ以外はカンマ区切りで追加。
 
     Parameters:
-    - zkKari: dict or list形式のデータ(注記.zkIko, zkHin, zkKan, zkSu, zkEndDTの順で処理の事)
+    - zkKari: dict or list形式のデータ(注記.zkIko, zkHin, zkKan, zkSu, zkMo, zkEndDTの順で処理の事)
     - dbItem: データベースの項目名(注記.表示ラベルではない)
     - listNo: 対象のインデックスまたはキー
-    - update_value: 追加する値
-    - flag: -1(追加 完了日の場合), 0(追加 移行票No以外), 1(追加 移行票Noの場合), 2(削除 移行票No以外), 3(削除 移行票Noの場合)
+    - update_value: 追加・削除・変更　する値
+    - flag: -1(追加 完了日または持出の場合), 0(追加 移行票No以外), 1(追加 移行票Noの場合), 2(削除 移行票No以外), 3(削除 移行票Noの場合), 4(更新 持出の場合)
 
     Returns:
     - 更新後のzkKari
@@ -463,7 +489,10 @@ def list_update_zkKari(record, zkKari, dbItem, listNo, update_value, flag):
                     # reset_form()
                     st.stop()  # 以降の処理を止める
             if 0 <= st.session_state.zkSplitNo < len(zkSplit):
-                del zkSplit[st.session_state.zkSplitNo]  # 小項目の対象値削除
+                if flag == 4:
+                    zkSplit[st.session_state.zkSplitNo] = update_value
+                else:
+                    del zkSplit[st.session_state.zkSplitNo]  # 小項目の対象値削除
             else:
                 # ログ出力やエラーハンドリング
                 # st.write(f"zkSplitNo {zkSplitNo} is out of range for zkSplit of length {len(zkSplit)}")
@@ -664,7 +693,7 @@ def display_footer():
     with center:
         st.markdown(
             "<p style='text-align:right;'> \
-            <span style='font-size: 10px;'>ver.1.0.0</span> \
+            <span style='font-size: 10px;'>ver.1.0.1</span> \
             </p>"
             , unsafe_allow_html=True
         )
@@ -692,8 +721,6 @@ def button_make(button_text, screen_name):
     st.markdown("""
         <style>
         .stButton>button { /* Streamlitのボタン要素に直接スタイルを適用 */
-            background-color: #FF0;
-            color: black;
             font-size: 10px !important;
             text-align: center;
             font-weight: bold;
@@ -735,7 +762,8 @@ def styled_input_text():
     )
 
 def approve_button(message, button_key):
-    st.write(message)
+    st.markdown(message, unsafe_allow_html=True)
+    # st.write(message)
     left, right = st.columns(2)
     with left:
         dialog_check_ok_flag = st.button("OK", key="dialog_check_ok")
@@ -753,6 +781,17 @@ def pad_to_center(img, target_width, pad_color=(255, 255, 255)):
     pad_left = (target_width - w) // 2
     pad_right = target_width - w - pad_left
     return cv2.copyMakeBorder(img, 0, 0, pad_left, pad_right, cv2.BORDER_CONSTANT, value=pad_color)
+
+def normalize(s):
+    return unicodedata.normalize('NFKC', str(s)).strip()
+
+def conversion_str(record, zkList):
+    zkList_raw = record.get(zkList, "")
+    if isinstance(zkList_raw, str):
+        return zkList_raw.splitlines()
+    else:
+        # return ', '.join(map(str, zkList_raw))
+        return []
 
 def image_viewer(target_text):
     image_files = sorted(glob.glob("TanaMap*.png") + glob.glob("TanaMap*.jpg") + glob.glob("TanaMap*.jpeg"))
@@ -773,7 +812,15 @@ def image_viewer(target_text):
         # st.write(second_char)
         # st.write(f"{after_hyphen_int}")
         image_path_sub2 = "TanaMap20250820-0.png"
-        if first_char == "完" and after_hyphen_int <= 9:
+        if first_char == "完" and (second_char == "E"
+            or second_char == "F" 
+            or second_char == "G" 
+            or second_char == "H"): 
+            sub_text = "P-3"
+            image_path_sub = "TanaMap20250820-P3.png"
+            # image_path = "TanaMap20250820-2.png"
+            image_search_flag = True
+        elif first_char == "完" and after_hyphen_int <= 9:
             sub_text = "P-1"
             image_path_sub = "TanaMap20250820-P1.png"
             image_path = "TanaMap20250820-1.png"
@@ -789,9 +836,9 @@ def image_viewer(target_text):
             # image_path = "TanaMap20250820-2.png"
             image_search_flag = True
         elif ((first_char == "E" and 31 <= after_hyphen_int <= 37) 
-            or (first_char == "G" and after_hyphen_int <= 18) 
+            or (first_char == "G" and after_hyphen_int <= 19) 
             or (first_char == "H" and after_hyphen_int <= 18) 
-            or (first_char == "R" and after_hyphen_int <= 19)):
+            or (first_char == "R" and after_hyphen_int <= 18)):
             sub_text = "P-4"
             image_path_sub = "TanaMap20250820-P4.png"
             image_path = "TanaMap20250820-3.png"
@@ -945,7 +992,19 @@ def image_viewer(target_text):
                         elif ((text.strip() == "R-g" and target_text.strip() == "R-9")
                             or (text.strip() == "6-5" and target_text.strip() == "G-5") 
                             or (text.strip() == "6-6" and target_text.strip() == "G-6") 
-                            or (text.strip() == "6-17" and target_text.strip() == "G-17")):
+                            or (text.strip() == "6-17" and target_text.strip() == "G-17")
+                            or (text.strip() == "H1" and target_text.strip() == "H-1")
+                            or (text.strip() == "H4" and target_text.strip() == "H-4")
+                            or (text.strip() == "H6" and target_text.strip() == "H-6")
+                            or (text.strip() == "H7" and target_text.strip() == "H-7")
+                            or (text.strip() == "H-g" and target_text.strip() == "H-9")
+                            or (text.strip() == "H-1" and target_text.strip() == "H-10")
+                            or (text.strip() == "H11" and target_text.strip() == "H-11")
+                            or (text.strip() == "H12" and target_text.strip() == "H-12")
+                            or (text.strip() == "H14" and target_text.strip() == "H-14")
+                            or (text.strip() == "H15" and target_text.strip() == "H-15")
+                            or (text.strip() == "H16" and target_text.strip() == "H-16")
+                            or (text.strip() == "H17" and target_text.strip() == "H-17")):
                             (tl, tr, br, bl) = bbox
                             center_x = int((tl[0] + br[0]) / 2)
                             center_y = int((tl[1] + br[1]) / 2)
@@ -1096,7 +1155,9 @@ def zaiko_place():
     if "records" not in st.session_state:
         st.session_state.records = ""
     if "df_search_result" not in st.session_state:
-        st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
+        st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "持出", "移行票番号", "品番", "完了工程", "数量", "完了日"])
+    if "df_search_result_bak" not in st.session_state:
+        st.session_state.df_search_result_bak = pd.DataFrame(columns=["棚番", "持出", "移行票番号", "品番", "完了工程", "数量", "完了日"])
     if "df" not in st.session_state:
         st.session_state.df = None
     if "selected_row" not in st.session_state:
@@ -1120,10 +1181,65 @@ def zaiko_place():
     
     item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※変更禁止
 
-    if st.session_state['owner'] == "9997":
+    if st.session_state['owner'] == "9997" or st.session_state['owner'] == "9994":
         records = data_catch_for_csv(st.session_state.sf, item_id)
         if records:
             df = pd.DataFrame(records)
+            st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "持出", "移行票番号", "品番", "完了工程", "数量", "完了日", "履歴"])
+            st.session_state.df_search_result_bak = pd.DataFrame(columns=["棚番", "持出", "移行票番号", "品番", "完了工程", "数量", "完了日", "履歴"])
+            listCount = 0
+            listCount2 = 0
+            zkTana = ""
+            zkIko = ""
+            zkHin = ""
+            zkKan = ""
+            zkSu = ""
+            zkEndDT = ""
+            zkMo = ""
+            zkHistory = ""
+            for record in records:
+                zkTana_list = conversion_str(record, "zkTanaban__c")
+                zkIko_list = conversion_str(record, "zkIkohyoNo__c")
+                zkHin_list = conversion_str(record, "zkHinban__c")
+                zkKan_list = conversion_str(record, "zkKanryoKoutei__c")
+                zkSu_list = conversion_str(record, "zkSuryo__c")
+                zkEndDT_list = conversion_str(record, "zkEndDayTime__c")
+                zkMo_list = conversion_str(record, "zkMochidashi__c")
+                zkTana = '\n '.join(zkTana_list)
+                zkIko = '\n '.join(zkIko_list)
+                zkHin = '\n '.join(zkHin_list)
+                zkKan = '\n '.join(zkKan_list)
+                zkSu = '\n '.join(zkSu_list)
+                zkEndDT = '\n '.join(zkEndDT_list)
+                zkMo = '\n '.join(zkMo_list)
+                if listCount == 0: 
+                    zkHistory_list = conversion_str(record, "zkHistory__c")
+                    zkHistory_list = '\n '.join(zkHistory_list)
+                    st.session_state.df_search_result_bak.loc[len(st.session_state.df_search_result_bak)] = [zkTana, zkMo, zkIko, zkHin, zkKan, zkSu, zkEndDT, zkHistory_list]
+                else:
+                    st.session_state.df_search_result_bak.loc[len(st.session_state.df_search_result_bak)] = [zkTana, zkMo, zkIko, zkHin, zkKan, zkSu, zkEndDT, ""]
+                # if listCount == 0:
+                #     st.write(zkHistory_list)
+                for index, item in enumerate(zkTana_list):
+                    listCount += 1
+                    zkIko = zkIko_list[index].split(",")
+                    zkHin = zkHin_list[index].split(",")
+                    zkKan = zkKan_list[index].split(",")
+                    zkSu = zkSu_list[index].split(",")
+                    zkEndDT = zkEndDT_list[index].split(",")
+                    zkMo = zkMo_list[index].split(",")
+                    listCount2 = len(zkIko)
+                    if listCount2 > 1:
+                        for index_2, item_2 in enumerate(zkIko):
+                            if listCount == 1:
+                                st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkMo[index_2], zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2], zkEndDT[index_2], zkHistory_list]
+                            else:
+                                st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkMo[index_2], zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2], zkEndDT[index_2], ""]
+                    else:
+                        if listCount == 1:
+                            st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkMo[0], zkIko[0], zkHin[0], zkKan[0], zkSu[0], zkEndDT[0], zkHistory_list]
+                        else:
+                            st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkMo[0], zkIko[0], zkHin[0], zkKan[0], zkSu[0], zkEndDT[0], ""]
             # UTCとしてパース
             dt_utc = datetime.today()
             # 日本時間に変換
@@ -1132,40 +1248,57 @@ def zaiko_place():
             # 表示形式を整える
             date_today = dt_jst.strftime("%Y/%m/%d %H:%M:%S")
             file_name=f"zaiko_tana_backup_{date_today}.csv"
+            file_name_bak=f"zaiko_tana_backup_bak_{date_today}.csv"
+            file_name_df=f"zaiko_tana_backup_df_{date_today}.csv"
             # BOM付きCSVをバイナリで生成
-            csv_bytes = df.to_csv(index=False, encoding="shift_jis").encode("shift_jis")
+            # csv_bytes = df.to_csv(index=False, encoding="shift_jis").encode("shift_jis")
             # csv_bytes = df.to_csv(index=False, encoding="utf-8-sig").encode("utf-8")
+            csv_bytes = st.session_state.df_search_result.to_csv(index=False, encoding="shift_jis").encode("shift_jis")
             b64_csv = base64.b64encode(csv_bytes).decode()
-            
+            csv_bytes_bak = st.session_state.df_search_result_bak.to_csv(index=False, encoding="shift_jis").encode("shift_jis")
+            b64_csv_bak = base64.b64encode(csv_bytes_bak).decode()
+            csv_bytes_df = df.to_csv(index=False, encoding="shift_jis").encode("shift_jis")
+            b64_csv_df = base64.b64encode(csv_bytes_df).decode()
             # JavaScriptでBase64をBlobに変換してダウンロード
             components.html(f"""
                 <html>
                 <body>
                     <script>
-                        const b64Data = "{b64_csv}";
-                        const byteCharacters = atob(b64Data);
-                        const byteNumbers = new Array(byteCharacters.length);
-                        for (let i = 0; i < byteCharacters.length; i++) {{
-                            byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        function downloadCSV(base64Data, fileName) {{
+                            const byteCharacters = atob(base64Data);
+                            const byteNumbers = new Array(byteCharacters.length);
+                            for (let i = 0; i < byteCharacters.length; i++) {{
+                                byteNumbers[i] = byteCharacters.charCodeAt(i);
+                            }}
+                            const byteArray = new Uint8Array(byteNumbers);
+                            const blob = new Blob([byteArray], {{ type: 'text/csv;charset=shift_jis;' }});
+                            const url = URL.createObjectURL(blob);
+                            const link = document.createElement("a");
+                            link.setAttribute("href", url);
+                            link.setAttribute("download", fileName);
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
                         }}
-                        const byteArray = new Uint8Array(byteNumbers);
-                        const blob = new Blob([byteArray], {{ type: 'text/csv;charset=shift_jis;' }});
-                        const url = URL.createObjectURL(blob);
-                        const link = document.createElement("a");
-                        link.setAttribute("href", url);
-                        link.setAttribute("download", "{file_name}");
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
+                        if st.session_state['owner'] == "9997":
+                            downloadCSV("{b64_csv}", "{file_name}");
+                        elst.session_state['owner'] == "9994":
+                            downloadCSV("{b64_csv_bak}", "{file_name_bak}");
                     </script>
                 </body>
                 </html>
             """, height=0)
-            # ダウンロードボタンの表示
+            # ダウンロードボタンの表示  downloadCSV("{b64_csv_df}", "{file_name_df}");
             st.download_button(
                 label="CSVファイルをダウンロード",
                 data=b64_csv,
-                file_name=f"data_{date_today}.csv",
+                file_name=f"{file_name}",
+                mime='text/csv'
+            )
+            st.download_button(
+                label="DataFrameから生成したCSVをダウンロード",
+                data=base64.b64decode(b64_csv_df),
+                file_name=f"df_{file_name_df}",
                 mime='text/csv'
             )
         st.stop()
@@ -1179,6 +1312,8 @@ def zaiko_place():
         完B-1,完B-2,完B-3,完B-4,完B-5,完B-6,完B-7,完B-8,完B-9,完B-10,完B-11,完B-12,完B-13,完B-14,完B-15,完B-16,完B-17,完B-18,完B-19,完B-20,完B-21,完B-22,完B-23,完B-24,完B-25,完B-26,完B-27,完B-28,完B-29,完B-30,完B-31,完B-32,完B-33,完B-34,完B-35,完B-36,完B-37,完B-38,完B-39,完B-40,完B-41,完B-42,完B-43,完B-44,完B-45,完B-46,完B-47,完B-48,完B-49,完B-50,
         完C-1,完C-2,完C-3,完C-4,完C-5,完C-6,完C-7,完C-8,完C-9,完C-10,完C-11,完C-12,完C-13,完C-14,完C-15,完C-16,完C-17,完C-18,完C-19,完C-20,完C-21,完C-22,完C-23,完C-24,完C-25,完C-26,完C-27,完C-28,完C-29,完C-30,完C-31,完C-32,完C-33,完C-34,完C-35,完C-36,完C-37,完C-38,完C-39,完C-40,完C-41,完C-42,完C-43,完C-44,完C-45,完C-46,完C-47,完C-48,完C-49,完C-50,
         完D-1,完D-2,完D-3,完D-4,完D-5,完D-6,完D-7,完D-8,完D-9,完D-10,完D-11,完D-12,完D-13,完D-14,完D-15,完D-16,完D-17,完D-18,完D-19,完D-20,完D-21,完D-22,完D-23,完D-24,完D-25,完D-26,完D-27,完D-28,完D-29,完D-30,完D-31,完D-32,完D-33,完D-34,完D-35,完D-36,完D-37,完D-38,完D-39,完D-40,完D-41,完D-42,完D-43,完D-44,完D-45,完D-46,完D-47,完D-48,完D-49,完D-50,
+        完E-1,完E-2,完E-3,完E-4,完E-5,完E-6,完E-7,完E-8,完E-9,完E-10,完E-11,完E-12,完E-13,完E-14,完E-15,完E-16,完E-17,完E-18,完E-19,完E-20,
+        完F-1,完F-2,完F-3,完F-4,完F-5,完F-6,完F-7,完F-8,完F-9,完F-10,完F-11,完F-12,完F-13,完F-14,完F-15,完F-16,完F-17,完F-18,完F-19,完F-20,
         除内-1,除内-2,除内-3,除内-4,除内-5,除内-6,除内-7,除内-8,除内-9,除内-10,除内-11,除内-12,除内-13,除内-14,除内-15,除内-16,除内-17,除内-18,除内-19,除内-20,除内-21,除内-22,除内-23,除内-24,除内-25,除内-26,除内-27,除内-28,除内-29,除内-30,除内-31,除内-32,除内-33,除内-34,除内-35,除内-36,除内-37,除内-38,除内-39,除内-40,除内-41,除内-42,除内-43,除内-44,除内-45,除内-46,除内-47,除内-48,除内-49,除内-50,
         除外-1,除外-2,除外-3,除外-4,除外-5,除外-6,除外-7,除外-8,除外-9,除外-10,除外-11,除外-12,除外-13,除外-14,除外-15,除外-16,除外-17,除外-18,除外-19,除外-20,除外-21,除外-22,除外-23,除外-24,除外-25,除外-26,除外-27,除外-28,除外-29,除外-30,除外-31,除外-32,除外-33,除外-34,除外-35,除外-36,除外-37,除外-38,除外-39,除外-40,除外-41,除外-42,除外-43,除外-44,除外-45,除外-46,除外-47,除外-48,除外-49,除外-50,
         バ-1,バ-2,バ-3,バ-4,バ-5,バ-6,バ-7,バ-8,バ-9,バ-10,バ-11,バ-12,バ-13,バ-14,バ-15,バ-16,バ-17,バ-18,バ-19,バ-20,
@@ -1235,7 +1370,7 @@ def zaiko_place():
                 st.session_state.qr_code_tana_info = False
                 st.session_state.tanaban_select_temp_info = ""
                 st.session_state.records  = None
-                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
+                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "持出", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                 st.session_state.record  = None
                 st.rerun()
         if st.session_state.manual_input_flag == 9:
@@ -1277,7 +1412,7 @@ def zaiko_place():
                         st.session_state.qr_code_tana_info = False
                         st.session_state.tanaban_select_temp_info = ""
                         st.session_state.records  = None
-                        st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
+                        st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "持出", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                         st.session_state.record  = None
                         st.rerun()
                 if st.session_state.manual_input_check_flag == 0:
@@ -1304,7 +1439,7 @@ def zaiko_place():
                                 st.session_state.hinban_select_flag = False
                                 st.session_state.tanaban_select_flag  = False
                                 st.session_state.records  = None
-                                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
+                                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "持出", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                                 st.session_state.record  = None
                                 st.rerun()
                         if not st.session_state.hinban_select_flag:
@@ -1328,10 +1463,10 @@ def zaiko_place():
                                 if st.button("品番を再選択"):
                                     st.session_state.hinban_select_flag = False
                                     st.session_state.tanaban_select_flag  = False
-                                    st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
+                                    st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "持出", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                                     st.session_state.record  = None
                                     st.rerun()
-                            st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
+                            st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "持出", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                             listCount = 0
                             zkTana = ""
                             zkIko = ""
@@ -1339,6 +1474,7 @@ def zaiko_place():
                             zkKan = ""
                             zkSu = ""
                             zkEndDT = ""
+                            zkMo = "0"
                             zkHistory = ""
                             record = data_catch(st.session_state.sf, item_id)
                             if record:
@@ -1349,6 +1485,7 @@ def zaiko_place():
                                 zkKan_list = record["zkKanryoKoutei__c"].splitlines() 
                                 zkSu_list = record["zkSuryo__c"].splitlines()
                                 zkEndDT_list = record["zkEndDayTime__c"].splitlines() 
+                                zkMo_list = record["zkMochidashi__c"].splitlines()
                                 listCount = len(zkTana_list)
                                 # listCount = len(zkHin_list)
                                 zkHin_Search = st.session_state.hinban_select_value
@@ -1361,17 +1498,27 @@ def zaiko_place():
                                         zkKan = zkKan_list[index].split(",")
                                         zkSu = zkSu_list[index].split(",")
                                         zkEndDT = zkEndDT_list[index].split(",")
+                                        zkMo = zkMo_list[index].split(",")
                                         if zkHin_Search in zkHin:
                                             for index_2, item_2 in enumerate(zkHin):
                                                 if item_2 == zkHin_Search:
-                                                    st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2]], zkEndDT[index_2]
+                                                    if zkMo[index_2] == "1":
+                                                        zkMo_value = "持出中"
+                                                    else:
+                                                        zkMo_value = ""
+                                                    st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkMo_value, zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2], zkEndDT[index_2]]
                                                     # st.write("zkHin_list:", zkHin_list)
                                                     # st.write("df_search_result:", st.session_state.df_search_result)
                                     # st.write(st.session_state.df_search_result)
                                     # st.session_state.df_search_result.sort_values(by=["完了日", "移行票番号", "品番", "棚番"])
                                     # st.write(st.session_state.df_search_result.columns)
                                     df_sorted = st.session_state.df_search_result.sort_values(by=["品番", "完了日", "移行票番号"]).reset_index(drop=True)
-                                    st.dataframe(df_sorted)
+                                    # st.dataframe(df_sorted)
+                                    st.table(df_sorted)
+                                    # gb = GridOptionsBuilder.from_dataframe(df_sorted)
+                                    # gb.configure_grid_options(headerHeight=35)
+                                    # gridOptions = gb.build()
+                                    # AgGrid(df_sorted, gridOptions=gridOptions, height=200, theme="streamlit")
                                     # edited_df = st.data_editor(
                                     #     st.session_state.df_search_result,
                                     #    num_rows="dynamic",
@@ -1381,7 +1528,7 @@ def zaiko_place():
                                 else:
                                     st.write("棚番が１データしか存在しません。至急、システム担当者に連絡してください！")
                                     st.stop()
-                                    # st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[0], zkIko[0], zkHin[0], zkKan[0], zkSu[0], zkEndDT[0]]
+                                    # st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [zkTana_list[0], zkMo[0], zkIko[0], zkHin[0], zkKan[0], zkSu[0], zkEndDT[0]]
                             else:
                                 st.write("'item_id'　が存在しません。至急、システム担当者に連絡してください！")
                                 st.stop()
@@ -1398,7 +1545,11 @@ def zaiko_place():
                                         st.session_state.tanaban_select_flag  = False
                                         st.session_state.tanaban_select_value = ""
                                         st.rerun()
-                                st.write(f"選択された棚番： {st.session_state.tanaban_select_value}")
+                                # st.write(f"選択された棚番： {st.session_state.tanaban_select_value}")
+                                st.markdown(
+                                    f"<div style='font-size:28px; font-weight:bold;'>選択された棚番 :  {st.session_state.tanaban_select_value}</div>",
+                                    unsafe_allow_html=True
+                                )
                                 image_viewer(st.session_state.tanaban_select_value)
                                 st.stop()
                             _= '''
@@ -1418,7 +1569,11 @@ def zaiko_place():
                                     st.session_state.tanaban_select_flag  = False
                                     st.session_state.tanaban_select_value = ""
                                     st.rerun()
-                                st.write(f"選択された棚番： {st.session_state.tanaban_select_value}")
+                                # st.write(f"選択された棚番： {st.session_state.tanaban_select_value}")
+                                st.markdown(
+                                    f"<div style='font-size:28px; font-weight:bold;'>選択された棚番 :  {st.session_state.tanaban_select_value}</div>",
+                                    unsafe_allow_html=True
+                                )
                                 # image_viewer(st.session_state.tanaban_select_value)
                                 st.stop()
                             '''
@@ -1450,7 +1605,7 @@ def zaiko_place():
                                 st.session_state.tanaban_select_input = False
                                 st.session_state.qr_code_tana_info = False
                                 st.session_state.tanaban_select_temp_info = ""
-                                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
+                                st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "持出", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                                 st.session_state.record_2  = None
                                 st.rerun()
                         if not st.session_state.qr_code_tana_info:
@@ -1480,11 +1635,15 @@ def zaiko_place():
                                 if st.button("棚番を再選択(参照)"):
                                     st.session_state.qr_code_tana_info = False
                                     st.session_state.tanaban_select_temp_info = ""
-                                    st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
+                                    st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "持出", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                                     st.session_state.record_2  = None
                                     st.rerun()
-                            st.write(f"選択された棚番： {st.session_state.tanaban_select_temp_info}　にある品番一覧")
-                            st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "移行票番号", "品番", "完了工程", "数量", "完了日"])
+                            # st.write(f"選択された棚番： {st.session_state.tanaban_select_temp_info}　にある品番一覧")
+                            st.markdown(
+                                f"<div style='font-size:28px; font-weight:bold;'>選択された棚番 :  {st.session_state.tanaban_select_temp_info}　にある品番一覧</div>",
+                                unsafe_allow_html=True
+                            )
+                            st.session_state.df_search_result = pd.DataFrame(columns=["棚番", "持出", "移行票番号", "品番", "完了工程", "数量", "完了日"])
                             listCount = 0
                             listCount2 = 0
                             zkTana = ""
@@ -1493,6 +1652,7 @@ def zaiko_place():
                             zkKan = ""
                             zkSu = ""
                             zkEndDT = ""
+                            zkMo = ""
                             zkHistory = ""
                             record_2 = data_catch(st.session_state.sf, item_id)
                             if record_2:
@@ -1503,6 +1663,7 @@ def zaiko_place():
                                 zkKan_list = record_2["zkKanryoKoutei__c"].splitlines() 
                                 zkSu_list = record_2["zkSuryo__c"].splitlines() 
                                 zkEndDT_list = record_2["zkEndDayTime__c"].splitlines() 
+                                zkMo_list = record_2["zkMochidashi__c"].splitlines() 
                                 listCount = len(zkTana_list)
                                 # listCount = len(zkHin_list)
                                 zkTana_Search = st.session_state.tanaban_select_temp_info
@@ -1513,18 +1674,32 @@ def zaiko_place():
                                         zkKan = zkKan_list[index].split(",")
                                         zkSu = zkSu_list[index].split(",")
                                         zkEndDT = zkEndDT_list[index].split(",")
+                                        zkMo = zkMo_list[index].split(",")
                                         listCount2 = len(zkIko)
-                                        if item == zkTana_Search:
+                                        if normalize(item) == normalize(st.session_state.tanaban_select_temp_info):
                                             if listCount2 > 1:
                                                 for index_2, item_2 in enumerate(zkIko):
-                                                    st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2], zkEndDT[index_2]]
+                                                    if zkMo[index_2] == "1":
+                                                        zkMo_value = "持出中"
+                                                    else:
+                                                        zkMo_value = ""
+                                                    st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkMo_value, zkIko[index_2], zkHin[index_2], zkKan[index_2], zkSu[index_2], zkEndDT[index_2]]
                                             else:
-                                                st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkIko[0], zkHin[0], zkKan[0], zkSu[0], zkEndDT[0]]
+                                                if zkMo[0] == "1":
+                                                    zkMo_value = "持出中"
+                                                else:
+                                                    zkMo_value = ""
+                                                st.session_state.df_search_result.loc[len(st.session_state.df_search_result)] = [item, zkMo_value, zkIko[0], zkHin[0], zkKan[0], zkSu[0], zkEndDT[0]]
                                     # st.write(st.session_state.df_search_result)
                                     # st.session_state.df_search_result.sort_values(by=["完了日", "移行票番号", "品番", "棚番"])
                                     # st.write(st.session_state.df_search_result.columns)
                                     df_sorted = st.session_state.df_search_result.sort_values(by=["品番", "完了日", "移行票番号"]).reset_index(drop=True)
-                                    st.dataframe(df_sorted)
+                                    # st.dataframe(df_sorted)
+                                    st.table(df_sorted)
+                                    # gb = GridOptionsBuilder.from_dataframe(df_sorted)
+                                    # gb.configure_grid_options(headerHeight=35)
+                                    # gridOptions = gb.build()
+                                    # AgGrid(df_sorted, gridOptions=gridOptions, height=200, theme="streamlit")
                                     # st.dataframe(st.session_state.df_search_result)
                                     # edited_df = st.data_editor(
                                     #     st.session_state.df_search_result,
@@ -1540,7 +1715,7 @@ def zaiko_place():
                                 st.stop()
                             
                             # st.write(f"選択された棚番： {st.session_state.tanaban_select_temp_info}")
-                            image_viewer(st.session_state.tanaban_select_temp_info)
+                            image_viewer(normalize(st.session_state.tanaban_select_temp_info))
                             st.stop()
                 _= '''
                 else:
@@ -1663,7 +1838,13 @@ def zaiko_place():
                         st.rerun()
                 
                 if not st.session_state.production_order_flag:
-                    st.write(f"#### 現在選択されている棚番 :   {st.session_state.tanaban_select_temp}")  
+                    # str_text = f"現在選択されている棚番 :   {st.session_state.tanaban_select_temp}"
+                    st.markdown(
+                        f"<div style='font-size:28px; font-weight:bold;'>現在選択されている棚番 :   {st.session_state.tanaban_select_temp}</div>",
+                        unsafe_allow_html=True
+                    )
+                    # st.write(f"### 現在選択されている棚番 :   {st.session_state.tanaban_select_temp}") 
+                    # st.write(f"#### 現在選択されている棚番 :   {st.session_state.tanaban_select_temp}")  # ←この文字サイズ変更コードでは、特定の文字の場合に背景色が黒くなるバグが発生。原因不明の為、とりあえずコメント化20250926。
                     if st.session_state.manual_input_flag == 0:
                         qr_code_kari = ""
                         left, center, right = st.columns([0.25, 0.5, 0.25])
@@ -1707,10 +1888,12 @@ def zaiko_place():
                             global message_text
                             # global button_key
                             message_text = f"""
-                            #### 現在選択されている棚番 : {st.session_state.tanaban_select_temp}
-                            #### 移行票番号(製造オーダー)は、
-                            ## 「 {st.session_state.production_order} 」
-                            #### でよろしいですか？
+                            <div style='font-size:22px; font-weight:bold;'>
+                                現在選択されている棚番 : <span style='font-size:30px; color:#FF0000;'>{st.session_state.tanaban_select_temp}</span><br>
+                                移行票番号(製造オーダー)は、<br>
+                                <span style='font-size:30px; color:#FF0000;'>「 {st.session_state.production_order} 」</span><br>
+                                でよろしいですか？
+                            </div>
                             """
                             result_flag = approve_button(message_text, button_key)
                         dialog_button(button_key)
@@ -1797,13 +1980,56 @@ def zaiko_place():
                         else:
                             st.warning("移行票番号が見つかりませんでした。")
                             # st.stop()
+
+                        tanaban_select = st.session_state.tanaban_select_temp
+                        st.session_state.list_flag = 0 # 0:移行票番号が無い  1:有る
+                        record = data_catch(st.session_state.sf, item_id)
+                        if record:
+                            zkTana_list = ""
+                            listCount = 0
+                            listCount2 = 0
+                            zkIko_kari = ""
+                            zkMochi_list = ""
+                            zkMochidashi = ""
+                            zkMochidashi_value = "0"
+                            zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
+                            listCount = len(zkTana_list)
+                            if listCount > 2:
+                                for index, item in enumerate(zkTana_list):
+                                    if normalize(item) == normalize(st.session_state.tanaban_select_temp):
+                                        zkIko_list = record["zkIkohyoNo__c"].splitlines()
+                                        zkIko_kari = zkIko_list[index].split(",")
+                                        zkMochi_list = record["zkMochidashi__c"].splitlines()
+                                        zkMochidashi = zkMochi_list[index].split(",")
+                                        listCount2 = len(zkIko_kari)
+                                        if listCount2 > 1:
+                                            for index2, item in enumerate(zkIko_kari):
+                                                if item == st.session_state.production_order:
+                                                    st.session_state.list_flag = 1 # 移行票番号が有る
+                                                    zkMochidashi_value = zkMochidashi[index2]
+                                                    break
+                                        else:
+                                            if zkIko_kari[0] == st.session_state.production_order:
+                                                st.session_state.list_flag = 1 # 移行票番号が有る
+                                                zkMochidashi_value = zkMochidashi[0]
+                                                break
+                        # st.write(f"持出の値：　{zkMochidashi_value}")
+                        st.session_state.record = ""
+                        if zkMochidashi_value == "1":
+                            zkMochidashi_value_1 = "持出中"
+                            st.session_state.list_flag = 3
+                        else:
+                            zkMochidashi_value_1 = ""
                         
                         owner_value = st.session_state.owner
-                        tanaban_select = st.session_state.tanaban_select_temp
                         production_order_value = st.session_state.production_order
                         styled_text(f"項　　目　 :　追加または削除の対象", bg_color="#c0c0c0", padding="7px", width="100%", text_color="#333333", font_size="16px", border_thickness="3px")
                         styled_text(f"社員番号　 : {owner_value}", bg_color="#c0c0c0", padding="7px", width="100%", text_color="#333333", font_size="20px", border_thickness="0px")
                         styled_text(f"棚　　番　 : {tanaban_select}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="20px", border_thickness="0px")
+                        if zkMochidashi_value_1 == "持出中":
+                            styled_text(f"持　　出　 : {zkMochidashi_value_1}", bg_color="#FFAAFF", padding="7px", width="100%", text_color="#333333", font_size="20px", border_thickness="0px")
+                        else:
+                            styled_text(f"持　　出　 : {zkMochidashi_value_1}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="20px", border_thickness="0px")
                         styled_text(f"移行票番号 : {production_order_value}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="20px", border_thickness="0px")
                         styled_text(f"品　　番　 : {default_hinban}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="20px", border_thickness="0px")
                         styled_text(f"工　　順　 : {default_process_order}", bg_color="#FFFF00", padding="7px", width="100%", text_color="#333333", font_size="20px", border_thickness="0px")
@@ -1821,39 +2047,19 @@ def zaiko_place():
                             process_order_name = "-"
                             quantity = 0.0
                             
-                        st.session_state.list_flag = 0 # 0:移行票番号が無い  1:有る
-                        record = data_catch(st.session_state.sf, item_id)
-                        if record:
-                            zkTana_list = ""
-                            listCount = 0
-                            listCount2 = 0
-                            zkIko_kari = ""
-                            zkTana_list = record["zkTanaban__c"].splitlines()  # 改行区切り　UM「新規 工程手配明細マスタ レポート」で見易くする為
-                            listCount = len(zkTana_list)
-                            if listCount > 2:
-                                for index, item in enumerate(zkTana_list):
-                                    if item == tanaban_select:
-                                        zkIko_list = record["zkIkohyoNo__c"].splitlines()
-                                        zkIko_kari = zkIko_list[index].split(",")
-                                        listCount2 = len(zkIko_kari)
-                                        if listCount2 > 1:
-                                            for index, item in enumerate(zkIko_kari):
-                                                if item == st.session_state.production_order:
-                                                    st.session_state.list_flag = 1 # 移行票番号が有る
-                                                    break
-                                        else:
-                                            if zkIko_kari[0] == st.session_state.production_order:
-                                                st.session_state.list_flag = 1 # 移行票番号が有る
-                                                break
-                        st.session_state.record = ""
-                        st.session_state.add_del_flag = 0  # 0:追加 1:削除 9:取消     
-                        left, center, right = st.columns(3)
+                        st.session_state.add_del_flag = 0  # 0:追加 1:削除 2:持出 3:持出解除 9:取消     
+                        left, center1, center2, right = st.columns(4)
                         with left:
                             if st.session_state.list_flag == 0: # 移行票番号が無い場合のみ
                                 submit_button_add = st.form_submit_button("追加")
-                        with center:
+                        with center1:
                             if st.session_state.list_flag == 1: # 移行票番号が有る場合のみ
                                 submit_button_del = st.form_submit_button("削除")
+                        with center2:
+                            if st.session_state.list_flag == 1: # 移行票番号が有る場合のみ
+                                submit_button_pic = st.form_submit_button("持出")
+                            if st.session_state.list_flag == 3: # 持出中のみ
+                                submit_button_pic_cancel = st.form_submit_button("持出解除")
                         with right:
                             submit_button_cancel = st.form_submit_button("取消")
                         submit_button_flag = 0
@@ -1864,6 +2070,13 @@ def zaiko_place():
                         if st.session_state.list_flag == 1:
                             if submit_button_del:
                                 st.session_state.add_del_flag = 1
+                                submit_button_flag = 1
+                            if submit_button_pic:
+                                st.session_state.add_del_flag = 2
+                                submit_button_flag = 1
+                        if st.session_state.list_flag == 3:
+                            if submit_button_pic_cancel:
+                                st.session_state.add_del_flag = 3
                                 submit_button_flag = 1
                         if submit_button_cancel:
                             st.session_state.add_del_flag = 9
@@ -1906,8 +2119,10 @@ def zaiko_place():
                             zkKan = ""
                             zkSu = ""
                             zkEndDT = ""
+                            zkMo = ""
                             zkOrder = ""
                             zkHistory = ""
+                            st.session_state.zkScroll_flag = 0
                             record = data_catch(st.session_state.sf, item_id)
                             if record:
                                 zkHistory = record["zkHistory__c"]  # zk履歴
@@ -1915,29 +2130,36 @@ def zaiko_place():
                                 listCount = len(zkTana_list)
                                 if listCount > 2:
                                     for index, item in enumerate(zkTana_list):
-                                        if item == tanaban_select:
+                                        if normalize(item) == normalize(st.session_state.tanaban_select_temp):
                                             listNumber = index
                                             listAdd = 0
-                                            break  # 条件を満たしたらループを終了
+                                            break
                                         else:
                                             listAdd = 1
+                                    # for index, item in enumerate(zkTana_list):
+                                    #     if str(item) == str(st.session_state.tanaban_select_temp):
+                                    #         listNumber = index
+                                    #         listAdd = 0
+                                    #         break  # 条件を満たしたらループを終了
+                                    #     else:
+                                    #         listAdd = 1
                                 else:
                                     if listCount == 1:
-                                        if zkTana_list != tanaban_select:
+                                        if zkTana_list != st.session_state.tanaban_select_temp:
                                             listAdd = 1
                                         else:
                                             listNumber = 0
                                     else:
-                                        if zkTana_list[0] != tanaban_select and zkTana_list[1] != tanaban_select:
+                                        if zkTana_list[0] != st.session_state.tanaban_select_temp and zkTana_list[1] != st.session_state.tanaban_select_temp:
                                             listAdd = 1
-                                        elif zkTana_list[0] == tanaban_select:
+                                        elif zkTana_list[0] == st.session_state.tanaban_select_temp:
                                             listNumber = 0
                                         else:
                                             listNumber = 1
                                 datetime_str = dt.now(jst).strftime("%Y/%m/%d %H:%M:%S")
                                 zkHistory_value = ""
                                 if listAdd == 1: # 棚番が無い場合
-                                    st.write(f"❌05 **棚番 '{tanaban_select}' の追加は許可されてません。**")
+                                    st.write(f"❌05 **棚番 '{st.session_state.tanaban_select_temp}' の追加は許可されてません。**")
                                     st.stop()  # 以降の処理を止める
                                 else:
                                     zkIko_raw = record.get("zkIkohyoNo__c", "")
@@ -1975,16 +2197,33 @@ def zaiko_place():
                                         zkKan = zkIko
                                         zkSu = zkIko
                                         zkEndDT = zkIko
+                                        zkMo = zkIko
                                         zkHistory = zkIko
                                     else:
                                         zkOrder = st.session_state.production_order
-                                        zkHistory_value = f"{tanaban_select},{zkOrder},{hinban},{process_order_name},{quantity},{datetime_str},{owner_value}"
-                                        if st.session_state.add_del_flag == 0: # 追加の場合
+                                        zkHistory_value = f"{st.session_state.tanaban_select_temp},{zkOrder},{hinban},{process_order_name},{quantity},{datetime_str},{zkMochidashi_value},{owner_value}"
+                                        if st.session_state.add_del_flag == 2: # 持出ONの場合
+                                            # st.write(f"持出の値：　{zkMochidashi_value}")
+                                            zkMochidashi_value = "1"
+                                            zkIko = list_update_zkKari(record, zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 3)   # zk移行票No
+                                            zkMo = list_update_zkKari(record, zkMo, "zkMochidashi__c", listNumber, f"{zkMochidashi_value}", 4)   # zk持出
+                                            zkHistory_value = f"{zkHistory_value},picadd"
+                                            zkHistory  = zkHistory_value + "\n" + str(zkHistory)   # zk履歴
+                                            update_Mochidashi(st.session_state.sf, item_id, st.session_state.tanaban_select_temp, zkMo, zkHistory, zkOrder, 1)
+                                        elif st.session_state.add_del_flag == 3: # 持出OFFの場合
+                                            zkMochidashi_value = "0"
+                                            zkIko = list_update_zkKari(record, zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 3)   # zk移行票No
+                                            zkMo = list_update_zkKari(record, zkMo, "zkMochidashi__c", listNumber, f"{zkMochidashi_value}", 4)   # zk持出
+                                            zkHistory_value = f"{zkHistory_value},picdel"
+                                            zkHistory  = zkHistory_value + "\n" + str(zkHistory)   # zk履歴
+                                            update_Mochidashi(st.session_state.sf, item_id, st.session_state.tanaban_select_temp, zkMo, zkHistory, zkOrder, 0)
+                                        elif st.session_state.add_del_flag == 0: # 追加の場合
                                             zkIko = list_update_zkKari(record, zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 1)   # zk移行票No
                                             zkHin = list_update_zkKari(record, zkHin, "zkHinban__c", listNumber, hinban, 0)   # zk品番
                                             zkKan = list_update_zkKari(record, zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 0)   # zk完了工程
                                             zkSu = list_update_zkKari(record, zkSu, "zkSuryo__c", listNumber, f"{quantity}", 0)   # zk数量
                                             zkEndDT = list_update_zkKari(record, zkEndDT, "zkEndDayTime__c", listNumber, f"{default_end_daytime}", -1)   # zk完了日
+                                            zkMo = list_update_zkKari(record, zkMo, "zkMochidashi__c", listNumber, f"{zkMochidashi_value}", -1)   # zk持出
                                             zkHistory_value = f"{zkHistory_value},add"
                                         elif st.session_state.add_del_flag == 1: # 削除の場合
                                             zkIko = list_update_zkKari(record, zkIko, "zkIkohyoNo__c", listNumber, zkOrder, 3)   # zk移行票No
@@ -1992,6 +2231,7 @@ def zaiko_place():
                                             zkKan = list_update_zkKari(record, zkKan, "zkKanryoKoutei__c", listNumber, process_order_name, 2)   # zk完了工程
                                             zkSu = list_update_zkKari(record, zkSu, "zkSuryo__c", listNumber, f"{quantity}", 2)   # zk数量
                                             zkEndDT = list_update_zkKari(record, zkEndDT, "zkEndDayTime__c", listNumber, f"{default_end_daytime}", 2)   # zk完了日
+                                            zkMo = list_update_zkKari(record, zkMo, "zkMochidashi__c", listNumber, f"{zkMochidashi_value}", 2)   # zk持出
                                             zkHistory_value = f"{zkHistory_value},del"
                                         zkHistory  = zkHistory_value + "\n" + str(zkHistory)   # zk履歴
                                         
@@ -2010,9 +2250,10 @@ def zaiko_place():
                             if st.session_state.owner is None:
                                 st.write(f"❌09 **作業者コード '{owner}' が未入力です。**")
                                 st.stop()  # 以降の処理を止める
-                            st.session_state.zkScroll_flag = 0
+                            # st.session_state.zkScroll_flag = 0
                             if item_id:
-                                update_tanaban(st.session_state.sf, item_id, tanaban_select, zkIko, zkHin, zkKan, zkSu, zkEndDT, zkHistory, zkOrder)
+                                if st.session_state.add_del_flag != 2 and st.session_state.add_del_flag != 3:
+                                    update_tanaban(st.session_state.sf, item_id, st.session_state.tanaban_select_temp, zkIko, zkHin, zkKan, zkSu, zkEndDT, zkMo, zkHistory, zkOrder)
                                 button_key = "check_ok_2"
                                 if st.session_state.zkScroll_flag == 1 and button_key not in st.session_state:
                                     @st.dialog("処理結果通知")
@@ -2047,7 +2288,7 @@ return_1161 = "⏎ 1161.在庫置き場メニュー　へ戻る"
 def show_main_screen():
     left, center, right = st.columns([0.2, 0.6, 0.2])
     with center:
-        st.image("aitech_logo_E.png", use_container_width=True)
+        st.image("aitech_logo.png", use_container_width=True)
     #     st.image("aitech_logo_D.png", use_container_width=True)
     # with right:
     #     st.write('(仮)')
