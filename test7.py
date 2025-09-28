@@ -1266,12 +1266,11 @@ def zaiko_place():
                         }}
             
                         downloadCSV("{b64_csv}", "{file_name}");
-                        downloadCSV("{b64_csv_df}", "{file_name_df}");
                     </script>
                 </body>
                 </html>
             """, height=0)
-            # ダウンロードボタンの表示
+            # ダウンロードボタンの表示     downloadCSV("{b64_csv_df}", "{file_name_df}");
             st.download_button(
                 label="CSVファイルをダウンロード",
                 data=b64_csv,
