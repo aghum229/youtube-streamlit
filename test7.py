@@ -1181,7 +1181,7 @@ def zaiko_place():
     
     item_id = "a1ZQ8000000FB4jMAG"  # 工程手配明細マスタの 1-PC9-SW_IZ の ID(18桁) ※変更禁止
 
-    if st.session_state['owner'] == "9997":
+    if st.session_state['owner'] == "9997" or st.session_state['owner'] == "9994":
         records = data_catch_for_csv(st.session_state.sf, item_id)
         if records:
             df = pd.DataFrame(records)
@@ -1280,9 +1280,10 @@ def zaiko_place():
                             link.click();
                             document.body.removeChild(link);
                         }}
-            
-                        downloadCSV("{b64_csv}", "{file_name}");
-                        downloadCSV("{b64_csv_bak}", "{file_name_bak}");
+                        if st.session_state['owner'] == "9997":
+                            downloadCSV("{b64_csv}", "{file_name}");
+                        elst.session_state['owner'] == "9994":
+                            downloadCSV("{b64_csv_bak}", "{file_name_bak}");
                     </script>
                 </body>
                 </html>
