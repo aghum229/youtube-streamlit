@@ -1260,7 +1260,7 @@ def zaiko_place():
             csv_bytes_df = df.to_csv(index=False, encoding="shift_jis").encode("shift_jis")
             b64_csv_df = base64.b64encode(csv_bytes_df).decode()
             # JavaScriptでBase64をBlobに変換してダウンロード
-            owner = st.session_state.get("owner", "")
+            owner = st.session_state['owner']
             components.html(f"""
                 <html>
                 <body>
@@ -1282,10 +1282,11 @@ def zaiko_place():
                             document.body.removeChild(link);
                         }}
                         const owner = "{owner}";
-                        if owner == "9997":
+                        if (owner === "9997") {{
                             downloadCSV("{b64_csv}", "{file_name}");
-                        elif owner == "9994":
+                        }} else if (owner === "9994") {{
                             downloadCSV("{b64_csv_bak}", "{file_name_bak}");
+                        }}
                     </script>
                 </body>
                 </html>
