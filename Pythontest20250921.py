@@ -2049,7 +2049,14 @@ def zaiko_place():
                             process_order = 0
                             process_order_name = "-"
                             quantity = 0.0
-                            
+
+                        st.markdown("""
+                            <style>
+                            div.stButton > button {
+                                white-space: pre-line;
+                            }
+                            </style>
+                        """, unsafe_allow_html=True)
                         st.session_state.add_del_flag = 0  # 0:追加 1:削除 2:持出 3:持出解除 9:取消     
                         left, center1, center2, right = st.columns(4)
                         with left:
