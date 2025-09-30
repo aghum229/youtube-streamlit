@@ -573,14 +573,14 @@ def set_flag(flag):
 
 button_style = """
 <style>
-div.stButton, div.stFormSubmitButton {
+div.stButton {
     white-space: pre-line;
     display: flex;
     justify-content: center;
     width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
     # width: auto; /* 必要に応じて変更 */
 }
-div.stButton > button, div.stFormSubmitButton > button {
+div.stButton > button {
     font-size: 12px !important; /* 文字サイズを指定 */
     font-weight  : bold ;
     color        : #000;
@@ -589,6 +589,28 @@ div.stButton > button, div.stFormSubmitButton > button {
     width: 350px; /* ボタンの横幅を固定値に設定 */
     max-width: 350px; /* 必要に応じて最大幅も設定 */
     height: 24px;
+}
+</style>
+"""
+
+formsubmitbutton_style = """
+<style>
+div.stFormSubmitButton {
+    white-space: pre-line;
+    display: flex;
+    justify-content: center;
+    width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
+    # width: auto; /* 必要に応じて変更 */
+}
+div.stFormSubmitButton > button {
+    font-size: 12px !important; /* 文字サイズを指定 */
+    font-weight  : bold ;
+    color        : #000;
+    border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
+    background   : #FF0                ;/* 背景色：aqua            */
+    width: 250px; /* ボタンの横幅を固定値に設定 */
+    max-width: 250px; /* 必要に応じて最大幅も設定 */
+    height: 36px;
 }
 </style>
 """
@@ -1937,7 +1959,6 @@ def zaiko_place():
                     st.session_state.zkSplitNo = 99
                     st.session_state.zkSplitFlag = 0
                     with st.form(key="registro_form", clear_on_submit=True):
-                        st.markdown(button_style, unsafe_allow_html=True)
                         default_quantity = 0.0
                         default_process_order = 0
                         default_process_order_name = ""
@@ -2303,6 +2324,7 @@ def show_main_screen():
     # display_container('yellow', '☆在庫置場管理システム☆')
     display_line()
     st.markdown(button_style, unsafe_allow_html=True)
+    st.markdown(formsubmitbutton_style, unsafe_allow_html=True)
     styled_input_text()
     zaiko_place()
     # button_set('button0', '0.ショートカット', 'other0')
