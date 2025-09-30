@@ -574,6 +574,7 @@ def set_flag(flag):
 button_style = """
 <style>
 div.stButton {
+    white-space: pre-line;
     display: flex;
     justify-content: center;
     width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
@@ -2051,6 +2052,7 @@ def zaiko_place():
                             process_order_name = "-"
                             quantity = 0.0
 
+                        st.markdown(button_style, unsafe_allow_html=True)
                         st.session_state.add_del_flag = 0  # 0:追加 1:削除 2:持出 3:持出解除 9:取消     
                         left, center1, center2, right = st.columns(4)
                         with left:
