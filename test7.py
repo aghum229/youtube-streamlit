@@ -1,4 +1,4 @@
-_= '''
+# _= '''
 import streamlit as st
 import cv2
 import numpy as np
@@ -20,12 +20,12 @@ if img_file_buffer is not None:
     if decoded_objects is not None:
         st.write("検出されたバーコード情報:", decoded_objects)
         st.write("バーコードの種類:", decoded_types)
-'''
+# '''
 
 
 
 
-# _= '''
+_= '''
 import streamlit as st
 import easyocr
 import numpy as np
@@ -71,4 +71,4 @@ if camera_image:
     #     results = None
     #     camera_image = None
     #     st.rerun()
-# '''
+'''
