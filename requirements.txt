@@ -11,4 +11,5 @@ pytz
 flask
 easyocr
 torch
-opencv-python pyzbar
+opencv-python 
+pyzbar
