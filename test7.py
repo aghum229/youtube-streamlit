@@ -1,3 +1,53 @@
+import cv2
+import streamlit as st
+
+st.title('Webcam Barcode Reader')
+
+# カメラ映像を配置するプレースホルダーを作成
+placeholder = st.empty()
+
+cap = cv2.VideoCapture(1)  # カメラ番号は環境に合わせて調整してください
+
+# バーコードリーダーを作成
+barcode_reader = cv2.barcode.BarcodeDetector()
+
+# 検出されたバーコード情報を格納する集合
+detected_codes = set()
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # OpenCVはBGRフォーマットなので、RGBに変換
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+    # バーコード情報を取得
+    try:
+        # バーコードを検出
+        ok, decoded_info, decoded_type, corners = barcode_reader.detectAndDecode(frame)
+    except ValueError:
+        decoded_info, decoded_type, corners = barcode_reader.detectAndDecode(frame)
+        ok = bool(decoded_info)
+
+    # st.write(f"decoded_info: {decoded_info}")  # デバッグ出力
+    if len(decoded_info) > 2:
+        detected_codes.add(f'{decoded_info}')
+
+    # `st.image()`でプレースホルダーに画像を表示
+    placeholder.image(frame, channels="RGB")
+
+    # バーコードが検出されたらループを終了
+    if len(detected_codes) >= 2:
+        l = list(detected_codes)
+        st.header(f'Barcodes: {l[0]}, {l[1]}')
+        break
+
+cap.release()
+
+
+
+"""
 import streamlit as st
 import cv2
 from pyzbar.pyzbar import decode
@@ -22,7 +72,7 @@ if camera:
             st.write(f"種類: {obj.type}")
     else:
         st.warning("コードが検出されませんでした。もう一度試してください。")
-
+"""
 
 
 """
