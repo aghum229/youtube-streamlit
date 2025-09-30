@@ -607,10 +607,10 @@ div.stFormSubmitButton > button {
     font-weight  : bold ;
     color        : #000;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
-    background   : #FF0                ;/* 背景色：aqua            */
+    background   : #ffc0cb               ;/* 背景色：aqua            */
     width: 250px; /* ボタンの横幅を固定値に設定 */
     max-width: 250px; /* 必要に応じて最大幅も設定 */
-    height: 36px;
+    height: 40px !important;
 }
 </style>
 """
