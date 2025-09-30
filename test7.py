@@ -1,3 +1,39 @@
+import streamlit as st
+import cv2
+from pyzbar.pyzbar import decode
+import tempfile
+import numpy as np
+
+st.title('バーコード読み取りアプリ')
+
+# 画像アップロードを受け付ける
+uploaded_file = st.file_uploader("画像をアップロードしてください", type=['png', 'jpg', 'jpeg'])
+
+def read_barcode(image):
+    decoded_objects = decode(image)
+    for obj in decoded_objects:
+        st.write("バーコードのデータ:", obj.data.decode("utf-8"))
+        return obj.data.decode("utf-8")
+    return None
+
+if uploaded_file is not None:
+    file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
+    image = cv2.imdecode(file_bytes, 1)
+    st.image(image, channels="BGR")
+
+    # バーコードのデータを読み取る
+    barcode_data = read_barcode(image)
+    
+    if barcode_data:
+        edited_data = st.text_input("バーコードデータを編集", value=barcode_data)
+
+        if st.button("データを保存"):
+            st.write("保存されたデータ:", edited_data)
+    else:
+        st.write("バーコードが読み取れませんでした。")
+
+
+"""
 import cv2
 from pyzbar.pyzbar import decode 
 import tkinter as tk1 
@@ -64,7 +100,7 @@ decoder1()
 
 frame1.mainloop()
 cap1.release()
-
+"""
 
 """
 import streamlit as st
