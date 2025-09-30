@@ -1,3 +1,25 @@
+import streamlit as st
+import cv2
+import numpy as np
+
+img_file_buffer = st.camera_input("カメラのボタンを押してバーコードをスキャン")
+
+if img_file_buffer is not None:
+    bytes_data = img_file_buffer.getvalue()
+    cv2_img = cv2.imdecode(np.frombuffer(bytes_data, np.uint8), cv2.IMREAD_COLOR)
+    # 以降の処理をここに追加
+
+    # qrcode_detector = cv2.QRCodeDetector()
+    # detected, decoded_info, points, _ = qrcode_detector.detectAndDecodeMulti(cv2_img)
+    # if detected:
+    #     st.write("検出されたQRコード情報:", decoded_info)
+
+    barcode_detector = cv2.barcode.BarcodeDetector()
+    decoded_objects, decoded_types, _ = barcode_detector.detectAndDecodeMulti(cv2_img)
+    if decoded_objects is not None:
+        st.write("検出されたバーコード情報:", decoded_objects)
+        st.write("バーコードの種類:", decoded_types)
+
 _= '''
 import cv2
 import streamlit as st
