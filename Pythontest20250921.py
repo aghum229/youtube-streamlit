@@ -764,12 +764,12 @@ def styled_input_text():
 def button_indention():
     st.markdown("""
         <style>
-        div.stButton > button {
+        button[kind="primary"] {
             white-space: pre-line;
         }
         </style>
     """, unsafe_allow_html=True)
-    
+
 def approve_button(message, button_key):
     st.markdown(message, unsafe_allow_html=True)
     # st.write(message)
