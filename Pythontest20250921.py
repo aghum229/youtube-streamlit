@@ -1937,6 +1937,7 @@ def zaiko_place():
                     st.session_state.zkSplitNo = 99
                     st.session_state.zkSplitFlag = 0
                     with st.form(key="registro_form", clear_on_submit=True):
+                        st.markdown(button_style, unsafe_allow_html=True)
                         default_quantity = 0.0
                         default_process_order = 0
                         default_process_order_name = ""
@@ -2052,7 +2053,6 @@ def zaiko_place():
                             process_order_name = "-"
                             quantity = 0.0
 
-                        st.markdown(button_style, unsafe_allow_html=True)
                         st.session_state.add_del_flag = 0  # 0:追加 1:削除 2:持出 3:持出解除 9:取消     
                         left, center1, center2, right = st.columns(4)
                         with left:
