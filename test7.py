@@ -1,36 +1,28 @@
 import streamlit as st
 import cv2
 from pyzbar.pyzbar import decode
-import tempfile
-import numpy as np
+from PIL import Image
 
-st.title('バーコード読み取りアプリ')
+st.title("📷 バーコード・QRコード読み取り")
 
-# 画像アップロードを受け付ける
-uploaded_file = st.file_uploader("画像をアップロードしてください", type=['png', 'jpg', 'jpeg'])
+# カメラ起動
+camera = st.camera_input("Webカメラで撮影")
 
-def read_barcode(image):
-    decoded_objects = decode(image)
-    for obj in decoded_objects:
-        st.write("バーコードのデータ:", obj.data.decode("utf-8"))
-        return obj.data.decode("utf-8")
-    return None
+if camera:
+    # 画像をOpenCV形式に変換
+    img = Image.open(camera)
+    img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
 
-if uploaded_file is not None:
-    file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
-    image = cv2.imdecode(file_bytes, 1)
-    st.image(image, channels="BGR")
+    # バーコード・QRコードの読み取り
+    decoded_objects = decode(img_cv)
 
-    # バーコードのデータを読み取る
-    barcode_data = read_barcode(image)
-    
-    if barcode_data:
-        edited_data = st.text_input("バーコードデータを編集", value=barcode_data)
-
-        if st.button("データを保存"):
-            st.write("保存されたデータ:", edited_data)
+    if decoded_objects:
+        for obj in decoded_objects:
+            st.success(f"🔍 読み取り結果: {obj.data.decode('utf-8')}")
+            st.write(f"種類: {obj.type}")
     else:
-        st.write("バーコードが読み取れませんでした。")
+        st.warning("コードが検出されませんでした。もう一度試してください。")
+
 
 
 """
