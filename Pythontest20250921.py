@@ -1339,7 +1339,7 @@ def zaiko_place():
             st.title("入力方法　選択")
         left, center, right = st.columns(3)
         with left:
-            button_qr = st.button("QRコード")
+            button_qr = st.button("QRコード\nbarcord")
             tool_tips("(棚番と移行票番号をQRコードで入力)")
             # st.markdown('<p style="font-size:12px;">(棚番と移行票番号をQRコードで入力)</p>', unsafe_allow_html=True)
             # st.write("###### (棚番と移行票番号をQRコードで入力)")
