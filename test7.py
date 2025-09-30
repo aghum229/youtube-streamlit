@@ -16,7 +16,7 @@ if camera_image:
     img_cv = cv2.cvtColor(img_np, cv2.COLOR_RGB2BGR)
 
     # 画像を2倍に拡大
-    enlarged = cv2.resize(img_cv, None, fx=5.0, fy=5.0, interpolation=cv2.INTER_LINEAR)
+    enlarged = cv2.resize(img_cv, None, fx=3.0, fy=3.0, interpolation=cv2.INTER_LINEAR)
 
     # 表示用にRGBへ戻す
     enlarged_rgb = cv2.cvtColor(enlarged, cv2.COLOR_BGR2RGB)
