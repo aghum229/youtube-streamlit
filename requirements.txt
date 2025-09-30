@@ -11,3 +11,5 @@ pytz
 flask
 easyocr
 torch
+opencv-python
+numpy
