@@ -15,9 +15,18 @@ if camera_image:
     img_np = np.array(img)
     img_cv = cv2.cvtColor(img_np, cv2.COLOR_RGB2BGR)
 
+    # 画像を2倍に拡大
+    enlarged = cv2.resize(img_cv, None, fx=2.0, fy=2.0, interpolation=cv2.INTER_LINEAR)
+
+    # 表示用にRGBへ戻す
+    enlarged_rgb = cv2.cvtColor(enlarged, cv2.COLOR_BGR2RGB)
+    # st.image(enlarged_rgb, caption="2倍に拡大された画像", use_column_width=True)
+
+
     # easyocrで文字認識
     reader = easyocr.Reader(['en'])  # Code39は英数字なので英語でOK
-    results = reader.readtext(img_cv)
+    # results = reader.readtext(img_cv)
+    results = reader.readtext(enlarged_rgb)
 
     # 結果表示
     if results:
