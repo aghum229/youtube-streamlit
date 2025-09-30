@@ -13,3 +13,4 @@ easyocr
 torch
 opencv-python 
 pyzbar
+opencv-contrib-python
