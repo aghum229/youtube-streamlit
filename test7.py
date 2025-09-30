@@ -35,7 +35,7 @@ if camera_image:
         for (bbox, text, prob) in results:
             # st.write(f"- {text}（信頼度: {prob:.2f}）")
             if text[0 : 2] == "PO":
-                st.write(f"- {text}（信頼度: {prob:.2f}）")
+                st.write(f"- {text.strip()}（信頼度: {prob:.2f}）")
                 break
     else:
         st.warning("文字が認識できませんでした。画像の明るさや角度を調整して再撮影してください。")
