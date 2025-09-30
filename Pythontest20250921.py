@@ -573,14 +573,14 @@ def set_flag(flag):
 
 button_style = """
 <style>
-div.stButton {
+div.stButton, div.stFormSubmitButton {
     white-space: pre-line;
     display: flex;
     justify-content: center;
     width: 100%; /* 必要に応じて調整：ボタンコンテナの幅 */
     # width: auto; /* 必要に応じて変更 */
 }
-div.stButton > button {
+div.stButton > button, div.stFormSubmitButton > button {
     font-size: 12px !important; /* 文字サイズを指定 */
     font-weight  : bold ;
     color        : #000;
