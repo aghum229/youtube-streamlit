@@ -47,7 +47,7 @@ cap.release()
 
 
 
-"""
+_= '''
 import streamlit as st
 import cv2
 from pyzbar.pyzbar import decode
@@ -72,10 +72,10 @@ if camera:
             st.write(f"種類: {obj.type}")
     else:
         st.warning("コードが検出されませんでした。もう一度試してください。")
-"""
+'''
 
 
-"""
+_= '''
 import cv2
 from pyzbar.pyzbar import decode 
 import tkinter as tk1 
@@ -142,9 +142,9 @@ decoder1()
 
 frame1.mainloop()
 cap1.release()
-"""
+'''
 
-"""
+_= '''
 import streamlit as st
 import easyocr
 import numpy as np
@@ -190,4 +190,4 @@ if camera_image:
     #     results = None
     #     camera_image = None
     #     st.rerun()
-"""
+'''
