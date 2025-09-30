@@ -6,7 +6,7 @@ st.title('Webcam Barcode Reader')
 # カメラ映像を配置するプレースホルダーを作成
 placeholder = st.empty()
 
-cap = cv2.VideoCapture(1)  # カメラ番号は環境に合わせて調整してください
+cap = cv2.VideoCapture(0)  # カメラ番号は環境に合わせて調整してください
 
 # バーコードリーダーを作成
 barcode_reader = cv2.barcode.BarcodeDetector()
