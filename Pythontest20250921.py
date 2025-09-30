@@ -2054,17 +2054,17 @@ def zaiko_place():
                         left, center1, center2, right = st.columns(4)
                         with left:
                             if st.session_state.list_flag == 0: # 移行票番号が無い場合のみ
-                                submit_button_add = st.form_submit_button("追加")
+                                submit_button_add = st.form_submit_button("追加\nadd")
                         with center1:
                             if st.session_state.list_flag == 1: # 移行票番号が有る場合のみ
-                                submit_button_del = st.form_submit_button("削除")
+                                submit_button_del = st.form_submit_button("削除\ndel")
                         with center2:
                             if st.session_state.list_flag == 1: # 移行票番号が有る場合のみ
-                                submit_button_pic = st.form_submit_button("持出")
+                                submit_button_pic = st.form_submit_button("持出\npicking")
                             if st.session_state.list_flag == 3: # 持出中のみ
                                 submit_button_pic_cancel = st.form_submit_button("持出解除")
                         with right:
-                            submit_button_cancel = st.form_submit_button("取消")
+                            submit_button_cancel = st.form_submit_button("取消\ncancel")
                         submit_button_flag = 0
                         if st.session_state.list_flag == 0:
                             if submit_button_add:
