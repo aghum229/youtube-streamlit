@@ -728,6 +728,7 @@ def button_make(button_text, screen_name):
             width: 200px;
             max-width: 200px;
             height: 20px;
+            
             margin: 5px; /* ボタン間の間隔など調整 */
         }
         .stButton>button:hover {
@@ -760,15 +761,6 @@ def styled_input_text():
         """,
         unsafe_allow_html=True
     )
-
-def button_indention():
-    st.markdown("""
-        <style>
-        button[kind="primary"] {
-            white-space: pre-line;
-        }
-        </style>
-    """, unsafe_allow_html=True)
 
 def approve_button(message, button_key):
     st.markdown(message, unsafe_allow_html=True)
@@ -2063,22 +2055,17 @@ def zaiko_place():
                         left, center1, center2, right = st.columns(4)
                         with left:
                             if st.session_state.list_flag == 0: # 移行票番号が無い場合のみ
-                                button_indention()
-                                submit_button_add = st.form_submit_button("追加\nadd")
+                                submit_button_add = st.form_submit_button("追加(add)")
                         with center1:
                             if st.session_state.list_flag == 1: # 移行票番号が有る場合のみ
-                                button_indention()
-                                submit_button_del = st.form_submit_button("削除\ndel")
+                                submit_button_del = st.form_submit_button("削除(del)")
                         with center2:
                             if st.session_state.list_flag == 1: # 移行票番号が有る場合のみ
-                                button_indention()
-                                submit_button_pic = st.form_submit_button("持出\npicking")
+                                submit_button_pic = st.form_submit_button("持出(picking)")
                             if st.session_state.list_flag == 3: # 持出中のみ
-                                button_indention()
-                                submit_button_pic_cancel = st.form_submit_button("持出解除")
+                                submit_button_pic_cancel = st.form_submit_button("持出解除(release)")
                         with right:
-                            button_indention()
-                            submit_button_cancel = st.form_submit_button("取消\ncancel")
+                            submit_button_cancel = st.form_submit_button("取消(cancel)")
                         submit_button_flag = 0
                         if st.session_state.list_flag == 0:
                             if submit_button_add:
