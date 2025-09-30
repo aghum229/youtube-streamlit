@@ -1,25 +1,24 @@
 import streamlit as st
-import cv2
-from pyzbar.pyzbar import decode
+import easyocr
+import numpy as np
 from PIL import Image
 
-st.title("📷 バーコード・QRコード読み取り")
+st.title("🔍 easyocrでバーコード文字認識")
 
-# カメラ起動
-camera = st.camera_input("Webカメラで撮影")
+uploaded_file = st.file_uploader("バーコード画像をアップロード", type=["png", "jpg", "jpeg"])
 
-if camera:
-    # 画像をOpenCV形式に変換
-    img = Image.open(camera)
-    img_cv = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+if uploaded_file:
+    image = Image.open(uploaded_file)
+    st.image(image, caption="アップロードされた画像", use_column_width=True)
 
-    # バーコード・QRコードの読み取り
-    decoded_objects = decode(img_cv)
+    reader = easyocr.Reader(['en'])  # 日本語が必要なら ['ja', 'en']
+    result = reader.readtext(np.array(image))
 
-    if decoded_objects:
-        for obj in decoded_objects:
-            st.success(f"🔍 読み取り結果: {obj.data.decode('utf-8')}")
-            st.write(f"種類: {obj.type}")
+    if result:
+        st.subheader("📋 認識されたテキスト:")
+        for (bbox, text, prob) in result:
+            st.write(f"- {text}（信頼度: {prob:.2f}）")
     else:
-        st.warning("コードが検出されませんでした。もう一度試してください。")
+        st.warning("文字が認識できませんでした。画像の解像度や明るさを確認してください。")
+
 
