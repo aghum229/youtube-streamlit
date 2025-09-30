@@ -1,3 +1,4 @@
+_= '''
 import cv2
 import streamlit as st
 
@@ -44,7 +45,7 @@ while True:
         break
 
 cap.release()
-
+'''
 
 
 _= '''
@@ -144,7 +145,7 @@ frame1.mainloop()
 cap1.release()
 '''
 
-_= '''
+# _= '''
 import streamlit as st
 import easyocr
 import numpy as np
@@ -190,4 +191,4 @@ if camera_image:
     #     results = None
     #     camera_image = None
     #     st.rerun()
-'''
+# '''
