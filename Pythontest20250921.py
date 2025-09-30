@@ -603,13 +603,13 @@ div.stFormSubmitButton {
     # width: auto; /* 必要に応じて変更 */
 }
 div.stFormSubmitButton > button {
-    font-size: 12px !important; /* 文字サイズを指定 */
+    font-size: 15px !important; /* 文字サイズを指定 */
     font-weight  : bold ;
-    color        : #000;
+    color        : #FFF;
     border-radius: 5px 5px 5px 5px     ;/* 枠線：半径10ピクセルの角丸     */
-    background   : #ffc0cb               ;/* 背景色：aqua            */
-    width: 250px; /* ボタンの横幅を固定値に設定 */
-    max-width: 250px; /* 必要に応じて最大幅も設定 */
+    background   : #8a2be2             ;/* 背景色：aqua            */
+    width: 150px; /* ボタンの横幅を固定値に設定 */
+    max-width: 150px; /* 必要に応じて最大幅も設定 */
     height: 40px !important;
 }
 </style>
@@ -1361,7 +1361,7 @@ def zaiko_place():
             st.title("入力方法　選択")
         left, center, right = st.columns(3)
         with left:
-            button_qr = st.button("QRコード\nbarcord")
+            button_qr = st.button("QRコード")
             tool_tips("(棚番と移行票番号をQRコードで入力)")
             # st.markdown('<p style="font-size:12px;">(棚番と移行票番号をQRコードで入力)</p>', unsafe_allow_html=True)
             # st.write("###### (棚番と移行票番号をQRコードで入力)")
@@ -2078,7 +2078,7 @@ def zaiko_place():
                         left, center1, center2, right = st.columns(4)
                         with left:
                             if st.session_state.list_flag == 0: # 移行票番号が無い場合のみ
-                                submit_button_add = st.form_submit_button("追加\n(add)")
+                                submit_button_add = st.form_submit_button("追加(add)")
                         with center1:
                             if st.session_state.list_flag == 1: # 移行票番号が有る場合のみ
                                 submit_button_del = st.form_submit_button("削除(del)")
