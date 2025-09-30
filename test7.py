@@ -28,7 +28,7 @@ if camera_image:
     # results = reader.readtext(img_cv)
     results = reader.readtext(enlarged_rgb)
 
-    search_flag = 0
+    # search_flag = 0
     # 結果表示
     if results:
         st.subheader("🔍 認識された文字:")
@@ -39,8 +39,8 @@ if camera_image:
                 break
     else:
         st.warning("文字が認識できませんでした。画像の明るさや角度を調整して再撮影してください。")
-    if search_flag == 0:
-        results = None
-        camera_image = None
-        st.rerun()
+    # if search_flag == 0:
+    #     results = None
+    #     camera_image = None
+    #     st.rerun()
 
