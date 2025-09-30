@@ -28,6 +28,7 @@ if camera_image:
     # results = reader.readtext(img_cv)
     results = reader.readtext(enlarged_rgb)
 
+    search_flag = 0
     # 結果表示
     if results:
         st.subheader("🔍 認識された文字:")
@@ -36,6 +37,9 @@ if camera_image:
             if text[0 : 2] == "PO":
                 st.write(f"- {text}（信頼度: {prob:.2f}）")
                 break
+        if search_flag == 0:
+            camera_image = None
+            st.rerun()
     else:
         st.warning("文字が認識できませんでした。画像の明るさや角度を調整して再撮影してください。")
 
