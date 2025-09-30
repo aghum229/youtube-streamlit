@@ -1,3 +1,72 @@
+import cv2
+from pyzbar.pyzbar import decode 
+import tkinter as tk1 
+from PIL import Image, ImageTk
+
+def stop1(): 
+    global stp1 
+    if stp1 == 0: 
+        stp1 = 1 
+        button1["text"] = "start" 
+    else: 
+        stp1 = 0 
+        button1["text"] = "stop" 
+
+def decoder1(): 
+    global cap1 
+    global frame1 
+    global canvas1 
+    global img1 
+    global cnt1 
+    global stp1 
+    if stp1 == 0: 
+        result0, img0 = cap1.read()
+        if result0:
+            decode0 = decode( cv2.cvtColor( img0, cv2.COLOR_RGBA2GRAY )  ) 
+            img1 = cv2.cvtColor( img0, cv2.COLOR_BGR2RGB ) 
+            if len( decode0 ) > 0: 
+                str1 = decode0[0].data.decode("utf-8") 
+                rect1 = decode0[0].rect
+                textbox1.delete( 0, tk1.END ) 
+                textbox1.insert( 0, str1 ) 
+                cv2.rectangle( img1, ( rect1.left, rect1.top ), ( rect1.left + rect1.width, rect1.top + rect1.height ), ( 0, 0, 255 ), thickness = 1 ) 
+                cnt1 = 0 
+            else: 
+                cnt1 = cnt1 + 1 
+                if cnt1 > 5: 
+                    textbox1.delete( 0, tk1.END ) 
+            img1 = ImageTk.PhotoImage( image= Image.fromarray( img1 ) ) 
+            canvas1.create_image( 0, 0, anchor=tk1.NW, image=img1 ) 
+    frame1.after( 3000, decoder1 ) 
+
+frame1 = tk1.Tk()
+frame1.title(u"barcode_reader v0.1")
+frame1.geometry("680x550")
+
+label1 = tk1.Label(text='barcode data')
+label1.place(x=10, y=10, width = 100) 
+
+textbox1 = tk1.Entry( master=frame1 ) 
+textbox1.place(x=110, y=10, width=400) 
+
+button1 = tk1.Button( frame1, text='stop', command=stop1 )
+button1.place(x=560, y=10, width=100)
+
+cap1 = cv2.VideoCapture( 0, cv2.CAP_DSHOW )   # camera number 
+
+canvas1 = tk1.Canvas( frame1, width=cap1.get( cv2.CAP_PROP_FRAME_WIDTH ), height=cap1.get( cv2.CAP_PROP_FRAME_HEIGHT ), bg='white' )
+canvas1.place(x=20, y=50) 
+
+img1 = 0 
+cnt1 = 0 
+stp1 = 0 
+decoder1() 
+
+frame1.mainloop()
+cap1.release()
+
+
+"""
 import streamlit as st
 import easyocr
 import numpy as np
@@ -43,4 +112,4 @@ if camera_image:
     #     results = None
     #     camera_image = None
     #     st.rerun()
-
+"""
