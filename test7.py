@@ -5,6 +5,13 @@ from streamlit_js_eval import streamlit_js_eval
     
 st.title("QRコード読み取り結果の表示")
 
+function onScanSuccess(decodedText, decodedResult) {
+    window.qrCodeResult = decodedText;
+    setTimeout(() => {
+        window.qrCodeResult = "";
+    }, 1000); // 1秒後にリセット
+}
+
 # JavaScript埋め込み（QRコード読み取り）
 components.html(
     """
@@ -29,11 +36,12 @@ components.html(
 qr_result = streamlit_js_eval(
     js_expressions="window.qrCodeResult",
     key="qr-reader",
-    debounce=0.5,
+    debounce=0.1,
 )
 
 # 結果があれば表示
-if qr_result:
+if qr_result and qr_result != "":
     st.success("読み取ったQRコードの内容:")
     st.write(qr_result)
+
 
