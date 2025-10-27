@@ -37,4 +37,3 @@ if qr_result:
     st.success("読み取ったQRコードの内容:")
     st.write(qr_result)
 
-st.stop()
