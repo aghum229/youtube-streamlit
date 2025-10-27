@@ -13,3 +13,5 @@ easyocr
 torch
 opencv-python
 numpy
+streamlit-js-eval
+
