@@ -11,6 +11,10 @@ qr_result = urllib.parse.unquote_plus(st.query_params.get("qr", ""))
 if qr_result:
     st.success("読み取ったQRコードの内容:")
     st.write(qr_result)
+    # スキャン画面に戻るボタン
+    if st.button("QRコードを再スキャンする"):
+        st.experimental_set_query_params()  # qrパラメータを削除
+        st.rerun()
 else:
     # QRコード読み取りUI（背面カメラで即開始）
     components.html(
@@ -21,8 +25,10 @@ else:
           async function startScanner() {
             const devices = await Html5Qrcode.getCameras();
             if (devices && devices.length) {
-              // 背面カメラを優先（labelに "back" を含むものを探す）
-              let backCamera = devices.find(d => d.label.toLowerCase().includes("back"));
+              // 背面カメラを優先（labelに "back", "rear", "environment" を含むもの）
+              let backCamera = devices.find(d =>
+                /back|rear|environment/i.test(d.label)
+              );
               let cameraId = backCamera ? backCamera.id : devices[0].id;
 
               const html5QrCode = new Html5Qrcode("reader");
