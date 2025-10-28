@@ -1,8 +1,6 @@
 import streamlit as st
-from streamlit_javascript import st_javascript
 import streamlit.components.v1 as components
 import urllib.parse
-
 
 st.title("QRコード読み取り")
 
@@ -13,7 +11,9 @@ components.html(
     <div id="reader" style="width:300px;"></div>
     <script>
       function onScanSuccess(decodedText, decodedResult) {
-          window.location.href = window.location.pathname + "?qr=" + encodeURIComponent(decodedText);
+          const newUrl = window.location.pathname + "?qr=" + encodeURIComponent(decodedText);
+          window.history.replaceState(null, "", newUrl);  // 履歴を増やさずURL更新
+          location.reload();  // 明示的に再読み込み
       }
 
       if (!window.qrScannerInitialized) {
@@ -27,10 +27,9 @@ components.html(
     height=400,
 )
 
-query_params = st.query_params
-qr_result = query_params.get("qr", [""])[0]
+# クエリパラメータ取得（リストではなく文字列で）
+qr_result = urllib.parse.unquote_plus(st.query_params.get("qr", ""))
 
 if qr_result:
     st.success("読み取ったQRコードの内容:")
-    st.write(urllib.parse.unquote(qr_result))
-
+    st.write(qr_result)
