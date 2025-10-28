@@ -5,13 +5,6 @@ from streamlit_js_eval import streamlit_js_eval
     
 st.title("QRコード読み取り結果の表示")
 
-function onScanSuccess(decodedText, decodedResult) {
-    window.qrCodeResult = decodedText;
-    setTimeout(() => {
-        window.qrCodeResult = "";
-    }, 1000); // 1秒後にリセット
-}
-
 # JavaScript埋め込み（QRコード読み取り）
 components.html(
     """
@@ -22,6 +15,9 @@ components.html(
 
       function onScanSuccess(decodedText, decodedResult) {
           window.qrCodeResult = decodedText;
+          setTimeout(() => {
+              window.qrCodeResult = "";
+          }, 1000); // 1秒後にリセット
       }
 
       let html5QrcodeScanner = new Html5QrcodeScanner(
