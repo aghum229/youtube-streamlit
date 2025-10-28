@@ -27,7 +27,7 @@ components.html(
     height=400,
 )
 
-query_params = st.experimental_get_query_params()
+query_params = st.query_params
 qr_result = query_params.get("qr", [""])[0]
 
 if qr_result:
