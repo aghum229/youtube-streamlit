@@ -2,10 +2,9 @@ import streamlit as st
 import streamlit.components.v1 as components
 from streamlit_js_eval import streamlit_js_eval
 
-    
 st.title("QRコード読み取り結果の表示")
 
-# JavaScript埋め込み（QRコード読み取り）
+# JavaScript埋め込み
 components.html(
     """
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
@@ -17,7 +16,7 @@ components.html(
           window.qrCodeResult = decodedText;
           setTimeout(() => {
               window.qrCodeResult = "";
-          }, 1000); // 1秒後にリセット
+          }, 1500);
       }
 
       let html5QrcodeScanner = new Html5QrcodeScanner(
@@ -28,11 +27,12 @@ components.html(
     height=400,
 )
 
-# JavaScriptから結果を取得（components.htmlより後に実行）
+# JavaScriptから結果を取得
 qr_result = streamlit_js_eval(
     js_expressions="window.qrCodeResult",
     key="qr-reader",
     debounce=0.1,
+    trigger_on_change=True
 )
 
 # 結果があれば表示
