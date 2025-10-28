@@ -14,4 +14,5 @@ torch
 opencv-python
 numpy
 streamlit-js-eval
+streamlit-javascript
 
