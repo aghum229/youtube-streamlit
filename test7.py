@@ -11,15 +11,16 @@ components.html(
     <div id="reader" style="width:300px;"></div>
     <script>
       function onScanSuccess(decodedText, decodedResult) {
-          const newUrl = window.location.pathname + "?qr=" + encodeURIComponent(decodedText);
-          window.history.replaceState(null, "", newUrl);  // 履歴を増やさずURL更新
-          location.reload();  // 明示的に再読み込み
+        const url = new URL(window.location.href);
+        url.searchParams.set("qr", encodeURIComponent(decodedText));
+        setTimeout(() => {
+          window.location.href = url.toString();
+        }, 500); // 少し待ってからリロード
       }
-
-      if (!window.qrScannerInitialized) {
-        let html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 250 });
-        html5QrcodeScanner.render(onScanSuccess);
+    
+      if (!window.qrScannerInitialized && document.getElementById("reader")) {
+        const scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
+        scanner.render(onScanSuccess);
         window.qrScannerInitialized = true;
       }
     </script>
