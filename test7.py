@@ -1,10 +1,10 @@
 import streamlit as st
+from streamlit_javascript import st_javascript
 import streamlit.components.v1 as components
-from streamlit_js_eval import streamlit_js_eval
 
-st.title("QRコード読み取り結果の表示")
+st.title("QRコード読み取り（確実に表示）")
 
-# JavaScript埋め込み
+# QRコード読み取りUI（JavaScript）
 components.html(
     """
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
@@ -14,30 +14,23 @@ components.html(
 
       function onScanSuccess(decodedText, decodedResult) {
           window.qrCodeResult = decodedText;
-          setTimeout(() => {
-              window.qrCodeResult = "";
-          }, 1500);
       }
 
-      let html5QrcodeScanner = new Html5QrcodeScanner(
-          "reader", { fps: 10, qrbox: 250 });
-      html5QrcodeScanner.render(onScanSuccess);
+      if (!window.qrScannerInitialized) {
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", { fps: 10, qrbox: 250 });
+        html5QrcodeScanner.render(onScanSuccess);
+        window.qrScannerInitialized = true;
+      }
     </script>
     """,
     height=400,
 )
 
-# JavaScriptから結果を取得
-qr_result = streamlit_js_eval(
-    js_expressions="window.qrCodeResult",
-    key="qr-reader",
-    debounce=0.1,
-    trigger_on_change=True
-)
+# JavaScriptから値を取得
+qr_result = st_javascript("window.qrCodeResult")
 
 # 結果があれば表示
 if qr_result and qr_result != "":
     st.success("読み取ったQRコードの内容:")
     st.write(qr_result)
-
-
