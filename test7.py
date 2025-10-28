@@ -12,6 +12,7 @@ if qr_result:
 
     if st.button("QRコードを再スキャンする"):
         query_params = st.experimental_get_query_params()
+        qr_result = ""
         st.rerun()
 else:
     components.html(
