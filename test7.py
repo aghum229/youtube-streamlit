@@ -11,8 +11,7 @@ if qr_result:
     st.write(qr_result)
 
     if st.button("QRコードを再スキャンする"):
-        query_params = st.experimental_get_query_params()
-        qr_result = ""
+        st.query_params.clear()  # ← クエリパラメータを明示的に削除
         st.rerun()
 else:
     components.html(
