@@ -19,7 +19,7 @@ else:
         <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
         <div id="reader" style="width:300px;"></div>
         <script>
-          if (!window.qrScannerInitialized) {
+          if (!document.getElementById("reader").hasChildNodes()) {
             const html5QrCode = new Html5Qrcode("reader");
             html5QrCode.start(
               { facingMode: "environment" },
@@ -33,10 +33,11 @@ else:
                 console.log("読み取りエラー:", errorMessage);
               }
             );
-            window.qrScannerInitialized = true;
           }
         </script>
         """,
         height=400,
+        key="qr-reader"
     )
+
 
