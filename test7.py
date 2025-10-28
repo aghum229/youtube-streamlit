@@ -19,26 +19,27 @@ else:
         <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
         <div id="reader" style="width:300px;"></div>
         <script>
-          if (!document.getElementById("reader").hasChildNodes()) {{
+          if (!document.getElementById("reader").hasChildNodes()) {
             const html5QrCode = new Html5Qrcode("reader");
             html5QrCode.start(
-              {{ facingMode: "environment" }},
-              {{ fps: 10, qrbox: 250 }},
-              function(decodedText, decodedResult) {{
+              { facingMode: "environment" },
+              { fps: 10, qrbox: 250 },
+              function(decodedText, decodedResult) {
                 const baseUrl = window.location.origin + window.location.pathname;
                 const newUrl = baseUrl + "?qr=" + encodeURIComponent(decodedText);
                 window.location.href = newUrl;
-              }},
-              function(errorMessage) {{
+              },
+              function(errorMessage) {
                 console.log("読み取りエラー:", errorMessage);
-              }}
+              }
             );
-          }}
+          }
         </script>
         """,
         height=400,
         key="qr-reader"
     )
+
 
 
 
