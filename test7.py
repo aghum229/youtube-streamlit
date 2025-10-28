@@ -23,8 +23,8 @@ else:
         const newUrl = baseUrl + "?qr=" + encodeURIComponent(decodedText);
         window.location.href = newUrl;
       }
-
-      function startScanner() {
+    
+      if (!document.getElementById("reader").hasChildNodes()) {
         const html5QrCode = new Html5Qrcode("reader");
         html5QrCode.start(
           { facingMode: "environment" },
@@ -33,13 +33,8 @@ else:
           (errorMessage) => { console.log("読み取りエラー:", errorMessage); }
         );
       }
-
-      if (!window.qrScannerInitialized) {
-        startScanner();
-        window.qrScannerInitialized = true;
-      }
     </script>
     """
-
     components.html(html_code.strip(), height=400)
+
 
